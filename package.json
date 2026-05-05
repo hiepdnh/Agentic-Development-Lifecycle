@@ -1,0 +1,17 @@
+{
+  "name": "agentic-development-lifecycle",
+  "version": "1.0.0",
+  "description": "VTI SDLC Skill Framework for Claude Code",
+  "bin": {
+    "agentic-dev-lifecycle": "bin/install.js"
+  },
+  "scripts": {
+    "install-framework": "node bin/install.js"
+  },
+  "keywords": ["claude-code", "sdlc", "vti", "ai-agent"],
+  "author": "hiep18101997",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  }
+}
