@@ -29,23 +29,31 @@ if (src === dst) {
   process.exit(1);
 }
 
-function copyDir(srcDir, dstDir, label) {
+// merge=true: always enter dir, skip individual files that already exist
+// merge=false: skip entire dir if it exists (for one-shot dirs like docs/workflows)
+function copyDir(srcDir, dstDir, label, merge = true) {
   if (!fs.existsSync(srcDir)) return;
-  if (fs.existsSync(dstDir)) {
-    console.log(c.yellow(`  [SKIP] ${label} already exists — manual merge recommended`));
-    return;
-  }
   fs.mkdirSync(dstDir, { recursive: true });
+  let copied = 0, skipped = 0;
   for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
     const s = path.join(srcDir, entry.name);
     const d = path.join(dstDir, entry.name);
     if (entry.isDirectory()) {
-      copyDir(s, d, label + '/' + entry.name);
+      copyDir(s, d, label + '/' + entry.name, merge);
+    } else if (fs.existsSync(d)) {
+      skipped++;
     } else {
       fs.copyFileSync(s, d);
+      copied++;
     }
   }
-  console.log(c.green(`  [OK]   ${label}`));
+  if (skipped > 0 && copied > 0) {
+    console.log(c.green(`  [OK]   ${label} (${copied} added, ${skipped} skipped)`));
+  } else if (skipped > 0 && copied === 0) {
+    console.log(c.yellow(`  [SKIP] ${label} (all ${skipped} files already exist)`));
+  } else {
+    console.log(c.green(`  [OK]   ${label}`));
+  }
 }
 
 function touchGitkeep(dir) {
