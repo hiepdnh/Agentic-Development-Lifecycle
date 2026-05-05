@@ -1,4 +1,4 @@
-# Skill: /qa-bug
+# Skill: /qa:bug
 **Role**: QA Engineer  
 **Mục đích**: Tạo bug report chuẩn, đủ thông tin để dev reproduce và fix.
 

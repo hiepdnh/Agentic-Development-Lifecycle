@@ -1,4 +1,4 @@
-# Skill: /dev-pr
+# Skill: /dev:pr
 **Role**: Developer  
 **Mục đích**: Tạo PR description chuẩn từ code changes, link đến task docs và cập nhật baseline.
 
@@ -96,5 +96,5 @@ Câu hỏi cuối:
 2. Docs nào cần cập nhật sau khi PR được merge?
 3. Cần squash commits trước khi merge không?
 
-Sau khi PR được approve và merge, hãy chạy /docs-update để cập nhật baseline docs.
+Sau khi PR được approve và merge, hãy chạy /docs:update để cập nhật baseline docs.
 ```

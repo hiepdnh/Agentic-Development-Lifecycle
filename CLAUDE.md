@@ -59,27 +59,27 @@ templates/           # Template skeleton — commands reference đến đây
 
 | Role | Command | Chức năng |
 |------|---------|-----------|
-| BE | `/be-bridge` | Requirement JP → Clarify ambiguity → Spec cho team VN |
-| PM / BA | `/pm-ideate` | Ý tưởng mờ → Concept rõ (trước /ba-spec) |
-| BA | `/ba-spec` | Raw requirement → Structured spec |
-| BA | `/ba-user-story` | Spec → User Stories + AC |
-| PM | `/pm-breakdown` | Epic → Tasks với estimate, tạo GitHub Issues |
-| PM | `/pm-status` | Sprint status report |
-| Dev | `/dev-analyze` | Task → Implementation options (multi-agent) |
-| Dev | `/dev-implement` | Implement theo analysis.md, file-by-file với gates |
-| Dev | `/dev-pr` | Code changes → PR description |
-| Dev | `/dev-debug` | Systematic debugging: reproduce → localize → fix |
-| Arch | `/arch-review` | Review design decision |
-| Arch | `/arch-adr` | Generate Architecture Decision Record |
-| QA | `/qa-testplan` | Spec → Test plan |
-| QA | `/qa-bug` | Standardized bug report |
-| QA | `/qa-regression` | Regression test checklist trước release |
-| DevOps | `/ops-deploy` | Deployment checklist + CI quality gate |
-| DevOps | `/ops-incident` | Incident response + RCA |
-| SM | `/sm-standup` | Daily standup summary |
-| SM | `/sm-retro` | Sprint retrospective |
-| All | `/sec-review` | Security review trước merge (3-tier: Always/Ask First/Never) |
-| All | `/docs-update` | Update baseline docs sau verify |
+| BE | `/be:bridge` | Requirement JP → Clarify ambiguity → Spec cho team VN |
+| PM / BA | `/pm:ideate` | Ý tưởng mờ → Concept rõ (trước /ba:spec) |
+| BA | `/ba:spec` | Raw requirement → Structured spec |
+| BA | `/ba:user-story` | Spec → User Stories + AC |
+| PM | `/pm:breakdown` | Epic → Tasks với estimate, tạo GitHub Issues |
+| PM | `/pm:status` | Sprint status report |
+| Dev | `/dev:analyze` | Task → Implementation options (multi-agent) |
+| Dev | `/dev:implement` | Implement theo analysis.md, file-by-file với gates |
+| Dev | `/dev:pr` | Code changes → PR description |
+| Dev | `/dev:debug` | Systematic debugging: reproduce → localize → fix |
+| Arch | `/arch:review` | Review design decision |
+| Arch | `/arch:adr` | Generate Architecture Decision Record |
+| QA | `/qa:testplan` | Spec → Test plan |
+| QA | `/qa:bug` | Standardized bug report |
+| QA | `/qa:regression` | Regression test checklist trước release |
+| DevOps | `/ops:deploy` | Deployment checklist + CI quality gate |
+| DevOps | `/ops:incident` | Incident response + RCA |
+| SM | `/sm:standup` | Daily standup summary |
+| SM | `/sm:retro` | Sprint retrospective |
+| All | `/sec:review` | Security review trước merge (3-tier: Always/Ask First/Never) |
+| All | `/docs:update` | Update baseline docs sau verify |
 
 ---
 
@@ -144,7 +144,7 @@ Khi cần gửi tài liệu cho khách JP, format theo:
 | 単体テスト仕様書 (UT Spec) | `docs/tasks/[TASK]/test-plan.md` |
 | 単体テスト結果 (UT Result) | `docs/tasks/[TASK]/verification.md` |
 
-BE dùng `/be-bridge` để review và format lại trước khi gửi khách.
+BE dùng `/be:bridge` để review và format lại trước khi gửi khách.
 
 ---
 

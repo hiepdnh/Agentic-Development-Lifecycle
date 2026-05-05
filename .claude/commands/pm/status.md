@@ -1,4 +1,4 @@
-# Skill: /pm-status
+# Skill: /pm:status
 **Role**: Project Manager  
 **Mục đích**: Tổng hợp trạng thái sprint/project từ nhiều nguồn, tạo báo cáo nhanh cho stakeholder.
 

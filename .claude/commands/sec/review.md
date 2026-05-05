@@ -1,4 +1,4 @@
-# Skill: /sec-review
+# Skill: /sec:review
 **Role**: Developer / Tech Lead / Security  
 **Mục đích**: Security review có cấu trúc trước khi merge. Ba tier rõ ràng: Always / Ask First / Never.
 

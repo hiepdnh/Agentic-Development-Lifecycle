@@ -1,4 +1,4 @@
-# Skill: /qa-testplan
+# Skill: /qa:testplan
 **Role**: QA Engineer  
 **Mục đích**: Tạo test plan toàn diện từ spec/user stories, bao gồm test cases và strategy.
 

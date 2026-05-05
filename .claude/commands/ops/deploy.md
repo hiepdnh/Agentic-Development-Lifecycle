@@ -1,4 +1,4 @@
-# Skill: /ops-deploy
+# Skill: /ops:deploy
 **Role**: DevOps / Developer  
 **Mục đích**: Checklist và hướng dẫn deployment, đảm bảo không bỏ sót bước quan trọng.
 

@@ -1,4 +1,4 @@
-# Skill: /ops-incident
+# Skill: /ops:incident
 **Role**: DevOps / On-call Engineer  
 **Mục đích**: Hướng dẫn triage incident, tạo RCA template, document bài học.
 

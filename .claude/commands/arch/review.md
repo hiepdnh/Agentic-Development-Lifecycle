@@ -1,4 +1,4 @@
-# Skill: /arch-review
+# Skill: /arch:review
 **Role**: Tech Lead / Architect  
 **Mục đích**: Review design decision, phát hiện vấn đề kiến trúc, đề xuất cải thiện.
 
@@ -70,5 +70,5 @@ Trước khi bắt đầu, cho tôi biết:
 Sau khi review:
 1. Vấn đề [ID] — bạn có thể giải thích lý do design như vậy không? Có thể tôi đang miss context.
 2. Đề xuất [X] — có feasible trong timeline hiện tại không?
-3. Bạn muốn tôi tạo ADR cho quyết định này không? (/arch-adr)
+3. Bạn muốn tôi tạo ADR cho quyết định này không? (/arch:adr)
 ```

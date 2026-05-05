@@ -54,7 +54,7 @@
 - [ ] `docs/screens/[feature]/screen.md` — [mô tả thay đổi]
 - [ ] `docs/api/[domain]/[endpoint].md` — [mô tả thay đổi]
 
-<!-- Chạy /docs-update sau khi merge để cập nhật baseline docs -->
+<!-- Chạy /docs:update sau khi merge để cập nhật baseline docs -->
 
 ---
 <!-- Template version: 1.0 | Framework: VTI SDLC Skills -->

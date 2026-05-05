@@ -1,4 +1,4 @@
-# Skill: /arch-adr
+# Skill: /arch:adr
 **Role**: Tech Lead / Architect  
 **Mục đích**: Tạo Architecture Decision Record để document quyết định kiến trúc quan trọng.
 

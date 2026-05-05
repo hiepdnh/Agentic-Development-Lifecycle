@@ -1,4 +1,4 @@
-# Skill: /be-bridge
+# Skill: /be:bridge
 **Role**: Bridge Engineer (Cầu nối JP ↔ VN)  
 **Mục đích**: Hỗ trợ Bridge Engineer dịch yêu cầu khách hàng Nhật, tạo tài liệu song ngữ, chuẩn bị deliverables theo chuẩn Nhật.
 

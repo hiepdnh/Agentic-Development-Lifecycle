@@ -1,4 +1,4 @@
-# Skill: /sm-standup
+# Skill: /sm:standup
 **Role**: Scrum Master / Team  
 **Mục đích**: Tổng hợp và format daily standup nhanh, highlight blockers.
 

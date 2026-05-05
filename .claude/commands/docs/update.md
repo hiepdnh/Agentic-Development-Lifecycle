@@ -1,4 +1,4 @@
-# Skill: /docs-update
+# Skill: /docs:update
 **Role**: Developer / QA (sau verify)  
 **Mục đích**: Cập nhật Baseline Docs (screen + API) sau khi task đã verify và merge. Đây là bước CUỐI CÙNG của mọi task.
 
@@ -108,5 +108,5 @@ Task doc đầy đủ tại: docs/tasks/[TASK-ID]/
 
 - Docs mô tả **hành vi hiện tại**, không phải lịch sử
 - Xóa thông tin cũ, không comment out
-- Nếu behavior thay đổi lớn → xem xét tạo ADR (`/arch-adr`)
+- Nếu behavior thay đổi lớn → xem xét tạo ADR (`/arch:adr`)
 - Conflict giữa code và docs → code là nguồn sự thật, update docs theo code

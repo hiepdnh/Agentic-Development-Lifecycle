@@ -1,4 +1,4 @@
-# Skill: /pm-breakdown
+# Skill: /pm:breakdown
 **Role**: Project Manager  
 **Mục đích**: Phân rã Epic/User Stories thành Tasks cụ thể, tạo GitHub Issues với template chuẩn.
 

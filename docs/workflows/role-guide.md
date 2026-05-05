@@ -9,8 +9,8 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/pm-ideate` | Nhận yêu cầu mơ hồ từ stakeholder | One-pager + Not Doing list |
-| `/pm-breakdown` | Sau khi có User Stories | GitHub Issues |
+| `/pm:ideate` | Nhận yêu cầu mơ hồ từ stakeholder | One-pager + Not Doing list |
+| `/pm:breakdown` | Sau khi có User Stories | GitHub Issues |
 
 **Không dùng**: dev-*, sec-*, qa-*, arch-*
 
@@ -20,8 +20,8 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/ba-spec` | Sau pm-ideate, trước pm-breakdown | requirements.md |
-| `/ba-user-story` | Sau ba-spec | User Stories trong requirements.md |
+| `/ba:spec` | Sau pm-ideate, trước pm-breakdown | requirements.md |
+| `/ba:user-story` | Sau ba-spec | User Stories trong requirements.md |
 
 **Không dùng**: dev-*, sec-*, arch-*
 
@@ -31,10 +31,10 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/dev-analyze` | Nhận issue, trước khi code | analysis.md |
-| `/dev-implement` | Sau dev-analyze, phương án đã chọn | Code changes |
-| `/dev-pr` | Sau implement, trước tạo PR | PR description |
-| `/sec-review` | Sau implement, trước tạo PR | Security findings |
+| `/dev:analyze` | Nhận issue, trước khi code | analysis.md |
+| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code changes |
+| `/dev:pr` | Sau implement, trước tạo PR | PR description |
+| `/sec:review` | Sau implement, trước tạo PR | Security findings |
 
 **Thứ tự bắt buộc**: dev-analyze → dev-implement → sec-review → dev-pr
 
@@ -44,8 +44,8 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/arch-adr` | Khi có quyết định kiến trúc quan trọng | docs/decisions/ADR-NNN.md |
-| `/sec-review` | Code review có auth/security changes | Security findings |
+| `/arch:adr` | Khi có quyết định kiến trúc quan trọng | docs/decisions/ADR-NNN.md |
+| `/sec:review` | Code review có auth/security changes | Security findings |
 
 ---
 
@@ -53,9 +53,9 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/qa-testplan` | Sau spec, song song với dev | test-plan.md |
-| `/docs-update` | Sau verify và merge | verification.md + updated baseline docs |
-| `/qa-regression` | Trước mỗi release | regression-[sprint].md |
+| `/qa:testplan` | Sau spec, song song với dev | test-plan.md |
+| `/docs:update` | Sau verify và merge | verification.md + updated baseline docs |
+| `/qa:regression` | Trước mỗi release | regression-[sprint].md |
 
 ---
 
@@ -63,7 +63,7 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/be-bridge` | Nhận yêu cầu từ JP / Gửi deliverables cho JP | requirements.md (VN) + design-jp.md (JP) |
+| `/be:bridge` | Nhận yêu cầu từ JP / Gửi deliverables cho JP | requirements.md (VN) + design-jp.md (JP) |
 
 ---
 
@@ -71,8 +71,8 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/pm-ideate` | Facilitate sprint planning | One-pager |
-| `/arch-adr` | Document team decisions | ADR |
+| `/pm:ideate` | Facilitate sprint planning | One-pager |
+| `/arch:adr` | Document team decisions | ADR |
 
 ---
 
@@ -80,27 +80,27 @@
 
 ### "Nhận yêu cầu từ khách hàng Nhật"
 ```
-/be-bridge → /ba-spec → /ba-user-story → /pm-breakdown
+/be:bridge → /ba:spec → /ba:user-story → /pm:breakdown
 ```
 
 ### "Nhận issue mới, cần code"
 ```
-/dev-analyze → /dev-implement → /sec-review → /dev-pr
+/dev:analyze → /dev:implement → /sec:review → /dev:pr
 ```
 
 ### "Code xong, cần QA"
 ```
-/qa-testplan → [execute manual] → /docs-update
+/qa:testplan → [execute manual] → /docs:update
 ```
 
 ### "Trước khi release"
 ```
-/qa-regression → [sign-off] → deploy
+/qa:regression → [sign-off] → deploy
 ```
 
 ### "Cần document quyết định kỹ thuật"
 ```
-/arch-adr
+/arch:adr
 ```
 
 ---

@@ -1,4 +1,4 @@
-# Skill: /ba-user-story
+# Skill: /ba:user-story
 **Role**: Business Analyst  
 **Mục đích**: Chuyển spec thành User Stories với Acceptance Criteria chuẩn, sẵn sàng để PM tạo issue.
 
@@ -8,7 +8,7 @@
 
 ### Bước 1 — Đọc spec hiện có
 
-Đọc `docs/tasks/[TASK-ID]/requirements.md` nếu có. Nếu chưa có, yêu cầu người dùng chạy `/ba-spec` trước.
+Đọc `docs/tasks/[TASK-ID]/requirements.md` nếu có. Nếu chưa có, yêu cầu người dùng chạy `/ba:spec` trước.
 
 ### Bước 2 — Gate: Xác nhận scope
 
@@ -78,4 +78,4 @@ So that **[business value]**.
 ## Output files
 
 - Cập nhật `docs/tasks/[TASK-ID]/requirements.md` với User Stories section
-- Sẵn sàng để PM dùng `/pm-breakdown` để tạo GitHub Issues
+- Sẵn sàng để PM dùng `/pm:breakdown` để tạo GitHub Issues

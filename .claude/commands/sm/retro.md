@@ -1,4 +1,4 @@
-# Skill: /sm-retro
+# Skill: /sm:retro
 **Role**: Scrum Master  
 **Mục đích**: Facilitate sprint retrospective, tổng hợp feedback, tạo action items có thể thực hiện được.
 

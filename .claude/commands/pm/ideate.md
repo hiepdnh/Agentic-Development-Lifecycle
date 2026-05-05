@@ -1,6 +1,6 @@
-# Skill: /pm-ideate
+# Skill: /pm:ideate
 **Role**: PM / BA  
-**Mục đích**: Refine ý tưởng mờ nhạt thành concept rõ ràng TRƯỚC khi chạy /ba-spec. Tránh spec sai từ đầu.
+**Mục đích**: Refine ý tưởng mờ nhạt thành concept rõ ràng TRƯỚC khi chạy /ba:spec. Tránh spec sai từ đầu.
 
 ---
 
@@ -70,7 +70,7 @@ Cluster các variations thành 2-3 strategic directions:
 ### Câu hỏi trước khi tiếp tục:
 1. "Not Doing list" có đúng không, hay có gì vẫn trong scope?
 2. Success metric có measurable không?
-3. Sẵn sàng chạy /ba-spec với hướng này chưa?
+3. Sẵn sàng chạy /ba:spec với hướng này chưa?
 ```
 
 ---

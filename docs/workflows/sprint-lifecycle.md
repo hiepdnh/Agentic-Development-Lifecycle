@@ -18,13 +18,13 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ## Giai đoạn 1: Discovery
 
-### 1.1 PM Ideate `/pm-ideate`
+### 1.1 PM Ideate `/pm:ideate`
 **Người dùng**: PM / BA  
 **Input**: Ý tưởng thô từ stakeholder  
 **Output**: One-pager + Not Doing list  
 **Gate**: PM confirm hướng đi trước khi viết spec
 
-### 1.2 BA Spec `/ba-spec`
+### 1.2 BA Spec `/ba:spec`
 **Người dùng**: BA  
 **Input**: One-pager từ pm-ideate  
 **Output**: `docs/tasks/[TASK-ID]/requirements.md`  
@@ -33,7 +33,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 2. Clarify questions trả lời xong
 3. BA + PM review AC trước khi đưa dev
 
-### 1.3 BA User Stories `/ba-user-story`
+### 1.3 BA User Stories `/ba:user-story`
 **Người dùng**: BA  
 **Input**: requirements.md  
 **Output**: User Stories với AC trong requirements.md  
@@ -43,7 +43,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ## Giai đoạn 2: Planning
 
-### 2.1 PM Breakdown `/pm-breakdown`
+### 2.1 PM Breakdown `/pm:breakdown`
 **Người dùng**: PM  
 **Input**: User Stories  
 **Output**: GitHub Issues (tạo bằng `gh issue create`)  
@@ -58,7 +58,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ## Giai đoạn 3: Development
 
-### 3.1 Dev Analyze `/dev-analyze`
+### 3.1 Dev Analyze `/dev:analyze`
 **Người dùng**: Dev  
 **Input**: GitHub Issue + Brain Dump context block  
 **Output**: `docs/tasks/[TASK-ID]/analysis.md`  
@@ -68,7 +68,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 2. Confirm code map
 3. **Human chọn phương án** (không tự chọn)
 
-### 3.2 Dev Implement `/dev-implement`
+### 3.2 Dev Implement `/dev:implement`
 **Người dùng**: Dev  
 **Input**: analysis.md  
 **Output**: Code changes  
@@ -77,7 +77,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 2. Confirm sau mỗi file (không tự nhảy sang file tiếp theo)
 3. Post-implementation checklist
 
-### 3.3 Security Review `/sec-review`
+### 3.3 Security Review `/sec:review`
 **Người dùng**: Dev / Tech Lead  
 **Input**: Code diff  
 **Output**: Security findings  
@@ -87,7 +87,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ## Giai đoạn 4: Review & Merge
 
-### 4.1 Dev PR `/dev-pr`
+### 4.1 Dev PR `/dev:pr`
 **Người dùng**: Dev  
 **Input**: Code diff + analysis.md  
 **Output**: PR description  
@@ -108,7 +108,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ## Giai đoạn 5: QA
 
-### 5.1 QA Test Plan `/qa-testplan`
+### 5.1 QA Test Plan `/qa:testplan`
 **Người dùng**: QA  
 **Input**: requirements.md  
 **Output**: `docs/tasks/[TASK-ID]/test-plan.md`  
@@ -118,7 +118,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 - Chạy test cases theo test-plan.md
 - Log bugs vào GitHub Issues
 
-### 5.3 QA Verify + Docs Update `/docs-update`
+### 5.3 QA Verify + Docs Update `/docs:update`
 **Người dùng**: QA / Dev  
 **Input**: Code + test results  
 **Output**:
@@ -130,7 +130,7 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ## Giai đoạn 6: Release
 
-### 6.1 Regression `/qa-regression`
+### 6.1 Regression `/qa:regression`
 **Người dùng**: QA  
 **Input**: Release scope (TASK-IDs)  
 **Output**: `docs/tasks/regression-[sprint].md`  
@@ -168,14 +168,14 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 Trước giai đoạn 1, khi nhận yêu cầu từ JP:
 
 ```
-JP Request → /be-bridge → requirements.md (VN) + design-jp.md (JP)
+JP Request → /be:bridge → requirements.md (VN) + design-jp.md (JP)
    → Confirm với JP → vào giai đoạn Discovery bình thường
 ```
 
 Sau giai đoạn 5, trước khi gửi JP:
 
 ```
-QA Pass → /be-bridge tạo 単体テスト仕様書 → Gửi kèm deliverables cho JP
+QA Pass → /be:bridge tạo 単体テスト仕様書 → Gửi kèm deliverables cho JP
 ```
 
 ---

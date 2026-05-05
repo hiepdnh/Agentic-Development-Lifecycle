@@ -1,4 +1,4 @@
-# Skill: /qa-regression
+# Skill: /qa:regression
 **Role**: QA Engineer  
 **Mục đích**: Tạo regression test checklist trước release. Verify tính năng cũ không bị ảnh hưởng bởi changes mới.
 

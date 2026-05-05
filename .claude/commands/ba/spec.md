@@ -1,4 +1,4 @@
-# Skill: /ba-spec
+# Skill: /ba:spec
 **Role**: Business Analyst  
 **Mục đích**: Chuyển đổi yêu cầu thô (raw requirement) thành tài liệu đặc tả nghiệp vụ có cấu trúc.
 
@@ -58,7 +58,7 @@ Trước khi finalize, tôi muốn hỏi:
 2. Acceptance Criteria [AC-XXX] có đủ cụ thể để QA test được không?
 3. Có Open Question nào cần resolve trước khi đưa cho Dev không?
 
-Nếu ok, tôi sẽ lưu file và bạn có thể dùng /ba-user-story để tạo User Stories từ spec này.
+Nếu ok, tôi sẽ lưu file và bạn có thể dùng /ba:user-story để tạo User Stories từ spec này.
 ```
 
 ---

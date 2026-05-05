@@ -1,4 +1,4 @@
-# Skill: /dev-debug
+# Skill: /dev:debug
 **Role**: Developer  
 **Mục đích**: Systematic debugging — tìm root cause trước khi fix. Tránh "fix ngẫu nhiên cho đến khi hết lỗi".
 

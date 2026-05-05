@@ -1,13 +1,13 @@
-# Skill: /dev-implement
+# Skill: /dev:implement
 **Role**: Developer  
-**Mục đích**: Implement code sau khi phương án đã chọn từ /dev-analyze. File-by-file với gate sau mỗi file.
+**Mục đích**: Implement code sau khi phương án đã chọn từ /dev:analyze. File-by-file với gate sau mỗi file.
 
 ---
 
-## Quan trọng: Chạy /dev-analyze trước
+## Quan trọng: Chạy /dev:analyze trước
 
 Skill này yêu cầu `docs/tasks/[TASK-ID]/analysis.md` đã tồn tại.
-Nếu chưa có → chạy `/dev-analyze` trước.
+Nếu chưa có → chạy `/dev:analyze` trước.
 
 ---
 
@@ -106,8 +106,8 @@ Sau khi tất cả files xong:
 
 **Bước tiếp theo**:
 1. Chạy tests: `[test command]`
-2. `/sec-review [TASK-ID]` — bắt buộc trước khi tạo PR
-3. `/dev-pr [TASK-ID]` — tạo PR description
+2. `/sec:review [TASK-ID]` — bắt buộc trước khi tạo PR
+3. `/dev:pr [TASK-ID]` — tạo PR description
 ```
 
 ---

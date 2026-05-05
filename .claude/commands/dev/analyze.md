@@ -1,4 +1,4 @@
-# Skill: /dev-analyze
+# Skill: /dev:analyze
 **Role**: Developer  
 **Mục đích**: Phân tích task/issue và đề xuất các phương án thi công. Dùng multi-agent để giữ context sạch.
 
