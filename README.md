@@ -43,14 +43,14 @@
 ### Option 1 — npx (recommended, no git required)
 
 ```bash
-npx github:hiep18101997/Agentic-Development-Lifecycle
+npx github:hiepdnh/Agentic-Development-Lifecycle
 ```
 
 Run from your project root. Works on Windows, macOS, Linux. No git clone, no shell scripts, no permission issues. Requires Node.js ≥ 16.
 
 Skip the confirmation prompt (non-interactive / CI):
 ```bash
-npx github:hiep18101997/Agentic-Development-Lifecycle --yes
+npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
 ### Option 2 — Via Claude Code `/install` command
@@ -65,26 +65,26 @@ Claude copies the framework files using its own file tools — no shell required
 
 **Windows (PowerShell):**
 ```powershell
-gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
+gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
 ```
 
 **macOS / Linux:**
 ```bash
-gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
+gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
 ```
 
 ### Option 4 — Classic clone
 
 **Windows (PowerShell):**
 ```powershell
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git my-project
+git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git my-project
 cd my-project
 .\setup.ps1 -TargetPath "C:\path\to\your\project"
 ```
 
 **macOS / Linux:**
 ```bash
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git my-project
+git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git my-project
 cd my-project
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```

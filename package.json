@@ -13,7 +13,7 @@
     "picocolors": "^1.1.0"
   },
   "keywords": ["claude-code", "sdlc", "vti", "ai-agent"],
-  "author": "hiep18101997",
+  "author": "hiepdnh",
   "license": "MIT",
   "engines": {
     "node": ">=16"

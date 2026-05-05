@@ -43,14 +43,14 @@
 ### Cách 1 — npx (khuyến nghị, không cần git)
 
 ```bash
-npx github:hiep18101997/Agentic-Development-Lifecycle
+npx github:hiepdnh/Agentic-Development-Lifecycle
 ```
 
 Chạy từ thư mục gốc project. Dùng được trên Windows, macOS, Linux. Không cần clone, không script shell, không bị permission block. Yêu cầu Node.js ≥ 16.
 
 Bỏ qua confirm prompt (non-interactive / CI):
 ```bash
-npx github:hiep18101997/Agentic-Development-Lifecycle --yes
+npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
 ### Cách 2 — Dùng lệnh `/install` trong Claude Code
@@ -65,26 +65,26 @@ Claude dùng file tools của mình để copy framework — không cần shell.
 
 **Windows (PowerShell):**
 ```powershell
-gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
+gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
 ```
 
 **macOS / Linux:**
 ```bash
-gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
+gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
 ```
 
 ### Cách 4 — Clone thông thường
 
 **Windows (PowerShell):**
 ```powershell
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git ten-du-an
+git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git ten-du-an
 cd ten-du-an
 .\setup.ps1 -TargetPath "C:\path\to\your\project"
 ```
 
 **macOS / Linux:**
 ```bash
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git ten-du-an
+git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git ten-du-an
 cd ten-du-an
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
