@@ -1,7 +1,16 @@
 # VTI SDLC Skill Framework
 
-> Bộ skill cho **Claude Code** hỗ trợ toàn bộ vòng đời phần mềm (SDLC) — từ phân tích yêu cầu đến deploy.  
-> Tối ưu cho mô hình outsource: **Team VN ↔ Bridge Engineer ↔ Khách hàng Nhật**.
+<p align="center">
+  <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/logo.png" alt="Logo" width="80">
+  <br><br>
+  <em>Bộ skill cho <strong>Claude Code</strong> hỗ trợ toàn bộ vòng đời phần mềm (SDLC) — từ phân tích yêu cầu đến deploy.</em>
+  <br>
+  <em>Tối ưu cho mô hình outsource: <strong>Team VN ↔ Bridge Engineer ↔ Khách hàng Nhật</strong>.</em>
+</p>
 
 ---
 
@@ -216,6 +225,10 @@ docs/
 ---
 
 ## Luồng làm việc tiêu biểu
+
+<p align="center">
+  <img src="assets/workflow.png" alt="Sprint Workflow" width="100%">
+</p>
 
 ### Full sprint (từ đầu đến cuối)
 
