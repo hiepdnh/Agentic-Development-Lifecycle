@@ -38,33 +38,42 @@
 
 ### Cách 1 — Dự án mới (khuyến nghị)
 
+**Windows (PowerShell):**
 ```powershell
-# Clone về máy
 git clone https://github.com/hiep18101997/ADLC.git ten-du-an
 cd ten-du-an
-
-# Chạy setup script — copy framework vào project của bạn
 .\setup.ps1 -TargetPath "C:\path\to\your\project"
+```
+
+**macOS / Linux:**
+```bash
+git clone https://github.com/hiep18101997/ADLC.git ten-du-an
+cd ten-du-an
+chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
 
 ### Cách 2 — Thêm vào dự án đang có
 
+**Windows (PowerShell):**
 ```powershell
-# Clone framework
 git clone https://github.com/hiep18101997/ADLC.git vti-sdlc-tmp
-
-# Copy vào project của bạn
 cd vti-sdlc-tmp
 .\setup.ps1 -TargetPath "C:\path\to\your\existing\project"
-
-# Xóa bản clone tạm
 cd ..
 Remove-Item vti-sdlc-tmp -Recurse -Force
 ```
 
+**macOS / Linux:**
+```bash
+git clone https://github.com/hiep18101997/ADLC.git vti-sdlc-tmp
+cd vti-sdlc-tmp && chmod +x setup.sh
+./setup.sh /path/to/your/existing/project
+cd .. && rm -rf vti-sdlc-tmp
+```
+
 ### Cách 3 — Thủ công
 
-Copy 3 thư mục vào root của project:
+Copy các thư mục sau vào root của project:
 
 ```
 your-project/
@@ -88,9 +97,12 @@ your-project/
 
 ```markdown
 **Công ty**: [Tên công ty / project]
-**Khách hàng**: [Tên khách hàng]
-**Repo**: [GitHub URL]
+**Khách hàng**: [Tên khách hàng JP nếu có]
+**Model**: Team dev VN ↔ Bridge Engineer (BE) ↔ Khách hàng JP
+**Ngôn ngữ**: Code comments = tiếng Anh; Tài liệu nội bộ = tiếng Việt
+**Timezone**: JST (UTC+9) — hoặc timezone của khách hàng
 **Tech stack**: [Node.js / React / PostgreSQL / ...]
+**Repo**: [GitHub URL]
 ```
 
 **Bước 2** — Mở project trong Claude Code:
@@ -264,7 +276,8 @@ Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.
 | 2 | **Multiple Options** | Luôn đưa 2-3 phương án với trade-off. Không bao giờ 1 giải pháp |
 | 3 | **Fresh Context** | Subagent nhận context tối thiểu — không pass full history |
 | 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, update sau verify) |
-| 5 | **Template-first** | Commands reference templates, không duplicate format inline |
+| 5 | **Delta Specs** | Mỗi thay đổi là 1 proposal có cấu trúc, không phải monolith |
+| 6 | **Template-first** | Commands reference templates, không duplicate format inline |
 
 ---
 
