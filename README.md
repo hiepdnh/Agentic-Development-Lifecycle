@@ -40,7 +40,33 @@
 
 ## Installation
 
-### Option 1 — New project (recommended)
+### Option 1 — Via Claude Code `/install` command (recommended)
+
+Open your project in Claude Code, then type:
+```
+/install
+```
+Claude will run the setup automatically.
+
+> **Note for AI-assisted installs:** Claude Code blocks scripts executed from temp directories.
+> The `/install` command handles this by cloning to `~/.claude/ADL` first.
+> If you run setup manually through an AI agent, use the `gh` one-liner below instead.
+
+### Option 2 — One-liner with `gh` (safe for AI agents)
+
+**Windows (PowerShell):**
+```powershell
+gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
+```
+
+**macOS / Linux:**
+```bash
+gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
+```
+
+This clones to `~/.claude/ADL` (not a temp dir) so AI agents won't block execution.
+
+### Option 3 — Classic clone
 
 **Windows (PowerShell):**
 ```powershell
@@ -56,26 +82,7 @@ cd my-project
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
 
-### Option 2 — Add to existing project
-
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git vti-sdlc-tmp
-cd vti-sdlc-tmp
-.\setup.ps1 -TargetPath "C:\path\to\your\existing\project"
-cd ..
-Remove-Item vti-sdlc-tmp -Recurse -Force
-```
-
-**macOS / Linux:**
-```bash
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git vti-sdlc-tmp
-cd vti-sdlc-tmp && chmod +x setup.sh
-./setup.sh /path/to/your/existing/project
-cd .. && rm -rf vti-sdlc-tmp
-```
-
-### Option 3 — Manual
+### Option 4 — Manual
 
 Copy the following directories into your project root:
 

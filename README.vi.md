@@ -40,7 +40,33 @@
 
 ## Cài đặt
 
-### Cách 1 — Dự án mới (khuyến nghị)
+### Cách 1 — Dùng lệnh `/install` trong Claude Code (khuyến nghị)
+
+Mở project trong Claude Code, gõ:
+```
+/install
+```
+Claude tự chạy setup.
+
+> **Lưu ý khi cài qua AI agent:** Claude Code chặn script chạy từ thư mục temp.
+> Lệnh `/install` xử lý bằng cách clone vào `~/.claude/ADL` trước.
+> Nếu chạy thủ công qua AI agent, dùng lệnh `gh` bên dưới thay thế.
+
+### Cách 2 — One-liner với `gh` (an toàn cho AI agent)
+
+**Windows (PowerShell):**
+```powershell
+gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
+```
+
+**macOS / Linux:**
+```bash
+gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
+```
+
+Clone vào `~/.claude/ADL` (không phải temp dir) nên AI agent không bị chặn.
+
+### Cách 3 — Clone thông thường
 
 **Windows (PowerShell):**
 ```powershell
@@ -56,26 +82,7 @@ cd ten-du-an
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
 
-### Cách 2 — Thêm vào dự án đang có
-
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git vti-sdlc-tmp
-cd vti-sdlc-tmp
-.\setup.ps1 -TargetPath "C:\path\to\your\existing\project"
-cd ..
-Remove-Item vti-sdlc-tmp -Recurse -Force
-```
-
-**macOS / Linux:**
-```bash
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git vti-sdlc-tmp
-cd vti-sdlc-tmp && chmod +x setup.sh
-./setup.sh /path/to/your/existing/project
-cd .. && rm -rf vti-sdlc-tmp
-```
-
-### Cách 3 — Thủ công
+### Cách 4 — Thủ công
 
 Copy các thư mục sau vào root của project:
 
