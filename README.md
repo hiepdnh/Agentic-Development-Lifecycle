@@ -40,14 +40,14 @@
 
 **Windows (PowerShell):**
 ```powershell
-git clone https://github.com/hiep18101997/ADLC.git ten-du-an
+git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git ten-du-an
 cd ten-du-an
 .\setup.ps1 -TargetPath "C:\path\to\your\project"
 ```
 
 **macOS / Linux:**
 ```bash
-git clone https://github.com/hiep18101997/ADLC.git ten-du-an
+git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git ten-du-an
 cd ten-du-an
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
@@ -56,7 +56,7 @@ chmod +x setup.sh && ./setup.sh /path/to/your/project
 
 **Windows (PowerShell):**
 ```powershell
-git clone https://github.com/hiep18101997/ADLC.git vti-sdlc-tmp
+git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git vti-sdlc-tmp
 cd vti-sdlc-tmp
 .\setup.ps1 -TargetPath "C:\path\to\your\existing\project"
 cd ..
@@ -65,7 +65,7 @@ Remove-Item vti-sdlc-tmp -Recurse -Force
 
 **macOS / Linux:**
 ```bash
-git clone https://github.com/hiep18101997/ADLC.git vti-sdlc-tmp
+git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git vti-sdlc-tmp
 cd vti-sdlc-tmp && chmod +x setup.sh
 ./setup.sh /path/to/your/existing/project
 cd .. && rm -rf vti-sdlc-tmp
