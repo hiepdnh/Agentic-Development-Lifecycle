@@ -1,0 +1,102 @@
+# Skill: /dev-debug
+**Role**: Developer  
+**Mục đích**: Systematic debugging — tìm root cause trước khi fix. Tránh "fix ngẫu nhiên cho đến khi hết lỗi".
+
+---
+
+## Nguyên tắc cốt lõi
+
+**Không bao giờ** touch code trước khi có minimal reproduction.  
+Fix sai root cause = tạo thêm bugs.
+
+## Quy trình 5 bước
+
+### Bước 1 — Reproduce
+
+```
+## Tôi sẽ giúp debug vấn đề này.
+
+Trước tiên:
+1. Mô tả lỗi: gì xảy ra vs gì mong đợi?
+2. Steps to reproduce (dù rough cũng được)
+3. Lỗi này mới xuất hiện hay luôn có? Có thay đổi gì gần đây không?
+4. Paste error message / stack trace nếu có
+```
+
+**Ask First Gate**: Nếu lỗi xảy ra trên production với user thật → báo ngay cho team trước khi debug.
+
+### Bước 2 — Localize
+
+Spawn subagent để đọc code liên quan (read-only):
+
+> "Tìm code xử lý [behavior mô tả]. Trả về file:line và flow từ entry point đến điểm có thể fail. Không sửa gì."
+
+Trình bày:
+
+```
+## Tôi xác định vùng code có thể là nguồn lỗi:
+
+1. [file:line] — [lý do suspect]
+2. [file:line] — [lý do suspect]
+
+Hypothesis:
+- H1: [Giả thuyết 1 về nguyên nhân]
+- H2: [Giả thuyết 2]
+
+Tôi sẽ kiểm tra H1 trước vì [lý do].
+Bạn có thêm hypothesis nào dựa trên context bạn biết không?
+```
+
+### Bước 3 — Reduce
+
+Tạo minimal reproduction — code nhỏ nhất có thể trigger lỗi.
+
+```
+## Minimal reproduction:
+
+[Code snippet hoặc steps tối thiểu]
+
+Lỗi có reproduce với code này không?
+(Nếu không → vấn đề nằm ở interaction với phần khác, không phải đây)
+```
+
+**Không tiếp tục nếu chưa có minimal reproduction.**
+
+### Bước 4 — Fix
+
+Chỉ sau khi xác nhận root cause:
+
+```
+## Root cause xác định: [Mô tả rõ]
+
+Đề xuất fix:
+- Fix A: [Targeted fix] — sửa đúng chỗ, ít side effect
+- Fix B: [Broader fix] — sửa cả pattern, nhiều file hơn
+
+Đề xuất Fix A trước (nhỏ hơn, dễ review hơn).
+Bạn đồng ý không?
+```
+
+**Ask First Gate**: Nếu fix liên quan đến auth logic, data migration, hay shared infrastructure → cần senior review trước khi apply.
+
+### Bước 5 — Guard
+
+Sau khi fix:
+
+```
+## Fix đã apply.
+
+Tôi cũng sẽ thêm test để prevent regression:
+[Mô tả test case]
+
+Có edge case nào liên quan cần test thêm không?
+```
+
+---
+
+## Red Flags (dừng lại nếu thấy)
+
+- Đang thử fix nhiều thứ cùng lúc mà không hiểu tại sao
+- Lỗi "biến mất" nhưng không biết tại sao
+- Fix xong nhưng không thể reproduce được trường hợp fail ban đầu
+- Stack trace trỏ vào library code — thường là cách dùng sai, không phải bug trong lib

@@ -1,0 +1,102 @@
+# Skill: /sm-retro
+**Role**: Scrum Master  
+**Mục đích**: Facilitate sprint retrospective, tổng hợp feedback, tạo action items có thể thực hiện được.
+
+---
+
+## Hướng dẫn thực hiện
+
+### Bước 1 — Gate: Setup retro
+
+```
+## Tôi sẽ facilitate retro cho Sprint [N].
+
+Trước khi bắt đầu:
+1. Format retro ưa thích: Start/Stop/Continue, 4Ls (Liked/Learned/Lacked/Longed for), hay Mad/Sad/Glad?
+2. Team size: bao nhiêu người?
+3. Thời gian: [X] phút
+4. Có action items từ retro trước chưa done không?
+```
+
+### Bước 2 — Tổng hợp feedback
+
+Nhận input từ team (paste anonymous feedback hay notes từ session).
+
+Phân loại và nhóm themes:
+
+```markdown
+# Sprint [N] Retrospective
+
+**Date**: [Date]  
+**Facilitator**: [SM name]  
+**Attendees**: [N] people  
+**Sprint**: [N] | [Start date] → [End date]
+
+---
+
+## Sprint Highlights
+
+- **Velocity**: [X] points ([+/-N%] vs previous sprint)
+- **Delivered**: [N]/[M] planned items
+- **Team health**: 🟢 Good / 🟡 OK / 🔴 Needs attention
+
+---
+
+## What Went Well ✅
+
+### [Theme 1: e.g., "Collaboration"]
+- [Specific observation]
+- [Votes: N]
+
+### [Theme 2]
+...
+
+---
+
+## What Needs Improvement 🔧
+
+### [Theme 1: e.g., "Requirements clarity"]
+- [Specific observation]
+- [Votes: N]
+- [Suggested fix]
+
+### [Theme 2]
+...
+
+---
+
+## Action Items
+
+| # | Action | Owner | Done by | Success metric |
+|---|--------|-------|---------|----------------|
+| 1 | [Specific action, not vague] | [Name] | Sprint [N+1] Day 1 | [...] |
+| 2 | | | | |
+
+---
+
+## Action Items từ Retro trước
+
+| Action | Owner | Status | Ghi chú |
+|--------|-------|--------|---------|
+| [Action từ Sprint N-1] | [Name] | ✅ Done / ❌ Not done / 🔄 In progress | [...] |
+
+---
+
+## Shoutouts 🌟
+
+- [Member X] — [cụ thể tại sao được shoutout]
+```
+
+### Bước 3 — Gate cuối
+
+```
+Retro summary đã soạn xong.
+
+Tôi có [N] action items.
+
+Câu hỏi quan trọng:
+1. Action item [X] — "Owner: [Name]" — người đó có ở đây và accept không?
+2. Action items có quá nhiều không? Nên focus vào top 2-3 thôi.
+3. Có theme nào quan trọng mà tôi gộp vào nhau nhưng thực ra nên tách ra không?
+4. Action items từ retro trước — [N không done] — cần escalate hay drop?
+```
