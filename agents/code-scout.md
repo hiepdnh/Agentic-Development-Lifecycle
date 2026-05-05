@@ -55,3 +55,25 @@ TECH STACK:
 - Nếu không tìm thấy → ghi vào `missing_context`, không tự bịa
 - `avoid_touching` — chủ động flag code nguy hiểm/deprecated
 - Không sửa, không tạo file mới
+
+## Error handling
+
+Nếu không tìm thấy codebase hoặc tech stack không khớp:
+
+```json
+{
+  "error": "codebase_not_found",
+  "message": "Không tìm thấy src/ directory — cần chạy từ root của project",
+  "needs": ["Project root path", "Correct tech stack info"]
+}
+```
+
+Nếu task summary quá mơ hồ để tìm kiếm:
+
+```json
+{
+  "error": "insufficient_context",
+  "message": "affected_areas quá rộng để tìm kiếm có định hướng",
+  "needs": ["Narrower affected_areas", "Specific module names"]
+}
+```

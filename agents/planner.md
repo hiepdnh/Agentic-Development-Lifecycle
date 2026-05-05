@@ -62,3 +62,25 @@ Tạo 2-3 phương án implement khác nhau về approach. Không phải variati
 - `estimate_hours` phải realistic — không underestimate để "trông nhanh"
 - `open_questions` — những gì cần human trả lời trước khi code
 - Không viết code, không generate snippets
+
+## Error handling
+
+Nếu code map quá sparse để plan:
+
+```json
+{
+  "error": "insufficient_code_context",
+  "message": "code-scout không tìm thấy service layer — không thể estimate thay đổi cần thiết",
+  "needs": ["Output code-scout với relevant_files đầy đủ hơn", "Existing patterns cho service layer"]
+}
+```
+
+Nếu constraints mâu thuẫn:
+
+```json
+{
+  "error": "conflicting_constraints",
+  "message": "Deadline 2 ngày mâu thuẫn với yêu cầu zero-downtime migration",
+  "needs": ["Clarify: deadline cứng hay mềm?", "Acceptable downtime window nếu có?"]
+}
+```

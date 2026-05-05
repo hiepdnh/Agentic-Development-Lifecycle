@@ -20,64 +20,14 @@
 
 ### Bước 2 — Tạo ADR
 
-Tạo file `docs/decisions/ADR-[NNN]-[slug].md`:
+Tạo file `docs/decisions/ADR-[NNN]-[slug].md` dùng template `templates/adr.md`.
 
-```markdown
-# ADR-[NNN]: [Tiêu đề ngắn gọn]
-
-**Ngày**: [Date]  
-**Trạng thái**: Proposed / Accepted / Deprecated / Superseded  
-**Người quyết định**: [Names]  
-**Supersedes**: ADR-[XXX] (nếu có)
-
-## Context
-
-[Mô tả tình huống và vấn đề cần giải quyết.
-Những force/constraint nào ảnh hưởng đến quyết định?]
-
-## Quyết định
-
-[Mô tả quyết định đã chọn, rõ ràng và dứt khoát.]
-
-## Các phương án đã cân nhắc
-
-### Phương án 1: [Tên]
-- **Mô tả**: [...]
-- **Ưu**: [...]
-- **Nhược**: [...]
-
-### Phương án 2: [Tên]
-- **Mô tả**: [...]
-- **Ưu**: [...]
-- **Nhược**: [...]
-
-### Phương án 3 (đã chọn): [Tên]
-- **Mô tả**: [...]
-- **Ưu**: [...]
-- **Nhược**: [...]
-- **Lý do chọn**: [...]
-
-## Hệ quả
-
-### Tích cực
-- [Lợi ích 1]
-- [Lợi ích 2]
-
-### Tiêu cực / Trade-offs
-- [Cost/risk 1]
-- [Cost/risk 2]
-
-### Trung tính
-- [Side effect không tốt không xấu]
-
-## Điều kiện để revisit
-
-[Khi nào quyết định này nên được xem xét lại?
-Ví dụ: "Khi user base vượt 1M" hoặc "Khi team > 10 devs"]
-
-## Tài liệu liên quan
-- [Link spec, PR, meeting notes...]
-```
+Điền đầy đủ các section:
+- **Context**: tình huống + constraints dẫn đến quyết định
+- **Quyết định**: dứt khoát, không mơ hồ
+- **Các phương án đã cân nhắc**: tối thiểu 2, bao gồm phương án đã chọn
+- **Hệ quả**: tích cực + tiêu cực/trade-offs
+- **Điều kiện để revisit**: trigger cụ thể (không phải "khi cần")
 
 ### Bước 3 — Gate cuối
 

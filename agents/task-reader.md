@@ -46,6 +46,20 @@ Phân tích nội dung issue và trả về structured output:
 - `affected_areas` chỉ đoán từ context issue, không scan code
 - Không trả về gì ngoài JSON block
 
+## Error handling
+
+Nếu issue content thiếu thông tin quan trọng:
+
+```json
+{
+  "error": "insufficient_input",
+  "message": "Issue không có Acceptance Criteria — không thể parse AC list",
+  "needs": ["Acceptance Criteria section", "Business goal (tại sao làm)"]
+}
+```
+
+Nếu field không có → `null`. Không tự bịa.
+
 ## Output format
 
 Trả về JSON duy nhất trong markdown code block. Không prose, không giải thích thêm.

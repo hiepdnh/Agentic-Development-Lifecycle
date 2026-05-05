@@ -76,3 +76,25 @@ BASELINE DOCS TO CHECK:
 - `not_covered` AC cần được flag rõ — không bỏ qua
 - Breaking changes phải được báo cáo đầy đủ
 - Không suggest fixes — chỉ report
+
+## Error handling
+
+Nếu git diff rỗng hoặc không đọc được:
+
+```json
+{
+  "error": "empty_diff",
+  "message": "git diff trả về empty — không có changes để analyze",
+  "needs": ["Correct branch/commit range", "Staged changes nếu chưa commit"]
+}
+```
+
+Nếu spec file không tìm thấy:
+
+```json
+{
+  "error": "spec_not_found",
+  "message": "docs/tasks/[TASK-ID]/requirements.md không tồn tại",
+  "needs": ["Correct TASK-ID", "Hoặc chạy /ba-spec trước"]
+}
+```

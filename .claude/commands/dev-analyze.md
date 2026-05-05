@@ -33,6 +33,26 @@ dev-analyze (orchestrator)
 
 Mỗi subagent nhận **chỉ context cần thiết**, trả về kết quả nén.
 
+## Cách spawn subagent
+
+Dùng **Agent tool** để spawn mỗi subagent. Prompt phải self-contained — không pass full conversation history.
+
+Ví dụ spawn task-reader:
+```
+Agent(
+  description: "Parse GitHub issue into structured JSON",
+  prompt: "Read this issue and return structured JSON per agents/task-reader.md spec.\n\nISSUE CONTENT:\n[paste issue content here]"
+)
+```
+
+Ví dụ spawn code-scout:
+```
+Agent(
+  description: "Find relevant files for auth task",
+  prompt: "Find files relevant to this task. Return JSON per agents/code-scout.md spec.\n\nTASK SUMMARY: [summary]\nTECH STACK: [stack]\nAFFECTED AREAS: [areas]"
+)
+```
+
 ---
 
 ## Hướng dẫn thực hiện

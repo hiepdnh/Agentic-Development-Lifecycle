@@ -38,74 +38,15 @@ Trình bày theo format:
 
 ### Bước 3 — Soạn Specification Document
 
-Sau khi nhận câu trả lời, tạo file `docs/tasks/[TASK-ID]/requirements.md` với cấu trúc:
+Sau khi nhận câu trả lời, tạo `docs/tasks/[TASK-ID]/requirements.md` dùng template `templates/task-doc-requirements.md`.
 
-```markdown
-# [Tên Feature/Task]
-
-**Task ID**: [ID]  
-**Ngày tạo**: [Date]  
-**BA**: [Name]  
-**Trạng thái**: Draft
-
-## 1. Bối cảnh & Vấn đề
-
-[Mô tả vấn đề kinh doanh cần giải quyết]
-
-## 2. Mục tiêu
-
-- [Mục tiêu 1]
-- [Mục tiêu 2]
-
-## 3. Phạm vi
-
-### Trong phạm vi (In scope)
-- [...]
-
-### Ngoài phạm vi (Out of scope)
-- [...]
-
-## 4. Actors & Use Cases
-
-| Actor | Use Case | Mô tả |
-|-------|----------|-------|
-| | | |
-
-## 5. Business Rules
-
-| ID | Rule | Ghi chú |
-|----|------|---------|
-| BR-001 | | |
-
-## 6. Luồng nghiệp vụ chính (Happy Path)
-
-1. [Bước 1]
-2. [Bước 2]
-...
-
-## 7. Luồng thay thế & Exception
-
-| Trường hợp | Xử lý |
-|-----------|-------|
-| | |
-
-## 8. Acceptance Criteria
-
-- [ ] AC-001: [Điều kiện nghiệm thu 1]
-- [ ] AC-002: [Điều kiện nghiệm thu 2]
-
-## 9. Non-functional Requirements
-
-- **Performance**: [nếu có]
-- **Security**: [nếu có]
-- **Compatibility**: [nếu có]
-
-## 10. Câu hỏi mở (Open Questions)
-
-| ID | Câu hỏi | Người trả lời | Deadline |
-|----|---------|---------------|----------|
-| | | | |
-```
+Điền đầy đủ:
+- Section 1-3: Context, mục tiêu, phạm vi
+- Section 4-5: Actors + Business Rules (BR phải có ID để tham chiếu)
+- Section 6-7: Happy path + alternative flows
+- Section 8: Acceptance Criteria — mỗi AC phải testable (Given/When/Then nếu cần)
+- Section 9: NFR nếu có performance/security requirements
+- Section 10: Câu hỏi mở còn lại (không tự answer nếu không chắc)
 
 ### Bước 4 — Gate cuối: Review và confirm
 

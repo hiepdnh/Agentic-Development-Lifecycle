@@ -57,3 +57,28 @@ Trả về test file(s) hoàn chỉnh, ready to run. Kèm:
 ```
 
 Sau đó paste nội dung từng test file.
+
+## Error handling
+
+Nếu không có test framework info:
+
+```json
+{
+  "error": "missing_framework",
+  "message": "Không biết test framework — không thể viết tests",
+  "needs": ["TEST FRAMEWORK field trong input (Jest/JUnit/pytest/...)"]
+}
+```
+
+Nếu code quá tightly coupled để unit test:
+
+```json
+{
+  "error": "untestable_code",
+  "message": "src/auth/login.ts có direct DB calls trong business logic — không mock được",
+  "needs": [
+    "Refactor: tách DB calls ra repository layer",
+    "Hoặc chuyển sang integration tests thay vì unit tests"
+  ]
+}
+```

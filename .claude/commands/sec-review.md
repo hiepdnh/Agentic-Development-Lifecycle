@@ -97,15 +97,32 @@ Không có security concern. OK to merge từ góc độ security.
 
 ---
 
-## OWASP Top 10 Checklist (quick reference)
+## OWASP Top 10 Checklist (actionable)
 
-- [ ] Injection (SQL, NoSQL, Command)
-- [ ] Broken Authentication
-- [ ] Sensitive Data Exposure
-- [ ] XML External Entities (nếu dùng XML)
-- [ ] Broken Access Control
-- [ ] Security Misconfiguration
-- [ ] Cross-Site Scripting (XSS) — nếu có frontend
-- [ ] Insecure Deserialization
-- [ ] Using Components with Known Vulnerabilities
-- [ ] Insufficient Logging & Monitoring
+| # | Risk | Cách check | Pattern nguy hiểm |
+|---|------|-----------|-------------------|
+| A01 | Broken Access Control | Tìm route handlers — có check `req.user` / role không? | `app.get('/admin'` mà không có `requireAuth` |
+| A02 | Cryptographic Failures | Grep `MD5\|SHA1\|createCipher` — không dùng cho password/token | `crypto.createHash('md5')` cho password |
+| A03 | Injection | Grep string concatenation vào query | `` `SELECT * FROM users WHERE id=${req.params.id}` `` |
+| A04 | Insecure Design | Review business logic — rate limit, token expiry, single-use | Token không có expiry, không invalidate khi dùng |
+| A05 | Security Misconfiguration | Check CORS origin, error messages expose internals | `cors({ origin: '*' })` trên production |
+| A06 | Vulnerable Components | `npm audit` hoặc `yarn audit` | CVE severity High/Critical |
+| A07 | Auth Failures | Session fixation, brute force, JWT `alg: none` | `jwt.verify` không check algorithm |
+| A08 | Software Integrity | Check dependency sources, lock file committed | `package-lock.json` không commit |
+| A09 | Logging Failures | Grep log statements — có log password/token không? | `console.log(req.body)` tại auth endpoint |
+| A10 | SSRF | Grep fetch/axios với user-controlled URL | `fetch(req.body.url)` |
+
+**Quick grep commands**:
+```bash
+# SQL injection candidates
+grep -rn "query\|execute\|raw" src/ | grep "\${" 
+
+# Sensitive logging
+grep -rn "console.log\|logger" src/auth/ | grep -i "password\|token\|secret"
+
+# JWT issues  
+grep -rn "jwt.verify\|jwt.decode" src/
+
+# Missing auth on routes
+grep -rn "router\.\(get\|post\|put\|delete\)" src/routes/ | grep -v "auth\|protect\|verify"
+```
