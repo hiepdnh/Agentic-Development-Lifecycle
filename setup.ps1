@@ -3,7 +3,8 @@
 # Usage: .\setup.ps1                        (install to current directory)
 
 param(
-    [string]$TargetPath = (Get-Location).Path
+    [string]$TargetPath = (Get-Location).Path,
+    [switch]$Yes  # skip confirmation prompt (for non-interactive / Claude Code use)
 )
 
 $SourcePath = $PSScriptRoot
@@ -28,10 +29,12 @@ if ($SourcePath -eq $TargetPath) {
 }
 
 # Confirm
-$confirm = Read-Host "Install framework into '$TargetPath'? [y/N]"
-if ($confirm -notmatch '^[Yy]$') {
-    Write-Host "Cancelled." -ForegroundColor Yellow
-    exit 0
+if (-not $Yes) {
+    $confirm = Read-Host "Install framework into '$TargetPath'? [y/N]"
+    if ($confirm -notmatch '^[Yy]$') {
+        Write-Host "Cancelled." -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 Write-Host ""
