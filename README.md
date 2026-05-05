@@ -1,5 +1,9 @@
 # VTI SDLC Skill Framework
 
+<div align="right">
+  <strong>🇬🇧 English</strong> &nbsp;|&nbsp; <a href="README.vi.md">🇻🇳 Tiếng Việt</a>
+</div>
+
 <p align="center">
   <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
@@ -7,52 +11,52 @@
 <p align="center">
   <img src="assets/logo.png" alt="Logo" width="80">
   <br><br>
-  <em>Bộ skill cho <strong>Claude Code</strong> hỗ trợ toàn bộ vòng đời phần mềm (SDLC) — từ phân tích yêu cầu đến deploy.</em>
+  <em>A <strong>Claude Code</strong> skill pack covering the full Software Development Lifecycle (SDLC) — from requirements analysis to deployment.</em>
   <br>
-  <em>Tối ưu cho mô hình outsource: <strong>Team VN ↔ Bridge Engineer ↔ Khách hàng Nhật</strong>.</em>
+  <em>Optimized for the outsource model: <strong>VN Dev Team ↔ Bridge Engineer ↔ Japanese Client</strong>.</em>
 </p>
 
 ---
 
-## Tại sao dùng framework này?
+## Why this framework?
 
-- **21 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
-- **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
-- **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
-- **Two-tier docs** — task docs riêng + baseline docs sống cùng code
-- **Chuẩn JP** — `/be:bridge` tạo 設計書, 単体テスト仕様書 sẵn gửi khách
+- **21 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
+- **Multi-agent** for dev tasks — keeps context clean, saves tokens
+- **Two-tier docs** — ephemeral task docs + living baseline docs alongside the code
+- **JP standards** — `/be:bridge` generates 設計書 and 単体テスト仕様書 ready to send to the client
 
 ---
 
-## Yêu cầu
+## Requirements
 
-| Tool | Phiên bản | Ghi chú |
-|------|-----------|---------|
-| [Claude Code](https://claude.ai/code) | Latest | CLI hoặc IDE extension |
-| [GitHub CLI](https://cli.github.com/) | ≥ 2.0 | Dùng trong `/pm:breakdown` để tạo issues |
+| Tool | Version | Notes |
+|------|---------|-------|
+| [Claude Code](https://claude.ai/code) | Latest | CLI or IDE extension |
+| [GitHub CLI](https://cli.github.com/) | ≥ 2.0 | Used in `/pm:breakdown` to create issues |
 | Git | ≥ 2.0 | |
 
 ---
 
-## Cài đặt
+## Installation
 
-### Cách 1 — Dự án mới (khuyến nghị)
+### Option 1 — New project (recommended)
 
 **Windows (PowerShell):**
 ```powershell
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git ten-du-an
-cd ten-du-an
+git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git my-project
+cd my-project
 .\setup.ps1 -TargetPath "C:\path\to\your\project"
 ```
 
 **macOS / Linux:**
 ```bash
-git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git ten-du-an
-cd ten-du-an
+git clone https://github.com/hiep18101997/Agentic-Development-Lifecycle.git my-project
+cd my-project
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
 
-### Cách 2 — Thêm vào dự án đang có
+### Option 2 — Add to existing project
 
 **Windows (PowerShell):**
 ```powershell
@@ -71,17 +75,17 @@ cd vti-sdlc-tmp && chmod +x setup.sh
 cd .. && rm -rf vti-sdlc-tmp
 ```
 
-### Cách 3 — Thủ công
+### Option 3 — Manual
 
-Copy các thư mục sau vào root của project:
+Copy the following directories into your project root:
 
 ```
 your-project/
-├── .claude/          ← copy từ framework
-├── agents/           ← copy từ framework
-├── templates/        ← copy từ framework
-├── CLAUDE.md         ← copy và customize
-└── docs/             ← tạo mới với cấu trúc bên dưới
+├── .claude/          ← copy from framework
+├── agents/           ← copy from framework
+├── templates/        ← copy from framework
+├── CLAUDE.md         ← copy and customize
+└── docs/             ← create new with structure below
     ├── api/
     ├── screens/
     ├── tasks/
@@ -91,27 +95,27 @@ your-project/
 
 ---
 
-## Sau khi cài đặt
+## After installation
 
-**Bước 1** — Mở `CLAUDE.md` và cập nhật phần VTI Context:
+**Step 1** — Open `CLAUDE.md` and update the VTI Context section:
 
 ```markdown
-**Công ty**: [Tên công ty / project]
-**Khách hàng**: [Tên khách hàng JP nếu có]
-**Model**: Team dev VN ↔ Bridge Engineer (BE) ↔ Khách hàng JP
-**Ngôn ngữ**: Code comments = tiếng Anh; Tài liệu nội bộ = tiếng Việt
-**Timezone**: JST (UTC+9) — hoặc timezone của khách hàng
+**Company**: [Company / project name]
+**Client**: [JP client name if applicable]
+**Model**: VN Dev Team ↔ Bridge Engineer (BE) ↔ JP Client
+**Language**: Code comments = English; Internal docs = Vietnamese
+**Timezone**: JST (UTC+9) — or client's timezone
 **Tech stack**: [Node.js / React / PostgreSQL / ...]
 **Repo**: [GitHub URL]
 ```
 
-**Bước 2** — Mở project trong Claude Code:
+**Step 2** — Open the project in Claude Code:
 
 ```bash
 claude .
 ```
 
-**Bước 3** — Gõ `/` để xem danh sách commands:
+**Step 3** — Type `/` to see all available commands:
 
 ```
 /pm:ideate    /ba:spec    /dev:analyze    /qa:testplan    ...
@@ -119,11 +123,11 @@ claude .
 
 ---
 
-## Cấu trúc dự án
+## Project Structure
 
 ```
 .claude/
-└── commands/           # 21 slash commands — gõ / trong Claude Code
+└── commands/           # 21 slash commands — type / in Claude Code
     ├── arch/           # adr.md  review.md
     ├── ba/             # spec.md  user-story.md
     ├── be/             # bridge.md  (JP outsource)
@@ -135,15 +139,15 @@ claude .
     ├── sec/            # review.md
     └── sm/             # standup.md  retro.md
 
-agents/                 # Subagent definitions (dùng bởi orchestrator commands)
+agents/                 # Subagent definitions (used by orchestrator commands)
     task-reader.md      # Parse GitHub issue → JSON
-    code-scout.md       # Tìm code liên quan → JSON
-    planner.md          # Tạo implementation options → JSON
+    code-scout.md       # Find related code → JSON
+    planner.md          # Generate implementation options → JSON
     diff-reader.md      # Map git diff → AC coverage → JSON
     test-gen.md         # Generate test cases
     doc-updater.md      # Propose doc updates → JSON
 
-templates/              # Skeleton templates cho tất cả document types
+templates/              # Skeleton templates for all document types
     task-doc-requirements.md
     baseline-api.md
     baseline-screen.md
@@ -153,9 +157,9 @@ templates/              # Skeleton templates cho tất cả document types
 
 docs/
     workflows/          # Sprint lifecycle + role guide
-    tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
-    api/                # API baseline docs — sống lâu dài
-    screens/            # Screen baseline docs — sống lâu dài
+    tasks/              # Task docs (1 folder per issue) — gitignored per project
+    api/                # API baseline docs — long-lived
+    screens/            # Screen baseline docs — long-lived
     decisions/          # Architecture Decision Records
 ```
 
@@ -165,84 +169,84 @@ docs/
 
 ### PM (Project Manager)
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/pm:ideate` | Biến ý tưởng mờ thành concept rõ | Rough idea → One-pager + Not Doing list |
-| `/pm:breakdown` | Phân rã Epic thành tasks, tạo GitHub Issues | User Stories → Issues |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/pm:ideate` | Turn a vague idea into a clear concept | Rough idea → One-pager + Not Doing list |
+| `/pm:breakdown` | Break Epic into tasks, create GitHub Issues | User Stories → Issues |
 | `/pm:status` | Sprint status report | — → Status summary |
 
 ### BA (Business Analyst)
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/ba:spec` | Chuyển yêu cầu thô thành spec có cấu trúc | Raw requirement → `docs/tasks/[ID]/requirements.md` |
-| `/ba:user-story` | Tạo User Stories từ spec | requirements.md → User Stories + AC |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/ba:spec` | Convert raw requirements into structured spec | Raw requirement → `docs/tasks/[ID]/requirements.md` |
+| `/ba:user-story` | Generate User Stories from spec | requirements.md → User Stories + AC |
 
 ### Bridge Engineer — JP Outsource
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/be:bridge` | Dịch JP↔VN, tạo 設計書 + spec cho dev | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/be:bridge` | Translate JP↔VN, generate 設計書 + dev spec | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) |
 
 ### Developer
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/dev:analyze` | Phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` |
-| `/dev:implement` | Implement file-by-file với gate | `analysis.md` → Code |
-| `/dev:pr` | Tạo PR description | Code diff → PR description |
-| `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/dev:analyze` | Analyze task, propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` |
+| `/dev:implement` | Implement file-by-file with human gates | `analysis.md` → Code |
+| `/dev:pr` | Generate PR description | Code diff → PR description |
+| `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
 
 ### Security
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/sec:review` | Security review 3-tier trước merge | Code diff → Findings |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/sec:review` | 3-tier security review before merge | Code diff → Findings |
 
 ### QA
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/qa:testplan` | Tạo test plan từ spec | requirements.md → `test-plan.md` |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/qa:testplan` | Generate test plan from spec | requirements.md → `test-plan.md` |
 | `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist trước release | Release scope → Checklist |
+| `/qa:regression` | Regression checklist before release | Release scope → Checklist |
 
 ### Architect
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
 | `/arch:review` | Review design decision | Design → Findings |
-| `/arch:adr` | Tạo Architecture Decision Record | Decision → `docs/decisions/ADR-NNN.md` |
+| `/arch:adr` | Generate Architecture Decision Record | Decision → `docs/decisions/ADR-NNN.md` |
 
 ### DevOps
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
 | `/ops:deploy` | Deployment checklist + CI quality gate | — → Checklist |
 | `/ops:incident` | Incident response + RCA | Incident → Response plan |
 
 ### Scrum Master
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
 | `/sm:standup` | Daily standup summary | Updates → Summary |
 | `/sm:retro` | Sprint retrospective | — → Retro doc |
 
 ### All Roles
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/docs:update` | Update baseline docs sau verify & merge | Diff + verify → Updated docs |
+| Command | Description | Input → Output |
+|---------|-------------|----------------|
+| `/docs:update` | Update baseline docs after verify & merge | Diff + verify → Updated docs |
 
 ---
 
-## Luồng làm việc tiêu biểu
+## Typical Workflows
 
 <p align="center">
   <img src="assets/workflow.png" alt="Sprint Workflow" width="100%">
 </p>
 
-### Full sprint (từ đầu đến cuối)
+### Full sprint (end to end)
 
 ```
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
@@ -251,83 +255,83 @@ docs/
     → /qa:regression → deploy
 ```
 
-### Nhận yêu cầu từ khách hàng Nhật
+### Receiving requirements from Japanese client
 
 ```
 /be:bridge → /ba:spec → /ba:user-story → /pm:breakdown → ...
 ```
 
-### Nhận issue, cần code ngay
+### Got an issue, need to code now
 
 ```
 /dev:analyze → /dev:implement → /sec:review → /dev:pr
 ```
 
-Xem chi tiết từng bước tại [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
-Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
+Full step-by-step: [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
+Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
 
 ---
 
-## Nguyên tắc thiết kế
+## Design Principles
 
-| # | Nguyên tắc | Ý nghĩa |
+| # | Principle | Meaning |
 |---|-----------|---------|
-| 1 | **Human Gate** | Claude không tự làm — luôn present → hỏi → chờ confirm |
-| 2 | **Multiple Options** | Luôn đưa 2-3 phương án với trade-off. Không bao giờ 1 giải pháp |
-| 3 | **Fresh Context** | Subagent nhận context tối thiểu — không pass full history |
-| 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, update sau verify) |
-| 5 | **Delta Specs** | Mỗi thay đổi là 1 proposal có cấu trúc, không phải monolith |
-| 6 | **Template-first** | Commands reference templates, không duplicate format inline |
+| 1 | **Human Gate** | Claude never acts alone — always present → ask → wait for confirm |
+| 2 | **Multiple Options** | Always offer 2-3 options with trade-offs. Never a single solution |
+| 3 | **Fresh Context** | Subagents receive only the context they need — no full history passed |
+| 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, updated after verify) |
+| 5 | **Delta Specs** | Each change is a structured proposal, not a monolith |
+| 6 | **Template-first** | Commands reference templates, never duplicate format inline |
 
 ---
 
-## Tùy chỉnh cho dự án
+## Customization
 
-### Thêm custom commands
+### Add custom commands
 
-Tạo file trong `.claude/commands/[role]/[command].md`:
+Create a file at `.claude/commands/[role]/[command].md`:
 
 ```markdown
 # Skill: /[role]:[command]
 **Role**: [Role]
-**Mục đích**: [Mô tả]
+**Purpose**: [Description]
 
-## Hướng dẫn thực hiện
+## Instructions
 ...
 ```
 
-### Thêm domain-specific rules
+### Add domain-specific rules
 
-Mở `CLAUDE.md` và thêm vào cuối:
+Open `CLAUDE.md` and append:
 
 ```markdown
 ## Project-specific Rules
 
-- [Rule đặc thù của dự án]
+- [Project-specific rule]
 - Enum values: [list]
 - Forbidden patterns: [list]
 ```
 
-### Tắt commands không dùng
+### Disable unused commands
 
-Xóa file command tương ứng trong `.claude/commands/`. Không ảnh hưởng các commands khác.
+Delete the corresponding file from `.claude/commands/`. No impact on other commands.
 
 ---
 
-## Cho team VTI — JP Outsource
+## For VTI teams — JP Outsource
 
-Framework hỗ trợ mô hình 3 lớp đặc thù của VTI:
+The framework supports VTI's 3-layer outsource model:
 
 ```
-Khách hàng JP ←→ Bridge Engineer ←→ Team Dev VN
-     JP doc    ←  /be:bridge      →  VN spec
+JP Client ←→ Bridge Engineer ←→ VN Dev Team
+  JP doc  ←   /be:bridge     →   VN spec
 ```
 
-**Bridge Engineer** dùng `/be:bridge` để:
-- Dịch yêu cầu JP → spec tiếng Việt cho dev
-- Tạo 設計書 (Basic/Detail Design) theo chuẩn SI Nhật
-- Tạo 単体テスト仕様書 để gửi khách confirm
-- Bộ từ vựng chuẩn JP↔VN built-in để nhất quán
+**Bridge Engineer** uses `/be:bridge` to:
+- Translate JP requirements → Vietnamese spec for dev team
+- Generate 設計書 (Basic/Detail Design) to Japanese SI standards
+- Generate 単体テスト仕様書 to send to client for confirmation
+- Built-in JP↔VN glossary for consistency
 
 Deliverables map:
 
@@ -342,20 +346,20 @@ Deliverables map:
 
 ## Contributing
 
-1. Fork repo
-2. Tạo branch: `feature/[command-name]` hoặc `fix/[issue]`
-3. Thêm/sửa command trong `.claude/commands/[role]/`
-4. Update `CLAUDE.md` nếu thêm command mới
-5. Tạo PR với description đầy đủ
+1. Fork the repo
+2. Create a branch: `feature/[command-name]` or `fix/[issue]`
+3. Add/edit commands in `.claude/commands/[role]/`
+4. Update `CLAUDE.md` if adding a new command
+5. Open a PR with a complete description
 
-**Convention khi viết command:**
-- Luôn có ít nhất 1 Human Gate (chờ confirm)
-- Luôn đề xuất 2-3 options khi có quyết định
-- Output phải actionable — không chỉ giải thích
-- Subagent: dùng Agent tool, pass context tối thiểu
+**Command writing conventions:**
+- Always include at least 1 Human Gate (wait for confirm)
+- Always propose 2-3 options when a decision is needed
+- Output must be actionable — not just explanatory
+- Subagents: use the Agent tool, pass minimal context
 
 ---
 
 ## License
 
-MIT — Tự do sử dụng và customize cho dự án của bạn.
+MIT — Free to use and customize for your own projects.
