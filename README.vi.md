@@ -40,19 +40,28 @@
 
 ## Cài đặt
 
-### Cách 1 — Dùng lệnh `/install` trong Claude Code (khuyến nghị)
+### Cách 1 — npx (khuyến nghị, không cần git)
+
+```bash
+npx github:hiep18101997/Agentic-Development-Lifecycle
+```
+
+Chạy từ thư mục gốc project. Dùng được trên Windows, macOS, Linux. Không cần clone, không script shell, không bị permission block. Yêu cầu Node.js ≥ 16.
+
+Bỏ qua confirm prompt (non-interactive / CI):
+```bash
+npx github:hiep18101997/Agentic-Development-Lifecycle --yes
+```
+
+### Cách 2 — Dùng lệnh `/install` trong Claude Code
 
 Mở project trong Claude Code, gõ:
 ```
 /install
 ```
-Claude tự chạy setup.
+Claude dùng file tools của mình để copy framework — không cần shell.
 
-> **Lưu ý khi cài qua AI agent:** Claude Code chặn script chạy từ thư mục temp.
-> Lệnh `/install` xử lý bằng cách clone vào `~/.claude/ADL` trước.
-> Nếu chạy thủ công qua AI agent, dùng lệnh `gh` bên dưới thay thế.
-
-### Cách 2 — One-liner với `gh` (an toàn cho AI agent)
+### Cách 3 — One-liner với `gh`
 
 **Windows (PowerShell):**
 ```powershell
@@ -64,9 +73,7 @@ gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 "$env:USER
 gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
 ```
 
-Clone vào `~/.claude/ADL` (không phải temp dir) nên AI agent không bị chặn.
-
-### Cách 3 — Clone thông thường
+### Cách 4 — Clone thông thường
 
 **Windows (PowerShell):**
 ```powershell
@@ -82,7 +89,7 @@ cd ten-du-an
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
 
-### Cách 4 — Thủ công
+### Cách 5 — Thủ công
 
 Copy các thư mục sau vào root của project:
 

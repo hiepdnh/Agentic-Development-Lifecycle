@@ -40,19 +40,28 @@
 
 ## Installation
 
-### Option 1 — Via Claude Code `/install` command (recommended)
+### Option 1 — npx (recommended, no git required)
+
+```bash
+npx github:hiep18101997/Agentic-Development-Lifecycle
+```
+
+Run from your project root. Works on Windows, macOS, Linux. No git clone, no shell scripts, no permission issues. Requires Node.js ≥ 16.
+
+Skip the confirmation prompt (non-interactive / CI):
+```bash
+npx github:hiep18101997/Agentic-Development-Lifecycle --yes
+```
+
+### Option 2 — Via Claude Code `/install` command
 
 Open your project in Claude Code, then type:
 ```
 /install
 ```
-Claude will run the setup automatically.
+Claude copies the framework files using its own file tools — no shell required.
 
-> **Note for AI-assisted installs:** Claude Code blocks scripts executed from temp directories.
-> The `/install` command handles this by cloning to `~/.claude/ADL` first.
-> If you run setup manually through an AI agent, use the `gh` one-liner below instead.
-
-### Option 2 — One-liner with `gh` (safe for AI agents)
+### Option 3 — One-liner with `gh`
 
 **Windows (PowerShell):**
 ```powershell
@@ -64,9 +73,7 @@ gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 "$env:USER
 gh repo clone hiep18101997/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
 ```
 
-This clones to `~/.claude/ADL` (not a temp dir) so AI agents won't block execution.
-
-### Option 3 — Classic clone
+### Option 4 — Classic clone
 
 **Windows (PowerShell):**
 ```powershell
@@ -82,7 +89,7 @@ cd my-project
 chmod +x setup.sh && ./setup.sh /path/to/your/project
 ```
 
-### Option 4 — Manual
+### Option 5 — Manual
 
 Copy the following directories into your project root:
 
