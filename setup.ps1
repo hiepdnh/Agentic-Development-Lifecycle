@@ -42,10 +42,26 @@ Write-Host ""
 # Helper
 function Copy-Dir {
     param([string]$Src, [string]$Dst, [string]$Label)
-    if (Test-Path $Dst) {
-        Write-Host "  [SKIP] $Label already exists — manual merge recommended" -ForegroundColor Yellow
+    if (-not (Test-Path $Src)) { return }
+    if (-not (Test-Path $Dst)) { New-Item -ItemType Directory -Path $Dst -Force | Out-Null }
+    $copied = 0; $skipped = 0
+    Get-ChildItem -Path $Src -Recurse -File | ForEach-Object {
+        $rel = $_.FullName.Substring($Src.Length).TrimStart('\','/')
+        $target = Join-Path $Dst $rel
+        $targetDir = Split-Path $target -Parent
+        if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Path $targetDir -Force | Out-Null }
+        if (Test-Path $target) {
+            $skipped++
+        } else {
+            Copy-Item -Path $_.FullName -Destination $target -Force
+            $copied++
+        }
+    }
+    if ($copied -eq 0 -and $skipped -gt 0) {
+        Write-Host "  [SKIP] $Label — all $skipped files already exist" -ForegroundColor Yellow
+    } elseif ($skipped -gt 0) {
+        Write-Host "  [OK]   $Label — $copied added, $skipped skipped" -ForegroundColor Green
     } else {
-        Copy-Item -Path $Src -Destination $Dst -Recurse -Force
         Write-Host "  [OK]   $Label" -ForegroundColor Green
     }
 }
