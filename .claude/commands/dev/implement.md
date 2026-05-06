@@ -1,3 +1,11 @@
+---
+name: dev:implement
+description: >
+  Implement code sau khi phương án đã chọn từ /dev:analyze. File-by-file với gate sau mỗi file.
+  Trigger khi: user nói "bắt đầu implement", "code theo plan đã chọn", "viết code cho task",
+  "start implementation", "implement feature", hoặc gõ /dev:implement.
+---
+
 # Skill: /dev:implement
 **Role**: Developer  
 **Mục đích**: Implement code sau khi phương án đã chọn từ /dev:analyze. File-by-file với gate sau mỗi file.
@@ -118,4 +126,5 @@ Sau khi tất cả files xong:
 - Không refactor code ngoài scope task
 - Không thêm feature ngoài AC đã định nghĩa
 - Migration có thể mất data → **luôn hỏi confirm** trước khi tạo
+- Nếu phát hiện bất kỳ thay đổi nhạy cảm nào → dừng, xem `assets/ask-first-gates.md`
 - Nếu phát hiện bug không liên quan → note lại, tạo issue riêng, không fix ngay

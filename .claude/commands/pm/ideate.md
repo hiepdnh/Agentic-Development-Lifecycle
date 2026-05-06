@@ -1,3 +1,12 @@
+---
+name: pm:ideate
+description: >
+  Refine ý tưởng mờ nhạt thành concept rõ ràng với problem statement và NOT Doing list.
+  Dùng trước /ba:spec để tránh spec sai từ đầu.
+  Trigger khi: user nói "có ý tưởng muốn explore", "chưa biết làm gì", "brainstorm feature",
+  "idea còn mơ hồ", "muốn clarify hướng đi", hoặc gõ /pm:ideate.
+---
+
 # Skill: /pm:ideate
 **Role**: PM / BA  
 **Mục đích**: Refine ý tưởng mờ nhạt thành concept rõ ràng TRƯỚC khi chạy /ba:spec. Tránh spec sai từ đầu.

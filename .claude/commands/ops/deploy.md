@@ -1,3 +1,11 @@
+---
+name: ops:deploy
+description: >
+  Tạo deployment checklist đầy đủ, CI quality gate, và rollback plan trước khi deploy.
+  Trigger khi: user nói "chuẩn bị deploy", "deployment checklist", "release lên production",
+  "deploy staging", "deploy plan", "CI gate trước release", hoặc gõ /ops:deploy.
+---
+
 # Skill: /ops:deploy
 **Role**: DevOps / Developer  
 **Mục đích**: Checklist và hướng dẫn deployment, đảm bảo không bỏ sót bước quan trọng.

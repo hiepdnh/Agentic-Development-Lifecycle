@@ -1,3 +1,11 @@
+---
+name: ba:user-story
+description: >
+  Chuyển spec thành User Stories với Acceptance Criteria chuẩn, sẵn sàng để PM tạo issue.
+  Trigger khi: user nói "tạo user stories", "viết user story", "breakdown spec thành stories",
+  "create user stories", "AC cho stories", hoặc gõ /ba:user-story.
+---
+
 # Skill: /ba:user-story
 **Role**: Business Analyst  
 **Mục đích**: Chuyển spec thành User Stories với Acceptance Criteria chuẩn, sẵn sàng để PM tạo issue.

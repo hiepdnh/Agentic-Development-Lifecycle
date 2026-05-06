@@ -1,3 +1,11 @@
+---
+name: qa:regression
+description: >
+  Tạo regression test checklist trước release, phân tích blast radius, xác định go/no-go.
+  Trigger khi: user nói "regression test", "test trước release", "verify không có regression",
+  "sprint sign-off", "QA trước deploy production", hoặc gõ /qa:regression.
+---
+
 # Skill: /qa:regression
 **Role**: QA Engineer  
 **Mục đích**: Tạo regression test checklist trước release. Verify tính năng cũ không bị ảnh hưởng bởi changes mới.

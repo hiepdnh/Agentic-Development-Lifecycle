@@ -1,3 +1,11 @@
+---
+name: dev:pr
+description: >
+  Tạo PR description chuẩn từ code changes, verify AC coverage, link task docs.
+  Trigger khi: user nói "tạo PR", "viết PR description", "chuẩn bị pull request",
+  "create PR", "soạn mô tả PR", hoặc gõ /dev:pr.
+---
+
 # Skill: /dev:pr
 **Role**: Developer  
 **Mục đích**: Tạo PR description chuẩn từ code changes, link đến task docs và cập nhật baseline.
@@ -6,13 +14,9 @@
 
 ## Ask First Gates (dừng lại trước khi tạo PR nếu có)
 
-Những thay đổi sau cần senior review trước khi PR được tạo:
-- Thay đổi authentication / authorization logic
-- Breaking changes trong public API
-- Database migration có thể mất data
-- Thay đổi shared infrastructure hoặc config
+> Danh sách đầy đủ + lý do: `assets/ask-first-gates.md`
 
-Nếu phát hiện một trong những điều trên → flag rõ trong Gate 2 và chờ confirm.
+Nếu PR chứa bất kỳ thay đổi nhạy cảm nào trong danh sách trên → flag rõ trong Gate 2 và chờ confirm senior.
 
 ---
 

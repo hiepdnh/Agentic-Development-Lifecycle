@@ -1,3 +1,11 @@
+---
+name: pm:status
+description: >
+  Tổng hợp trạng thái sprint từ nhiều nguồn, tạo status report nhanh cho stakeholder.
+  Trigger khi: user nói "báo cáo sprint", "status report", "tổng hợp tiến độ",
+  "sprint health", "update cho PM", "report cho khách", hoặc gõ /pm:status.
+---
+
 # Skill: /pm:status
 **Role**: Project Manager  
 **Mục đích**: Tổng hợp trạng thái sprint/project từ nhiều nguồn, tạo báo cáo nhanh cho stakeholder.

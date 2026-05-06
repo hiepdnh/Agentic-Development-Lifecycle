@@ -1,3 +1,11 @@
+---
+name: qa:bug
+description: >
+  Tạo bug report chuẩn với severity, steps to reproduce, và evidence đủ để dev fix.
+  Trigger khi: user nói "tìm thấy bug", "viết bug report", "báo cáo lỗi",
+  "create bug ticket", "có defect", "lỗi cần report", hoặc gõ /qa:bug.
+---
+
 # Skill: /qa:bug
 **Role**: QA Engineer  
 **Mục đích**: Tạo bug report chuẩn, đủ thông tin để dev reproduce và fix.

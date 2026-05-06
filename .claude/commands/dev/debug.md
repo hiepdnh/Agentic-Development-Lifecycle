@@ -1,3 +1,11 @@
+---
+name: dev:debug
+description: >
+  Systematic debugging — tìm root cause trước khi fix. Reproduce → Localize → Reduce → Fix → Guard.
+  Trigger khi: user nói "debug lỗi", "tìm nguyên nhân bug", "tại sao bị lỗi",
+  "fix bug", "investigate error", "lỗi không biết tại sao", hoặc gõ /dev:debug.
+---
+
 # Skill: /dev:debug
 **Role**: Developer  
 **Mục đích**: Systematic debugging — tìm root cause trước khi fix. Tránh "fix ngẫu nhiên cho đến khi hết lỗi".
@@ -23,7 +31,7 @@ Trước tiên:
 4. Paste error message / stack trace nếu có
 ```
 
-**Ask First Gate**: Nếu lỗi xảy ra trên production với user thật → báo ngay cho team trước khi debug.
+**Ask First Gate**: Nếu lỗi xảy ra trên production với user thật → báo ngay cho team trước khi debug. Xem thêm `assets/ask-first-gates.md`.
 
 ### Bước 2 — Localize
 
@@ -77,7 +85,7 @@ Chỉ sau khi xác nhận root cause:
 Bạn đồng ý không?
 ```
 
-**Ask First Gate**: Nếu fix liên quan đến auth logic, data migration, hay shared infrastructure → cần senior review trước khi apply.
+**Ask First Gate**: Nếu fix liên quan đến bất kỳ thay đổi nhạy cảm nào (`assets/ask-first-gates.md`) → cần senior review trước khi apply.
 
 ### Bước 5 — Guard
 

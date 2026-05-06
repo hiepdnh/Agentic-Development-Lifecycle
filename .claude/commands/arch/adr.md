@@ -1,3 +1,11 @@
+---
+name: arch:adr
+description: >
+  Tạo Architecture Decision Record (ADR) để document quyết định kiến trúc quan trọng.
+  Trigger khi: user nói "tạo ADR", "document quyết định kiến trúc", "viết ADR",
+  "record design decision", hoặc gõ /arch:adr.
+---
+
 # Skill: /arch:adr
 **Role**: Tech Lead / Architect  
 **Mục đích**: Tạo Architecture Decision Record để document quyết định kiến trúc quan trọng.

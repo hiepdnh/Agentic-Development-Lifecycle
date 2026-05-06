@@ -1,3 +1,11 @@
+---
+name: pm:breakdown
+description: >
+  Phân rã Epic/User Stories thành Tasks cụ thể với estimate, tạo GitHub Issues chuẩn.
+  Trigger khi: user nói "breakdown epic", "tạo tasks từ story", "phân rã feature",
+  "tạo github issues", "sprint planning", "estimate tasks", hoặc gõ /pm:breakdown.
+---
+
 # Skill: /pm:breakdown
 **Role**: Project Manager  
 **Mục đích**: Phân rã Epic/User Stories thành Tasks cụ thể, tạo GitHub Issues với template chuẩn.

@@ -1,3 +1,11 @@
+---
+name: sm:retro
+description: >
+  Facilitate sprint retrospective, tổng hợp feedback theo theme, tạo action items actionable.
+  Trigger khi: user nói "retro sprint", "retrospective", "họp cuối sprint",
+  "tổng kết sprint", "what went well", "action items từ retro", hoặc gõ /sm:retro.
+---
+
 # Skill: /sm:retro
 **Role**: Scrum Master  
 **Mục đích**: Facilitate sprint retrospective, tổng hợp feedback, tạo action items có thể thực hiện được.

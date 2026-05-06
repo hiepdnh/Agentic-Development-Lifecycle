@@ -1,3 +1,12 @@
+---
+name: be:bridge
+description: >
+  Hỗ trợ Bridge Engineer dịch yêu cầu khách hàng Nhật, tạo tài liệu song ngữ JP-VN,
+  chuẩn bị deliverables theo chuẩn Nhật (設計書, 単体テスト仕様書, 成果物).
+  Trigger khi: user nói "dịch yêu cầu JP", "tạo 設計書", "soạn tài liệu cho khách Nhật",
+  "bridge engineer", "JP requirement", "translate JP spec", hoặc gõ /be:bridge.
+---
+
 # Skill: /be:bridge
 **Role**: Bridge Engineer (Cầu nối JP ↔ VN)  
 **Mục đích**: Hỗ trợ Bridge Engineer dịch yêu cầu khách hàng Nhật, tạo tài liệu song ngữ, chuẩn bị deliverables theo chuẩn Nhật.
@@ -176,25 +185,22 @@ Confirm để finalize?
 
 ## Bộ từ vựng chuẩn JP ↔ VN ↔ EN
 
+> Danh sách đầy đủ (70+ terms): `templates/jp-vn-en-glossary.md`
+
+Một số terms hay dùng nhất:
+
 | JP | VN | EN |
 |----|----|----|
 | 基本設計 | Thiết kế cơ bản | Basic Design |
 | 詳細設計 | Thiết kế chi tiết | Detail Design |
-| 単体テスト | Unit test | Unit Test |
-| 結合テスト | Integration test | Integration Test |
-| システムテスト | System test | System Test |
-| 受け入れテスト | Acceptance test | UAT |
-| 仕様変更 | Thay đổi spec | Change Request |
-| バグ修正 | Sửa bug | Bug Fix |
+| 単体テスト仕様書 | Tài liệu đặc tả unit test | Unit Test Specification |
 | 不具合 | Lỗi/Defect | Defect |
-| 画面 | Màn hình | Screen |
-| 項目 | Trường/Field | Field |
-| 必須 | Bắt buộc | Required |
-| 任意 | Tùy chọn | Optional |
 | 要確認 | Cần confirm | To be confirmed |
 | 対象外 | Không áp dụng | N/A |
 | 成果物 | Deliverable | Deliverable |
 | 担当者 | Người phụ trách | Assignee |
+| 納期 | Deadline | Delivery Date |
+| 工数 | Nhân công | Man-hours |
 
 ---
 

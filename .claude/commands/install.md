@@ -1,3 +1,12 @@
+---
+name: install
+description: >
+  Cài VTI SDLC framework vào project hiện tại — copy commands, agents, templates, workflows.
+  Không dùng shell, chỉ dùng Glob/Read/Write tools.
+  Trigger khi: user nói "cài framework", "install skill pack", "setup VTI framework",
+  "copy commands vào project", hoặc gõ /install.
+---
+
 # Skill: /install
 **Mục đích**: Cài framework vào project hiện tại. Dùng file tools của Claude (không chạy shell) để tránh permission classifier block.
 

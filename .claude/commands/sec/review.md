@@ -1,3 +1,11 @@
+---
+name: sec:review
+description: >
+  Security review có cấu trúc trước khi merge. 3 tier: Always/Ask First/Never + OWASP Top 10 checklist.
+  Trigger khi: user nói "security review", "review bảo mật", "check security trước merge",
+  "OWASP check", "security scan", "có vấn đề bảo mật không", hoặc gõ /sec:review.
+---
+
 # Skill: /sec:review
 **Role**: Developer / Tech Lead / Security  
 **Mục đích**: Security review có cấu trúc trước khi merge. Ba tier rõ ràng: Always / Ask First / Never.
@@ -15,13 +23,19 @@
 - Dependency versions up-to-date (check CVE)
 
 ### ⚠️ ASK FIRST (dừng lại, hỏi human trước)
-- Thay đổi authentication logic
-- Thêm hoặc sửa authorization/permission checks
+
+> Danh sách đầy đủ + lý do: `assets/ask-first-gates.md`
+
+- Thay đổi authentication / authorization logic
+- Thêm hoặc sửa permission / role checks
+- Breaking changes trong public API
+- Database migration có thể mất data
+- Database schema thay đổi ảnh hưởng access control
+- Thay đổi shared infrastructure hoặc config
 - Lưu trữ sensitive data mới (PII, payment info, health data)
 - Thay đổi CORS configuration
-- Thêm new external API integration
 - Thay đổi cryptographic implementation
-- Database schema thay đổi ảnh hưởng đến access control
+- Thêm new external API integration
 
 ### ❌ NEVER DO
 - Implement custom encryption (dùng standard libraries)

@@ -3,6 +3,8 @@
 **Framework**: VTI SDLC Skill Framework  
 **Last updated**: 2026-05-05
 
+> 📊 Xem quan hệ giữa các skills dưới dạng sơ đồ: [`skill-flowchart.md`](skill-flowchart.md)
+
 ---
 
 ## Tổng quan

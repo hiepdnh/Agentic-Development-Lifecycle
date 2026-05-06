@@ -1,3 +1,11 @@
+---
+name: sm:standup
+description: >
+  Tổng hợp và format daily standup nhanh từ input thô, highlight blockers và sprint health.
+  Trigger khi: user nói "tổng hợp standup", "format daily standup", "daily scrum",
+  "standup hôm nay", "paste update team vào", hoặc gõ /sm:standup.
+---
+
 # Skill: /sm:standup
 **Role**: Scrum Master / Team  
 **Mục đích**: Tổng hợp và format daily standup nhanh, highlight blockers.

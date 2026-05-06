@@ -1,3 +1,11 @@
+---
+name: docs:update
+description: >
+  Cập nhật Baseline Docs (screen + API) sau khi task đã verify và merge. Bước cuối của mọi task.
+  Trigger khi: user nói "cập nhật docs", "update baseline", "task done cần update doc",
+  "sync docs sau merge", "update screen doc", "update API doc", hoặc gõ /docs:update.
+---
+
 # Skill: /docs:update
 **Role**: Developer / QA (sau verify)  
 **Mục đích**: Cập nhật Baseline Docs (screen + API) sau khi task đã verify và merge. Đây là bước CUỐI CÙNG của mọi task.

@@ -1,3 +1,11 @@
+---
+name: ba:spec
+description: >
+  Chuyển đổi yêu cầu thô thành tài liệu đặc tả nghiệp vụ có cấu trúc.
+  Trigger khi: user nói "viết spec", "soạn đặc tả", "phân tích yêu cầu", "write spec",
+  "tạo requirements doc", "business spec", hoặc gõ /ba:spec.
+---
+
 # Skill: /ba:spec
 **Role**: Business Analyst  
 **Mục đích**: Chuyển đổi yêu cầu thô (raw requirement) thành tài liệu đặc tả nghiệp vụ có cấu trúc.
