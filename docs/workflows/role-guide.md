@@ -1,7 +1,7 @@
 # Role Guide — Ai dùng skill nào?
 
 **Framework**: VTI SDLC Skill Framework  
-**Last updated**: 2026-05-05
+**Last updated**: 2026-05-07
 
 ---
 
@@ -31,12 +31,13 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/dev:analyze` | Nhận issue, trước khi code | analysis.md |
-| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code changes |
-| `/dev:pr` | Sau implement, trước tạo PR | PR description |
+| `/dev:analyze` | Nhận issue, trước khi code | `analysis.md` (**dừng — review trước khi implement**) |
+| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code + `verification.md` (**dừng — user test rồi mới dev:pr**) |
+| `/dev:debug` | Khi bị blocked hoặc phát hiện bug | Root cause + fix |
+| `/dev:pr` | Sau implement + verify, trước tạo PR | PR description (tự đọc `verification.md`) |
 | `/sec:review` | Sau implement, trước tạo PR | Security findings |
 
-**Thứ tự bắt buộc**: dev-analyze → dev-implement → sec-review → dev-pr
+**Thứ tự bắt buộc**: `dev:analyze` → [review `analysis.md`] → `dev:implement` → [report test results] → `sec:review` → `dev:pr`
 
 ---
 
@@ -85,7 +86,7 @@
 
 ### "Nhận issue mới, cần code"
 ```
-/dev:analyze → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → [report test results] → /sec:review → /dev:pr
 ```
 
 ### "Code xong, cần QA"
@@ -108,5 +109,7 @@
 ## Ghi chú
 
 - Mỗi skill có **gate** — luôn chờ confirm trước khi tiếp tục
-- Subagent được dùng trong dev-analyze, sec-review, qa-regression — không cần lo về context
+- Multi-choice gates dùng `AskUserQuestion` tool (native TUI, không phải plain text)
+- Subagent được dùng trong dev-analyze, dev-implement (verification), sec-review, qa-regression
+- `dev:analyze` và `dev:implement` đều có **hard stop** — không tự động chạy bước tiếp theo
 - Xem flow đầy đủ tại `docs/workflows/sprint-lifecycle.md`

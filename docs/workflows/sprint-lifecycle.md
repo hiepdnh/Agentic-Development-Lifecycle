@@ -1,7 +1,7 @@
 # Sprint Lifecycle — End-to-End Guide
 
 **Framework**: VTI SDLC Skill Framework  
-**Last updated**: 2026-05-05
+**Last updated**: 2026-05-07
 
 > 📊 Xem quan hệ giữa các skills dưới dạng sơ đồ: [`skill-flowchart.md`](skill-flowchart.md)
 
@@ -10,11 +10,14 @@
 ## Tổng quan
 
 ```
-PM Ideate → BA Spec → BA Stories → PM Breakdown → Dev Analyze → Dev Implement
-     → Sec Review → Dev PR → QA Test Plan → QA Verify → Docs Update
+PM Ideate → BA Spec → BA Stories → PM Breakdown
+    → Dev Analyze → [review analysis.md]
+    → Dev Implement → [report test results] → [review verification.md]
+    → Sec Review → Dev PR → QA Test Plan → QA Verify → Docs Update
 ```
 
-Mỗi bước có **gate** — không tự động chuyển sang bước tiếp theo.
+Mỗi bước có **gate** — không tự động chuyển sang bước tiếp theo.  
+Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 
 ---
 
@@ -72,12 +75,15 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ### 3.2 Dev Implement `/dev:implement`
 **Người dùng**: Dev  
-**Input**: analysis.md  
-**Output**: Code changes  
+**Input**: `analysis.md`  
+**Output**: Code changes + `docs/tasks/[TASK-ID]/verification.md`  
 **Gates**:
 1. Confirm implementation plan + file order
 2. Confirm sau mỗi file (không tự nhảy sang file tiếp theo)
-3. Post-implementation checklist
+3. Bước 4 — Dev self-check
+4. Bước 5 — Verification Gate: diff review → AI generates self-test steps → user reports results → saves `verification.md`
+
+**Hard stop sau Bước 5** — user phải tự trigger `/dev:pr`.
 
 ### 3.3 Security Review `/sec:review`
 **Người dùng**: Dev / Tech Lead  
@@ -91,8 +97,8 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 
 ### 4.1 Dev PR `/dev:pr`
 **Người dùng**: Dev  
-**Input**: Code diff + analysis.md  
-**Output**: PR description  
+**Input**: Code diff + `analysis.md` + `verification.md` (nếu có)  
+**Output**: PR description (Testing section tự động populate từ `verification.md`)  
 **Gate**:
 1. Confirm AC coverage
 2. Confirm reviewer list
@@ -155,11 +161,11 @@ Mỗi bước có **gate** — không tự động chuyển sang bước tiếp 
 | Discovery | `docs/tasks/[ID]/requirements.md` |
 | Planning | GitHub Issues |
 | Dev Analyze | `docs/tasks/[ID]/analysis.md` |
-| Dev Implement | Source code + tests |
+| Dev Implement | Source code + `docs/tasks/[ID]/verification.md` |
 | Security | Security findings (inline) |
 | Dev PR | PR description |
 | QA | `docs/tasks/[ID]/test-plan.md` |
-| QA Verify | `docs/tasks/[ID]/verification.md` |
+| QA Verify | QA sign-off trong `verification.md` |
 | Docs Update | `docs/api/...` `docs/screens/...` |
 | Release | `docs/tasks/regression-[sprint].md` |
 

@@ -36,6 +36,7 @@ flowchart TD
     subgraph DEV ["💻 Dev Cycle — per issue"]
         ANALYZE["/dev:analyze\nDev"]
         IMPLEMENT["/dev:implement\nDev"]
+        VERIFY["✅ Verification Gate\nUser reports test results"]
         DEBUG["/dev:debug\nDev"]
         SEC["/sec:review\nAll"]
         PR["/dev:pr\nDev"]
@@ -87,14 +88,17 @@ flowchart TD
 
     %% Issues → Dev
     ISSUES --> ANALYZE
-    ANALYZE --> IMPLEMENT
+    ANALYZE -->|"analysis.md — hard stop"| IMPLEMENT
 
     %% Dev loop
     IMPLEMENT -->|"bug"| DEBUG
     DEBUG --> IMPLEMENT
 
+    %% Verification
+    IMPLEMENT -->|"diff + self-test steps"| VERIFY
+    VERIFY -->|"verification.md — hard stop"| SEC
+
     %% Pre-merge
-    IMPLEMENT --> SEC
     SEC -->|"issue tìm thấy"| IMPLEMENT
     SEC --> PR
 
@@ -138,9 +142,11 @@ JP Client → /be:bridge → /ba:spec (VN) + 設計書 (JP)
 
 ### Dev — Per Issue
 ```
-Issue → /dev:analyze → /dev:implement → /sec:review → /dev:pr → /docs:update
-                            ↕ (bug)
-                        /dev:debug
+Issue → /dev:analyze → [review analysis.md]
+             → /dev:implement → [report test results → verification.md]
+             → /sec:review → /dev:pr → /docs:update
+                  ↕ (bug)
+              /dev:debug
 ```
 
 ### QA — Parallel với Dev
@@ -175,7 +181,7 @@ Planning          Dev decisions
 | `/pm:breakdown` | `/ba:user-story` hoặc User Stories đã có |
 | `/dev:analyze` | Issue/task rõ ràng (AC defined) |
 | `/dev:implement` | `docs/tasks/[ID]/analysis.md` đã tồn tại |
-| `/dev:pr` | `/sec:review` đã pass |
+| `/dev:pr` | `/dev:implement` Bước 5 done + `verification.md` saved + `/sec:review` passed |
 | `/docs:update` | PR đã merge |
 | `/qa:regression` | Tất cả PR của sprint đã merge |
 | `/ops:deploy` | `/qa:regression` đã sign-off |
