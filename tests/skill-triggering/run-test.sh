@@ -20,11 +20,12 @@ BASENAME="$(basename "$PROMPT_FILE" .txt)"
 # Replace first hyphen with colon (ba-spec -> ba:spec, sm-standup -> sm:standup)
 EXPECTED_SKILL="${BASENAME/-/:}"
 
-# Output directory
+# Output directory — sanitize skill name for filesystem (: invalid on Windows)
 TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-RESULTS_DIR="$REPO_ROOT/tests/.results/$TIMESTAMP/$EXPECTED_SKILL"
+SAFE_NAME="${EXPECTED_SKILL//:/-}"
+RESULTS_DIR="$REPO_ROOT/tests/.results/$TIMESTAMP/$SAFE_NAME"
 mkdir -p "$RESULTS_DIR"
 
 LOG_FILE="$RESULTS_DIR/log.json"
