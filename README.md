@@ -215,7 +215,7 @@ docs/
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/dev:analyze` | Analyze task, propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` |
+| `/dev:analyze` | Analyze task, propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` (**stops here, review before proceeding**) |
 | `/dev:implement` | Implement file-by-file with human gates | `analysis.md` → Code |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
@@ -287,8 +287,10 @@ docs/
 ### Got an issue, need to code now
 
 ```
-/dev:analyze → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
 ```
+
+> **Note**: `/dev:analyze` stops after writing `analysis.md` — it will **not** auto-start implementation. Review the file, then trigger `/dev:implement` manually.
 
 Full step-by-step: [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)

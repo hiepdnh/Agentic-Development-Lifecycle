@@ -287,8 +287,10 @@ docs/
 ### Nhận issue, cần code ngay
 
 ```
-/dev:analyze → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
 ```
+
+> **Lưu ý**: `/dev:analyze` dừng lại sau khi ghi `analysis.md` — **không** tự động bắt đầu implement. Review file xong rồi mới trigger `/dev:implement` thủ công.
 
 Xem chi tiết từng bước tại [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
