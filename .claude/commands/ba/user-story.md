@@ -26,9 +26,12 @@ description: >
 Spec có [N] Use Cases và [M] Acceptance Criteria.
 
 Trước khi bắt đầu, tôi cần hỏi:
-1. Granularity mong muốn: Mỗi Use Case = 1 story, hay gộp/tách theo logic khác?
-2. Story format: "As a [role], I want [action], so that [benefit]" hay format khác của team?
-3. Có Epic nào đã tồn tại để link vào không?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Granularity mong muốn? | A: Mỗi Use Case = 1 story / B: Gộp theo feature / C: Tách nhỏ hơn Use Case / D: Khác: ___ |
+| 2 | Story format? | A: "As a [role], I want [action], so that [benefit]" / B: Format khác: ___ / C: Khác: ___ |
+| 3 | Có Epic đã tồn tại để link vào không? | A: Có — tên/link: ___ / B: Không / C: Khác: ___ |
 ```
 
 **Chờ confirm.**
@@ -76,9 +79,12 @@ So that **[business value]**.
 2. US-XXX — [lý do]
 
 **Câu hỏi trước khi finalize**:
-1. Estimate có hợp lý không? (US-XXX có vẻ phức tạp hơn estimate)
-2. US-XXX có thể chia nhỏ hơn không để dễ demo hơn?
-3. Có story nào nên defer sang sprint sau không?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Estimate có hợp lý không? | A: Hợp lý / B: Quá cao — sửa US-XXX: ___ / C: Quá thấp — sửa US-XXX: ___ / D: Khác: ___ |
+| 2 | US-XXX có thể chia nhỏ hơn để dễ demo không? | A: Không cần / B: Có — chia như sau: ___ / C: Khác: ___ |
+| 3 | Có story nào nên defer sang sprint sau không? | A: Không / B: Có — story: ___ / C: Khác: ___ |
 ```
 
 ---

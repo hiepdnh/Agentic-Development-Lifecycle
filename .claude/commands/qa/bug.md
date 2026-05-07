@@ -20,12 +20,16 @@ description: >
 ## Tôi sẽ giúp bạn soạn bug report.
 
 Cho tôi biết:
-1. Mô tả ngắn gọn lỗi gì xảy ra?
-2. Môi trường phát hiện: (Dev/Staging/Prod) + browser/OS/device
-3. Steps to reproduce (dù rough cũng được, tôi sẽ format lại)
-4. Expected vs Actual behavior
-5. Có screenshot/log không?
-6. Lỗi này có xảy ra thường xuyên không (100%/intermittent)?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Mô tả ngắn gọn lỗi xảy ra | _(điền vào)_ |
+| 2 | Môi trường phát hiện | A: Dev / B: Staging / C: Production / D: Khác: ___ |
+| 3 | Browser / OS / device | _(điền vào)_ |
+| 4 | Steps to reproduce | _(điền vào — dù rough cũng được)_ |
+| 5 | Expected vs Actual behavior | _(điền vào)_ |
+| 6 | Có screenshot/log không? | A: Có (đính kèm) / B: Không / C: Khác: ___ |
+| 7 | Tần suất lỗi | A: 100% mỗi lần reproduce / B: Intermittent (~___%) / C: Khác: ___ |
 ```
 
 ### Bước 2 — Phân loại severity
@@ -115,7 +119,10 @@ Hỏi nếu chưa rõ: *"Lỗi này có workaround không? User có thể tiếp
 Bug report đã soạn xong.
 
 Trước khi submit:
-1. Steps to reproduce — bạn có thể confirm reproduce được với steps này không?
-2. Severity [X] — có đúng không? Impact có larger hơn tôi estimate không?
-3. Có cần tag thêm người nào không?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Steps to reproduce — confirm reproduce được không? | A: Có / B: Không — sửa steps: ___ / C: Khác: ___ |
+| 2 | Severity [X] có đúng không? | A: Đúng / B: Cao hơn — lên: ___ / C: Thấp hơn — xuống: ___ / D: Khác: ___ |
+| 3 | Cần tag thêm người nào không? | A: Không / B: Có — username: ___ / C: Khác: ___ |
 ```

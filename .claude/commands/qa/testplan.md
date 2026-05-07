@@ -30,10 +30,13 @@ Tôi đọc spec và xác định:
 - API liên quan: [list]
 
 Trước khi soạn test plan, tôi cần hỏi:
-1. Test level nào cần cover? (Unit / Integration / E2E / Performance / Security)
-2. Môi trường test: [Dev/Staging/Prod-like]
-3. Có dữ liệu test đặc biệt nào cần chuẩn bị không?
-4. Regression scope: những gì đã có cần retest?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Test level cần cover? | A: Unit / B: Integration / C: E2E / D: Performance / E: Security / F: Tất cả / G: Khác: ___ |
+| 2 | Môi trường test? | A: Dev / B: Staging / C: Prod-like / D: Khác: ___ |
+| 3 | Có dữ liệu test đặc biệt cần chuẩn bị không? | A: Không / B: Có — loại data: ___ / C: Khác: ___ |
+| 4 | Regression scope — những gì cần retest? | _(liệt kê features/flows cần retest)_ |
 ```
 
 ### Bước 3 — Tạo Test Plan
@@ -104,8 +107,9 @@ Tạo file `docs/tasks/[TASK-ID]/test-plan.md`:
 ```
 Test plan đã soạn xong với [N] test cases.
 
-Câu hỏi:
-1. Test case nào có vẻ thiếu từ góc nhìn của bạn?
-2. Có edge case đặc thù của domain (nghiệp vụ) nào tôi chưa cover?
-3. Exit criteria có đủ chặt không, hay cần thêm điều kiện?
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Test case nào có vẻ thiếu? | A: Không thiếu / B: Thiếu — mô tả: ___ / C: Khác: ___ |
+| 2 | Có edge case domain đặc thù tôi chưa cover? | A: Không / B: Có — edge case: ___ / C: Khác: ___ |
+| 3 | Exit criteria có đủ chặt không? | A: Đủ rồi / B: Cần thêm điều kiện: ___ / C: Khác: ___ |
 ```

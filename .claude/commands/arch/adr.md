@@ -20,10 +20,13 @@ description: >
 ## Tôi sẽ tạo ADR cho quyết định: [tên]
 
 Để soạn ADR đầy đủ, cho tôi biết:
-1. Vấn đề/context dẫn đến quyết định này là gì?
-2. Những phương án nào đã được cân nhắc?
-3. Tại sao chọn phương án hiện tại?
-4. Ai là người ra quyết định? (Để record)
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Vấn đề / context dẫn đến quyết định này? | _(điền vào)_ |
+| 2 | Những phương án nào đã được cân nhắc? | _(điền vào)_ |
+| 3 | Tại sao chọn phương án hiện tại? | _(điền vào)_ |
+| 4 | Ai là người ra quyết định? | _(điền vào)_ |
 ```
 
 ### Bước 2 — Tạo ADR
@@ -43,9 +46,12 @@ Tạo file `docs/decisions/ADR-[NNN]-[slug].md` dùng template `templates/adr.md
 ADR-[NNN] đã soạn xong.
 
 Câu hỏi trước khi finalize:
-1. "Hệ quả tiêu cực" có đủ honest không? Có gì tôi đang understate?
-2. "Điều kiện để revisit" có realistic không?
-3. Có team member nào khác cần review ADR này trước khi accept?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | "Hệ quả tiêu cực" có đủ honest không? | A: Đủ rồi / B: Cần thêm — cụ thể: ___ / C: Khác: ___ |
+| 2 | "Điều kiện để revisit" có realistic không? | A: Có, hợp lý / B: Không — sửa lại: ___ / C: Khác: ___ |
+| 3 | Có team member nào cần review trước khi accept? | A: Không cần / B: Có — tag: ___ / C: Khác: ___ |
 
 Sau khi confirm, tôi sẽ update trạng thái sang "Accepted".
 ```

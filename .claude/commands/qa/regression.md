@@ -51,7 +51,11 @@ Subagent trả về: file list + blast radius analysis.
 - 🟡 Should Test: [list areas]
 - 🟢 Smoke only: [list areas — nếu thiếu thời gian, skip được]
 
-Confirm scope rồi tôi tạo checklist?
+| | Lựa chọn |
+|---|---------|
+| A | Confirm — tạo checklist theo scope này |
+| B | Điều chỉnh scope — sửa: ___ |
+| C | Khác: ___ |
 ```
 
 **Chờ confirm.**

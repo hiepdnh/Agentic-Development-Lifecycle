@@ -99,8 +99,11 @@ Security review xong.
 
 [Nếu có "Ask First" items]:
 Trước khi merge, cần confirm với senior:
-1. [Câu hỏi cụ thể về auth change]
-2. [Câu hỏi về data storage]
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | [Câu hỏi cụ thể về auth change] | _(điền vào)_ |
+| 2 | [Câu hỏi về data storage] | _(điền vào)_ |
 
 [Nếu có Critical/High issues]:
 Cần fix [N] issues trước khi merge.

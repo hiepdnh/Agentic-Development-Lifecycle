@@ -21,12 +21,12 @@ Khi incident xảy ra, triage theo thứ tự:
 ```
 ## INCIDENT TRIAGE
 
-1. IMPACT: Bao nhiêu user/service bị ảnh hưởng?
-2. SEVERITY: P1 (down hoàn toàn) / P2 (degraded) / P3 (minor)
-3. STARTED: Lúc nào bắt đầu?
-4. SYMPTOMS: Biểu hiện cụ thể là gì?
-
-Cho tôi biết các điểm trên để tôi hỗ trợ triage.
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | IMPACT: Bao nhiêu user/service bị ảnh hưởng? | _(điền vào)_ |
+| 2 | SEVERITY | A: P1 — down hoàn toàn / B: P2 — degraded / C: P3 — minor / D: Khác: ___ |
+| 3 | STARTED: Lúc nào bắt đầu? | _(điền thời gian)_ |
+| 4 | SYMPTOMS: Biểu hiện cụ thể? | _(điền vào)_ |
 ```
 
 ### Bước 2 — Hỗ trợ Investigation
@@ -130,8 +130,11 @@ Sau khi incident resolved, tạo `docs/decisions/INC-[XXX]-RCA.md`:
 RCA draft hoàn thành.
 
 Câu hỏi quan trọng:
-1. "5 Whys" — root cause [X] có đúng không, hay còn layer sâu hơn?
-2. Action Items — AI-001 có realistic trong deadline không?
-3. Có contributing factor nào tôi bỏ sót không (process, tooling, knowledge gap...)?
-4. Ai cần review RCA này trước khi share rộng?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | "5 Whys" — root cause [X] có đúng không? | A: Đúng / B: Còn layer sâu hơn — layer đó là: ___ / C: Khác: ___ |
+| 2 | Action Items — AI-001 có realistic trong deadline không? | A: Có / B: Không — cần adjust: ___ / C: Khác: ___ |
+| 3 | Có contributing factor nào bị bỏ sót không? | A: Không / B: Có — factor: ___ / C: Khác: ___ |
+| 4 | Ai cần review RCA này trước khi share rộng? | _(điền tên)_ |
 ```

@@ -70,7 +70,10 @@ Cần biết thêm: Sprint [N] kết thúc khi nào?
 Standup tổng hợp xong.
 
 Tôi nhận thấy:
-1. [Member X] bị block [N] ngày — cần escalate không?
-2. Task [Y] có estimate cao nhưng chỉ còn [Z] ngày — at risk.
-3. Velocity hôm nay [thấp hơn/cao hơn] bình thường — có gì tôi miss không?
+
+| # | Quan sát | Lựa chọn |
+|---|---------|---------|
+| 1 | [Member X] bị block [N] ngày — cần escalate không? | A: Escalate ngay / B: Để thêm 1 ngày / C: Không cần / D: Khác: ___ |
+| 2 | Task [Y] at risk — chỉ còn [Z] ngày | A: Cần hỗ trợ thêm / B: Đang xử lý / C: Đã scope lại / D: Khác: ___ |
+| 3 | Velocity bất thường — có gì tôi miss không? | A: Không miss gì / B: Có — context: ___ / C: Khác: ___ |
 ```

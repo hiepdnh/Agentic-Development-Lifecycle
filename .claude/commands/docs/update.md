@@ -46,7 +46,11 @@ Tôi phân tích code changes và thấy cần update docs:
 **Không cần update**:
 - [Những file docs không bị ảnh hưởng]
 
-Có docs nào khác tôi bỏ sót không?
+| | Lựa chọn |
+|---|---------|
+| A | Không, đủ rồi |
+| B | Có — docs bỏ sót: ___ |
+| C | Khác: ___ |
 ```
 
 ### Bước 3 — Đề xuất nội dung update cụ thể
@@ -71,9 +75,11 @@ Với mỗi file cần update, hiển thị diff rõ ràng:
 ```
 Với mỗi file update đề xuất:
 
-1. Nội dung mới có chính xác không?
-2. Có thông tin nào khác cần update mà tôi bỏ sót?
-3. Ngôn ngữ mô tả có đủ rõ để người đọc sau hiểu không?
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Nội dung mới có chính xác không? | A: Chính xác / B: Sai — sửa: ___ / C: Khác: ___ |
+| 2 | Có thông tin nào khác cần update mà tôi bỏ sót? | A: Không / B: Có — thêm: ___ / C: Khác: ___ |
+| 3 | Ngôn ngữ mô tả có đủ rõ không? | A: Rõ rồi / B: Cần rõ hơn — chỗ nào: ___ / C: Khác: ___ |
 
 Confirm để tôi apply thay đổi.
 ```

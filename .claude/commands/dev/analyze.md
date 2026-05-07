@@ -95,9 +95,12 @@ Subagent CHỈ nhận nội dung issue, không nhận codebase context.
   - [?] [Điểm chưa rõ 2]
 
 Trước khi tôi scan codebase, hãy xác nhận:
-1. Tôi hiểu đúng mục tiêu chưa?
-2. Có constraint nào (performance, security, backward compatibility) không đề cập trong issue?
-3. Có màn hình/API doc nào tôi nên đọc trước không?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Tôi hiểu đúng mục tiêu chưa? | A: Đúng rồi / B: Chưa — sửa lại: ___ / C: Khác: ___ |
+| 2 | Có constraint nào không đề cập trong issue? | A: Không / B: Có — constraint: ___ / C: Khác: ___ |
+| 3 | Có màn hình/API doc nào tôi nên đọc trước? | A: Không cần / B: Có — link/path: ___ / C: Khác: ___ |
 ```
 
 **Chờ confirm.**
@@ -128,9 +131,10 @@ Subagent nhận task summary + file patterns để tìm kiếm, không nhận fu
 - [Pattern 1]
 - [Pattern 2]
 
-Câu hỏi:
-1. Có file quan trọng nào tôi bỏ sót không?
-2. Có module nào tôi nên TRÁNH chạm vào trong task này?
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Có file quan trọng nào tôi bỏ sót không? | A: Không / B: Có — file: ___ / C: Khác: ___ |
+| 2 | Có module nào nên TRÁNH chạm vào trong task này? | A: Không / B: Có — module: ___ / C: Khác: ___ |
 ```
 
 **Chờ confirm.**
@@ -171,10 +175,20 @@ Spawn subagent với:
 **Đề xuất của tôi**: Phương án [X] vì [lý do cụ thể].
 
 Trước khi bạn chọn, tôi cần hỏi thêm:
-1. [Câu hỏi về constraint ảnh hưởng đến lựa chọn]
-2. [Câu hỏi về priority: speed vs maintainability]
 
-Bạn muốn chọn phương án nào?
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | [Câu hỏi về constraint ảnh hưởng đến lựa chọn] | _(điền vào)_ |
+| 2 | Priority: speed vs maintainability? | A: Ưu tiên tốc độ deliver / B: Ưu tiên maintainability / C: Cân bằng cả hai / D: Khác: ___ |
+
+**Bạn muốn chọn phương án nào?**
+
+| | Lựa chọn |
+|---|---------|
+| A | Phương án A |
+| B | Phương án B |
+| C | Phương án C |
+| D | Khác: ___ |
 ```
 
 **Chờ human chọn phương án.**

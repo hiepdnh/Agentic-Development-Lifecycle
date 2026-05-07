@@ -20,12 +20,15 @@ description: >
 ## Tôi sẽ tạo deployment checklist.
 
 Cho tôi biết:
-1. Deploy lên môi trường nào? (Staging / Production / DR)
-2. Có database migration không?
-3. Có config/env var thay đổi không?
-4. Có service dependency nào thay đổi (API contract, message format...)?
-5. Deployment window: khi nào? Có maintenance window không?
-6. Rollback plan nếu xảy ra sự cố?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Deploy lên môi trường nào? | A: Staging / B: Production / C: DR / D: Khác: ___ |
+| 2 | Có database migration không? | A: Có / B: Không / C: Khác: ___ |
+| 3 | Có config/env var thay đổi không? | A: Có — vars: ___ / B: Không / C: Khác: ___ |
+| 4 | Có service dependency nào thay đổi? | A: Có — service: ___ / B: Không / C: Khác: ___ |
+| 5 | Deployment window? | _(điền thời gian — có maintenance window không?)_ |
+| 6 | Rollback plan nếu xảy ra sự cố? | _(mô tả)_ |
 ```
 
 ### CI Quality Gate (phải pass trước khi deploy)
@@ -126,9 +129,12 @@ Cho tôi biết:
 Deployment checklist đã chuẩn bị xong.
 
 Trước khi bắt đầu deploy:
-1. Database backup đã được confirm chưa?
-2. Rollback plan — estimate [X phút], có đủ không với deployment window?
-3. Có bất kỳ dependency service nào chưa được notify không?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Database backup đã được confirm chưa? | A: Đã backup / B: Chưa — cần backup trước / C: Không có DB / D: Khác: ___ |
+| 2 | Rollback estimate [X phút] — có đủ trong deployment window không? | A: Đủ / B: Không đủ — cần extend window / C: Khác: ___ |
+| 3 | Có dependency service nào chưa được notify không? | A: Tất cả đã notify / B: Còn service: ___ / C: Khác: ___ |
 ```
 
 **Không deploy cho đến khi tất cả câu hỏi trên được trả lời.**

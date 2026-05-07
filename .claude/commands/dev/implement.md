@@ -50,7 +50,11 @@ Dùng **Agent tool** để spawn subagent. Mỗi subagent nhận context tối t
 - DB migration cần tạo: [yes/no]
 - ENV variables mới: [list hoặc "none"]
 
-Bắt đầu với `[file 1]`?
+| | Lựa chọn |
+|---|---------|
+| A | Bắt đầu với `[file 1]` ngay |
+| B | Điều chỉnh thứ tự — thứ tự mới: ___ |
+| C | Khác: ___ |
 ```
 
 **Chờ confirm.**
@@ -74,7 +78,11 @@ Với **mỗi file**, theo thứ tự:
 
 **Tests**: [Viết inline / Cần viết riêng / N/A]
 
-Tiếp tục `[file tiếp theo]`?
+| | Lựa chọn |
+|---|---------|
+| A | Tiếp tục `[file tiếp theo]` |
+| B | Dừng lại — cần điều chỉnh: ___ |
+| C | Khác: ___ |
 ```
 
 **Chờ confirm trước khi sang file tiếp theo.**
@@ -85,11 +93,12 @@ Nếu gặp code không như expected (missing dependency, unexpected state, con
 ## ⚠️ Blocked tại `[path]`
 
 **Vấn đề**: [Mô tả cụ thể]
-**Options**:
-A. [Hướng giải quyết A]
-B. [Hướng giải quyết B]
 
-Chọn hướng nào?
+| | Lựa chọn |
+|---|---------|
+| A | [Hướng giải quyết A] |
+| B | [Hướng giải quyết B] |
+| C | Khác: ___ |
 ```
 
 **Không tự quyết định — luôn hỏi khi blocked.**

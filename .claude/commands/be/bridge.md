@@ -64,7 +64,11 @@ Confirm để tôi tiếp tục?
 **Assumptions tôi tự hiểu** (cần confirm trước khi doc):
 - [...]
 
-Gửi câu hỏi cho khách hàng JP trước khi tiếp tục không?
+| | Lựa chọn |
+|---|---------|
+| A | Có — gửi câu hỏi cho JP trước |
+| B | Không — tiếp tục với assumptions đã nêu |
+| C | Khác: ___ |
 ```
 
 **Chờ confirm.**

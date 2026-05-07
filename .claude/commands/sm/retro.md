@@ -20,10 +20,13 @@ description: >
 ## Tôi sẽ facilitate retro cho Sprint [N].
 
 Trước khi bắt đầu:
-1. Format retro ưa thích: Start/Stop/Continue, 4Ls (Liked/Learned/Lacked/Longed for), hay Mad/Sad/Glad?
-2. Team size: bao nhiêu người?
-3. Thời gian: [X] phút
-4. Có action items từ retro trước chưa done không?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Format retro ưa thích? | A: Start/Stop/Continue / B: 4Ls (Liked/Learned/Lacked/Longed for) / C: Mad/Sad/Glad / D: Khác: ___ |
+| 2 | Team size | _(điền số người)_ |
+| 3 | Thời gian retro | _(điền số phút)_ |
+| 4 | Có action items từ retro trước chưa done không? | A: Không / B: Có — [N] items chưa done / C: Khác: ___ |
 ```
 
 ### Bước 2 — Tổng hợp feedback
@@ -103,8 +106,11 @@ Retro summary đã soạn xong.
 Tôi có [N] action items.
 
 Câu hỏi quan trọng:
-1. Action item [X] — "Owner: [Name]" — người đó có ở đây và accept không?
-2. Action items có quá nhiều không? Nên focus vào top 2-3 thôi.
-3. Có theme nào quan trọng mà tôi gộp vào nhau nhưng thực ra nên tách ra không?
-4. Action items từ retro trước — [N không done] — cần escalate hay drop?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Action item [X] — [Name] có accept ownership không? | A: Có / B: Không — assign lại cho: ___ / C: Khác: ___ |
+| 2 | Action items có quá nhiều không? | A: Vừa đủ / B: Quá nhiều — cắt xuống top 2-3 / C: Khác: ___ |
+| 3 | Có theme quan trọng bị gộp nhầm cần tách ra không? | A: Không / B: Có — theme: ___ / C: Khác: ___ |
+| 4 | Action items cũ chưa done — cần escalate hay drop? | A: Escalate / B: Drop / C: Carry over thêm 1 sprint / D: Khác: ___ |
 ```

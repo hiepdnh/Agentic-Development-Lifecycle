@@ -25,10 +25,13 @@ Fix sai root cause = tạo thêm bugs.
 ## Tôi sẽ giúp debug vấn đề này.
 
 Trước tiên:
-1. Mô tả lỗi: gì xảy ra vs gì mong đợi?
-2. Steps to reproduce (dù rough cũng được)
-3. Lỗi này mới xuất hiện hay luôn có? Có thay đổi gì gần đây không?
-4. Paste error message / stack trace nếu có
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Mô tả lỗi: gì xảy ra vs gì mong đợi? | _(điền vào)_ |
+| 2 | Steps to reproduce | _(điền vào — dù rough cũng được)_ |
+| 3 | Lỗi này mới xuất hiện hay luôn có? | A: Mới xuất hiện — sau thay đổi: ___ / B: Luôn có / C: Không chắc / D: Khác: ___ |
+| 4 | Error message / stack trace | _(paste vào đây nếu có)_ |
 ```
 
 **Ask First Gate**: Nếu lỗi xảy ra trên production với user thật → báo ngay cho team trước khi debug. Xem thêm `assets/ask-first-gates.md`.
@@ -82,7 +85,12 @@ Chỉ sau khi xác nhận root cause:
 - Fix B: [Broader fix] — sửa cả pattern, nhiều file hơn
 
 Đề xuất Fix A trước (nhỏ hơn, dễ review hơn).
-Bạn đồng ý không?
+
+| | Lựa chọn |
+|---|---------|
+| A | Đồng ý — Fix A |
+| B | Muốn Fix B (broader) |
+| C | Khác: ___ |
 ```
 
 **Ask First Gate**: Nếu fix liên quan đến bất kỳ thay đổi nhạy cảm nào (`assets/ask-first-gates.md`) → cần senior review trước khi apply.
@@ -97,7 +105,11 @@ Sau khi fix:
 Tôi cũng sẽ thêm test để prevent regression:
 [Mô tả test case]
 
-Có edge case nào liên quan cần test thêm không?
+| | Lựa chọn |
+|---|---------|
+| A | Không, đủ rồi |
+| B | Có — edge case: ___ |
+| C | Khác: ___ |
 ```
 
 ---

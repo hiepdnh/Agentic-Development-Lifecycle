@@ -46,10 +46,11 @@ Subagent trả về: summary of changes, files changed, AC coverage.
 - Unit tests: [Có/Không/Partial]
 - Integration tests: [Có/Không]
 
-Câu hỏi trước khi tạo PR:
-1. AC-003 — đây có được cover không? Nếu có, ở đâu?
-2. Có breaking changes nào tôi cần note trong PR không?
-3. PR này cần review từ ai? (Tag reviewer)
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | AC-003 — đây có được cover không? | A: Có — ở file: ___ / B: Chưa cover / C: Không áp dụng / D: Khác: ___ |
+| 2 | Có breaking changes nào cần note trong PR? | A: Không / B: Có — mô tả: ___ / C: Khác: ___ |
+| 3 | PR này cần review từ ai? | _(điền username)_ |
 ```
 
 ### Bước 3 — Tạo PR Description
@@ -95,10 +96,11 @@ Câu hỏi trước khi tạo PR:
 ```
 PR description đã soạn xong.
 
-Câu hỏi cuối:
-1. Có gì cần thêm vào "Notes cho Reviewer" không?
-2. Docs nào cần cập nhật sau khi PR được merge?
-3. Cần squash commits trước khi merge không?
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Có gì cần thêm vào "Notes cho Reviewer"? | A: Không cần / B: Thêm: ___ / C: Khác: ___ |
+| 2 | Docs nào cần cập nhật sau merge? | A: Không có / B: Screen docs — path: ___ / C: API docs — path: ___ / D: Khác: ___ |
+| 3 | Cần squash commits trước khi merge không? | A: Có / B: Không cần / C: Khác: ___ |
 
 Sau khi PR được approve và merge, hãy chạy /docs:update để cập nhật baseline docs.
 ```

@@ -76,10 +76,11 @@ Cluster các variations thành 2-3 strategic directions:
 - [Điều 2 không làm]
 - [Điều 3 không làm]
 
-### Câu hỏi trước khi tiếp tục:
-1. "Not Doing list" có đúng không, hay có gì vẫn trong scope?
-2. Success metric có measurable không?
-3. Sẵn sàng chạy /ba:spec với hướng này chưa?
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | "Not Doing list" có đúng không? | A: Đúng / B: Có gì vẫn trong scope — mục: ___ / C: Khác: ___ |
+| 2 | Success metric có measurable không? | A: Có / B: Chưa đủ — sửa thành: ___ / C: Khác: ___ |
+| 3 | Sẵn sàng chạy /ba:spec với hướng này chưa? | A: Sẵn sàng / B: Cần explore thêm — hướng: ___ / C: Khác: ___ |
 ```
 
 ---

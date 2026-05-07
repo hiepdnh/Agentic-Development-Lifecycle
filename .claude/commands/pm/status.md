@@ -27,9 +27,12 @@ Yêu cầu người dùng cung cấp (hoặc đọc từ context có sẵn):
 ## Tôi sẽ tạo status report cho Sprint [N].
 
 Trước khi tổng hợp, cho tôi biết:
-1. Báo cáo này dành cho ai? (Team internal / Stakeholder / Management)
-2. Format mong muốn? (Markdown, text thuần, slide outline)
-3. Có metric cụ thể nào cần highlight không? (velocity, burn rate...)
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Báo cáo này dành cho ai? | A: Team internal / B: Stakeholder / C: Management / D: Khách hàng JP / E: Khác: ___ |
+| 2 | Format mong muốn? | A: Markdown / B: Text thuần / C: Slide outline / D: Khác: ___ |
+| 3 | Có metric cụ thể nào cần highlight không? | A: Velocity / B: Burn rate / C: Blockers / D: Không cần / E: Khác: ___ |
 ```
 
 ### Bước 3 — Tạo Status Report
@@ -82,7 +85,10 @@ Trước khi tổng hợp, cho tôi biết:
 Báo cáo đã soạn xong.
 
 Câu hỏi trước khi gửi:
-1. Có issue nào tôi hiểu sai trạng thái không?
-2. Có risk nào bạn biết mà tôi chưa đề cập?
-3. Tone của báo cáo có phù hợp với audience chưa?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Có issue nào tôi hiểu sai trạng thái không? | A: Không / B: Có — issue + trạng thái đúng: ___ / C: Khác: ___ |
+| 2 | Có risk nào bạn biết mà tôi chưa đề cập? | A: Không / B: Có — risk: ___ / C: Khác: ___ |
+| 3 | Tone báo cáo có phù hợp với audience chưa? | A: Phù hợp / B: Cần formal hơn / C: Cần casual hơn / D: Khác: ___ |
 ```

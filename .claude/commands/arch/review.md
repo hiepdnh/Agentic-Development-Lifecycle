@@ -28,9 +28,12 @@ Input có thể là:
 ## Tôi sẽ review [tên design/component].
 
 Trước khi bắt đầu, cho tôi biết:
-1. Review tập trung vào gì? (scalability / security / maintainability / performance / tất cả)
-2. Có constraint nào tôi cần biết? (team size, deadline, existing tech debt...)
-3. Đã có ADR nào liên quan chưa?
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Review tập trung vào gì? | A: Scalability / B: Security / C: Maintainability / D: Performance / E: Tất cả / F: Khác: ___ |
+| 2 | Có constraint nào tôi cần biết? | _(điền vào — team size, deadline, tech debt...)_ |
+| 3 | Đã có ADR nào liên quan chưa? | A: Có — link: ___ / B: Không / C: Khác: ___ |
 ```
 
 ### Bước 3 — Phân tích và Review
@@ -68,15 +71,21 @@ Trước khi bắt đầu, cho tôi biết:
 - [Cải tiến có thể làm sau]
 
 ### Câu hỏi cần làm rõ
-1. [Quyết định design chưa rõ lý do]
-2. [Trade-off chưa được document]
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | [Quyết định design chưa rõ lý do] | _(điền vào)_ |
+| 2 | [Trade-off chưa được document] | _(điền vào)_ |
 ```
 
 ### Bước 5 — Gate: Discussion
 
 ```
 Sau khi review:
-1. Vấn đề [ID] — bạn có thể giải thích lý do design như vậy không? Có thể tôi đang miss context.
-2. Đề xuất [X] — có feasible trong timeline hiện tại không?
-3. Bạn muốn tôi tạo ADR cho quyết định này không? (/arch:adr)
+
+| # | Câu hỏi | Lựa chọn |
+|---|---------|---------|
+| 1 | Vấn đề [ID] — lý do design như vậy là gì? | _(giải thích context nếu có)_ |
+| 2 | Đề xuất [X] — có feasible trong timeline hiện tại không? | A: Có, sẽ làm / B: Không feasible / C: Cần cân nhắc thêm / D: Khác: ___ |
+| 3 | Tạo ADR cho quyết định này? (/arch:adr) | A: Có / B: Không cần / C: Khác: ___ |
 ```
