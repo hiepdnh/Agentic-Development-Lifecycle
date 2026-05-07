@@ -216,7 +216,7 @@ docs/
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
 | `/dev:analyze` | Phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` |
-| `/dev:implement` | Implement file-by-file với gate | `analysis.md` → Code |
+| `/dev:implement` | Implement file-by-file với gate + verification | `analysis.md` → Code → `verification.md` |
 | `/dev:pr` | Tạo PR description | Code diff → PR description |
 | `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
 
@@ -273,7 +273,9 @@ docs/
 
 ```
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
-    → /dev:analyze → /dev:implement → /sec:review → /dev:pr
+    → /dev:analyze → [review analysis.md]
+    → /dev:implement → [báo cáo kết quả test] → [review verification.md]
+    → /sec:review → /dev:pr
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
@@ -290,7 +292,8 @@ docs/
 /dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
 ```
 
-> **Lưu ý**: `/dev:analyze` dừng lại sau khi ghi `analysis.md` — **không** tự động bắt đầu implement. Review file xong rồi mới trigger `/dev:implement` thủ công.
+> **`/dev:analyze`** dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
+> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test). Sau đó trigger `/dev:pr` — tự động đọc `verification.md`.
 
 Xem chi tiết từng bước tại [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)

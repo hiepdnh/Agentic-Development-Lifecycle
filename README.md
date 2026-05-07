@@ -216,7 +216,7 @@ docs/
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
 | `/dev:analyze` | Analyze task, propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` (**stops here, review before proceeding**) |
-| `/dev:implement` | Implement file-by-file with human gates | `analysis.md` → Code |
+| `/dev:implement` | Implement file-by-file with human gates + verification | `analysis.md` → Code → `verification.md` |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
 
@@ -273,7 +273,9 @@ docs/
 
 ```
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
-    → /dev:analyze → /dev:implement → /sec:review → /dev:pr
+    → /dev:analyze → [review analysis.md]
+    → /dev:implement → [report test results] → [review verification.md]
+    → /sec:review → /dev:pr
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
@@ -290,7 +292,8 @@ docs/
 /dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
 ```
 
-> **Note**: `/dev:analyze` stops after writing `analysis.md` — it will **not** auto-start implementation. Review the file, then trigger `/dev:implement` manually.
+> **`/dev:analyze`** stops after writing `analysis.md`. Review it, then trigger `/dev:implement` manually.  
+> **`/dev:implement`** stops after writing `verification.md` (diff review + self-test results). Then trigger `/dev:pr` — it reads `verification.md` automatically.
 
 Full step-by-step: [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
