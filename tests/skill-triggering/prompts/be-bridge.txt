@@ -1,0 +1,1 @@
+Khách Nhật gửi tài liệu yêu cầu tiếng Nhật về màn hình quản lý đơn hàng. Tôi cần dịch và clarify requirement này thành tài liệu tiếng Việt để team dev hiểu được.

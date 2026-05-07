@@ -1,0 +1,1 @@
+Tôi vừa quyết định chuyển từ monolith sang microservices cho module payment. Cần document quyết định kiến trúc này lại cho team và khách hàng tham khảo về sau.

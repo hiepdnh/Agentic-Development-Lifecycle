@@ -1,0 +1,1 @@
+Khách gửi email yêu cầu thêm tính năng đăng nhập bằng SSO với Google và Microsoft. Giúp tôi viết spec chi tiết cho tính năng này để team dev có thể bắt đầu làm.

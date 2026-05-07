@@ -1,0 +1,1 @@
+JWT token expire sau 15 phút thay vì 1 giờ như config. Lỗi không phải lúc nào cũng reproduce được, chỉ xảy ra khoảng 30% session. Không biết tại sao.

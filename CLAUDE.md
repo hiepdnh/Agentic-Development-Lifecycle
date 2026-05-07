@@ -1,6 +1,96 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # SDLC Skill Framework — VTI Software
 
 Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource model (team VN → BE → khách Nhật).
+
+---
+
+## Developing This Framework
+
+This repo IS the framework source. The "product" is the `.claude/commands/` directory — 21 Markdown skill files that Claude Code loads as slash commands.
+
+### Run installer locally
+
+```bash
+# From a DIFFERENT directory (installer blocks src === dst)
+node /path/to/ClaudeSkill/bin/install.js
+
+# Non-interactive
+node /path/to/ClaudeSkill/bin/install.js --yes
+```
+
+Or via npm:
+
+```bash
+npm run install-framework   # runs bin/install.js in cwd
+```
+
+### Test installation
+
+```powershell
+# Windows: copy framework to temp dir, run from there
+$tmp = "$env:TEMP\test-install"; mkdir $tmp -Force
+node bin/install.js --yes   # run from project root — blocked (src===dst)
+# Instead: npx . from temp target
+Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+```
+
+### Testing skill triggering
+
+Verify Claude auto-invokes the correct skill for naive prompts (no `/command` syntax):
+
+```bash
+# All 21 skills
+bash tests/skill-triggering/run-all.sh
+
+# Single skill
+bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/ba-spec.txt
+```
+
+Requires: `claude` CLI authenticated, `jq` installed. Raw logs in `tests/.results/` (gitignored). See `tests/README.md` for debugging failures.
+
+### Command file anatomy
+
+Every `.claude/commands/[role]/[name].md` must have frontmatter + `# Skill:` header:
+
+```markdown
+---
+name: role:command
+description: >
+  One-line description for Claude to match triggers.
+  Trigger khi: user nói "...", hoặc gõ /role:command.
+---
+
+# Skill: /role:command
+**Role**: [Role name]
+**Mục đích**: [Purpose]
+
+## [Steps with Human Gates]
+```
+
+- `name` — must match the file path convention (`role:command`)
+- `description` — used by Claude to decide when to auto-trigger; include Vietnamese trigger phrases
+- Every command must have at least 1 `**Chờ confirm.**` gate
+
+### Subagent definitions (`agents/`)
+
+Each agent file defines an **input contract** and **output JSON shape**. When spawning:
+- Pass ONLY the minimal context the agent needs (no full conversation history)
+- Summarize agent output before passing to the next agent in a chain
+
+Agents: `task-reader`, `code-scout`, `planner`, `diff-reader`, `test-gen`, `doc-updater`
+
+### Permissions model
+
+`.claude/settings.json` gates what Claude Code can do in this repo:
+
+- **Allow**: Read, Glob, Grep, `git log/diff/status`
+- **Deny**: `git push`, `git reset --hard`, `rm -rf`
+
+When adding new commands that need shell access, update `settings.json`.
 
 ---
 
@@ -51,6 +141,8 @@ docs/
   decisions/         # Architecture Decision Records (ADR)
   workflows/         # Process guides và sprint lifecycle
 templates/           # Template skeleton — commands reference đến đây
+bin/install.js       # Interactive npm installer (@clack/prompts)
+setup.ps1 / setup.sh # Shell-based installer alternatives
 ```
 
 ---
@@ -85,9 +177,33 @@ templates/           # Template skeleton — commands reference đến đây
 
 ## Gate Patterns
 
+### AskUserQuestion Tool — bắt buộc cho multi-choice gates
+
+**Mọi gate có multiple options PHẢI dùng `AskUserQuestion` tool** — không output plain text markdown. Điều này render native TUI trong Claude Code thay vì numbered list.
+
+```
+AskUserQuestion({
+  questions: [{
+    question: "Câu hỏi cụ thể?",
+    header: "Label ngắn",   // max 12 chars, hiện trên tab
+    multiSelect: false,      // true nếu cho chọn nhiều
+    options: [
+      { label: "Option A", description: "Trade-off / chi tiết" },
+      { label: "Option B", description: "Trade-off / chi tiết" },
+    ]
+  }]
+})
+```
+
+Rules:
+- `header`: max 12 ký tự, viết tắt nếu cần (ví dụ: "Scope", "Shell", "Approach")
+- Max 4 options per question, max 4 questions per call
+- `description`: giải thích trade-off — không để trống
+- Câu hỏi open-ended (không có options rõ ràng) → output plain text bình thường
+
 ### Full Human Gate (mặc định)
 ```
-[Skill chạy] → [Trình bày kết quả + assumptions] → [Hỏi 1-2 câu targeted] → [Chờ confirm] → [Tiếp tục]
+[Skill chạy] → [Trình bày kết quả + assumptions] → [AskUserQuestion] → [Chờ confirm] → [Tiếp tục]
 ```
 
 ### Ask First Gate (thay đổi nhạy cảm)

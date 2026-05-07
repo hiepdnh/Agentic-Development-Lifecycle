@@ -1,3 +1,4 @@
 research_sdlc_tools/
 *.local
 .env
+tests/.results/
