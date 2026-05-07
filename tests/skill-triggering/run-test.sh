@@ -33,9 +33,10 @@ echo "Testing: $EXPECTED_SKILL"
 echo "  Prompt: $PROMPT_FILE"
 echo "  Log:    $LOG_FILE"
 
-# Run claude with stream-json output
+# Run claude with stream-json output (--verbose required with stream-json)
 timeout 300 claude \
   -p \
+  --verbose \
   --output-format stream-json \
   --max-turns "$MAX_TURNS" \
   < "$PROMPT_FILE" > "$LOG_FILE" 2>&1 || true
