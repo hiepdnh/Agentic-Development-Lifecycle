@@ -20,12 +20,17 @@ node /path/to/ClaudeSkill/bin/install.js
 
 # Non-interactive
 node /path/to/ClaudeSkill/bin/install.js --yes
+
+# Update existing install (overwrites all skill files)
+node /path/to/ClaudeSkill/bin/install.js --update
+node /path/to/ClaudeSkill/bin/install.js --update --yes
 ```
 
 Or via npm:
 
 ```bash
-npm run install-framework   # runs bin/install.js in cwd
+npm run install-framework           # fresh install
+npm run install-framework -- --update  # update existing
 ```
 
 ### Test installation

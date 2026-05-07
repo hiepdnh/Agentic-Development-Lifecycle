@@ -19,11 +19,12 @@ const BANNER = [
 const src = path.resolve(__dirname, '..');
 const dst = process.cwd();
 const YES = process.argv.includes('--yes') || process.argv.includes('-y');
+const UPDATE = process.argv.includes('--update') || process.argv.includes('-u');
 
 function copyDir(srcDir, dstDir) {
-  if (!fs.existsSync(srcDir)) return { copied: 0, skipped: 0 };
+  if (!fs.existsSync(srcDir)) return { copied: 0, skipped: 0, updated: 0 };
   fs.mkdirSync(dstDir, { recursive: true });
-  let copied = 0, skipped = 0;
+  let copied = 0, skipped = 0, updated = 0;
   for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
     const s = path.join(srcDir, entry.name);
     const d = path.join(dstDir, entry.name);
@@ -31,29 +32,36 @@ function copyDir(srcDir, dstDir) {
       const sub = copyDir(s, d);
       copied += sub.copied;
       skipped += sub.skipped;
+      updated += sub.updated;
     } else if (fs.existsSync(d)) {
-      skipped++;
+      if (UPDATE) {
+        fs.copyFileSync(s, d);
+        updated++;
+      } else {
+        skipped++;
+      }
     } else {
       fs.copyFileSync(s, d);
       copied++;
     }
   }
-  return { copied, skipped };
+  return { copied, skipped, updated };
 }
 
-function resultMsg(label, { copied, skipped }) {
-  if (copied === 0 && skipped > 0)
-    return `${pc.yellow('○')} ${label} ${pc.dim(`— all ${skipped} files already exist`)}`;
-  if (skipped > 0)
-    return `${pc.green('◆')} ${label} ${pc.dim(`— ${copied} added, ${skipped} skipped`)}`;
-  return `${pc.green('◆')} ${label}`;
+function resultMsg(label, { copied, skipped, updated }) {
+  const parts = [];
+  if (copied > 0) parts.push(`${copied} added`);
+  if (updated > 0) parts.push(`${updated} updated`);
+  if (skipped > 0) parts.push(`${skipped} skipped`);
+  const icon = (copied === 0 && updated === 0) ? pc.yellow('○') : pc.green('◆');
+  return `${icon} ${label}${parts.length ? pc.dim(` — ${parts.join(', ')}`) : ''}`;
 }
 
 async function main() {
   console.log(pc.cyan(BANNER));
   console.log();
 
-  intro(pc.bgCyan(pc.black(' VTI SDLC Skill Framework — Setup ')));
+  intro(pc.bgCyan(pc.black(UPDATE ? ' VTI SDLC Skill Framework — Update ' : ' VTI SDLC Skill Framework — Setup ')));
 
   if (src === dst) {
     cancel('Source and target are the same directory.');
@@ -63,11 +71,12 @@ async function main() {
   log.info(`Target: ${pc.green(dst)}`);
 
   if (!YES) {
+    const action = UPDATE ? 'Update' : 'Install';
     const ok = await confirm({
-      message: `Install framework into ${pc.bold(path.basename(dst))}?`,
+      message: `${action} framework into ${pc.bold(path.basename(dst))}?`,
     });
     if (isCancel(ok) || !ok) {
-      cancel('Installation cancelled.');
+      cancel(`${action} cancelled.`);
       process.exit(0);
     }
   }
@@ -120,11 +129,11 @@ async function main() {
 
   // 6. CLAUDE.md
   const claudeMdDst = path.join(dst, 'CLAUDE.md');
-  if (fs.existsSync(claudeMdDst)) {
+  if (fs.existsSync(claudeMdDst) && !UPDATE) {
     log.warn(`CLAUDE.md already exists — merge manually`);
     log.info(`Reference: ${pc.dim(path.join(src, 'CLAUDE.md'))}`);
   } else {
-    s.start('Copying CLAUDE.md...');
+    s.start(UPDATE ? 'Updating CLAUDE.md...' : 'Copying CLAUDE.md...');
     fs.copyFileSync(path.join(src, 'CLAUDE.md'), claudeMdDst);
     s.stop(`${pc.green('◆')} CLAUDE.md`);
   }
@@ -145,7 +154,7 @@ async function main() {
     'Next steps'
   );
 
-  outro(pc.green('Framework installed successfully!'));
+  outro(pc.green(UPDATE ? 'Framework updated successfully!' : 'Framework installed successfully!'));
 }
 
 main().catch((err) => {
