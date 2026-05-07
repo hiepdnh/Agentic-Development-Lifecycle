@@ -217,12 +217,17 @@ Sau khi human chọn, tạo `docs/tasks/[TASK-ID]/analysis.md`:
 ```
 
 ```
-## Phân tích hoàn tất.
+## Phân tích hoàn tất ✓
 
-Bước tiếp theo: Bắt đầu implement.
-Tôi sẽ làm việc theo từng file một và báo cáo sau mỗi file.
-Bạn có muốn tôi bắt đầu ngay không?
+`docs/tasks/[TASK-ID]/analysis.md` đã được lưu.
+
+**DỪNG TẠI ĐÂY.** Không tự động implement.
+
+Hãy review `analysis.md`, sau đó dùng `/dev:implement` để bắt đầu code.
 ```
+
+**Chờ human trigger `/dev:implement`.**  
+Không được tự ý bắt đầu implement dù user có vẻ đồng ý.
 
 ---
 
