@@ -28,8 +28,9 @@ Spawn subagent để đọc:
 - `git diff main..HEAD` — những gì thay đổi
 - `docs/tasks/[TASK-ID]/analysis.md` — phương án đã chọn
 - `docs/tasks/[TASK-ID]/requirements.md` — AC cần verify
+- `docs/tasks/[TASK-ID]/verification.md` — kết quả self-test (nếu tồn tại)
 
-Subagent trả về: summary of changes, files changed, AC coverage.
+Subagent trả về: summary of changes, files changed, AC coverage, test results (nếu có).
 
 ### Bước 2 — Gate: Xác nhận coverage
 
@@ -78,7 +79,8 @@ Subagent trả về: summary of changes, files changed, AC coverage.
 ### 🧪 Testing
 **Unit Tests**: [Pass/Fail/N/A]  
 **Integration Tests**: [Pass/Fail/N/A]  
-**Manual Testing**: [Đã test scenario nào]
+**Self-Test Results**: [Lấy từ `docs/tasks/[TASK-ID]/verification.md` — tóm tắt T-01…T-N]  
+**Overall**: PASS / FAIL / CONDITIONAL
 
 ### ⚠️ Breaking Changes
 [None / Mô tả nếu có]

@@ -114,18 +114,89 @@ Sau khi tất cả files xong:
 **Migration cần chạy**: [yes/no — lệnh nếu yes]
 **ENV cần thêm**: [list hoặc "none"]
 
-**Self-check**:
+**Dev self-check** (tự verify trước khi đưa cho user test):
 - [ ] Không hardcode values (URL, credentials, magic numbers)
 - [ ] Error cases được handle
 - [ ] Input validated tại system boundary (API endpoint / form)
 - [ ] Không log sensitive data (password, token, PII)
 - [ ] DB migration reversible (nếu có)
-
-**Bước tiếp theo**:
-1. Chạy tests: `[test command]`
-2. `/sec:review [TASK-ID]` — bắt buộc trước khi tạo PR
-3. `/dev:pr [TASK-ID]` — tạo PR description
 ```
+
+**Chờ confirm dev self-check xong.**
+
+### Bước 5 — Verification Gate: Diff Review + Self-Test
+
+Sau khi dev confirm Bước 4, spawn subagent để phân tích diff:
+
+> "Đọc `git diff main..HEAD` (hoặc diff của branch hiện tại). Trả về:
+> 1. **Impact summary**: những gì thay đổi, module nào bị ảnh hưởng, edge cases tiềm ẩn
+> 2. **Self-test steps**: 3-7 test steps cụ thể dựa trên thay đổi thực tế (không phải template chung).
+>    Mỗi step: action rõ ràng, expected result rõ ràng.
+>    Ưu tiên: happy path → edge case → error case.
+> CHỈ đọc, không sửa gì."
+
+Trình bày kết quả:
+
+```
+## Verification — [TASK-ID]
+
+### Diff Summary
+**Files thay đổi**: [list]
+**Impact**: [module nào bị ảnh hưởng, risk gì]
+**ACs được cover bởi code**:
+- ✅ AC-001: [covered tại file:line]
+- ⚠️ AC-002: [cần verify thủ công]
+
+### Self-Test Steps
+| # | Action | Expected Result |
+|---|--------|----------------|
+| T-01 | [Bước test cụ thể] | [Kết quả mong đợi] |
+| T-02 | [Bước test cụ thể] | [Kết quả mong đợi] |
+| T-03 | [Edge case] | [Kết quả mong đợi] |
+| ... | | |
+
+Hãy thực hiện các bước test trên và báo cáo kết quả:
+- Mỗi test: PASS / FAIL / SKIP (+ ghi chú nếu FAIL)
+```
+
+**Chờ user báo cáo kết quả test.**
+
+Sau khi nhận kết quả, tạo `docs/tasks/[TASK-ID]/verification.md`:
+
+```markdown
+# Verification: [TASK-ID]
+
+## Diff Summary
+[từ subagent output]
+
+## AC Coverage
+- ✅/❌ AC-001: [...]
+- ✅/❌ AC-002: [...]
+
+## Self-Test Results
+| # | Action | Expected | Result | Notes |
+|---|--------|---------|--------|-------|
+| T-01 | [...] | [...] | PASS/FAIL | [...] |
+
+## Sign-off
+- Tester: [user]
+- Date: [date]
+- Status: PASS / FAIL / CONDITIONAL
+```
+
+```
+## Verification hoàn tất ✓
+
+`docs/tasks/[TASK-ID]/verification.md` đã được lưu.
+
+**DỪNG TẠI ĐÂY.**
+
+Bước tiếp theo (theo thứ tự):
+1. `/sec:review` — security review trước khi tạo PR
+2. `/dev:pr` — tạo PR (sẽ tự đọc verification.md)
+```
+
+**Không tự động chạy sec:review hay dev:pr.**
 
 ---
 
