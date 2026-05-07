@@ -33,6 +33,16 @@ npm run install-framework           # fresh install
 npm run install-framework -- --update  # update existing
 ```
 
+### Install via npx (end-user path)
+
+```bash
+# macOS/Linux — from the target project directory
+npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+
+# Update existing install
+npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
+```
+
 ### Test installation
 
 ```powershell
@@ -51,11 +61,18 @@ Verify Claude auto-invokes the correct skill for naive prompts (no `/command` sy
 # All 21 skills
 bash tests/skill-triggering/run-all.sh
 
-# Single skill
+# With flags
+bash tests/skill-triggering/run-all.sh --verbose          # show full output per test
+bash tests/skill-triggering/run-all.sh --filter dev-*     # run only dev-* prompts
+
+# Single skill (max-turns defaults to 3)
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/ba-spec.txt
+bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/ba-spec.txt 5  # custom max-turns
 ```
 
-Requires: `claude` CLI authenticated, `jq` installed. Raw logs in `tests/.results/` (gitignored). See `tests/README.md` for debugging failures.
+**Prompt filename → expected skill**: the test harness derives the expected skill by replacing the **first** hyphen with a colon (`ba-spec.txt` → `ba:spec`, `sm-standup.txt` → `sm:standup`). New prompt files must follow this pattern.
+
+Requires: `claude` CLI authenticated, `jq` installed. Raw logs in `tests/.results/<timestamp>/` (gitignored). See `tests/README.md` for debugging failures.
 
 ### Command file anatomy
 
@@ -86,7 +103,14 @@ Each agent file defines an **input contract** and **output JSON shape**. When sp
 - Pass ONLY the minimal context the agent needs (no full conversation history)
 - Summarize agent output before passing to the next agent in a chain
 
-Agents: `task-reader`, `code-scout`, `planner`, `diff-reader`, `test-gen`, `doc-updater`
+| Agent | Spawned by | Purpose |
+|-------|-----------|---------|
+| `task-reader` | `/dev:analyze` | Parse issue → structured JSON (no codebase access) |
+| `code-scout` | `/dev:analyze` | Find relevant files for a task (read-only) |
+| `planner` | `/dev:analyze` | Synthesize task + code map → 2-3 implementation options |
+| `diff-reader` | `/dev:pr`, `/docs:update` | Summarize git diff for PR description |
+| `test-gen` | `/qa:testplan` | Generate test cases from spec |
+| `doc-updater` | `/docs:update` | Update baseline docs after verification |
 
 ### Permissions model
 
@@ -211,13 +235,34 @@ Rules:
 [Skill chạy] → [Trình bày kết quả + assumptions] → [AskUserQuestion] → [Chờ confirm] → [Tiếp tục]
 ```
 
+### Risk Classifier Gate — bước 0 của mọi task
+
+Trước khi bắt đầu bất kỳ task nào, classify risk theo `docs/risk-classifier.md`:
+
+```
+Input type: [new-spec | spec-slice | change-request | maintenance | ...]
+Risk checklist: [R-01 ✅ / ❌ ... R-10 ✅ / ❌]
+Lane: tiny | normal | high-risk
+```
+
+- **Tiny** → patch trực tiếp, bỏ qua analysis.md
+- **Normal** → chạy đủ dev:analyze → dev:implement → dev:pr
+- **High-risk** → dừng, hỏi senior trước khi tiếp tục
+
 ### Ask First Gate (thay đổi nhạy cảm)
-Dừng ngay và hỏi senior trước khi thực hiện:
+Dừng ngay và hỏi senior trước khi thực hiện (xem đầy đủ tại `assets/ask-first-gates.md`):
 - Thay đổi authentication / authorization
 - Breaking changes trong API
 - Database migration ảnh hưởng data
 - Thay đổi shared infrastructure
 - Lưu trữ sensitive/PII data mới
+
+### Harness Delta — cuối mỗi task
+
+Sau khi task hoàn tất, ghi lại friction vào `docs/improvement-backlog.md` nếu có:
+- Gate không rõ → phải đoán
+- Template thiếu field
+- Cùng vấn đề lần thứ 2+
 
 ---
 

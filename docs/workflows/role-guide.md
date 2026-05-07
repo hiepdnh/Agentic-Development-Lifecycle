@@ -31,13 +31,18 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/dev:analyze` | Nhận issue, trước khi code | `analysis.md` (**dừng — review trước khi implement**) |
-| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code + `verification.md` (**dừng — user test rồi mới dev:pr**) |
+| `/dev:analyze` | Nhận issue, trước khi code | Risk classification + `analysis.md` (**dừng — review trước khi implement**) |
+| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code + `verification.md` + harness delta (**dừng — user test rồi mới dev:pr**) |
 | `/dev:debug` | Khi bị blocked hoặc phát hiện bug | Root cause + fix |
 | `/dev:pr` | Sau implement + verify, trước tạo PR | PR description (tự đọc `verification.md`) |
 | `/sec:review` | Sau implement, trước tạo PR | Security findings |
 
 **Thứ tự bắt buộc**: `dev:analyze` → [review `analysis.md`] → `dev:implement` → [report test results] → `sec:review` → `dev:pr`
+
+**Risk lanes** (xem `docs/risk-classifier.md`):
+- **Tiny** → patch trực tiếp, bỏ qua `dev:analyze`
+- **Normal** → quy trình đầy đủ như trên
+- **High-risk** → dừng trước khi implement, cần senior confirm
 
 ---
 
@@ -112,4 +117,7 @@
 - Multi-choice gates dùng `AskUserQuestion` tool (native TUI, không phải plain text)
 - Subagent được dùng trong dev-analyze, dev-implement (verification), sec-review, qa-regression
 - `dev:analyze` và `dev:implement` đều có **hard stop** — không tự động chạy bước tiếp theo
+- **Risk Classifier** (`docs/risk-classifier.md`) — bước 0 bắt buộc trước khi bất kỳ dev task nào bắt đầu
+- **Improvement Backlog** (`docs/improvement-backlog.md`) — agent ghi friction sau mỗi task; xem khi muốn cải tiến framework
+- **Validation Matrix** (`docs/validation-matrix.md`) — chạy `bash tests/skill-triggering/run-all.sh` rồi update cột Status
 - Xem flow đầy đủ tại `docs/workflows/sprint-lifecycle.md`

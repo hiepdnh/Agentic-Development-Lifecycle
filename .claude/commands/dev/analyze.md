@@ -65,6 +65,23 @@ Agent(
 
 ## Hướng dẫn thực hiện
 
+### Bước 0 — Risk Classification
+
+Trước khi spawn bất kỳ subagent nào, classify risk theo `docs/risk-classifier.md`:
+
+```
+## Risk Classification — [TASK-ID]
+
+**Input type**: [new-spec | spec-slice | change-request | maintenance | new-initiative | framework-improvement]
+**Risk checklist**: [chỉ liệt kê items YES — ví dụ: R-06 ✅ (shared config)]
+**Lane**: tiny | normal | high-risk
+**Lý do**: [1 câu]
+```
+
+- **Tiny lane** → skip toàn bộ skill này, patch trực tiếp
+- **High-risk lane** → dừng ngay, hiện `⚠️ Ask First Gate`, chờ confirm senior trước khi tiếp tục
+- **Normal lane** → tiếp tục Bước 1 bên dưới
+
 ### Bước 1 — Spawn Subagent: task-reader
 
 Spawn subagent với nhiệm vụ:

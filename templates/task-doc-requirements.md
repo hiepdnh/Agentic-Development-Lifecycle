@@ -3,7 +3,8 @@
 **Task ID**: [PROJECT-XXX]  
 **Ngày tạo**: [YYYY-MM-DD]  
 **BA**: [Name]  
-**Trạng thái**: Draft / Review / Approved
+**Trạng thái**: Draft / Review / Approved  
+**Lane**: tiny | normal | high-risk — _(xem `docs/risk-classifier.md`)_
 
 ---
 
@@ -69,3 +70,10 @@
 | ID | Câu hỏi | Người trả lời | Deadline | Status |
 |----|---------|---------------|----------|--------|
 | Q-001 | | | | Open |
+
+## 12. Harness Delta
+
+_Ghi lại mọi cập nhật vào framework gây ra bởi task này — template thiếu field, gate không rõ, friction lặp lại._
+
+- [ ] Không có friction phát hiện trong task này
+- [ ] [Mô tả friction nếu có → thêm vào `docs/improvement-backlog.md`]

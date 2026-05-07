@@ -198,6 +198,18 @@ Bước tiếp theo (theo thứ tự):
 
 **Không tự động chạy sec:review hay dev:pr.**
 
+### Harness Delta Check
+
+Trước khi kết thúc, tự hỏi:
+- Có gate nào không rõ → phải đoán hành vi?
+- Có template thiếu field quan trọng?
+- Có vấn đề nào lặp lại từ task trước?
+
+Nếu có → thêm entry vào `docs/improvement-backlog.md` ngay (không cần confirm human):
+```
+| IB-XXX | dev:implement / [TASK-ID] | [mô tả friction] | [proposed fix] | open |
+```
+
 ---
 
 ## Quy tắc
