@@ -53,6 +53,15 @@ Skip the confirmation prompt (non-interactive / CI):
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
+**Already installed? Update to the latest skills:**
+```bash
+npx github:hiepdnh/Agentic-Development-Lifecycle --update
+# non-interactive:
+npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
+```
+
+`--update` overwrites existing skill files with the latest version. Your project-specific files (`docs/`, `agents/`, custom commands) are not touched.
+
 ### Option 2 — Via Claude Code `/install` command
 
 Open your project in Claude Code, then type:
@@ -361,16 +370,27 @@ Deliverables map:
 ## Contributing
 
 1. Fork the repo
-2. Create a branch: `feature/[command-name]` or `fix/[issue]`
+2. Create a branch: `feat/[command-name]` or `fix/[issue]`
 3. Add/edit commands in `.claude/commands/[role]/`
-4. Update `CLAUDE.md` if adding a new command
-5. Open a PR with a complete description
+4. Add a trigger prompt in `tests/skill-triggering/prompts/`
+5. Update `CLAUDE.md` if adding a new command
+6. Open a PR with a complete description
 
 **Command writing conventions:**
-- Always include at least 1 Human Gate (wait for confirm)
+- Always include at least 1 Human Gate (`AskUserQuestion` tool for multi-choice, plain text for open-ended)
 - Always propose 2-3 options when a decision is needed
 - Output must be actionable — not just explanatory
 - Subagents: use the Agent tool, pass minimal context
+
+**Testing skill triggers:**
+```bash
+# Verify your new skill auto-invokes correctly
+bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
+
+# Run all 21 skills
+bash tests/skill-triggering/run-all.sh
+```
+Requires: `claude` CLI authenticated + `jq` installed.
 
 ---
 

@@ -53,6 +53,15 @@ Bỏ qua confirm prompt (non-interactive / CI):
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
+**Đã cài rồi? Cập nhật lên phiên bản mới nhất:**
+```bash
+npx github:hiepdnh/Agentic-Development-Lifecycle --update
+# non-interactive:
+npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
+```
+
+`--update` ghi đè các skill file hiện có bằng phiên bản mới nhất. Các file riêng của project (`docs/`, `agents/`, custom commands) không bị ảnh hưởng.
+
 ### Cách 2 — Dùng lệnh `/install` trong Claude Code
 
 Mở project trong Claude Code, gõ:
@@ -361,16 +370,27 @@ Deliverables map:
 ## Contributing
 
 1. Fork repo
-2. Tạo branch: `feature/[command-name]` hoặc `fix/[issue]`
+2. Tạo branch: `feat/[command-name]` hoặc `fix/[issue]`
 3. Thêm/sửa command trong `.claude/commands/[role]/`
-4. Update `CLAUDE.md` nếu thêm command mới
-5. Tạo PR với description đầy đủ
+4. Thêm trigger prompt trong `tests/skill-triggering/prompts/`
+5. Update `CLAUDE.md` nếu thêm command mới
+6. Tạo PR với description đầy đủ
 
 **Convention khi viết command:**
-- Luôn có ít nhất 1 Human Gate (chờ confirm)
+- Luôn có ít nhất 1 Human Gate (`AskUserQuestion` tool cho multi-choice, plain text cho open-ended)
 - Luôn đề xuất 2-3 options khi có quyết định
 - Output phải actionable — không chỉ giải thích
 - Subagent: dùng Agent tool, pass context tối thiểu
+
+**Test skill trigger:**
+```bash
+# Verify skill mới auto-invoke đúng
+bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
+
+# Chạy toàn bộ 21 skills
+bash tests/skill-triggering/run-all.sh
+```
+Yêu cầu: `claude` CLI đã auth + `jq` đã cài.
 
 ---
 
