@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" alt="Logo" width="80">
   <br><br>
   <em>A <strong>Claude Code</strong> skill pack covering the full Software Development Lifecycle (SDLC) — from requirements analysis to deployment.</em>
   <br>

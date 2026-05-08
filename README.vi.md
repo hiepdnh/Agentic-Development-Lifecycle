@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" alt="Logo" width="80">
   <br><br>
   <em>Bộ skill cho <strong>Claude Code</strong> hỗ trợ toàn bộ vòng đời phần mềm (SDLC) — từ phân tích yêu cầu đến deploy.</em>
   <br>
