@@ -34,9 +34,11 @@ flowchart TD
 
     %% ── Dev per Issue ──
     subgraph DEV ["💻 Dev Cycle — per issue"]
+        RISK["🔵 Risk Classifier\ndocs/risk-classifier.md"]
         ANALYZE["/dev:analyze\nDev"]
         IMPLEMENT["/dev:implement\nDev"]
         VERIFY["✅ Verification Gate\nUser reports test results"]
+        HARNESS["📝 Harness Delta\ndocs/improvement-backlog.md"]
         DEBUG["/dev:debug\nDev"]
         SEC["/sec:review\nAll"]
         PR["/dev:pr\nDev"]
@@ -87,7 +89,10 @@ flowchart TD
     BREAKDOWN -.->|"design phức tạp"| ARCH_REV
 
     %% Issues → Dev
-    ISSUES --> ANALYZE
+    ISSUES --> RISK
+    RISK -->|"tiny: patch direct"| PR
+    RISK -->|"high-risk: stop + senior confirm"| ANALYZE
+    RISK -->|"normal lane"| ANALYZE
     ANALYZE -->|"analysis.md — hard stop"| IMPLEMENT
 
     %% Dev loop
@@ -96,7 +101,8 @@ flowchart TD
 
     %% Verification
     IMPLEMENT -->|"diff + self-test steps"| VERIFY
-    VERIFY -->|"verification.md — hard stop"| SEC
+    VERIFY -->|"verification.md"| HARNESS
+    HARNESS -->|"hard stop"| SEC
 
     %% Pre-merge
     SEC -->|"issue tìm thấy"| IMPLEMENT
@@ -142,11 +148,15 @@ JP Client → /be:bridge → /ba:spec (VN) + 設計書 (JP)
 
 ### Dev — Per Issue
 ```
-Issue → /dev:analyze → [review analysis.md]
-             → /dev:implement → [report test results → verification.md]
-             → /sec:review → /dev:pr → /docs:update
-                  ↕ (bug)
-              /dev:debug
+Issue → Risk Classifier (tiny/normal/high-risk)
+    [normal] → /dev:analyze → [review analysis.md]
+                    → /dev:implement → [report test results → verification.md]
+                    → [harness delta check]
+                    → /sec:review → /dev:pr → /docs:update
+                         ↕ (bug)
+                     /dev:debug
+    [tiny]  → patch direct
+    [high-risk] → senior confirm → /dev:analyze → ...
 ```
 
 ### QA — Parallel với Dev
@@ -179,9 +189,9 @@ Planning          Dev decisions
 |-------|------------------------|
 | `/ba:user-story` | `/ba:spec` đã done |
 | `/pm:breakdown` | `/ba:user-story` hoặc User Stories đã có |
-| `/dev:analyze` | Issue/task rõ ràng (AC defined) |
+| `/dev:analyze` | Risk Classifier đã chạy (xem `docs/risk-classifier.md`) + Issue/task rõ ràng (AC defined) |
 | `/dev:implement` | `docs/tasks/[ID]/analysis.md` đã tồn tại |
-| `/dev:pr` | `/dev:implement` Bước 5 done + `verification.md` saved + `/sec:review` passed |
+| `/dev:pr` | `/dev:implement` Bước 5 done + `verification.md` saved + Harness Delta check done + `/sec:review` passed |
 | `/docs:update` | PR đã merge |
 | `/qa:regression` | Tất cả PR của sprint đã merge |
 | `/ops:deploy` | `/qa:regression` đã sign-off |

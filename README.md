@@ -21,8 +21,10 @@
 
 - **21 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
+- **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
 - **Multi-agent** for dev tasks — keeps context clean, saves tokens
 - **Two-tier docs** — ephemeral task docs + living baseline docs alongside the code
+- **Self-improving** — agents log framework friction to `docs/improvement-backlog.md` as they work
 - **JP standards** — `/be:bridge` generates 設計書 and 単体テスト仕様書 ready to send to the client
 
 ---
@@ -178,6 +180,9 @@ templates/              # Skeleton templates for all document types
     pr-description.md
 
 docs/
+    risk-classifier.md  # Risk gate — tiny / normal / high-risk lane assignment
+    improvement-backlog.md  # Friction log — agents write here when framework gaps are found
+    validation-matrix.md    # Global behavior-to-proof tracker for all 21 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored per project
     api/                # API baseline docs — long-lived
@@ -214,8 +219,8 @@ docs/
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/dev:analyze` | Analyze task, propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` (**stops here, review before proceeding**) |
-| `/dev:implement` | Implement file-by-file with human gates + verification | `analysis.md` → Code → `verification.md` |
+| `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` (**stops here, review before proceeding**) |
+| `/dev:implement` | Implement file-by-file with human gates + verification + harness delta check | `analysis.md` → Code → `verification.md` |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
 
@@ -291,8 +296,8 @@ docs/
 /dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
 ```
 
-> **`/dev:analyze`** stops after writing `analysis.md`. Review it, then trigger `/dev:implement` manually.  
-> **`/dev:implement`** stops after writing `verification.md` (diff review + self-test results). Then trigger `/dev:pr` — it reads `verification.md` automatically.
+> **`/dev:analyze`** classifies risk first (tiny / normal / high-risk), then stops after writing `analysis.md`. Review it, then trigger `/dev:implement` manually.  
+> **`/dev:implement`** stops after writing `verification.md` (diff review + self-test results), then prompts a Harness Delta check. Then trigger `/dev:pr` — it reads `verification.md` automatically.
 
 Full step-by-step: [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
@@ -309,6 +314,8 @@ Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide
 | 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, updated after verify) |
 | 5 | **Delta Specs** | Each change is a structured proposal, not a monolith |
 | 6 | **Template-first** | Commands reference templates, never duplicate format inline |
+| 7 | **Risk-first** | Classify every task into tiny / normal / high-risk before any work starts |
+| 8 | **Self-improving** | Agents log friction to `docs/improvement-backlog.md` — framework grows from real usage |
 
 ---
 

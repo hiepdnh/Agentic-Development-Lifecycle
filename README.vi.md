@@ -21,8 +21,10 @@
 
 - **21 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
+- **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
 - **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
 - **Two-tier docs** — task docs riêng + baseline docs sống cùng code
+- **Tự cải tiến** — agent ghi friction vào `docs/improvement-backlog.md` trong lúc làm việc
 - **Chuẩn JP** — `/be:bridge` tạo 設計書, 単体テスト仕様書 sẵn gửi khách
 
 ---
@@ -178,6 +180,9 @@ templates/              # Skeleton templates cho tất cả document types
     pr-description.md
 
 docs/
+    risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
+    improvement-backlog.md  # Friction log — agent ghi vào khi phát hiện gap trong framework
+    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 21 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
     api/                # API baseline docs — sống lâu dài
@@ -214,8 +219,8 @@ docs/
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/dev:analyze` | Phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` |
-| `/dev:implement` | Implement file-by-file với gate + verification | `analysis.md` → Code → `verification.md` |
+| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` (**dừng — review trước khi implement**) |
+| `/dev:implement` | Implement file-by-file với gate + verification + harness delta check | `analysis.md` → Code → `verification.md` |
 | `/dev:pr` | Tạo PR description | Code diff → PR description |
 | `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
 
@@ -291,8 +296,8 @@ docs/
 /dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
 ```
 
-> **`/dev:analyze`** dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
-> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test). Sau đó trigger `/dev:pr` — tự động đọc `verification.md`.
+> **`/dev:analyze`** phân loại risk trước (tiny / normal / high-risk), sau đó dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
+> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test) và nhắc Harness Delta check. Sau đó trigger `/dev:pr` — tự động đọc `verification.md`.
 
 Xem chi tiết từng bước tại [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
@@ -309,6 +314,8 @@ Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.
 | 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, update sau verify) |
 | 5 | **Delta Specs** | Mỗi thay đổi là 1 proposal có cấu trúc, không phải monolith |
 | 6 | **Template-first** | Commands reference templates, không duplicate format inline |
+| 7 | **Risk-first** | Phân loại mọi task thành tiny / normal / high-risk trước khi làm |
+| 8 | **Self-improving** | Agent ghi friction vào `docs/improvement-backlog.md` — framework tự cải tiến từ thực tế dùng |
 
 ---
 

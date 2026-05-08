@@ -69,6 +69,7 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 **Output**: `docs/tasks/[TASK-ID]/analysis.md`  
 **Multi-agent**: task-reader → code-scout → planner  
 **Gates**:
+0. **Risk Classification** — classify task vào tiny / normal / high-risk theo `docs/risk-classifier.md` trước khi spawn subagents
 1. Confirm task understanding
 2. Confirm code map
 3. **Human chọn phương án** (không tự chọn)
@@ -82,6 +83,7 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 2. Confirm sau mỗi file (không tự nhảy sang file tiếp theo)
 3. Bước 4 — Dev self-check
 4. Bước 5 — Verification Gate: diff review → AI generates self-test steps → user reports results → saves `verification.md`
+5. **Harness Delta Check** — agent tự hỏi có friction nào không, ghi vào `docs/improvement-backlog.md` nếu có
 
 **Hard stop sau Bước 5** — user phải tự trigger `/dev:pr`.
 
@@ -160,8 +162,9 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 |-----------|-------------|
 | Discovery | `docs/tasks/[ID]/requirements.md` |
 | Planning | GitHub Issues |
-| Dev Analyze | `docs/tasks/[ID]/analysis.md` |
+| Dev Analyze | `docs/tasks/[ID]/analysis.md` (bao gồm Risk Classification block) |
 | Dev Implement | Source code + `docs/tasks/[ID]/verification.md` |
+| Harness Delta | Entry mới trong `docs/improvement-backlog.md` (nếu có friction) |
 | Security | Security findings (inline) |
 | Dev PR | PR description |
 | QA | `docs/tasks/[ID]/test-plan.md` |
