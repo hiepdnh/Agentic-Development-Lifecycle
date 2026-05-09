@@ -24,6 +24,14 @@ Bridge Engineer là cầu nối giữa khách hàng Nhật và team dev VN:
 
 ## Hướng dẫn thực hiện
 
+### Bước 0 — Load glossary (bắt buộc)
+
+Trước khi phân tích/dịch bất kỳ thuật ngữ nào, đọc `templates/jp-vn-en-glossary.md` để load bộ từ vựng JP↔VN↔EN chuẩn.
+
+Trong toàn bộ skill (Bước 1→4), khi gặp thuật ngữ kỹ thuật/nghiệp vụ JP:
+- Ưu tiên dùng từ tương ứng trong glossary
+- Nếu thuật ngữ KHÔNG có trong glossary → đánh dấu `[GLOSSARY?]` và đề xuất bổ sung ở Bước 4
+
 ### Bước 1 — Gate: Xác định loại công việc
 
 ```
@@ -174,6 +182,8 @@ Tạo `docs/tasks/[TASK-ID]/ut-spec-jp.md`:
 
 Checklist song ngữ:
 - [ ] Thuật ngữ JP ↔ VN nhất quán trong toàn bộ tài liệu
+- [ ] Tất cả thuật ngữ đã match với `templates/jp-vn-en-glossary.md` — không còn `[GLOSSARY?]` nào chưa resolve
+- [ ] Thuật ngữ mới (không có trong glossary) đã liệt kê để bổ sung vào glossary
 - [ ] Business logic trong spec VN = 設計書 JP (không thừa/thiếu)
 - [ ] Câu hỏi mở đã resolve hoặc đánh dấu [要確認]
 - [ ] Format tài liệu JP đúng chuẩn (bảng, thứ tự mục)
