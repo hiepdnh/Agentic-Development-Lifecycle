@@ -28,7 +28,27 @@ Spawn subagent để đọc:
 - `git diff [base-branch]..HEAD -- [src/]` — code thay đổi gì?
 - `docs/tasks/[TASK-ID]/requirements.md` — spec gốc
 
+```
+Agent(
+  description: "Map merged code changes to baseline docs that need updating",
+  prompt: "Read git diff and spec, return docs impact per agents/diff-reader.md spec.\n\nGIT DIFF:\n[git diff base-branch..HEAD]\n\nSPEC PATH: docs/tasks/[TASK-ID]/requirements.md\n\nBASELINE DOCS TO CHECK: [list docs/screens/ and docs/api/ files related to this task]",
+  model: "haiku"
+)
+```
+
 Subagent trả về: danh sách thay đổi cần reflect vào docs.
+
+### Bước 1b — Spawn subagent: doc-updater
+
+Sau khi nhận output từ diff-reader, spawn doc-updater để tạo proposals:
+
+```
+Agent(
+  description: "Propose specific content changes for each baseline doc",
+  prompt: "Create update proposals per agents/doc-updater.md spec.\n\nDIFF READER OUTPUT:\n[JSON từ diff-reader]\n\nCURRENT DOC CONTENT:\n[Nội dung hiện tại của từng file trong docs_update_needed]\n\nCHANGES SUMMARY:\n[changes_summary từ diff-reader]",
+  model: "sonnet"
+)
+```
 
 ### Bước 2 — Gate: Xác nhận scope update
 

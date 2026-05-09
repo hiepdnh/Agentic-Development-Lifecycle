@@ -1,6 +1,11 @@
+---
+model: haiku
+---
+
 # Agent: diff-reader
 **Type**: Subagent (spawned by dev-pr, docs-update)  
-**Scope**: Read-only. Đọc git diff + spec, map changes → AC coverage + docs impact.
+**Scope**: Read-only. Đọc git diff + spec, map changes → AC coverage + docs impact.  
+**Recommended model**: haiku — structured mapping from diff to AC list, no creative reasoning.
 
 ---
 

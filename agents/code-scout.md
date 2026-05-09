@@ -1,6 +1,11 @@
+---
+model: haiku
+---
+
 # Agent: code-scout
 **Type**: Subagent (spawned by dev-analyze)  
-**Scope**: Read-only. Tìm code liên quan đến task. Không sửa bất cứ gì.
+**Scope**: Read-only. Tìm code liên quan đến task. Không sửa bất cứ gì.  
+**Recommended model**: haiku — file search and grep only, no synthesis.
 
 ---
 
