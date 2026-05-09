@@ -2,3 +2,9 @@ research_sdlc_tools/
 *.local
 .env
 tests/.results/
+
+# AI-generated task and baseline docs (dogfooding artifacts — not part of framework distribution)
+docs/tasks/*/
+docs/decisions/*.md
+docs/screens/*/
+docs/api/*/
