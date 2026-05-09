@@ -23,6 +23,16 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 
 ## Giai đoạn 1: Discovery
 
+### 1.0 BA Reverse `/ba:reverse` (chỉ brownfield)
+**Người dùng**: BA / Tech Lead  
+**Khi nào**: Take-over codebase legacy từ vendor cũ HOẶC inherit project không có docs  
+**Bỏ qua nếu**: Greenfield project (xây từ đầu)  
+**Input**: Codebase đã clone về local  
+**Output**: `docs/baseline/codebase-overview.md`  
+**Gate**: User confirm scope (full take-over / estimate / refactor audit) + depth (overview / standard / deep)
+
+Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có context về tech stack & technical debt.
+
 ### 1.1 PM Ideate `/pm:ideate`
 **Người dùng**: PM / BA  
 **Input**: Ý tưởng thô từ stakeholder  

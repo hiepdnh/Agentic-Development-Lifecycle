@@ -19,7 +19,7 @@
 
 ## Why this framework?
 
-- **21 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **22 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
 - **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
 - **Multi-agent** for dev tasks — keeps context clean, saves tokens
@@ -151,7 +151,7 @@ claude .
 
 ```
 .claude/
-└── commands/           # 21 slash commands — type / in Claude Code
+└── commands/           # 22 slash commands — type / in Claude Code
     ├── arch/           # adr.md  review.md
     ├── ba/             # spec.md  user-story.md
     ├── be/             # bridge.md  (JP outsource)
@@ -182,7 +182,7 @@ templates/              # Skeleton templates for all document types
 docs/
     risk-classifier.md  # Risk gate — tiny / normal / high-risk lane assignment
     improvement-backlog.md  # Friction log — agents write here when framework gaps are found
-    validation-matrix.md    # Global behavior-to-proof tracker for all 21 skills
+    validation-matrix.md    # Global behavior-to-proof tracker for all 22 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored per project
     api/                # API baseline docs — long-lived
@@ -398,7 +398,7 @@ Deliverables map:
 # Verify your new skill auto-invokes correctly
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Run all 21 skills
+# Run all 22 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Requires: `claude` CLI authenticated + `jq` installed.

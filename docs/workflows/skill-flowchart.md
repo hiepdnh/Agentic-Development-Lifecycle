@@ -11,11 +11,14 @@ flowchart TD
     %% ── Đầu vào ──
     JP([🇯🇵 Khách hàng JP])
     IDEA([💡 Ý tưởng / Vấn đề])
+    LEGACY([🏚️ Codebase brownfield<br/>take-over / legacy])
 
     %% ── Discovery ──
     subgraph DISC ["🔍 Discovery"]
         BRIDGE["/be:bridge\nBridge Engineer"]
         IDEATE["/pm:ideate\nPM · BA"]
+        REVERSE["/ba:reverse\nBA · Tech Lead"]
+        BASELINE[(docs/baseline/<br/>codebase-overview.md)]
     end
 
     %% ── Planning ──
@@ -74,10 +77,14 @@ flowchart TD
     %% Entry
     JP --> BRIDGE
     IDEA --> IDEATE
+    LEGACY --> REVERSE
 
     %% Discovery → Planning
     BRIDGE -->|"spec VN + 設計書 JP"| SPEC
     IDEATE --> SPEC
+    REVERSE --> BASELINE
+    BASELINE -.->|"context cho feature mới"| SPEC
+    BASELINE -.->|"review JP nếu khách take-over"| BRIDGE
     SPEC --> STORY
     STORY --> BREAKDOWN
     BREAKDOWN --> ISSUES
@@ -139,6 +146,13 @@ flowchart TD
 ### Bridge Engineer — JP Outsource Entry
 ```
 JP Client → /be:bridge → /ba:spec (VN) + 設計書 (JP)
+```
+
+### Brownfield Onboarding — Take-over codebase legacy
+```
+Legacy codebase → /ba:reverse → docs/baseline/codebase-overview.md
+                              → [optional /be:bridge review JP]
+                              → /ba:spec (cho feature mới có context)
 ```
 
 ### PM / BA — Discovery → Planning

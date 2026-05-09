@@ -10,7 +10,7 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is the `.claude/commands/` directory — 21 Markdown skill files that Claude Code loads as slash commands.
+This repo IS the framework source. The "product" is the `.claude/commands/` directory — 22 Markdown skill files that Claude Code loads as slash commands.
 
 ### Run installer locally
 
@@ -58,7 +58,7 @@ Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 Verify Claude auto-invokes the correct skill for naive prompts (no `/command` syntax):
 
 ```bash
-# All 21 skills
+# All 22 skills
 bash tests/skill-triggering/run-all.sh
 
 # With flags
@@ -164,7 +164,8 @@ When adding new commands that need shell access, update `settings.json`.
 .claude/commands/    # Slash commands cho từng role
 agents/              # Subagent definitions (spawned bởi orchestrator commands)
 docs/
-  tasks/             # Task docs (Type 1) — mỗi issue 1 folder
+  tasks/             # Task docs (Type 1) — mỗi issue 1 folder, kèm audit.md
+  baseline/          # Codebase reverse-engineering output (từ /ba:reverse)
   screens/           # Screen baseline docs (Type 2)
   api/               # API baseline docs (Type 2)
   decisions/         # Architecture Decision Records (ADR)
@@ -184,6 +185,7 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | PM / BA | `/pm:ideate` | Ý tưởng mờ → Concept rõ (trước /ba:spec) |
 | BA | `/ba:spec` | Raw requirement → Structured spec |
 | BA | `/ba:user-story` | Spec → User Stories + AC |
+| BA / Tech Lead | `/ba:reverse` | Reverse engineer codebase brownfield → baseline docs (take-over, audit) |
 | PM | `/pm:breakdown` | Epic → Tasks với estimate, tạo GitHub Issues |
 | PM | `/pm:status` | Sprint status report |
 | Dev | `/dev:analyze` | Task → Implementation options (multi-agent) |
@@ -291,11 +293,23 @@ Subagent definitions: `agents/` folder.
 - `analysis.md` — options đã cân nhắc
 - `test-plan.md` — test cases
 - `verification.md` — test results, sign-off
+- `audit.md` — append-only log mọi skill chạy + user input verbatim (template: `templates/audit.md`)
 
 **Type 2 — Baseline Docs** (cập nhật sau verify)
+- `docs/baseline/codebase-overview.md` — codebase map từ `/ba:reverse` (brownfield only)
 - `docs/screens/[feature]/screen.md` — (template: `templates/baseline-screen.md`)
 - `docs/api/[domain]/[endpoint].md` — (template: `templates/baseline-api.md`)
 - `docs/decisions/ADR-XXX.md` — (template: `templates/adr.md`)
+
+### Audit Log convention
+
+Mọi skill thay đổi state của task (BA/Dev/QA/Arch...) PHẢI append entry vào `docs/tasks/[TASK-ID]/audit.md`:
+- **User input verbatim** (không paraphrase)
+- **Timestamp JST** ISO format
+- **Skill name** + stage
+- **Decision + artifact reference**
+
+Khác biệt với Q&A History trong `requirements.md`: Q&A History chỉ ghi clarify Q&A của BA; audit log ghi MỌI skill chạy trong task. Dùng để defend quyết định khi khách JP chất vấn ("なぜこの設計?") sau N tháng.
 
 ---
 

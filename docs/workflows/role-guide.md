@@ -22,6 +22,7 @@
 |-------|---------|--------|
 | `/ba:spec` | Sau pm-ideate, trước pm-breakdown | requirements.md |
 | `/ba:user-story` | Sau ba-spec | User Stories trong requirements.md |
+| `/ba:reverse` | Brownfield: take-over codebase legacy / vendor cũ | docs/baseline/codebase-overview.md |
 
 **Không dùng**: dev-*, sec-*, arch-*
 
@@ -87,6 +88,11 @@
 ### "Nhận yêu cầu từ khách hàng Nhật"
 ```
 /be:bridge → /ba:spec → /ba:user-story → /pm:breakdown
+```
+
+### "Take-over codebase brownfield từ vendor cũ"
+```
+/ba:reverse → [review baseline docs] → /be:bridge (review JP) → /ba:spec (cho feature mới)
 ```
 
 ### "Nhận issue mới, cần code"
