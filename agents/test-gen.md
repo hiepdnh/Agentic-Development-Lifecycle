@@ -1,6 +1,11 @@
+---
+model: sonnet
+---
+
 # Agent: test-gen
 **Type**: Subagent (spawned sau implementation)  
-**Scope**: Viết tests cho code mới. Nhận code change, trả về test cases.
+**Scope**: Viết tests cho code mới. Nhận code change, trả về test cases.  
+**Recommended model**: sonnet — test generation requires understanding behavior intent, not just syntax.
 
 ---
 

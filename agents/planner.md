@@ -1,6 +1,11 @@
+---
+model: sonnet
+---
+
 # Agent: planner
 **Type**: Subagent (spawned by dev-analyze)  
-**Scope**: Synthesis only. Nhận task + code map, tạo implementation options. Không viết code.
+**Scope**: Synthesis only. Nhận task + code map, tạo implementation options. Không viết code.  
+**Recommended model**: sonnet — requires trade-off reasoning and architecture judgment.
 
 ---
 

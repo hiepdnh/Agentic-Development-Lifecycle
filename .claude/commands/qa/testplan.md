@@ -112,4 +112,17 @@ Test plan đã soạn xong với [N] test cases.
 | 1 | Test case nào có vẻ thiếu? | A: Không thiếu / B: Thiếu — mô tả: ___ / C: Khác: ___ |
 | 2 | Có edge case domain đặc thù tôi chưa cover? | A: Không / B: Có — edge case: ___ / C: Khác: ___ |
 | 3 | Exit criteria có đủ chặt không? | A: Đủ rồi / B: Cần thêm điều kiện: ___ / C: Khác: ___ |
+| 4 | Muốn tôi generate code test tự động từ test plan không? | A: Có / B: Không — sẽ viết tay / C: Khác: ___ |
+```
+
+### Bước 5 — (Optional) Spawn subagent: test-gen
+
+Nếu user chọn "Có" ở câu 4, spawn test-gen để generate test code từ test plan đã approve:
+
+```
+Agent(
+  description: "Generate test code from approved test plan",
+  prompt: "Write test code per agents/test-gen.md spec.\n\nNEW CODE:\n[Files đã implement — chỉ pass files mới/changed]\n\nAC LIST:\n[AC list từ test plan]\n\nTEST FRAMEWORK:\n[Jest/JUnit/pytest/...]\n\nEXISTING TEST EXAMPLES:\n[1-2 file test hiện có]",
+  model: "sonnet"
+)
 ```
