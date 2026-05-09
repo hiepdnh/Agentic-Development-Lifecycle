@@ -27,6 +27,7 @@ Verify bằng `bash tests/skill-triggering/run-all.sh`.
 | "tạo PR" → auto-trigger dev:pr | dev:pr | skill-triggering test | 🔲 untested | |
 | "raw requirement" → auto-trigger ba:spec | ba:spec | skill-triggering test | 🔲 untested | |
 | "user story" → auto-trigger ba:user-story | ba:user-story | skill-triggering test | 🔲 untested | |
+| "take-over codebase legacy" → auto-trigger ba:reverse | ba:reverse | skill-triggering test | 🔲 untested | |
 | "security review" → auto-trigger sec:review | sec:review | skill-triggering test | 🔲 untested | |
 | "cập nhật docs" → auto-trigger docs:update | docs:update | skill-triggering test | 🔲 untested | |
 | "sprint status" → auto-trigger pm:status | pm:status | skill-triggering test | 🔲 untested | |

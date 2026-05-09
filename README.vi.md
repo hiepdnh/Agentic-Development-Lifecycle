@@ -19,7 +19,7 @@
 
 ## Tại sao dùng framework này?
 
-- **21 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **22 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
 - **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
 - **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
@@ -151,7 +151,7 @@ claude .
 
 ```
 .claude/
-└── commands/           # 21 slash commands — gõ / trong Claude Code
+└── commands/           # 22 slash commands — gõ / trong Claude Code
     ├── arch/           # adr.md  review.md
     ├── ba/             # spec.md  user-story.md
     ├── be/             # bridge.md  (JP outsource)
@@ -182,7 +182,7 @@ templates/              # Skeleton templates cho tất cả document types
 docs/
     risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
     improvement-backlog.md  # Friction log — agent ghi vào khi phát hiện gap trong framework
-    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 21 skills
+    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 22 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
     api/                # API baseline docs — sống lâu dài
@@ -398,7 +398,7 @@ Deliverables map:
 # Verify skill mới auto-invoke đúng
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Chạy toàn bộ 21 skills
+# Chạy toàn bộ 22 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Yêu cầu: `claude` CLI đã auth + `jq` đã cài.

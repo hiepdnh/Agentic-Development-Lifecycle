@@ -1,0 +1,1 @@
+Khách hàng vừa giao codebase legacy của họ — vendor cũ đã out, không có tài liệu gì. Tôi cần phân tích codebase này để hiểu tech stack, package structure và technical debt trước khi commit estimate cho feature mới.
