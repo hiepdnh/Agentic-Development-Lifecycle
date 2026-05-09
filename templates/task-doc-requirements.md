@@ -1,3 +1,10 @@
+---
+sessionId: [TASK-ID-YYYYMMDD-HHMM]
+createdAt: [YYYY-MM-DD HH:mm JST]
+updatedAt: [YYYY-MM-DD HH:mm JST]
+roundCount: 0
+---
+
 # [Tên Feature/Task]
 
 **Task ID**: [PROJECT-XXX]  
@@ -77,3 +84,20 @@ _Ghi lại mọi cập nhật vào framework gây ra bởi task này — templat
 
 - [ ] Không có friction phát hiện trong task này
 - [ ] [Mô tả friction nếu có → thêm vào `docs/improvement-backlog.md`]
+
+## 13. Q&A History
+
+_Append-only — mỗi vòng clarify thêm entry mới ở cuối, KHÔNG overwrite. Giữ context để BE/khách JP audit được lý do quyết định ("なぜこの設計?")._
+
+### Round 1 — [YYYY-MM-DD HH:mm JST]
+
+**Q1**: [Câu hỏi]  
+**Options**: A: [...] / B: [...] / C: [...]  
+**Suggested**: [A/B/C]  
+**Answer**: [Lựa chọn của user]  
+**Impact**: [Section nào của spec được cập nhật do answer này — vd: BR-002, AC-003]
+
+**Q2**: ...
+
+<!-- Round 2 sẽ được append xuống dưới khi có vòng clarify tiếp theo -->
+
