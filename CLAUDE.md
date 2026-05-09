@@ -103,14 +103,14 @@ Each agent file defines an **input contract** and **output JSON shape**. When sp
 - Pass ONLY the minimal context the agent needs (no full conversation history)
 - Summarize agent output before passing to the next agent in a chain
 
-| Agent | Spawned by | Purpose |
-|-------|-----------|---------|
-| `task-reader` | `/dev:analyze` | Parse issue → structured JSON (no codebase access) |
-| `code-scout` | `/dev:analyze` | Find relevant files for a task (read-only) |
-| `planner` | `/dev:analyze` | Synthesize task + code map → 2-3 implementation options |
-| `diff-reader` | `/dev:pr`, `/docs:update` | Summarize git diff for PR description |
-| `test-gen` | `/qa:testplan` | Generate test cases from spec |
-| `doc-updater` | `/docs:update` | Update baseline docs after verification |
+| Agent | Spawned by | Model | Purpose |
+|-------|-----------|-------|---------|
+| `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON (no codebase access) |
+| `code-scout` | `/dev:analyze` | haiku | Find relevant files for a task (read-only) |
+| `planner` | `/dev:analyze` | sonnet | Synthesize task + code map → 2-3 implementation options |
+| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Summarize git diff for PR description |
+| `test-gen` | `/qa:testplan` | sonnet | Generate test cases from spec |
+| `doc-updater` | `/docs:update` | sonnet | Update baseline docs after verification |
 
 ### Permissions model
 
@@ -273,12 +273,17 @@ Commands có multi-agent pattern dùng **Agent tool** của Claude Code để sp
 ```
 Agent({
   description: "task-reader: parse issue",
-  prompt: "[nội dung theo agents/task-reader.md input contract]"
+  prompt: "[nội dung theo agents/task-reader.md input contract]",
+  model: "haiku"   // đọc từ agent frontmatter model: field
 })
 ```
 
 Mỗi subagent nhận **chỉ context cần thiết** — không pass full conversation history.  
 Output từ subagent được tóm tắt trước khi pass vào subagent tiếp theo.
+
+Model được chỉ định per-agent để tối ưu token (xem frontmatter `model:` trong mỗi file `agents/*.md`):
+- **haiku**: read-only/parse agents (task-reader, code-scout, diff-reader)
+- **sonnet**: reasoning/synthesis agents (planner, doc-updater, test-gen)
 
 Subagent definitions: `agents/` folder.
 
@@ -286,16 +291,18 @@ Subagent definitions: `agents/` folder.
 
 ## Two-tier Documentation
 
-**Type 1 — Task Docs** (`docs/tasks/TASK-XXX/`)
+**Type 1 — Task Docs** (`docs/tasks/TASK-XXX/`) — **gitignored trong framework source repo**
 - `requirements.md` — parsed từ issue (template: `templates/task-doc-requirements.md`)
 - `analysis.md` — options đã cân nhắc
 - `test-plan.md` — test cases
 - `verification.md` — test results, sign-off
 
-**Type 2 — Baseline Docs** (cập nhật sau verify)
+**Type 2 — Baseline Docs** (cập nhật sau verify) — **gitignored trong framework source repo**
 - `docs/screens/[feature]/screen.md` — (template: `templates/baseline-screen.md`)
 - `docs/api/[domain]/[endpoint].md` — (template: `templates/baseline-api.md`)
 - `docs/decisions/ADR-XXX.md` — (template: `templates/adr.md`)
+
+> **Framework source repo**: Type 1 và Type 2 docs đều bị gitignore (`.gitignore` patterns: `docs/tasks/*/`, `docs/screens/*/`, `docs/api/*/`, `docs/decisions/*.md`). Đây là dogfooding artifacts — không phải phần của framework distribution. Chỉ `docs/workflows/` và `docs/*.md` root files được track và install.
 
 ---
 
