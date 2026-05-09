@@ -4,6 +4,8 @@
       "Read(**)",
       "Glob(**)",
       "Grep(**)",
+      "Write(**)",
+      "Edit(**)",
       "Bash(git log*)",
       "Bash(git diff*)",
       "Bash(git status*)"
