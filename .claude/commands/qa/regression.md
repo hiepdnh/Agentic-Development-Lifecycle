@@ -60,9 +60,19 @@ Subagent trả về: file list + blast radius analysis.
 
 **Chờ confirm.**
 
-### Bước 3 — Tạo Regression Checklist
+### Bước 3 — Tạo Regression Checklist (HTML là format chính)
 
-Tạo `docs/tasks/regression-[sprint-or-version].md`:
+Regression checklist là **one-shot decision artifact** (chạy → tick → go/no-go) — format chính là HTML, không cần Markdown commit. Sinh `docs/tasks/regression-[sprint-or-version].html` từ template `templates/html-artifact.html`:
+
+- 3 sections collapse `<details>` cho 🔴 Must Test / 🟡 Should Test / 🟢 Smoke
+- Mỗi section là `<table data-sortable>` với cột: ID | Test Case | Steps | Expected | Result | Bug?
+- Cột Result có `<select>` (Pass/Fail/Blocked) cập nhật vào `data-state`, đổi background row theo state
+- Header có Go/No-Go badge tự động: chuyển đỏ nếu bất kỳ Must Test = Fail
+- Toolbar có button "Export results" — copy bảng về Markdown để paste vào sprint report
+
+File HTML KHÔNG commit (nằm trong `docs/tasks/**/*.html` đã ignore). Nếu khách JP yêu cầu evidence, **export ra PDF từ browser** (Cmd+P → Save as PDF) rồi attach.
+
+Cấu trúc nội dung (skill inject vào HTML):
 
 ```markdown
 # Regression Test: [Sprint/Version]

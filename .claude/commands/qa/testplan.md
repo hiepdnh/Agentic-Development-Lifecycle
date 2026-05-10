@@ -102,6 +102,24 @@ Tạo file `docs/tasks/[TASK-ID]/test-plan.md`:
 - [ ] Regression không có regression mới
 ```
 
+### Bước 3.5 — Render HTML companion (interactive checklist)
+
+Sinh `docs/tasks/[TASK-ID]/test-plan.html` từ template `templates/html-artifact.html`:
+
+- Inject `<ul class="checklist" data-storage-key="testplan-[TASK-ID]">` cho từng TC
+- Mỗi `<li>` có `<input type="checkbox" data-id="TC-XXX">` + label = TC name
+- Group theo type: Happy / Edge / Negative dùng `<details><summary>` mở rộng
+- Header có `<input type="search" data-filter="...">` để filter TC theo từ khoá
+- Pill `pill-ok|warn|err` cho priority High/Med/Low
+
+QA tick checkbox khi chạy test, state lưu localStorage — không cần copy vào Markdown.
+File HTML KHÔNG commit (đã có `.gitignore`). `test-plan.md` vẫn là source of truth commit vào repo.
+
+```
+✓ Đã sinh `docs/tasks/[TASK-ID]/test-plan.html`
+  Mở bằng browser khi chạy test để tick checklist (state lưu localStorage).
+```
+
 ### Bước 4 — Gate cuối
 
 ```
