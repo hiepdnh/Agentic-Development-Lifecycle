@@ -203,11 +203,10 @@ docs/
 | `/pm:status` | Sprint status report | — → Status summary |
 | `/pm:dashboard` | Tạo HTML dashboard tổng quan sprint | `docs/tasks/*/` → `docs/dashboard.html` |
 
-> **Dashboard** đọc `docs/tasks/*/`, git log (14 ngày), skill catalog, validation-matrix, improvement-backlog. Render kanban, activity timeline, validation health chart, skill heatmap. Mở `docs/dashboard.html` trong browser — không cần server.
+> **Dashboard** đọc `docs/tasks/*/` và `docs/improvement-backlog.md`. Render 4 KPI cards, sprint kanban (6 lane), sortable/filterable health table, improvement backlog table. Mở `docs/dashboard.html` trong browser — không cần server.
 >
 > ```bash
 > npm run dashboard           # tạo 1 lần
-> npm run dashboard:watch     # tự động tạo lại khi có thay đổi file
 > ```
 
 ### BA (Business Analyst)

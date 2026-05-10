@@ -41,7 +41,7 @@ Dashboard đã tạo: docs/dashboard.html
 
 Nội dung:
 - [N] tasks trong docs/tasks/
-- Kanban: Discovery → Planning → Dev → Review → QA/Done
+- Kanban: Empty → Discovery → Planning → Dev → Review → QA/Done
 - Sprint health table (sortable/filterable)
 - [N] improvement backlog items
 
@@ -60,6 +60,5 @@ Mở file trong browser để xem. Re-run `node bin/dashboard.js` bất cứ lú
   - `+ pr.md` → In Review
   - `+ test-plan.md` → QA / Done
 - Risk lane parse từ `Lane: tiny|normal|high-risk` trong `analysis.md`
-- `docs/dashboard.html` có thể commit (snapshot hữu ích) hoặc gitignore (tuỳ team)
-- Dashboard sections: Stats KPIs · Kanban · Activity timeline (audit + git) · Validation health doughnut · Skill heatmap · Growth counters · Sprint health table · Improvement backlog
-- `npm run dashboard:watch` — auto-regen khi file thay đổi; reload browser thủ công (F5)
+- `docs/dashboard.html` là generated artifact — không commit (đã ignore trong `.gitignore`)
+- Dashboard sections: Stats (4 KPIs) · Kanban · Sprint health table · Improvement backlog

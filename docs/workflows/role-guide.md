@@ -12,14 +12,13 @@
 | `/pm:ideate` | Nhận yêu cầu mơ hồ từ stakeholder | One-pager + Not Doing list |
 | `/pm:breakdown` | Sau khi có User Stories | GitHub Issues |
 | `/pm:status` | Cần báo cáo sprint cho stakeholder / khách JP | HTML status report |
-| `/pm:dashboard` | Xem tổng quan sprint bất kỳ lúc nào | `docs/dashboard.html` — kanban + KPIs + git activity + health chart |
+| `/pm:dashboard` | Xem tổng quan sprint bất kỳ lúc nào | `docs/dashboard.html` — kanban + sprint health table + backlog |
 
 **Dashboard usage**:
 ```bash
 npm run dashboard           # gen 1 lần
-npm run dashboard:watch     # auto-regen khi có thay đổi file
 ```
-Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats KPIs · Kanban · Activity timeline (audit + git 14d) · Validation health doughnut · Skill heatmap · Sprint health table · Improvement backlog.
+Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats (4 KPIs) · Kanban · Sprint health table · Improvement backlog.
 
 **Không dùng**: dev-*, sec-*, qa-*, arch-*
 
@@ -122,7 +121,7 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 ### "Xem sprint health nhanh"
 ```bash
 npm run dashboard
-# mở docs/dashboard.html → kanban + KPIs + git activity + validation health
+# mở docs/dashboard.html → kanban + KPIs + sprint health table + backlog
 ```
 Hoặc trong Claude Code: `/pm:dashboard`
 

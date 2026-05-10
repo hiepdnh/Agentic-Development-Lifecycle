@@ -14,3 +14,4 @@ docs/api/*/
 # One-shot HTML review artifacts (per Output Format Convention in CLAUDE.md)
 docs/tasks/**/*.html
 docs/reports/*.html
+docs/dashboard.html

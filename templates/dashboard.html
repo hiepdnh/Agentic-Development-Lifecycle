@@ -7,29 +7,29 @@
 <style>
 /* ── Design tokens (ckm-design-system) ─────────────────── */
 :root {
-  --bg:         #F9FAFB; /* gray-50 */
+  --bg:         #F9FAFB;
   --card:       #FFFFFF;
-  --fg:         #111827; /* gray-900 */
-  --fg-muted:   #6B7280; /* gray-500 */
-  --border:     #E5E7EB; /* gray-200 */
-  --hover:      #F3F4F6; /* gray-100 */
+  --fg:         #111827;
+  --fg-muted:   #6B7280;
+  --border:     #E5E7EB;
+  --hover:      #F3F4F6;
   --surface:    #F3F4F6;
-  --primary:    #2563EB; /* blue-600 */
-  --primary-h:  #1D4ED8; /* blue-700 */
-  --success:    #16A34A; /* green-600 */
-  --warning:    #EAB308; /* yellow-500 */
-  --danger:     #DC2626; /* red-600 */
+  --primary:    #2563EB;
+  --primary-h:  #1D4ED8;
+  --success:    #16A34A;
+  --warning:    #EAB308;
+  --danger:     #DC2626;
   --purple:     #7C3AED;
-  --ring:       #3B82F6; /* blue-500 */
+  --ring:       #3B82F6;
   --mono:       ui-monospace, "JetBrains Mono", "SF Mono", Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:       #111827; /* gray-900 */
-    --card:     #1F2937; /* gray-800 */
-    --fg:       #F9FAFB; /* gray-50 */
-    --fg-muted: #9CA3AF; /* gray-400 */
-    --border:   #374151; /* gray-700 */
+    --bg:       #111827;
+    --card:     #1F2937;
+    --fg:       #F9FAFB;
+    --fg-muted: #9CA3AF;
+    --border:   #374151;
     --hover:    #1F2937;
     --surface:  #1F2937;
   }
@@ -41,28 +41,16 @@ body { font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
        background: var(--bg); color: var(--fg); min-height: 100vh; }
 
 /* ── Layout ─────────────────────────────────────────────── */
-.page       { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
-.section    { margin-top: 28px; }
+.page          { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
+.section       { margin-top: 28px; }
 .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase;
                  letter-spacing: 0.06em; color: var(--fg-muted); margin-bottom: 12px; }
-.main-grid  { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
-@media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
 
 /* ── Header ─────────────────────────────────────────────── */
 header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
          padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 header h1  { font-size: 18px; font-weight: 700; flex: 0 0 auto; }
 .gen-info  { font-size: 12px; color: var(--fg-muted); flex: 1; }
-.live-pill { display: inline-flex; align-items: center; gap: 4px;
-             padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.live-pill.active { background: #dcfce7; color: #166534; }
-.live-pill.static { background: var(--surface); color: var(--fg-muted); }
-@media (prefers-color-scheme: dark) {
-  .live-pill.active { background: #14532d; color: #86efac; }
-}
-.dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.live-pill.active .dot { animation: pulse 1.5s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
 header .search-wrap { display: flex; align-items: center; margin-left: auto; }
 .search-input { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
@@ -71,9 +59,8 @@ header .search-wrap { display: flex; align-items: center; margin-left: auto; }
 .search-input:focus { border-color: var(--ring); }
 
 /* ── Stat cards ─────────────────────────────────────────── */
-.stats-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-@media (max-width: 900px) { .stats-row { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 500px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 700px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
 .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
              padding: 14px 16px; }
 .stat-val  { font-size: 26px; font-weight: 800; font-family: var(--mono); line-height: 1; }
@@ -105,42 +92,6 @@ header .search-wrap { display: flex; align-items: center; margin-left: auto; }
 .card-detail a:hover { text-decoration: underline; }
 .detail-row { color: var(--fg-muted); margin-top: 4px; }
 
-/* ── Right rail ─────────────────────────────────────────── */
-.right-rail { display: flex; flex-direction: column; gap: 16px; }
-.rail-card  { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
-              padding: 14px 16px; }
-.rail-title { font-size: 12px; font-weight: 700; text-transform: uppercase;
-              letter-spacing: .05em; color: var(--fg-muted); margin-bottom: 12px; }
-
-/* Activity timeline */
-.timeline   { max-height: 240px; overflow-y: auto; }
-.t-entry    { display: flex; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border);
-              font-size: 12px; }
-.t-entry:last-child { border-bottom: none; }
-.t-date     { flex: 0 0 60px; color: var(--fg-muted); font-family: var(--mono); font-size: 11px; }
-.t-icon     { flex: 0 0 18px; text-align: center; }
-.t-text     { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.t-text small { color: var(--fg-muted); }
-
-/* Doughnut chart */
-.doughnut-wrap { display: flex; gap: 16px; align-items: center; }
-.doughnut-wrap svg { flex: 0 0 80px; }
-.doughnut-legend { font-size: 12px; }
-.legend-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
-.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; }
-
-/* Skill heatmap */
-.heatmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
-.hm-cell { height: 28px; border-radius: 4px; background: var(--surface);
-           display: flex; align-items: center; justify-content: center;
-           font-size: 10px; font-weight: 600; cursor: default;
-           transition: background .15s; position: relative; }
-.hm-cell[title]:hover::after {
-  content: attr(title); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
-  background: var(--fg); color: var(--bg); padding: 3px 7px; border-radius: 4px;
-  font-size: 11px; white-space: nowrap; pointer-events: none; z-index: 10;
-}
-
 /* ── Pills ───────────────────────────────────────────────── */
 .pill       { display: inline-block; padding: 1px 7px; border-radius: 10px;
               font-size: 11px; font-weight: 600; white-space: nowrap; }
@@ -165,10 +116,6 @@ header .search-wrap { display: flex; align-items: center; margin-left: auto; }
                 background: var(--card); color: var(--fg); font-size: 13px; flex: 1;
                 min-width: 180px; outline: none; }
 .filter-input:focus { border-color: var(--ring); }
-.btn        { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
-              background: var(--card); color: var(--fg); cursor: pointer; font-size: 13px; }
-.btn:hover  { background: var(--hover); }
-.btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 .tbl-wrap   { overflow-x: auto; }
 table       { width: 100%; border-collapse: collapse; font-size: 13px; }
 th, td      { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left;
@@ -189,17 +136,8 @@ tr:hover    { background: var(--hover); }
 .chip:hover { border-color: var(--primary); }
 .chip.active{ background: var(--primary); color: #fff; border-color: var(--primary); }
 
-/* ── Commit type badge ───────────────────────────────────── */
-.ct-feat    { color: #16a34a; }
-.ct-fix     { color: #dc2626; }
-.ct-docs    { color: #2563eb; }
-.ct-chore   { color: #6b7280; }
-.ct-refactor{ color: #7c3aed; }
-.ct-test    { color: #d97706; }
-.ct-other   { color: #6b7280; }
-
 @media print {
-  .search-wrap, .toolbar, .chips, .btn { display: none; }
+  .search-wrap, .toolbar, .chips { display: none; }
   .card-detail { display: block !important; }
   body { font-size: 12px; }
 }
@@ -255,21 +193,17 @@ function esc(s) {
 // ── Stats ──────────────────────────────────────────────────
 
 function renderStats() {
-  const { tasks, backlog, validation, activity, skills, growth } = DATA;
+  const { tasks, backlog } = DATA;
   const total    = tasks.length;
   const done     = tasks.filter(t => t.phase === 'qa').length;
   const inFlight = tasks.filter(t => !['empty','qa'].includes(t.phase)).length;
   const openIBs  = backlog.filter(b => b.status === 'open').length;
-  const commits  = activity.filter(a => a.type === 'commit').length;
-  const usedSkills = skills.filter(s => s.usageCount > 0).length;
 
   const cards = [
-    { val: total,     label: 'Tasks',          sub: 'all time' },
-    { val: inFlight,  label: 'In Flight',       sub: 'active tasks' },
-    { val: done,      label: 'QA / Done',        sub: 'completed' },
-    { val: openIBs,   label: 'Open Backlog',    sub: 'items' },
-    { val: commits,   label: 'Commits (14d)',   sub: 'git log' },
-    { val: `${usedSkills}/${skills.length}`, label: 'Skills Used', sub: 'of catalog' },
+    { val: total,    label: 'Tasks',        sub: 'all time' },
+    { val: inFlight, label: 'In Flight',    sub: 'active tasks' },
+    { val: done,     label: 'QA / Done',    sub: 'completed' },
+    { val: openIBs,  label: 'Open Backlog', sub: 'items' },
   ];
 
   document.getElementById('stats-row').innerHTML = cards.map(c => `
@@ -282,14 +216,11 @@ function renderStats() {
 
 // ── Kanban ─────────────────────────────────────────────────
 
-let _kanbanFilter = null;
-
 function renderKanban() {
   const lanes = ['empty','discovery','planning','dev','review','qa'];
   document.getElementById('kanban').innerHTML = lanes.map(phase => {
     const ts = DATA.tasks.filter(t => t.phase === phase);
-    const visible = _kanbanFilter ? ts.filter(t => t.risk === _kanbanFilter || t.phase === _kanbanFilter) : ts;
-    const cards = visible.map(t => {
+    const cards = ts.map(t => {
       const fileLinks = t.files.map(f => `<a href="../docs/tasks/${esc(t.id)}/${esc(f)}">${esc(f)}</a>`).join('<br>');
       return `
         <div class="card" data-id="${esc(t.id)}" onclick="this.classList.toggle('open')">
@@ -307,103 +238,10 @@ function renderKanban() {
       <div class="lane">
         <div class="lane-header">
           <span class="lane-name">${esc(m.label || phase)}</span>
-          <span class="lane-count">${visible.length}</span>
+          <span class="lane-count">${ts.length}</span>
         </div>
         ${cards || '<div style="font-size:12px;color:var(--fg-muted);padding:4px 0">—</div>'}
       </div>`;
-  }).join('');
-}
-
-// ── Activity timeline ───────────────────────────────────────
-
-function renderTimeline() {
-  const entries = DATA.activity.slice(0, 40);
-  if (!entries.length) {
-    document.getElementById('timeline').innerHTML = '<div style="font-size:12px;color:var(--fg-muted)">No recent activity</div>';
-    return;
-  }
-  document.getElementById('timeline').innerHTML = entries.map(e => {
-    if (e.type === 'audit') {
-      return `<div class="t-entry">
-        <span class="t-date">${esc(e.date.slice(5,10))}</span>
-        <span class="t-icon">⚡</span>
-        <span class="t-text">${esc(e.skill)} <small>· ${esc(e.taskId)}</small></span>
-      </div>`;
-    } else {
-      const cls = 'ct-' + (e.commitType || 'other');
-      return `<div class="t-entry">
-        <span class="t-date">${esc(e.date.slice(5,10))}</span>
-        <span class="t-icon">⬡</span>
-        <span class="t-text"><span class="${cls}">${esc(e.commitType || '·')}</span> ${esc(e.msg)}</span>
-      </div>`;
-    }
-  }).join('');
-}
-
-// ── Validation doughnut ─────────────────────────────────────
-
-function renderDoughnut() {
-  const { pass, fail, partial, untested } = DATA.validation;
-  const total = pass + fail + partial + untested;
-
-  const segments = [
-    { val: pass,     color: '#16A34A', label: '✅ pass' },
-    { val: fail,     color: '#DC2626', label: '❌ fail' },
-    { val: partial,  color: '#EAB308', label: '⚠️ partial' },
-    { val: untested, color: '#9CA3AF', label: '🔲 untested' },
-  ].filter(s => s.val > 0);
-
-  const legend = segments.map(s =>
-    `<div class="legend-row"><div class="legend-dot" style="background:${s.color}"></div>${esc(s.label)}: <strong>${s.val}</strong></div>`
-  ).join('');
-
-  if (!total) {
-    document.getElementById('doughnut-wrap').innerHTML = '<div style="font-size:12px;color:var(--fg-muted)">No validation data</div>';
-    return;
-  }
-
-  // Build SVG arcs
-  const cx = 50, cy = 50, r = 35, stroke = 14;
-  const circum = 2 * Math.PI * r;
-  let offset = 0;
-  let arcs = '';
-  for (const s of segments) {
-    const len = (s.val / total) * circum;
-    arcs += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}"
-      stroke-width="${stroke}" stroke-dasharray="${len} ${circum - len}"
-      stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})"/>`;
-    offset += len;
-  }
-
-  document.getElementById('doughnut-wrap').innerHTML = `
-    <div class="doughnut-wrap">
-      <svg viewBox="0 0 100 100" width="80" height="80" style="flex:0 0 80px">
-        ${arcs}
-        <text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="14" font-weight="700"
-              fill="currentColor" font-family="var(--mono)">${total}</text>
-      </svg>
-      <div class="doughnut-legend">${legend}</div>
-    </div>`;
-}
-
-// ── Skill heatmap ───────────────────────────────────────────
-
-function renderHeatmap() {
-  const { skills } = DATA;
-  if (!skills.length) {
-    document.getElementById('skill-heatmap').innerHTML = '<div style="font-size:12px;color:var(--fg-muted)">No skills found</div>';
-    return;
-  }
-  const max = Math.max(...skills.map(s => s.usageCount), 1);
-  document.getElementById('skill-heatmap').innerHTML = skills.map(s => {
-    const intensity = s.usageCount / max;
-    const alpha = 0.12 + intensity * 0.88;
-    const bg = `rgba(37,99,235,${alpha.toFixed(2)})`;
-    const fg = intensity > 0.5 ? '#fff' : 'var(--fg)';
-    return `<div class="hm-cell" style="background:${bg};color:${fg}"
-      title="${esc(s.name)} (${s.usageCount} uses)">
-      <span>${esc(s.name.split(':')[1] || s.name)}</span>
-    </div>`;
   }).join('');
 }
 
@@ -494,7 +332,6 @@ function initSortable() {
 function initGlobalSearch() {
   document.getElementById('global-search').addEventListener('input', e => {
     const q = e.target.value.toLowerCase().trim();
-    // highlight matching cards in kanban
     document.querySelectorAll('.card').forEach(card => {
       const id = card.dataset.id || '';
       card.style.opacity = (!q || id.toLowerCase().includes(q) ||
@@ -506,24 +343,15 @@ function initGlobalSearch() {
 // ── Boot ────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
-  const { generatedAt, watchMode } = DATA;
-
-  document.getElementById('gen-time').textContent = generatedAt;
-  const lp = document.getElementById('live-pill');
-  if (watchMode) { lp.className = 'live-pill active'; lp.innerHTML = '<span class="dot"></span> Live'; }
-  else            { lp.className = 'live-pill static'; lp.innerHTML = 'Static · F5 to refresh'; }
+  document.getElementById('gen-time').textContent = DATA.generatedAt;
 
   renderStats();
   renderKanban();
-  renderTimeline();
-  renderDoughnut();
-  renderHeatmap();
   renderHealth();
   renderBacklog();
   initSortable();
   initGlobalSearch();
 
-  // Phase filter chips
   document.querySelectorAll('.phase-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('.phase-chip').forEach(c => c.classList.remove('active'));
@@ -533,7 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Risk filter chips
   document.querySelectorAll('.risk-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('.risk-chip').forEach(c => c.classList.remove('active'));
@@ -543,13 +370,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Health search
   document.getElementById('health-search').addEventListener('input', e => {
     _healthSearch = e.target.value.toLowerCase().trim();
     renderHealth();
   });
 
-  // Backlog filter
   document.querySelectorAll('.backlog-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('.backlog-chip').forEach(c => c.classList.remove('active'));
@@ -559,7 +384,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Backlog search
   document.getElementById('backlog-search').addEventListener('input', e => {
     _backlogSearch = e.target.value.toLowerCase().trim();
     renderBacklog();
@@ -573,7 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <header>
     <h1>VTI SDLC Dashboard</h1>
     <span class="gen-info">Generated: <span id="gen-time"></span></span>
-    <span id="live-pill" class="live-pill static">Static</span>
     <div class="search-wrap">
       <input type="search" class="search-input" id="global-search" placeholder="Search tasks…" aria-label="Search tasks">
     </div>
@@ -585,53 +408,10 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="stats-row" id="stats-row"></div>
   </div>
 
-  <!-- Main: kanban + right rail -->
-  <div class="section main-grid">
-    <div>
-      <div class="section-title">Task Progress</div>
-      <div class="kanban" id="kanban"></div>
-    </div>
-    <div class="right-rail">
-      <!-- Activity timeline -->
-      <div class="rail-card">
-        <div class="rail-title">Activity (14d)</div>
-        <div class="timeline" id="timeline"></div>
-      </div>
-
-      <!-- Validation health -->
-      <div class="rail-card">
-        <div class="rail-title">Framework Health</div>
-        <div id="doughnut-wrap"></div>
-      </div>
-
-      <!-- Skill heatmap -->
-      <div class="rail-card">
-        <div class="rail-title">Skill Usage</div>
-        <div class="heatmap" id="skill-heatmap"></div>
-        <div style="font-size:11px;color:var(--fg-muted);margin-top:8px">Darker = more audit entries</div>
-      </div>
-
-      <!-- Growth counters -->
-      <div class="rail-card">
-        <div class="rail-title">Baseline Docs</div>
-        <div id="growth-stats" style="font-size:13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
-          <!-- Filled by JS below -->
-        </div>
-        <script>
-          document.addEventListener('DOMContentLoaded', () => {
-            const { growth } = DATA;
-            document.getElementById('growth-stats').innerHTML = [
-              { label: 'Decisions', val: growth.decisions },
-              { label: 'Screens',   val: growth.screens },
-              { label: 'API',       val: growth.api },
-            ].map(g => `<div>
-              <div style="font-size:20px;font-weight:800;font-family:var(--mono)">${g.val}</div>
-              <div style="font-size:11px;color:var(--fg-muted)">${g.label}</div>
-            </div>`).join('');
-          });
-        </script>
-      </div>
-    </div>
+  <!-- Kanban -->
+  <div class="section">
+    <div class="section-title">Task Progress</div>
+    <div class="kanban" id="kanban"></div>
   </div>
 
   <!-- Sprint health table -->

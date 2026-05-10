@@ -209,12 +209,11 @@ docs/
 | `/pm:status` | Sprint status report | — → Status summary |
 | `/pm:dashboard` | Generate static HTML sprint dashboard | `docs/tasks/*/` → `docs/dashboard.html` |
 
-> **Dashboard** reads `docs/tasks/*/`, git log (14d), skill catalog, validation-matrix, and improvement-backlog. Renders kanban, activity timeline, validation health chart, and skill heatmap. Open `docs/dashboard.html` in any browser — no server required.
+> **Dashboard** reads `docs/tasks/*/` and `docs/improvement-backlog.md`. Renders 4 KPI cards, sprint kanban (6 lanes), sortable/filterable health table, and improvement backlog table. Open `docs/dashboard.html` in any browser — no server required.
 >
 > ```bash
 > node bin/dashboard.js           # generate once
 > npm run dashboard               # same, via npm
-> npm run dashboard:watch         # auto-regenerate on file changes
 > ```
 
 ### BA (Business Analyst)

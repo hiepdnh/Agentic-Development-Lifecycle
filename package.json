@@ -8,8 +8,7 @@
   },
   "scripts": {
     "install-framework": "node bin/install.js",
-    "dashboard": "node bin/dashboard.js",
-    "dashboard:watch": "node bin/dashboard.js --watch"
+    "dashboard": "node bin/dashboard.js"
   },
   "dependencies": {
     "@clack/prompts": "^0.9.0",

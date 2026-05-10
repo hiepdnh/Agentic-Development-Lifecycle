@@ -37,7 +37,7 @@ Format:
 | IB-003 | Tổng quát | Không có cơ chế để agent log gaps — mỗi session phải reason lại từ đầu | Tạo improvement-backlog.md này | ✅ done |
 | IB-004 | Tổng quát (post bài viết Thariq) | Skill output mặc định Markdown kể cả khi artifact để review tương tác — bỏ lỡ giá trị HTML cho sort/filter/checklist | Thêm Output Format Convention vào CLAUDE.md, tạo `templates/html-artifact.html` + `templates/html-bilingual.html`, nâng cấp 5 skill nhóm A (dev:analyze, qa:testplan, qa:regression, pm:status, be:bridge) | ✅ done |
 | IB-005 | Tổng quát (học từ AIDLC repo) | Không có observability layer — PM/BE/SM phải đào từng `docs/tasks/[ID]/*.md` để biết sprint health | Tạo `bin/dashboard.js` generator + `templates/dashboard.html` + `/pm:dashboard` slash command | ✅ done |
-| IB-006 | Dashboard v1 | Dashboard v1 chỉ có kanban + 2 table đơn giản, thiếu git activity/skill heatmap/validation chart/watch mode | Rebuild v2: ckm-design-system tokens, 6 new parsers (git/audit/validation/skills/growth), SVG charts, watch mode | ✅ done |
+| IB-006 | Dashboard v1 | Dashboard v1 chỉ có kanban + 2 table đơn giản, thiếu git activity/skill heatmap/validation chart/watch mode | Rebuild v2: ckm-design-system tokens, 6 new parsers (git/audit/validation/skills/growth), SVG charts, watch mode | ❌ reverted — v2 scope (charts/heatmap/timeline/watch) cut do data thực quá thiếu (1 task) để justify; CLAUDE.md "don't design for hypothetical future requirements". Re-evaluate khi framework có >10 task thật. |
 
 ---
 
