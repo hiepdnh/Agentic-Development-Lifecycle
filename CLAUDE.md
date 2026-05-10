@@ -301,6 +301,35 @@ Subagent definitions: `agents/` folder.
 - `docs/api/[domain]/[endpoint].md` — (template: `templates/baseline-api.md`)
 - `docs/decisions/ADR-XXX.md` — (template: `templates/adr.md`)
 
+---
+
+## Output Format Convention
+
+Tham khảo bài viết Thariq Shihipar — *"The Unreasonable Effectiveness of HTML"* ([phân tích nội bộ](docs/analysis/html-effectiveness-thariq.md)). Mỗi skill chọn format theo **consumer cuối cùng** của artifact, KHÔNG theo thói quen:
+
+| Loại artifact | Consumer | Format | Lý do |
+|---------------|----------|--------|-------|
+| Storage / commit vào repo | Git, future devs | **Markdown** | Diffable, GitHub render |
+| One-shot review/decision | Human đang quyết định | **HTML** | Click, sort, filter — nhanh hơn |
+| JP deliverable (成果物) | Khách Nhật | **HTML** | Đẹp khi forward email/print |
+| Chained vào agent kế tiếp | LLM | **Markdown/JSON** | Token rẻ, parse dễ |
+| Platform render (GitHub/Slack) | Web platform | **Markdown** | Platform tự render |
+
+**Quy tắc**: artifact nào có ý định *để tiếp tục làm việc* (sort, filter, tick checkbox, copy field) → HTML. Artifact để *đọc rồi commit* → Markdown.
+
+### Skill format matrix
+
+| Skill | Format chính | HTML companion (one-shot, không commit) |
+|-------|-------------|-----------------------------------------|
+| `/dev:analyze` | MD (`analysis.md`) | `analysis-compare.html` — sort/filter phương án |
+| `/qa:testplan` | MD (`test-plan.md`) | `test-plan.html` — checklist tick + localStorage |
+| `/qa:regression` | HTML | `regression-checklist.html` — go/no-go decision |
+| `/pm:status` | HTML | `sprint-status.html` — kanban + velocity |
+| `/be:bridge` | MD + HTML | `deliverable.html` — 2 cột JP/VN, copy button |
+| Còn lại (17 skill) | MD | (xem nhóm B trong `docs/analysis/html-effectiveness-thariq.md` để mở rộng khi cần) |
+
+HTML artifact dùng template `templates/html-artifact.html` (interactive) hoặc `templates/html-bilingual.html` (JP-VN). File HTML one-shot KHÔNG commit — `.gitignore` loại trừ `docs/tasks/**/*.html`.
+
 ### Audit Log convention
 
 Mọi skill thay đổi state của task (BA/Dev/QA/Arch...) PHẢI append entry vào `docs/tasks/[TASK-ID]/audit.md`:

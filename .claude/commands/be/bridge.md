@@ -175,6 +175,25 @@ Tạo `docs/tasks/[TASK-ID]/ut-spec-jp.md`:
 - — : 対象外
 ```
 
+#### 3d. Deliverable HTML song ngữ (cho khách JP)
+
+Sinh `docs/tasks/[TASK-ID]/deliverable.html` từ template `templates/html-bilingual.html` — đây là format chính khi forward cho khách Nhật:
+
+- Header: title JP/VN, TASK-ID, timestamp JST, label "成果物"
+- Mỗi item nội dung tạo 1 `<div class="row">` 2 cột (JP trái, VN phải) với nội dung tương ứng
+- Thuật ngữ kỹ thuật JP có trong glossary → wrap bằng `<span class="glossary" data-tooltip="JP=VN">` để khách hover thấy bản dịch
+- Copy button per row (`data-copy-parent`) để khách copy đoạn JP/VN bất kỳ
+- `@media print`: in A4 đẹp, 2 cột giữ nguyên, copy button ẩn — khách có thể Cmd+P → Save as PDF làm bản chính thức
+
+File HTML KHÔNG commit (đã có `.gitignore` cho `docs/tasks/**/*.html`). Nếu cần lưu version chính thức gửi khách → export PDF rồi attach vào email/issue.
+
+```
+✓ Đã sinh:
+  - docs/tasks/[TASK-ID]/requirements.md   (cho dev VN, commit)
+  - docs/tasks/[TASK-ID]/design-jp.md       (gửi khách JP qua email, commit)
+  - docs/tasks/[TASK-ID]/deliverable.html   (mở review nội bộ trước khi gửi khách, KHÔNG commit)
+```
+
 ### Bước 4 — Gate cuối
 
 ```

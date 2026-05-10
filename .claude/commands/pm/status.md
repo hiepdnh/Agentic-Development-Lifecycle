@@ -31,11 +31,29 @@ Trước khi tổng hợp, cho tôi biết:
 | # | Câu hỏi | Lựa chọn |
 |---|---------|---------|
 | 1 | Báo cáo này dành cho ai? | A: Team internal / B: Stakeholder / C: Management / D: Khách hàng JP / E: Khác: ___ |
-| 2 | Format mong muốn? | A: Markdown / B: Text thuần / C: Slide outline / D: Khác: ___ |
+| 2 | Format mong muốn? | A: HTML dashboard (recommend cho stakeholder/khách JP) / B: Markdown (post Slack/Notion) / C: Text thuần / D: Khác: ___ |
 | 3 | Có metric cụ thể nào cần highlight không? | A: Velocity / B: Burn rate / C: Blockers / D: Không cần / E: Khác: ___ |
 ```
 
 ### Bước 3 — Tạo Status Report
+
+**Format quyết định ở Gate 2 câu 2**:
+- **A — HTML dashboard** (default cho stakeholder / khách JP): sinh `docs/reports/sprint-[N]-status.html` từ template `templates/html-artifact.html` — xem cấu trúc bên dưới
+- **B — Markdown**: sinh inline trong chat hoặc save `docs/reports/sprint-[N]-status.md` — dùng template Markdown phía dưới
+- **C — Text**: tóm tắt 1 màn hình trong chat
+
+#### HTML format (option A)
+
+Inject vào template:
+- Header: Sprint [N] · Velocity badge (X/Y points) · Burn rate pill (ok/warn/err)
+- Section "Kanban view": 4 cột Done / In Progress / Blocked / To Do dùng CSS grid, mỗi card là một task
+- `<table data-sortable>` cho Risks & Actions với cột Impact dùng pill
+- Filter `<input type="search" data-filter="...">` cho task list
+- `@media print` đảm bảo in A4 đẹp khi forward email cho khách JP
+
+File HTML KHÔNG commit (nếu nằm trong `docs/tasks/`). Lưu vào `docs/reports/` thì commit được — quyết định theo nhu cầu lưu trữ của project.
+
+#### Markdown format (option B/fallback)
 
 ```markdown
 # Sprint [N] Status Report
