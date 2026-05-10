@@ -221,6 +221,22 @@ Trước khi bạn chọn, tôi cần hỏi thêm:
 
 **Chờ human chọn phương án.**
 
+### Bước 6.5 — Render HTML companion (so sánh phương án)
+
+Trước khi human chọn ở Bước 6, sinh `docs/tasks/[TASK-ID]/analysis-compare.html` từ template `templates/html-artifact.html`:
+
+- Inject `<table id="options" data-sortable>` với các cột: Phương án | Effort (h) | Risk | Files chạm | Ưu | Nhược
+- Mỗi phương án 1 row, cột Effort dùng `data-type="number"` để sort
+- Risk render bằng `<span class="pill pill-ok|warn|err">` (Low/Med/High)
+- Mỗi phương án có `<details>` mở rộng cho mô tả dài
+
+File HTML là one-shot review artifact — KHÔNG commit (đã có `.gitignore` cho `docs/tasks/**/*.html`).
+
+```
+✓ Đã sinh `docs/tasks/[TASK-ID]/analysis-compare.html`
+  Mở bằng browser để sort/filter trước khi quyết định.
+```
+
 ### Bước 7 — Tạo Task Doc
 
 Sau khi human chọn, tạo `docs/tasks/[TASK-ID]/analysis.md`:

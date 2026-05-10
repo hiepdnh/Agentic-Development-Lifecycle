@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #6a6a6a;
+    --border: #e5e5e5; --accent: #2563eb; --hover: #f5f5f5;
+    --ok: #16a34a; --warn: #d97706; --err: #dc2626;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f0f0f; --fg: #e5e5e5; --muted: #999;
+            --border: #2a2a2a; --hover: #1a1a1a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; max-width: 1200px; margin: 0 auto;
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", "Hiragino Sans",
+               "Yu Gothic", sans-serif;
+         background: var(--bg); color: var(--fg); }
+  h1 { margin: 0 0 8px; font-size: 24px; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .toolbar { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+  input[type="search"] { padding: 8px 12px; border: 1px solid var(--border);
+                          border-radius: 6px; font-size: 14px; flex: 1; min-width: 200px;
+                          background: var(--bg); color: var(--fg); }
+  button { padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px;
+           background: var(--bg); color: var(--fg); cursor: pointer; font-size: 14px; }
+  button:hover { background: var(--hover); }
+  button.primary { background: var(--accent); color: white; border-color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid var(--border);
+           text-align: left; vertical-align: top; }
+  th { background: var(--hover); cursor: pointer; user-select: none;
+       font-weight: 600; font-size: 13px; }
+  th[data-sortable]::after { content: " ⇅"; color: var(--muted); font-size: 11px; }
+  th.sort-asc::after { content: " ↑"; color: var(--accent); }
+  th.sort-desc::after { content: " ↓"; color: var(--accent); }
+  tr:hover { background: var(--hover); }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 12px;
+          font-size: 12px; font-weight: 500; }
+  .pill-ok { background: #dcfce7; color: #166534; }
+  .pill-warn { background: #fef3c7; color: #92400e; }
+  .pill-err { background: #fee2e2; color: #991b1b; }
+  ul.checklist { list-style: none; padding: 0; }
+  ul.checklist li { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  ul.checklist input[type="checkbox"] { margin-right: 10px; transform: scale(1.2); }
+  .copy-btn { float: right; font-size: 12px; padding: 2px 8px; }
+  details { margin: 8px 0; }
+  summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
+  code { background: var(--hover); padding: 2px 6px; border-radius: 3px;
+         font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 13px; }
+  @media print {
+    body { padding: 0; max-width: none; }
+    .toolbar, button, .copy-btn { display: none; }
+    th { background: #eee !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<h1>{{TITLE}}</h1>
+<div class="meta">{{TASK_ID}} · {{TIMESTAMP_JST}} JST · One-shot artifact (không commit)</div>
+
+<!-- CONTENT -->
+<!--
+  Skill inject phần này. Patterns dùng được:
+
+  1. Sortable + filterable table:
+     <div class="toolbar">
+       <input type="search" data-filter="#options" placeholder="Filter...">
+     </div>
+     <table id="options">
+       <thead><tr>
+         <th data-sortable>Phương án</th>
+         <th data-sortable data-type="number">Effort (h)</th>
+         <th data-sortable>Risk</th>
+       </tr></thead>
+       <tbody>
+         <tr><td>A: ...</td><td>8</td><td><span class="pill pill-ok">Low</span></td></tr>
+       </tbody>
+     </table>
+
+  2. Persistent checklist:
+     <ul class="checklist" data-storage-key="task-XXX-tests">
+       <li><label><input type="checkbox" data-id="t1"> Test happy path</label></li>
+     </ul>
+
+  3. Collapsible section:
+     <details><summary>Phương án A — chi tiết</summary>...</details>
+
+  4. Copy button:
+     <button class="copy-btn" data-copy="#code-block">Copy</button>
+     <pre id="code-block">...</pre>
+-->
+
+<script>
+// Sortable tables
+document.querySelectorAll('th[data-sortable]').forEach(th => {
+  th.addEventListener('click', () => {
+    const table = th.closest('table');
+    const tbody = table.querySelector('tbody');
+    const idx = Array.from(th.parentNode.children).indexOf(th);
+    const type = th.dataset.type || 'string';
+    const asc = !th.classList.contains('sort-asc');
+    table.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc', 'sort-desc'));
+    th.classList.toggle('sort-asc', asc);
+    th.classList.toggle('sort-desc', !asc);
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a, b) => {
+      const av = a.children[idx].textContent.trim();
+      const bv = b.children[idx].textContent.trim();
+      const cmp = type === 'number'
+        ? parseFloat(av) - parseFloat(bv)
+        : av.localeCompare(bv, 'vi');
+      return asc ? cmp : -cmp;
+    });
+    rows.forEach(r => tbody.appendChild(r));
+  });
+});
+
+// Filter input
+document.querySelectorAll('input[data-filter]').forEach(input => {
+  input.addEventListener('input', () => {
+    const target = document.querySelector(input.dataset.filter);
+    const q = input.value.toLowerCase();
+    target.querySelectorAll('tbody tr').forEach(tr => {
+      tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+});
+
+// Persistent checklist
+document.querySelectorAll('ul.checklist[data-storage-key]').forEach(ul => {
+  const key = ul.dataset.storageKey;
+  const saved = JSON.parse(localStorage.getItem(key) || '{}');
+  ul.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    if (saved[cb.dataset.id]) cb.checked = true;
+    cb.addEventListener('change', () => {
+      saved[cb.dataset.id] = cb.checked;
+      localStorage.setItem(key, JSON.stringify(saved));
+    });
+  });
+});
+
+// Copy buttons
+document.querySelectorAll('button[data-copy]').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const target = document.querySelector(btn.dataset.copy);
+    await navigator.clipboard.writeText(target.textContent.trim());
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+});
+</script>
+</body>
+</html>
