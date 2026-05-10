@@ -19,7 +19,7 @@
 
 ## Tại sao dùng framework này?
 
-- **22 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **23 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
 - **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
 - **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
@@ -201,6 +201,14 @@ docs/
 | `/pm:ideate` | Biến ý tưởng mờ thành concept rõ | Rough idea → One-pager + Not Doing list |
 | `/pm:breakdown` | Phân rã Epic thành tasks, tạo GitHub Issues | User Stories → Issues |
 | `/pm:status` | Sprint status report | — → Status summary |
+| `/pm:dashboard` | Tạo HTML dashboard tổng quan sprint | `docs/tasks/*/` → `docs/dashboard.html` |
+
+> **Dashboard** đọc `docs/tasks/*/`, git log (14 ngày), skill catalog, validation-matrix, improvement-backlog. Render kanban, activity timeline, validation health chart, skill heatmap. Mở `docs/dashboard.html` trong browser — không cần server.
+>
+> ```bash
+> npm run dashboard           # tạo 1 lần
+> npm run dashboard:watch     # tự động tạo lại khi có thay đổi file
+> ```
 
 ### BA (Business Analyst)
 
@@ -283,6 +291,15 @@ docs/
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
+
+### Xem sprint health nhanh
+
+```bash
+npm run dashboard        # tạo docs/dashboard.html
+# mở trong browser → kanban + KPIs + git activity + validation health
+```
+
+Hoặc trong Claude Code: `/pm:dashboard`
 
 ### Nhận yêu cầu từ khách hàng Nhật
 

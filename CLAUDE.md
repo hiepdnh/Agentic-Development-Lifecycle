@@ -188,6 +188,7 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | BA / Tech Lead | `/ba:reverse` | Reverse engineer codebase brownfield → baseline docs (take-over, audit) |
 | PM | `/pm:breakdown` | Epic → Tasks với estimate, tạo GitHub Issues |
 | PM | `/pm:status` | Sprint status report |
+| PM | `/pm:dashboard` | Generate static HTML dashboard từ `docs/tasks/*/` — kanban + health table + backlog |
 | Dev | `/dev:analyze` | Task → Implementation options (multi-agent) |
 | Dev | `/dev:implement` | Implement theo analysis.md, file-by-file với gates |
 | Dev | `/dev:pr` | Code changes → PR description |
