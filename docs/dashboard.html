@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VTI SDLC Dashboard</title>
+<style>
+/* ── Design tokens (ckm-design-system) ─────────────────── */
+:root {
+  --bg:         #F9FAFB; /* gray-50 */
+  --card:       #FFFFFF;
+  --fg:         #111827; /* gray-900 */
+  --fg-muted:   #6B7280; /* gray-500 */
+  --border:     #E5E7EB; /* gray-200 */
+  --hover:      #F3F4F6; /* gray-100 */
+  --surface:    #F3F4F6;
+  --primary:    #2563EB; /* blue-600 */
+  --primary-h:  #1D4ED8; /* blue-700 */
+  --success:    #16A34A; /* green-600 */
+  --warning:    #EAB308; /* yellow-500 */
+  --danger:     #DC2626; /* red-600 */
+  --purple:     #7C3AED;
+  --ring:       #3B82F6; /* blue-500 */
+  --mono:       ui-monospace, "JetBrains Mono", "SF Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #111827; /* gray-900 */
+    --card:     #1F2937; /* gray-800 */
+    --fg:       #F9FAFB; /* gray-50 */
+    --fg-muted: #9CA3AF; /* gray-400 */
+    --border:   #374151; /* gray-700 */
+    --hover:    #1F2937;
+    --surface:  #1F2937;
+  }
+}
+
+/* ── Reset & base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+       background: var(--bg); color: var(--fg); min-height: 100vh; }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.page       { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
+.section    { margin-top: 28px; }
+.section-title { font-size: 13px; font-weight: 700; text-transform: uppercase;
+                 letter-spacing: 0.06em; color: var(--fg-muted); margin-bottom: 12px; }
+.main-grid  { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+@media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
+
+/* ── Header ─────────────────────────────────────────────── */
+header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+         padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+header h1  { font-size: 18px; font-weight: 700; flex: 0 0 auto; }
+.gen-info  { font-size: 12px; color: var(--fg-muted); flex: 1; }
+.live-pill { display: inline-flex; align-items: center; gap: 4px;
+             padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.live-pill.active { background: #dcfce7; color: #166534; }
+.live-pill.static { background: var(--surface); color: var(--fg-muted); }
+@media (prefers-color-scheme: dark) {
+  .live-pill.active { background: #14532d; color: #86efac; }
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.live-pill.active .dot { animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+header .search-wrap { display: flex; align-items: center; margin-left: auto; }
+.search-input { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+                background: var(--card); color: var(--fg); font-size: 13px; width: 220px;
+                outline: none; transition: border-color .15s; }
+.search-input:focus { border-color: var(--ring); }
+
+/* ── Stat cards ─────────────────────────────────────────── */
+.stats-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+@media (max-width: 900px) { .stats-row { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 500px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+             padding: 14px 16px; }
+.stat-val  { font-size: 26px; font-weight: 800; font-family: var(--mono); line-height: 1; }
+.stat-label{ font-size: 11px; color: var(--fg-muted); margin-top: 4px; }
+.stat-sub  { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
+
+/* ── Kanban ─────────────────────────────────────────────── */
+.kanban     { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+@media (max-width: 800px) { .kanban { grid-template-columns: repeat(2, 1fr); } }
+.lane       { background: var(--surface); border-radius: 10px; padding: 10px; }
+.lane-header{ display: flex; justify-content: space-between; align-items: center;
+              margin-bottom: 8px; }
+.lane-name  { font-size: 11px; font-weight: 700; text-transform: uppercase;
+              letter-spacing: .05em; color: var(--fg-muted); }
+.lane-count { background: var(--border); border-radius: 10px; padding: 0 6px;
+              font-size: 11px; font-weight: 600; font-family: var(--mono); }
+.card       { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+              padding: 10px 12px; margin-bottom: 6px; cursor: pointer;
+              transition: border-color .15s, box-shadow .15s; }
+.card:hover { border-color: var(--primary); box-shadow: 0 1px 6px rgba(37,99,235,.12); }
+.card-id    { font-size: 11px; color: var(--fg-muted); font-family: var(--mono); margin-bottom: 3px; }
+.card-title { font-size: 13px; font-weight: 500; word-break: break-word; }
+.card-meta  { margin-top: 7px; display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.card-files { font-size: 11px; color: var(--fg-muted); }
+.card-detail{ display: none; margin-top: 8px; padding-top: 8px;
+              border-top: 1px solid var(--border); font-size: 12px; }
+.card.open .card-detail { display: block; }
+.card-detail a { color: var(--primary); word-break: break-all; text-decoration: none; }
+.card-detail a:hover { text-decoration: underline; }
+.detail-row { color: var(--fg-muted); margin-top: 4px; }
+
+/* ── Right rail ─────────────────────────────────────────── */
+.right-rail { display: flex; flex-direction: column; gap: 16px; }
+.rail-card  { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+              padding: 14px 16px; }
+.rail-title { font-size: 12px; font-weight: 700; text-transform: uppercase;
+              letter-spacing: .05em; color: var(--fg-muted); margin-bottom: 12px; }
+
+/* Activity timeline */
+.timeline   { max-height: 240px; overflow-y: auto; }
+.t-entry    { display: flex; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border);
+              font-size: 12px; }
+.t-entry:last-child { border-bottom: none; }
+.t-date     { flex: 0 0 60px; color: var(--fg-muted); font-family: var(--mono); font-size: 11px; }
+.t-icon     { flex: 0 0 18px; text-align: center; }
+.t-text     { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.t-text small { color: var(--fg-muted); }
+
+/* Doughnut chart */
+.doughnut-wrap { display: flex; gap: 16px; align-items: center; }
+.doughnut-wrap svg { flex: 0 0 80px; }
+.doughnut-legend { font-size: 12px; }
+.legend-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; }
+
+/* Skill heatmap */
+.heatmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+.hm-cell { height: 28px; border-radius: 4px; background: var(--surface);
+           display: flex; align-items: center; justify-content: center;
+           font-size: 10px; font-weight: 600; cursor: default;
+           transition: background .15s; position: relative; }
+.hm-cell[title]:hover::after {
+  content: attr(title); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+  background: var(--fg); color: var(--bg); padding: 3px 7px; border-radius: 4px;
+  font-size: 11px; white-space: nowrap; pointer-events: none; z-index: 10;
+}
+
+/* ── Pills ───────────────────────────────────────────────── */
+.pill       { display: inline-block; padding: 1px 7px; border-radius: 10px;
+              font-size: 11px; font-weight: 600; white-space: nowrap; }
+.p-gray     { background: var(--surface); color: var(--fg-muted); }
+.p-blue     { background: #dbeafe; color: #1e40af; }
+.p-green    { background: #dcfce7; color: #166534; }
+.p-yellow   { background: #fef3c7; color: #92400e; }
+.p-red      { background: #fee2e2; color: #991b1b; }
+.p-purple   { background: #ede9fe; color: #6b21a8; }
+@media (prefers-color-scheme: dark) {
+  .p-gray   { background: #374151; color: #9CA3AF; }
+  .p-blue   { background: #1e3a5f; color: #93c5fd; }
+  .p-green  { background: #14532d; color: #86efac; }
+  .p-yellow { background: #451a03; color: #fcd34d; }
+  .p-red    { background: #450a0a; color: #fca5a5; }
+  .p-purple { background: #3b0764; color: #d8b4fe; }
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+.toolbar    { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.filter-input { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+                background: var(--card); color: var(--fg); font-size: 13px; flex: 1;
+                min-width: 180px; outline: none; }
+.filter-input:focus { border-color: var(--ring); }
+.btn        { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+              background: var(--card); color: var(--fg); cursor: pointer; font-size: 13px; }
+.btn:hover  { background: var(--hover); }
+.btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tbl-wrap   { overflow-x: auto; }
+table       { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td      { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left;
+              vertical-align: middle; }
+th          { background: var(--surface); font-size: 12px; font-weight: 700;
+              cursor: pointer; user-select: none; white-space: nowrap; }
+th[data-sortable]::after { content: " ⇅"; color: var(--fg-muted); font-size: 10px; }
+th.sort-asc::after  { content: " ↑"; color: var(--primary); }
+th.sort-desc::after { content: " ↓"; color: var(--primary); }
+tr:hover    { background: var(--hover); }
+.empty-row td { color: var(--fg-muted); font-style: italic; text-align: center; padding: 24px; }
+.mono       { font-family: var(--mono); }
+
+/* ── Filter chips ────────────────────────────────────────── */
+.chips      { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip       { padding: 3px 10px; border: 1px solid var(--border); border-radius: 20px;
+              font-size: 12px; cursor: pointer; }
+.chip:hover { border-color: var(--primary); }
+.chip.active{ background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* ── Commit type badge ───────────────────────────────────── */
+.ct-feat    { color: #16a34a; }
+.ct-fix     { color: #dc2626; }
+.ct-docs    { color: #2563eb; }
+.ct-chore   { color: #6b7280; }
+.ct-refactor{ color: #7c3aed; }
+.ct-test    { color: #d97706; }
+.ct-other   { color: #6b7280; }
+
+@media print {
+  .search-wrap, .toolbar, .chips, .btn { display: none; }
+  .card-detail { display: block !important; }
+  body { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<script>
+const DATA = {
+  "generatedAt": "2026-05-10 23:18 JST",
+  "watchMode": false,
+  "tasks": [
+    {
+      "id": "UX-001",
+      "title": "UX-001",
+      "phase": "empty",
+      "risk": null,
+      "files": [],
+      "lastMod": null
+    },
+    {
+      "id": "SKILL-001",
+      "title": "Per-Agent Model Selection for Token Optimization",
+      "phase": "discovery",
+      "risk": null,
+      "files": [
+        "requirements.md"
+      ],
+      "lastMod": "2026-05-09T02:03:19.097Z"
+    }
+  ],
+  "backlog": [
+    {
+      "id": "IB-001",
+      "source": "dev:analyze",
+      "friction": "Không có bước classify risk trước khi spawn subagents — dễ miss high-risk task",
+      "fix": "Thêm Risk Classifier bước 0 vào dev:analyze",
+      "status": "✅ done"
+    },
+    {
+      "id": "IB-002",
+      "source": "dev:implement",
+      "friction": "verification.md per-task không cho thấy toàn cảnh coverage",
+      "fix": "Tạo validation-matrix.md global",
+      "status": "✅ done"
+    },
+    {
+      "id": "IB-003",
+      "source": "Tổng quát",
+      "friction": "Không có cơ chế để agent log gaps — mỗi session phải reason lại từ đầu",
+      "fix": "Tạo improvement-backlog.md này",
+      "status": "✅ done"
+    },
+    {
+      "id": "IB-004",
+      "source": "Tổng quát (post bài viết Thariq)",
+      "friction": "Skill output mặc định Markdown kể cả khi artifact để review tương tác — bỏ lỡ giá trị HTML cho sort/filter/checklist",
+      "fix": "Thêm Output Format Convention vào CLAUDE.md, tạo `templates/html-artifact.html` + `templates/html-bilingual.html`, nâng cấp 5 skill nhóm A (dev:analyze, qa:testplan, qa:regression, pm:status, be:bridge)",
+      "status": "✅ done"
+    },
+    {
+      "id": "IB-005",
+      "source": "Tổng quát (học từ AIDLC repo)",
+      "friction": "Không có observability layer — PM/BE/SM phải đào từng `docs/tasks/[ID]/*.md` để biết sprint health",
+      "fix": "Tạo `bin/dashboard.js` generator + `templates/dashboard.html` + `/pm:dashboard` slash command",
+      "status": "✅ done"
+    },
+    {
+      "id": "IB-006",
+      "source": "Dashboard v1",
+      "friction": "Dashboard v1 chỉ có kanban + 2 table đơn giản, thiếu git activity/skill heatmap/validation chart/watch mode",
+      "fix": "Rebuild v2: ckm-design-system tokens, 6 new parsers (git/audit/validation/skills/growth), SVG charts, watch mode",
+      "status": "✅ done"
+    }
+  ],
+  "validation": {
+    "pass": 0,
+    "fail": 0,
+    "partial": 0,
+    "untested": 32
+  },
+  "activity": [
+    {
+      "type": "commit",
+      "hash": "225b44f",
+      "date": "2026-05-10",
+      "msg": "Merge branch 'main' of https://github.com/hiepdnh/Agentic-Development-Lifecycle",
+      "author": "hiep18101997",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "8f4a944",
+      "date": "2026-05-10",
+      "msg": "Merge pull request #8 from hiepdnh/claude/analyze-html-article-AR7iy",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "788d518",
+      "date": "2026-05-10",
+      "msg": "feat(skills): apply HTML output convention for 5 high-ROI skills",
+      "author": "Claude",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "f1f15df",
+      "date": "2026-05-10",
+      "msg": "docs: analyze Thariq's 'Unreasonable Effectiveness of HTML' article",
+      "author": "Claude",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "f96d04e",
+      "date": "2026-05-09",
+      "msg": "Merge pull request #7 from hiepdnh/claude/analyze-interview-feature-WIYzT",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "1537a6b",
+      "date": "2026-05-09",
+      "msg": "docs: cập nhật references sau khi thêm /ba:reverse (skill thứ 22)",
+      "author": "Claude",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "b1dcdc7",
+      "date": "2026-05-09",
+      "msg": "feat: add /ba:reverse skill + audit.md convention (inspired by AWS AI-DLC)",
+      "author": "Claude",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "f5d7649",
+      "date": "2026-05-09",
+      "msg": "Merge pull request #6 from hiepdnh/claude/analyze-interview-feature-WIYzT",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "6dde97c",
+      "date": "2026-05-09",
+      "msg": "feat(ba:spec): thêm Q&A history append-only + resume capability",
+      "author": "Claude",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "c42d4b7",
+      "date": "2026-05-09",
+      "msg": "Merge pull request #5 from hiepdnh/claude/general-session-6CPVR",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "51a1032",
+      "date": "2026-05-09",
+      "msg": "chore(settings): remove git push from deny list",
+      "author": "Claude",
+      "commitType": "chore"
+    },
+    {
+      "type": "commit",
+      "hash": "5ea9fb8",
+      "date": "2026-05-09",
+      "msg": "fix(framework): patch settings.json + verify command-template alignment",
+      "author": "Claude",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "8842ce3",
+      "date": "2026-05-09",
+      "msg": "docs: update CLAUDE.md for SKILL-001 and SKILL-002",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "e97bef4",
+      "date": "2026-05-09",
+      "msg": "Merge pull request #4 from hiepdnh/feat/skill-001-per-agent-model-selection",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "5c531e5",
+      "date": "2026-05-09",
+      "msg": "Merge pull request #3 from hiepdnh/feat/skill-002-exclude-ai-docs",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "14b3f95",
+      "date": "2026-05-09",
+      "msg": "feat(SKILL-002): exclude AI-generated docs from git and fix installer gaps",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "953f39b",
+      "date": "2026-05-09",
+      "msg": "feat(SKILL-001): add per-agent model selection for token optimization",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "ffaccd1",
+      "date": "2026-05-08",
+      "msg": "Merge branch 'main' of https://github.com/hiepdnh/Agentic-Development-Lifecycle",
+      "author": "hiep18101997",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "7b5c54b",
+      "date": "2026-05-08",
+      "msg": "Update resource",
+      "author": "hiep18101997",
+      "commitType": "other"
+    },
+    {
+      "type": "commit",
+      "hash": "8159458",
+      "date": "2026-05-07",
+      "msg": "feat: add risk classifier, improvement backlog, validation matrix",
+      "author": "hiep.dinhnguyenhoang",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "5eff046",
+      "date": "2026-05-07",
+      "msg": "docs: update workflow docs for verification gate + hard stops",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "ef6825b",
+      "date": "2026-05-07",
+      "msg": "docs: update workflow diagrams + dev:implement description for verification gate",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "79121eb",
+      "date": "2026-05-07",
+      "msg": "feat: add Bước 5 Verification Gate to dev:implement",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "467ab74",
+      "date": "2026-05-07",
+      "msg": "docs: clarify dev:analyze stops at analysis.md, user must trigger dev:implement",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "8946a6b",
+      "date": "2026-05-07",
+      "msg": "fix: hard stop dev:analyze before implement — prevent auto-continuation",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "9dd012b",
+      "date": "2026-05-07",
+      "msg": "docs: add --update flag and test suite to README (EN + VI)",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "9cd5b26",
+      "date": "2026-05-07",
+      "msg": "feat: add --update flag to installer for reinstall/upgrade",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "98bf6ae",
+      "date": "2026-05-07",
+      "msg": "feat: add Skill frontmatter to all 21 command files",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "069309b",
+      "date": "2026-05-07",
+      "msg": "fix: sanitize results dir name — colon invalid on Windows paths",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "97a1975",
+      "date": "2026-05-07",
+      "msg": "fix: add --verbose flag required by stream-json output format",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "a53327d",
+      "date": "2026-05-07",
+      "msg": "feat: add skill-triggering test suite + AskUserQuestion gate rule",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "330966b",
+      "date": "2026-05-06",
+      "msg": "feat: add Skill frontmatter, shared assets, and flowchart",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "238b15d",
+      "date": "2026-05-06",
+      "msg": "chore: update GitHub username from hiep18101997 to hiepdnh",
+      "author": "hiep18101997",
+      "commitType": "chore"
+    },
+    {
+      "type": "commit",
+      "hash": "5051f0c",
+      "date": "2026-05-06",
+      "msg": "fix: per-file merge in setup.ps1 + add MIT LICENSE",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "9843286",
+      "date": "2026-05-05",
+      "msg": "style: update ASCII banner to VTI ADLC",
+      "author": "hiep18101997",
+      "commitType": "style"
+    },
+    {
+      "type": "commit",
+      "hash": "1796a5e",
+      "date": "2026-05-05",
+      "msg": "feat: upgrade CLI with @clack/prompts + ASCII banner",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "5f48797",
+      "date": "2026-05-05",
+      "msg": "fix: merge .claude/commands/ instead of skipping entire dir",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "9fa4f91",
+      "date": "2026-05-05",
+      "msg": "docs: add npx as recommended install method (Option 1)",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "cb11d86",
+      "date": "2026-05-05",
+      "msg": "feat: add npx installer via package.json + bin/install.js",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "23d0f8e",
+      "date": "2026-05-05",
+      "msg": "docs: add gh one-liner install option to avoid temp dir block",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "6d0803a",
+      "date": "2026-05-05",
+      "msg": "docs: add multilingual README with EN/VI language switcher",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "08ea677",
+      "date": "2026-05-05",
+      "msg": "feat: add -Yes flag to setup.ps1 and /install slash command",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "2571a99",
+      "date": "2026-05-05",
+      "msg": "chore: update repo URL — ADLC → Agentic-Development-Lifecycle",
+      "author": "hiep18101997",
+      "commitType": "chore"
+    },
+    {
+      "type": "commit",
+      "hash": "35243c4",
+      "date": "2026-05-05",
+      "msg": "fix: correct 5 README issues from review",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "359b1a5",
+      "date": "2026-05-05",
+      "msg": "docs: add image placeholders to README, create assets/ directory",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "78a90ed",
+      "date": "2026-05-05",
+      "msg": "docs: add README, setup.ps1, setup.sh for public distribution",
+      "author": "hiep18101997",
+      "commitType": "docs"
+    },
+    {
+      "type": "commit",
+      "hash": "5eaab38",
+      "date": "2026-05-05",
+      "msg": "refactor: reorganize commands into role subdirectories",
+      "author": "hiep18101997",
+      "commitType": "refactor"
+    },
+    {
+      "type": "commit",
+      "hash": "3a284b8",
+      "date": "2026-05-05",
+      "msg": "chore: remove demo artifacts (TASK-001 Reset Password examples)",
+      "author": "hiep18101997",
+      "commitType": "chore"
+    },
+    {
+      "type": "commit",
+      "hash": "238c078",
+      "date": "2026-05-05",
+      "msg": "fix: apply external review feedback — complete framework overhaul",
+      "author": "hiep18101997",
+      "commitType": "fix"
+    },
+    {
+      "type": "commit",
+      "hash": "5016fb6",
+      "date": "2026-05-05",
+      "msg": "feat: add subagent definitions for dev workflow",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    },
+    {
+      "type": "commit",
+      "hash": "639de49",
+      "date": "2026-05-05",
+      "msg": "feat: initial SDLC skill framework",
+      "author": "hiep18101997",
+      "commitType": "feat"
+    }
+  ],
+  "skills": [
+    {
+      "role": "arch",
+      "name": "arch:adr",
+      "usageCount": 0
+    },
+    {
+      "role": "arch",
+      "name": "arch:review",
+      "usageCount": 0
+    },
+    {
+      "role": "ba",
+      "name": "ba:reverse",
+      "usageCount": 0
+    },
+    {
+      "role": "ba",
+      "name": "ba:spec",
+      "usageCount": 0
+    },
+    {
+      "role": "ba",
+      "name": "ba:user-story",
+      "usageCount": 0
+    },
+    {
+      "role": "be",
+      "name": "be:bridge",
+      "usageCount": 0
+    },
+    {
+      "role": "dev",
+      "name": "dev:analyze",
+      "usageCount": 0
+    },
+    {
+      "role": "dev",
+      "name": "dev:debug",
+      "usageCount": 0
+    },
+    {
+      "role": "dev",
+      "name": "dev:implement",
+      "usageCount": 0
+    },
+    {
+      "role": "dev",
+      "name": "dev:pr",
+      "usageCount": 0
+    },
+    {
+      "role": "docs",
+      "name": "docs:update",
+      "usageCount": 0
+    },
+    {
+      "role": "ops",
+      "name": "ops:deploy",
+      "usageCount": 0
+    },
+    {
+      "role": "ops",
+      "name": "ops:incident",
+      "usageCount": 0
+    },
+    {
+      "role": "pm",
+      "name": "pm:breakdown",
+      "usageCount": 0
+    },
+    {
+      "role": "pm",
+      "name": "pm:dashboard",
+      "usageCount": 0
+    },
+    {
+      "role": "pm",
+      "name": "pm:ideate",
+      "usageCount": 0
+    },
+    {
+      "role": "pm",
+      "name": "pm:status",
+      "usageCount": 0
+    },
+    {
+      "role": "qa",
+      "name": "qa:bug",
+      "usageCount": 0
+    },
+    {
+      "role": "qa",
+      "name": "qa:regression",
+      "usageCount": 0
+    },
+    {
+      "role": "qa",
+      "name": "qa:testplan",
+      "usageCount": 0
+    },
+    {
+      "role": "sec",
+      "name": "sec:review",
+      "usageCount": 0
+    },
+    {
+      "role": "sm",
+      "name": "sm:retro",
+      "usageCount": 0
+    },
+    {
+      "role": "sm",
+      "name": "sm:standup",
+      "usageCount": 0
+    }
+  ],
+  "growth": {
+    "decisions": 0,
+    "screens": 0,
+    "api": 0
+  }
+};
+</script>
+
+<script>
+// ── Helpers ────────────────────────────────────────────────
+
+const PHASE_META = {
+  empty:     { label: 'Empty',           pill: 'p-red'    },
+  discovery: { label: 'Discovery',       pill: 'p-gray'   },
+  planning:  { label: 'Planning',        pill: 'p-blue'   },
+  dev:       { label: 'Dev · Pending PR',pill: 'p-yellow' },
+  review:    { label: 'In Review',       pill: 'p-purple' },
+  qa:        { label: 'QA / Done',       pill: 'p-green'  },
+};
+
+const RISK_META = {
+  tiny:        { pill: 'p-green',  label: 'tiny' },
+  normal:      { pill: 'p-blue',   label: 'normal' },
+  'high-risk': { pill: 'p-red',    label: 'high-risk' },
+};
+
+function pill(cls, text) {
+  return `<span class="pill ${cls}">${text}</span>`;
+}
+
+function phasePill(p) {
+  const m = PHASE_META[p] || { label: p, pill: 'p-gray' };
+  return pill(m.pill, m.label);
+}
+
+function riskPill(r) {
+  if (!r) return pill('p-gray', '—');
+  const m = RISK_META[r] || { pill: 'p-gray', label: r };
+  return pill(m.pill, m.label);
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  return iso.replace('T', ' ').slice(0, 16) + ' JST';
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Stats ──────────────────────────────────────────────────
+
+function renderStats() {
+  const { tasks, backlog, validation, activity, skills, growth } = DATA;
+  const total    = tasks.length;
+  const done     = tasks.filter(t => t.phase === 'qa').length;
+  const inFlight = tasks.filter(t => !['empty','qa'].includes(t.phase)).length;
+  const openIBs  = backlog.filter(b => b.status === 'open').length;
+  const commits  = activity.filter(a => a.type === 'commit').length;
+  const usedSkills = skills.filter(s => s.usageCount > 0).length;
+
+  const cards = [
+    { val: total,     label: 'Tasks',          sub: 'all time' },
+    { val: inFlight,  label: 'In Flight',       sub: 'active tasks' },
+    { val: done,      label: 'QA / Done',        sub: 'completed' },
+    { val: openIBs,   label: 'Open Backlog',    sub: 'items' },
+    { val: commits,   label: 'Commits (14d)',   sub: 'git log' },
+    { val: `${usedSkills}/${skills.length}`, label: 'Skills Used', sub: 'of catalog' },
+  ];
+
+  document.getElementById('stats-row').innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-val mono">${esc(c.val)}</div>
+      <div class="stat-label">${esc(c.label)}</div>
+      <div class="stat-sub">${esc(c.sub)}</div>
+    </div>`).join('');
+}
+
+// ── Kanban ─────────────────────────────────────────────────
+
+let _kanbanFilter = null;
+
+function renderKanban() {
+  const lanes = ['empty','discovery','planning','dev','review','qa'];
+  document.getElementById('kanban').innerHTML = lanes.map(phase => {
+    const ts = DATA.tasks.filter(t => t.phase === phase);
+    const visible = _kanbanFilter ? ts.filter(t => t.risk === _kanbanFilter || t.phase === _kanbanFilter) : ts;
+    const cards = visible.map(t => {
+      const fileLinks = t.files.map(f => `<a href="../docs/tasks/${esc(t.id)}/${esc(f)}">${esc(f)}</a>`).join('<br>');
+      return `
+        <div class="card" data-id="${esc(t.id)}" onclick="this.classList.toggle('open')">
+          <div class="card-id">${esc(t.id)}</div>
+          <div class="card-title">${esc(t.title)}</div>
+          <div class="card-meta">${riskPill(t.risk)} <span class="card-files">${t.files.length} file${t.files.length !== 1 ? 's' : ''}</span></div>
+          <div class="card-detail">
+            <div>${fileLinks || 'No files'}</div>
+            <div class="detail-row">Modified: ${esc(fmtDate(t.lastMod))}</div>
+          </div>
+        </div>`;
+    }).join('');
+    const m = PHASE_META[phase] || {};
+    return `
+      <div class="lane">
+        <div class="lane-header">
+          <span class="lane-name">${esc(m.label || phase)}</span>
+          <span class="lane-count">${visible.length}</span>
+        </div>
+        ${cards || '<div style="font-size:12px;color:var(--fg-muted);padding:4px 0">—</div>'}
+      </div>`;
+  }).join('');
+}
+
+// ── Activity timeline ───────────────────────────────────────
+
+function renderTimeline() {
+  const entries = DATA.activity.slice(0, 40);
+  if (!entries.length) {
+    document.getElementById('timeline').innerHTML = '<div style="font-size:12px;color:var(--fg-muted)">No recent activity</div>';
+    return;
+  }
+  document.getElementById('timeline').innerHTML = entries.map(e => {
+    if (e.type === 'audit') {
+      return `<div class="t-entry">
+        <span class="t-date">${esc(e.date.slice(5,10))}</span>
+        <span class="t-icon">⚡</span>
+        <span class="t-text">${esc(e.skill)} <small>· ${esc(e.taskId)}</small></span>
+      </div>`;
+    } else {
+      const cls = 'ct-' + (e.commitType || 'other');
+      return `<div class="t-entry">
+        <span class="t-date">${esc(e.date.slice(5,10))}</span>
+        <span class="t-icon">⬡</span>
+        <span class="t-text"><span class="${cls}">${esc(e.commitType || '·')}</span> ${esc(e.msg)}</span>
+      </div>`;
+    }
+  }).join('');
+}
+
+// ── Validation doughnut ─────────────────────────────────────
+
+function renderDoughnut() {
+  const { pass, fail, partial, untested } = DATA.validation;
+  const total = pass + fail + partial + untested;
+
+  const segments = [
+    { val: pass,     color: '#16A34A', label: '✅ pass' },
+    { val: fail,     color: '#DC2626', label: '❌ fail' },
+    { val: partial,  color: '#EAB308', label: '⚠️ partial' },
+    { val: untested, color: '#9CA3AF', label: '🔲 untested' },
+  ].filter(s => s.val > 0);
+
+  const legend = segments.map(s =>
+    `<div class="legend-row"><div class="legend-dot" style="background:${s.color}"></div>${esc(s.label)}: <strong>${s.val}</strong></div>`
+  ).join('');
+
+  if (!total) {
+    document.getElementById('doughnut-wrap').innerHTML = '<div style="font-size:12px;color:var(--fg-muted)">No validation data</div>';
+    return;
+  }
+
+  // Build SVG arcs
+  const cx = 50, cy = 50, r = 35, stroke = 14;
+  const circum = 2 * Math.PI * r;
+  let offset = 0;
+  let arcs = '';
+  for (const s of segments) {
+    const len = (s.val / total) * circum;
+    arcs += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}"
+      stroke-width="${stroke}" stroke-dasharray="${len} ${circum - len}"
+      stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    offset += len;
+  }
+
+  document.getElementById('doughnut-wrap').innerHTML = `
+    <div class="doughnut-wrap">
+      <svg viewBox="0 0 100 100" width="80" height="80" style="flex:0 0 80px">
+        ${arcs}
+        <text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="14" font-weight="700"
+              fill="currentColor" font-family="var(--mono)">${total}</text>
+      </svg>
+      <div class="doughnut-legend">${legend}</div>
+    </div>`;
+}
+
+// ── Skill heatmap ───────────────────────────────────────────
+
+function renderHeatmap() {
+  const { skills } = DATA;
+  if (!skills.length) {
+    document.getElementById('skill-heatmap').innerHTML = '<div style="font-size:12px;color:var(--fg-muted)">No skills found</div>';
+    return;
+  }
+  const max = Math.max(...skills.map(s => s.usageCount), 1);
+  document.getElementById('skill-heatmap').innerHTML = skills.map(s => {
+    const intensity = s.usageCount / max;
+    const alpha = 0.12 + intensity * 0.88;
+    const bg = `rgba(37,99,235,${alpha.toFixed(2)})`;
+    const fg = intensity > 0.5 ? '#fff' : 'var(--fg)';
+    return `<div class="hm-cell" style="background:${bg};color:${fg}"
+      title="${esc(s.name)} (${s.usageCount} uses)">
+      <span>${esc(s.name.split(':')[1] || s.name)}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Health table ────────────────────────────────────────────
+
+let _healthFilterPhase = 'all';
+let _healthFilterRisk  = 'all';
+let _healthSearch = '';
+
+function renderHealth() {
+  const tbody = document.querySelector('#health-table tbody');
+  let rows = DATA.tasks;
+  if (_healthFilterPhase !== 'all') rows = rows.filter(t => t.phase === _healthFilterPhase);
+  if (_healthFilterRisk  !== 'all') rows = rows.filter(t => t.risk  === _healthFilterRisk);
+  if (_healthSearch) rows = rows.filter(t =>
+    t.id.toLowerCase().includes(_healthSearch) || t.title.toLowerCase().includes(_healthSearch));
+
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No tasks match filter</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(t => `
+    <tr>
+      <td class="mono"><strong>${esc(t.id)}</strong></td>
+      <td>${phasePill(t.phase)}</td>
+      <td>${riskPill(t.risk)}</td>
+      <td class="mono">${t.files.length}</td>
+      <td class="mono" style="font-size:11px;color:var(--fg-muted)">${esc(fmtDate(t.lastMod))}</td>
+    </tr>`).join('');
+}
+
+// ── Backlog table ───────────────────────────────────────────
+
+let _backlogFilter = 'all';
+let _backlogSearch = '';
+
+function renderBacklog() {
+  const tbody = document.querySelector('#backlog-table tbody');
+  let rows = DATA.backlog;
+  if (_backlogFilter === 'open') rows = rows.filter(b => b.status === 'open');
+  if (_backlogFilter === 'done') rows = rows.filter(b => b.status !== 'open');
+  if (_backlogSearch) rows = rows.filter(b =>
+    (b.id + b.source + b.friction + b.fix).toLowerCase().includes(_backlogSearch));
+
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No backlog items</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(b => {
+    const isDone = b.status !== 'open';
+    const sp = isDone ? pill('p-green', 'done') : pill('p-yellow', 'open');
+    return `<tr>
+      <td class="mono">${esc(b.id)}</td>
+      <td>${esc(b.source)}</td>
+      <td>${esc(b.friction)}</td>
+      <td style="font-size:12px">${esc(b.fix)}</td>
+      <td>${sp}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Sortable tables ─────────────────────────────────────────
+
+function initSortable() {
+  document.querySelectorAll('th[data-sortable]').forEach(th => {
+    th.addEventListener('click', () => {
+      const table = th.closest('table');
+      const tbody = table.querySelector('tbody');
+      const idx   = Array.from(th.parentNode.children).indexOf(th);
+      const type  = th.dataset.type || 'string';
+      const asc   = !th.classList.contains('sort-asc');
+      table.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc','sort-desc'));
+      th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+      Array.from(tbody.querySelectorAll('tr'))
+        .sort((a, b) => {
+          const av = a.children[idx]?.textContent.trim() ?? '';
+          const bv = b.children[idx]?.textContent.trim() ?? '';
+          const cmp = type === 'number' ? parseFloat(av) - parseFloat(bv) : av.localeCompare(bv, 'vi');
+          return asc ? cmp : -cmp;
+        })
+        .forEach(r => tbody.appendChild(r));
+    });
+  });
+}
+
+// ── Global search ───────────────────────────────────────────
+
+function initGlobalSearch() {
+  document.getElementById('global-search').addEventListener('input', e => {
+    const q = e.target.value.toLowerCase().trim();
+    // highlight matching cards in kanban
+    document.querySelectorAll('.card').forEach(card => {
+      const id = card.dataset.id || '';
+      card.style.opacity = (!q || id.toLowerCase().includes(q) ||
+        card.querySelector('.card-title')?.textContent.toLowerCase().includes(q)) ? '' : '0.3';
+    });
+  });
+}
+
+// ── Boot ────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  const { generatedAt, watchMode } = DATA;
+
+  document.getElementById('gen-time').textContent = generatedAt;
+  const lp = document.getElementById('live-pill');
+  if (watchMode) { lp.className = 'live-pill active'; lp.innerHTML = '<span class="dot"></span> Live'; }
+  else            { lp.className = 'live-pill static'; lp.innerHTML = 'Static · F5 to refresh'; }
+
+  renderStats();
+  renderKanban();
+  renderTimeline();
+  renderDoughnut();
+  renderHeatmap();
+  renderHealth();
+  renderBacklog();
+  initSortable();
+  initGlobalSearch();
+
+  // Phase filter chips
+  document.querySelectorAll('.phase-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.phase-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      _healthFilterPhase = chip.dataset.phase;
+      renderHealth();
+    });
+  });
+
+  // Risk filter chips
+  document.querySelectorAll('.risk-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.risk-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      _healthFilterRisk = chip.dataset.risk;
+      renderHealth();
+    });
+  });
+
+  // Health search
+  document.getElementById('health-search').addEventListener('input', e => {
+    _healthSearch = e.target.value.toLowerCase().trim();
+    renderHealth();
+  });
+
+  // Backlog filter
+  document.querySelectorAll('.backlog-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.backlog-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      _backlogFilter = chip.dataset.filter;
+      renderBacklog();
+    });
+  });
+
+  // Backlog search
+  document.getElementById('backlog-search').addEventListener('input', e => {
+    _backlogSearch = e.target.value.toLowerCase().trim();
+    renderBacklog();
+  });
+});
+</script>
+
+<!-- ── Page shell ──────────────────────────────────────── -->
+<div class="page">
+
+  <header>
+    <h1>VTI SDLC Dashboard</h1>
+    <span class="gen-info">Generated: <span id="gen-time"></span></span>
+    <span id="live-pill" class="live-pill static">Static</span>
+    <div class="search-wrap">
+      <input type="search" class="search-input" id="global-search" placeholder="Search tasks…" aria-label="Search tasks">
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <div class="section">
+    <div class="section-title">Overview</div>
+    <div class="stats-row" id="stats-row"></div>
+  </div>
+
+  <!-- Main: kanban + right rail -->
+  <div class="section main-grid">
+    <div>
+      <div class="section-title">Task Progress</div>
+      <div class="kanban" id="kanban"></div>
+    </div>
+    <div class="right-rail">
+      <!-- Activity timeline -->
+      <div class="rail-card">
+        <div class="rail-title">Activity (14d)</div>
+        <div class="timeline" id="timeline"></div>
+      </div>
+
+      <!-- Validation health -->
+      <div class="rail-card">
+        <div class="rail-title">Framework Health</div>
+        <div id="doughnut-wrap"></div>
+      </div>
+
+      <!-- Skill heatmap -->
+      <div class="rail-card">
+        <div class="rail-title">Skill Usage</div>
+        <div class="heatmap" id="skill-heatmap"></div>
+        <div style="font-size:11px;color:var(--fg-muted);margin-top:8px">Darker = more audit entries</div>
+      </div>
+
+      <!-- Growth counters -->
+      <div class="rail-card">
+        <div class="rail-title">Baseline Docs</div>
+        <div id="growth-stats" style="font-size:13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+          <!-- Filled by JS below -->
+        </div>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const { growth } = DATA;
+            document.getElementById('growth-stats').innerHTML = [
+              { label: 'Decisions', val: growth.decisions },
+              { label: 'Screens',   val: growth.screens },
+              { label: 'API',       val: growth.api },
+            ].map(g => `<div>
+              <div style="font-size:20px;font-weight:800;font-family:var(--mono)">${g.val}</div>
+              <div style="font-size:11px;color:var(--fg-muted)">${g.label}</div>
+            </div>`).join('');
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sprint health table -->
+  <div class="section">
+    <div class="section-title">Sprint Health</div>
+    <div class="toolbar">
+      <input type="search" class="filter-input" id="health-search" placeholder="Search…">
+      <div class="chips">
+        <span class="chip phase-chip active" data-phase="all">All phases</span>
+        <span class="chip phase-chip" data-phase="discovery">Discovery</span>
+        <span class="chip phase-chip" data-phase="planning">Planning</span>
+        <span class="chip phase-chip" data-phase="dev">Dev</span>
+        <span class="chip phase-chip" data-phase="qa">Done</span>
+      </div>
+      <div class="chips">
+        <span class="chip risk-chip active" data-risk="all">All risk</span>
+        <span class="chip risk-chip" data-risk="tiny">Tiny</span>
+        <span class="chip risk-chip" data-risk="normal">Normal</span>
+        <span class="chip risk-chip" data-risk="high-risk">High-risk</span>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="health-table">
+        <thead><tr>
+          <th data-sortable>Task ID</th>
+          <th data-sortable>Phase</th>
+          <th data-sortable>Risk</th>
+          <th data-sortable data-type="number">Files</th>
+          <th data-sortable>Last Modified</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Improvement backlog -->
+  <div class="section" style="margin-bottom: 48px">
+    <div class="section-title">Improvement Backlog</div>
+    <div class="toolbar">
+      <input type="search" class="filter-input" id="backlog-search" placeholder="Search backlog…">
+      <div class="chips">
+        <span class="chip backlog-chip active" data-filter="all">All</span>
+        <span class="chip backlog-chip" data-filter="open">Open</span>
+        <span class="chip backlog-chip" data-filter="done">Done</span>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="backlog-table">
+        <thead><tr>
+          <th data-sortable>ID</th>
+          <th data-sortable>Found in</th>
+          <th data-sortable>Friction</th>
+          <th>Proposed Fix</th>
+          <th data-sortable>Status</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
