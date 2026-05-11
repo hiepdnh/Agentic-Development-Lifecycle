@@ -11,9 +11,10 @@
 
 ```
 PM Ideate → BA Spec → BA Stories → PM Breakdown
-    → Dev Analyze → [review analysis.md]
+    → Dev Analyze → [Tech Lead confirm nếu high-risk]
     → Dev Implement → [report test results] → [review verification.md]
-    → Sec Review → Dev PR → QA Test Plan → QA Verify → Docs Update
+    → Arch Review (nếu có design decision) → Sec Review → Dev PR
+    → QA Test Plan → QA Verify → Docs Update
 ```
 
 Mỗi bước có **gate** — không tự động chuyển sang bước tiếp theo.  
@@ -84,6 +85,13 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 2. Confirm code map
 3. **Human chọn phương án** (không tự chọn)
 
+### 3.1b Tech Lead Gate (high-risk tasks only)
+**Người dùng**: Tech Lead / Senior Dev  
+**Khi nào**: Khi `/dev:analyze` phân loại task là **high-risk**  
+**Bỏ qua nếu**: Task là tiny hoặc normal  
+**Action**: Review `analysis.md`, confirm hoặc yêu cầu điều chỉnh phương án trước khi dev implement  
+**Gate cứng** — framework không cho phép tiếp tục implement khi chưa có senior confirm
+
 ### 3.2 Dev Implement `/dev:implement`
 **Người dùng**: Dev  
 **Input**: `analysis.md`  
@@ -97,7 +105,17 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 
 **Hard stop sau Bước 5** — user phải tự trigger `/dev:pr`.
 
-### 3.3 Security Review `/sec:review`
+### 3.3 Architecture Review `/arch:review` (tuỳ chọn)
+**Người dùng**: Tech Lead / Architect  
+**Khi nào**: Khi implementation tạo ra design decision mới (pattern mới, thay đổi cấu trúc DB, API contract mới)  
+**Bỏ qua nếu**: Không có design decision mới — chỉ implement theo spec đã có  
+**Input**: Code diff + `analysis.md`  
+**Output**: Architecture findings  
+**Gate**: Block PR nếu có finding Critical chưa được address
+
+Nếu có quyết định kiến trúc quan trọng cần document → tạo ADR bằng `/arch:adr` sau bước này.
+
+### 3.4 Security Review `/sec:review`
 **Người dùng**: Dev / Tech Lead  
 **Input**: Code diff  
 **Output**: Security findings  
@@ -175,6 +193,7 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 | Dev Analyze | `docs/tasks/[ID]/analysis.md` (bao gồm Risk Classification block) |
 | Dev Implement | Source code + `docs/tasks/[ID]/verification.md` |
 | Harness Delta | Entry mới trong `docs/improvement-backlog.md` (nếu có friction) |
+| Arch Review | Architecture findings (inline) + `docs/decisions/ADR-NNN.md` (nếu có quyết định cần document) |
 | Security | Security findings (inline) |
 | Dev PR | PR description |
 | QA | `docs/tasks/[ID]/test-plan.md` |
