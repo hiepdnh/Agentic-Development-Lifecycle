@@ -126,6 +126,11 @@ async function main() {
   }
   s.stop(resultMsg('docs/ framework files', { copied: docRootCopied, skipped: docRootFiles.length - docRootCopied - docRootUpdated, updated: docRootUpdated }));
 
+  // 4d. docs/analysis (framework content — skip-if-exists, overwrite on --update)
+  s.start('Copying analysis docs...');
+  const analysisResult = copyDir(path.join(src, 'docs', 'analysis'), path.join(docsDst, 'analysis'));
+  s.stop(resultMsg('docs/analysis/', analysisResult));
+
   // 4c. improvement-backlog.md — only if missing (user-mutable, never overwrite)
   const backlogSrc = path.join(src, 'docs', 'improvement-backlog.md');
   const backlogDst = path.join(docsDst, 'improvement-backlog.md');

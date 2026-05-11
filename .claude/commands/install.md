@@ -54,13 +54,32 @@ Skip nếu đã tồn tại.
 
 ### Bước 3 — Copy `templates/`
 
-Glob `[SOURCE]/templates/*.md`. Copy từng file sang `[TARGET]/templates/`.  
+Glob TẤT CẢ file trong `[SOURCE]/templates/` (cả `.md` và `.html`). Copy từng file sang `[TARGET]/templates/`.  
 Skip nếu đã tồn tại.
 
 ### Bước 4 — Copy `docs/workflows/`
 
 Glob `[SOURCE]/docs/workflows/*.md`. Copy sang `[TARGET]/docs/workflows/`.  
 Skip nếu đã tồn tại.
+
+### Bước 4b — Copy framework doc files
+
+Với mỗi file:
+- `docs/risk-classifier.md`
+- `docs/validation-matrix.md`
+
+Read từ `[SOURCE]/docs/[FILE]`, Write sang `[TARGET]/docs/[FILE]`.  
+Skip nếu target đã tồn tại.
+
+### Bước 4c — Copy `docs/improvement-backlog.md` (user-mutable)
+
+CHỈ copy nếu `[TARGET]/docs/improvement-backlog.md` CHƯA tồn tại.  
+File này user tự cập nhật sau task — TUYỆT ĐỐI không ghi đè dù với lý do gì.
+
+### Bước 4d — Copy `docs/analysis/`
+
+Glob `[SOURCE]/docs/analysis/*.md`. Copy sang `[TARGET]/docs/analysis/`.  
+Skip nếu file đã tồn tại.
 
 ### Bước 5 — Tạo empty doc dirs
 
@@ -84,12 +103,15 @@ Dùng Write tool với content rỗng.
 ```
 ## Kết quả cài đặt
 
-.claude/commands/    [OK/SKIP mỗi file]
-agents/              [OK/SKIP]
-templates/           [OK/SKIP]
-docs/workflows/      [OK/SKIP]
-docs/ (empty dirs)   [OK/SKIP]
-CLAUDE.md            [OK/SKIP]
+.claude/commands/             [OK/SKIP mỗi file]
+agents/                       [OK/SKIP]
+templates/                    [OK/SKIP] (md + html)
+docs/workflows/               [OK/SKIP]
+docs/ (framework files)       [OK/SKIP] (risk-classifier, validation-matrix)
+docs/improvement-backlog.md   [OK/SKIP]
+docs/analysis/                [OK/SKIP]
+docs/ (empty dirs)            [OK/SKIP] (api, screens, tasks, decisions)
+CLAUDE.md                     [OK/SKIP]
 
 Bước tiếp theo:
 1. Mở CLAUDE.md, cập nhật section "VTI Context" (project name, khách hàng, repo URL, tech stack)
@@ -102,4 +124,5 @@ Bước tiếp theo:
 
 - Skill này KHÔNG dùng PowerShell/Bash — chỉ dùng Glob, Read, Write tools của Claude Code
 - Không ghi đè file đã tồn tại — luôn Skip và báo user merge thủ công
+- `docs/improvement-backlog.md` là user-mutable — không bao giờ ghi đè dù user yêu cầu re-install
 - Nếu working directory = source directory → báo lỗi, không cài
