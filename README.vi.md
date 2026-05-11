@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" alt="Logo" width="80">
   <br><br>
   <em>Bộ skill cho <strong>Claude Code</strong> hỗ trợ toàn bộ vòng đời phần mềm (SDLC) — từ phân tích yêu cầu đến deploy.</em>
   <br>
@@ -20,13 +19,14 @@
 
 ## Tại sao dùng framework này?
 
-- **21 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **26 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
 - **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
 - **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
 - **Two-tier docs** — task docs riêng + baseline docs sống cùng code
 - **Tự cải tiến** — agent ghi friction vào `docs/improvement-backlog.md` trong lúc làm việc
 - **Chuẩn JP** — `/be:bridge` tạo 設計書, 単体テスト仕様書 sẵn gửi khách
+- **HTML companion** — artifact tương tác (bảng sort/filter, checklist lưu localStorage, song ngữ JP↔VN) cho 5 skill ROI cao, song hành cùng Markdown lưu trữ
 
 ---
 
@@ -152,14 +152,14 @@ claude .
 
 ```
 .claude/
-└── commands/           # 21 slash commands — gõ / trong Claude Code
+└── commands/           # 26 slash commands — gõ / trong Claude Code
     ├── arch/           # adr.md  review.md
-    ├── ba/             # spec.md  user-story.md
+    ├── ba/             # spec.md  user-story.md  reverse.md
     ├── be/             # bridge.md  (JP outsource)
-    ├── dev/            # analyze.md  implement.md  pr.md  debug.md
-    ├── docs/           # update.md
+    ├── dev/            # analyze.md  implement.md  review.md  pr.md  debug.md
+    ├── docs/           # update.md  project.md
     ├── ops/            # deploy.md  incident.md
-    ├── pm/             # ideate.md  breakdown.md  status.md
+    ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
     ├── qa/             # testplan.md  bug.md  regression.md
     ├── sec/            # review.md
     └── sm/             # standup.md  retro.md
@@ -179,11 +179,13 @@ templates/              # Skeleton templates cho tất cả document types
     adr.md
     github-issue.md
     pr-description.md
+    html-artifact.html      # HTML boilerplate tương tác (sort/filter/checklist)
+    html-bilingual.html     # Layout 2 cột JP↔VN cho deliverable khách JP
 
 docs/
     risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
     improvement-backlog.md  # Friction log — agent ghi vào khi phát hiện gap trong framework
-    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 21 skills
+    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 25 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
     api/                # API baseline docs — sống lâu dài
@@ -201,7 +203,15 @@ docs/
 |---------|-------|----------------|
 | `/pm:ideate` | Biến ý tưởng mờ thành concept rõ | Rough idea → One-pager + Not Doing list |
 | `/pm:breakdown` | Phân rã Epic thành tasks, tạo GitHub Issues | User Stories → Issues |
-| `/pm:status` | Sprint status report | — → Status summary |
+| `/pm:status` | Sprint status report | — → Status summary (Markdown hoặc HTML dashboard) |
+| `/pm:dashboard` | Tạo HTML dashboard tổng quan sprint | `docs/tasks/*/` → `docs/dashboard.html` |
+
+> **Dashboard** đọc `docs/tasks/*/`, git log (14 ngày), skill catalog, validation-matrix, improvement-backlog. Render kanban, activity timeline, validation health chart, skill heatmap. Mở `docs/dashboard.html` trong browser — không cần server.
+>
+> ```bash
+> npm run dashboard           # tạo 1 lần
+> npm run dashboard:watch     # tự động tạo lại khi có thay đổi file
+> ```
 
 ### BA (Business Analyst)
 
@@ -209,19 +219,21 @@ docs/
 |---------|-------|----------------|
 | `/ba:spec` | Chuyển yêu cầu thô thành spec có cấu trúc | Raw requirement → `docs/tasks/[ID]/requirements.md` |
 | `/ba:user-story` | Tạo User Stories từ spec | requirements.md → User Stories + AC |
+| `/ba:reverse` | Reverse engineer codebase legacy thành baseline docs | Codebase → `docs/baseline/codebase-overview.md` |
 
 ### Bridge Engineer — JP Outsource
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/be:bridge` | Dịch JP↔VN, tạo 設計書 + spec cho dev | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) |
+| `/be:bridge` | Dịch JP↔VN, tạo 設計書 + spec cho dev | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) + `deliverable.html` (review song ngữ) |
 
 ### Developer
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` (**dừng — review trước khi implement**) |
+| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (**dừng — review trước khi implement**) |
 | `/dev:implement` | Implement file-by-file với gate + verification + harness delta check | `analysis.md` → Code → `verification.md` |
+| `/dev:review` | Review toàn diện sau implement: code quality + architecture + security trong 1 lần | Diff + `analysis.md` → Review report → Approve / Request Changes |
 | `/dev:pr` | Tạo PR description | Code diff → PR description |
 | `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
 
@@ -235,9 +247,9 @@ docs/
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/qa:testplan` | Tạo test plan từ spec | requirements.md → `test-plan.md` |
+| `/qa:testplan` | Tạo test plan từ spec | requirements.md → `test-plan.md` + `test-plan.html` (checklist tương tác) |
 | `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist trước release | Release scope → Checklist |
+| `/qa:regression` | Regression checklist trước release | Release scope → `regression-checklist.html` (quyết định go/no-go) |
 
 ### Architect
 
@@ -265,6 +277,7 @@ docs/
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
 | `/docs:update` | Update baseline docs sau verify & merge | Diff + verify → Updated docs |
+| `/docs:project` | Sync tài liệu project (README, workflows, install scripts, CLAUDE.md) | Trạng thái codebase → Tài liệu project được cập nhật |
 
 ---
 
@@ -280,10 +293,19 @@ docs/
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
     → /dev:analyze → [review analysis.md]
     → /dev:implement → [báo cáo kết quả test] → [review verification.md]
-    → /sec:review → /dev:pr
+    → /dev:review → /dev:pr
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
+
+### Xem sprint health nhanh
+
+```bash
+npm run dashboard        # tạo docs/dashboard.html
+# mở trong browser → kanban + KPIs + git activity + validation health
+```
+
+Hoặc trong Claude Code: `/pm:dashboard`
 
 ### Nhận yêu cầu từ khách hàng Nhật
 
@@ -294,7 +316,7 @@ docs/
 ### Nhận issue, cần code ngay
 
 ```
-/dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → /dev:review → /dev:pr
 ```
 
 > **`/dev:analyze`** phân loại risk trước (tiny / normal / high-risk), sau đó dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
@@ -317,6 +339,7 @@ Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.
 | 6 | **Template-first** | Commands reference templates, không duplicate format inline |
 | 7 | **Risk-first** | Phân loại mọi task thành tiny / normal / high-risk trước khi làm |
 | 8 | **Self-improving** | Agent ghi friction vào `docs/improvement-backlog.md` — framework tự cải tiến từ thực tế dùng |
+| 9 | **Format theo consumer** | Chọn Markdown hay HTML theo người dùng cuối (lưu trữ → MD, review tương tác → HTML) — xem Output Format Convention trong `CLAUDE.md` |
 
 ---
 
@@ -376,6 +399,7 @@ Deliverables map:
 | 詳細設計書 | `docs/tasks/[ID]/analysis.md` |
 | 単体テスト仕様書 | `docs/tasks/[ID]/test-plan.md` |
 | 単体テスト結果 | `docs/tasks/[ID]/verification.md` |
+| 成果物 (Deliverable) | `docs/tasks/[ID]/deliverable.html` (song ngữ JP↔VN, print-ready) |
 
 ---
 
@@ -399,7 +423,7 @@ Deliverables map:
 # Verify skill mới auto-invoke đúng
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Chạy toàn bộ 21 skills
+# Chạy toàn bộ 26 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Yêu cầu: `claude` CLI đã auth + `jq` đã cài.

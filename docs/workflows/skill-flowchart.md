@@ -1,6 +1,6 @@
 # Skill Flowchart — VTI SDLC Framework
 
-Sơ đồ quan hệ giữa 22 skills theo dòng chảy SDLC.
+Sơ đồ quan hệ giữa 26 skills theo dòng chảy SDLC.
 
 ---
 
@@ -11,11 +11,14 @@ flowchart TD
     %% ── Đầu vào ──
     JP([🇯🇵 Khách hàng JP])
     IDEA([💡 Ý tưởng / Vấn đề])
+    LEGACY([🏚️ Codebase brownfield<br/>take-over / legacy])
 
     %% ── Discovery ──
     subgraph DISC ["🔍 Discovery"]
-        BRIDGE["/be:bridge\nBridge Engineer"]
+        BRIDGE["/be:bridge 🌐\nBridge Engineer"]
         IDEATE["/pm:ideate\nPM · BA"]
+        REVERSE["/ba:reverse\nBA · Tech Lead"]
+        BASELINE[(docs/baseline/<br/>codebase-overview.md)]
     end
 
     %% ── Planning ──
@@ -35,7 +38,7 @@ flowchart TD
     %% ── Dev per Issue ──
     subgraph DEV ["💻 Dev Cycle — per issue"]
         RISK["🔵 Risk Classifier\ndocs/risk-classifier.md"]
-        ANALYZE["/dev:analyze\nDev"]
+        ANALYZE["/dev:analyze 🌐\nDev"]
         IMPLEMENT["/dev:implement\nDev"]
         VERIFY["✅ Verification Gate\nUser reports test results"]
         HARNESS["📝 Harness Delta\ndocs/improvement-backlog.md"]
@@ -46,15 +49,15 @@ flowchart TD
 
     %% ── QA ──
     subgraph QA ["🧪 QA Cycle"]
-        TESTPLAN["/qa:testplan\nQA"]
+        TESTPLAN["/qa:testplan 🌐\nQA"]
         BUGR["/qa:bug\nQA"]
-        REGRESSION["/qa:regression\nQA"]
+        REGRESSION["/qa:regression 🌐\nQA"]
     end
 
     %% ── Sprint Ops ──
     subgraph SPRINT ["📊 Sprint Ops (lặp lại)"]
         STANDUP["/sm:standup\ndaily"]
-        STATUS["/pm:status\nper sprint"]
+        STATUS["/pm:status 🌐\nper sprint"]
         RETRO["/sm:retro\nsprint end"]
     end
 
@@ -74,10 +77,14 @@ flowchart TD
     %% Entry
     JP --> BRIDGE
     IDEA --> IDEATE
+    LEGACY --> REVERSE
 
     %% Discovery → Planning
     BRIDGE -->|"spec VN + 設計書 JP"| SPEC
     IDEATE --> SPEC
+    REVERSE --> BASELINE
+    BASELINE -.->|"context cho feature mới"| SPEC
+    BASELINE -.->|"review JP nếu khách take-over"| BRIDGE
     SPEC --> STORY
     STORY --> BREAKDOWN
     BREAKDOWN --> ISSUES
@@ -139,6 +146,13 @@ flowchart TD
 ### Bridge Engineer — JP Outsource Entry
 ```
 JP Client → /be:bridge → /ba:spec (VN) + 設計書 (JP)
+```
+
+### Brownfield Onboarding — Take-over codebase legacy
+```
+Legacy codebase → /ba:reverse → docs/baseline/codebase-overview.md
+                              → [optional /be:bridge review JP]
+                              → /ba:spec (cho feature mới có context)
 ```
 
 ### PM / BA — Discovery → Planning
@@ -205,3 +219,4 @@ Planning          Dev decisions
 | `→` | Luồng bắt buộc — phải đi qua |
 | `-.->` | Luồng tùy chọn / parallel |
 | `↕` | Loop (có thể quay lại) |
+| 🌐 | Skill có **HTML companion** ngoài Markdown — interactive review artifact (sort/filter/checklist hoặc song ngữ JP↔VN). One-shot, không commit. Xem `CLAUDE.md` section "Output Format Convention". |

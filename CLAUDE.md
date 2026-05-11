@@ -10,7 +10,7 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is the `.claude/commands/` directory — 21 Markdown skill files that Claude Code loads as slash commands.
+This repo IS the framework source. The "product" is the `.claude/commands/` directory — 26 Markdown skill files that Claude Code loads as slash commands.
 
 ### Run installer locally
 
@@ -58,7 +58,7 @@ Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 Verify Claude auto-invokes the correct skill for naive prompts (no `/command` syntax):
 
 ```bash
-# All 21 skills
+# All 22 skills
 bash tests/skill-triggering/run-all.sh
 
 # With flags
@@ -103,14 +103,14 @@ Each agent file defines an **input contract** and **output JSON shape**. When sp
 - Pass ONLY the minimal context the agent needs (no full conversation history)
 - Summarize agent output before passing to the next agent in a chain
 
-| Agent | Spawned by | Purpose |
-|-------|-----------|---------|
-| `task-reader` | `/dev:analyze` | Parse issue → structured JSON (no codebase access) |
-| `code-scout` | `/dev:analyze` | Find relevant files for a task (read-only) |
-| `planner` | `/dev:analyze` | Synthesize task + code map → 2-3 implementation options |
-| `diff-reader` | `/dev:pr`, `/docs:update` | Summarize git diff for PR description |
-| `test-gen` | `/qa:testplan` | Generate test cases from spec |
-| `doc-updater` | `/docs:update` | Update baseline docs after verification |
+| Agent | Spawned by | Model | Purpose |
+|-------|-----------|-------|---------|
+| `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON (no codebase access) |
+| `code-scout` | `/dev:analyze` | haiku | Find relevant files for a task (read-only) |
+| `planner` | `/dev:analyze` | sonnet | Synthesize task + code map → 2-3 implementation options |
+| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Summarize git diff for PR description |
+| `test-gen` | `/qa:testplan` | sonnet | Generate test cases from spec |
+| `doc-updater` | `/docs:update` | sonnet | Update baseline docs after verification |
 
 ### Permissions model
 
@@ -164,7 +164,8 @@ When adding new commands that need shell access, update `settings.json`.
 .claude/commands/    # Slash commands cho từng role
 agents/              # Subagent definitions (spawned bởi orchestrator commands)
 docs/
-  tasks/             # Task docs (Type 1) — mỗi issue 1 folder
+  tasks/             # Task docs (Type 1) — mỗi issue 1 folder, kèm audit.md
+  baseline/          # Codebase reverse-engineering output (từ /ba:reverse)
   screens/           # Screen baseline docs (Type 2)
   api/               # API baseline docs (Type 2)
   decisions/         # Architecture Decision Records (ADR)
@@ -184,10 +185,13 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | PM / BA | `/pm:ideate` | Ý tưởng mờ → Concept rõ (trước /ba:spec) |
 | BA | `/ba:spec` | Raw requirement → Structured spec |
 | BA | `/ba:user-story` | Spec → User Stories + AC |
+| BA / Tech Lead | `/ba:reverse` | Reverse engineer codebase brownfield → baseline docs (take-over, audit) |
 | PM | `/pm:breakdown` | Epic → Tasks với estimate, tạo GitHub Issues |
 | PM | `/pm:status` | Sprint status report |
+| PM | `/pm:dashboard` | Generate static HTML dashboard từ `docs/tasks/*/` — kanban + health table + backlog |
 | Dev | `/dev:analyze` | Task → Implementation options (multi-agent) |
 | Dev | `/dev:implement` | Implement theo analysis.md, file-by-file với gates |
+| Dev | `/dev:review` | Review toàn diện: code quality + architecture + security trong 1 lần |
 | Dev | `/dev:pr` | Code changes → PR description |
 | Dev | `/dev:debug` | Systematic debugging: reproduce → localize → fix |
 | Arch | `/arch:review` | Review design decision |
@@ -200,7 +204,8 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | SM | `/sm:standup` | Daily standup summary |
 | SM | `/sm:retro` | Sprint retrospective |
 | All | `/sec:review` | Security review trước merge (3-tier: Always/Ask First/Never) |
-| All | `/docs:update` | Update baseline docs sau verify |
+| All | `/docs:update` | Update baseline screen/API docs sau verify |
+| All | `/docs:project` | Sync project-level docs: README, workflow guides, install scripts, CLAUDE.md |
 
 ---
 
@@ -246,7 +251,7 @@ Lane: tiny | normal | high-risk
 ```
 
 - **Tiny** → patch trực tiếp, bỏ qua analysis.md
-- **Normal** → chạy đủ dev:analyze → dev:implement → dev:pr
+- **Normal** → chạy đủ dev:analyze → dev:implement → dev:review → dev:pr
 - **High-risk** → dừng, hỏi senior trước khi tiếp tục
 
 ### Ask First Gate (thay đổi nhạy cảm)
@@ -273,12 +278,17 @@ Commands có multi-agent pattern dùng **Agent tool** của Claude Code để sp
 ```
 Agent({
   description: "task-reader: parse issue",
-  prompt: "[nội dung theo agents/task-reader.md input contract]"
+  prompt: "[nội dung theo agents/task-reader.md input contract]",
+  model: "haiku"   // đọc từ agent frontmatter model: field
 })
 ```
 
 Mỗi subagent nhận **chỉ context cần thiết** — không pass full conversation history.  
 Output từ subagent được tóm tắt trước khi pass vào subagent tiếp theo.
+
+Model được chỉ định per-agent để tối ưu token (xem frontmatter `model:` trong mỗi file `agents/*.md`):
+- **haiku**: read-only/parse agents (task-reader, code-scout, diff-reader)
+- **sonnet**: reasoning/synthesis agents (planner, doc-updater, test-gen)
 
 Subagent definitions: `agents/` folder.
 
@@ -286,16 +296,57 @@ Subagent definitions: `agents/` folder.
 
 ## Two-tier Documentation
 
-**Type 1 — Task Docs** (`docs/tasks/TASK-XXX/`)
+**Type 1 — Task Docs** (`docs/tasks/TASK-XXX/`) — **gitignored trong framework source repo**
 - `requirements.md` — parsed từ issue (template: `templates/task-doc-requirements.md`)
 - `analysis.md` — options đã cân nhắc
 - `test-plan.md` — test cases
 - `verification.md` — test results, sign-off
+- `audit.md` — append-only log mọi skill chạy + user input verbatim (template: `templates/audit.md`)
 
 **Type 2 — Baseline Docs** (cập nhật sau verify)
+- `docs/baseline/codebase-overview.md` — codebase map từ `/ba:reverse` (brownfield only)
 - `docs/screens/[feature]/screen.md` — (template: `templates/baseline-screen.md`)
 - `docs/api/[domain]/[endpoint].md` — (template: `templates/baseline-api.md`)
 - `docs/decisions/ADR-XXX.md` — (template: `templates/adr.md`)
+
+---
+
+## Output Format Convention
+
+Tham khảo bài viết Thariq Shihipar — *"The Unreasonable Effectiveness of HTML"* ([phân tích nội bộ](docs/analysis/html-effectiveness-thariq.md)). Mỗi skill chọn format theo **consumer cuối cùng** của artifact, KHÔNG theo thói quen:
+
+| Loại artifact | Consumer | Format | Lý do |
+|---------------|----------|--------|-------|
+| Storage / commit vào repo | Git, future devs | **Markdown** | Diffable, GitHub render |
+| One-shot review/decision | Human đang quyết định | **HTML** | Click, sort, filter — nhanh hơn |
+| JP deliverable (成果物) | Khách Nhật | **HTML** | Đẹp khi forward email/print |
+| Chained vào agent kế tiếp | LLM | **Markdown/JSON** | Token rẻ, parse dễ |
+| Platform render (GitHub/Slack) | Web platform | **Markdown** | Platform tự render |
+
+**Quy tắc**: artifact nào có ý định *để tiếp tục làm việc* (sort, filter, tick checkbox, copy field) → HTML. Artifact để *đọc rồi commit* → Markdown.
+
+### Skill format matrix
+
+| Skill | Format chính | HTML companion (one-shot, không commit) |
+|-------|-------------|-----------------------------------------|
+| `/dev:analyze` | MD (`analysis.md`) | `analysis-compare.html` — sort/filter phương án |
+| `/qa:testplan` | MD (`test-plan.md`) | `test-plan.html` — checklist tick + localStorage |
+| `/qa:regression` | HTML | `regression-checklist.html` — go/no-go decision |
+| `/pm:status` | HTML | `sprint-status.html` — kanban + velocity |
+| `/be:bridge` | MD + HTML | `deliverable.html` — 2 cột JP/VN, copy button |
+| Còn lại (17 skill) | MD | (xem nhóm B trong `docs/analysis/html-effectiveness-thariq.md` để mở rộng khi cần) |
+
+HTML artifact dùng template `templates/html-artifact.html` (interactive) hoặc `templates/html-bilingual.html` (JP-VN). File HTML one-shot KHÔNG commit — `.gitignore` loại trừ `docs/tasks/**/*.html`.
+
+### Audit Log convention
+
+Mọi skill thay đổi state của task (BA/Dev/QA/Arch...) PHẢI append entry vào `docs/tasks/[TASK-ID]/audit.md`:
+- **User input verbatim** (không paraphrase)
+- **Timestamp JST** ISO format
+- **Skill name** + stage
+- **Decision + artifact reference**
+
+Khác biệt với Q&A History trong `requirements.md`: Q&A History chỉ ghi clarify Q&A của BA; audit log ghi MỌI skill chạy trong task. Dùng để defend quyết định khi khách JP chất vấn ("なぜこの設計?") sau N tháng.
 
 ---
 

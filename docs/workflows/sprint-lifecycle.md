@@ -11,9 +11,10 @@
 
 ```
 PM Ideate → BA Spec → BA Stories → PM Breakdown
-    → Dev Analyze → [review analysis.md]
+    → Dev Analyze → [Tech Lead confirm nếu high-risk]
     → Dev Implement → [report test results] → [review verification.md]
-    → Sec Review → Dev PR → QA Test Plan → QA Verify → Docs Update
+    → Dev Review (code + arch + security) → Dev PR
+    → QA Test Plan → QA Verify → Docs Update
 ```
 
 Mỗi bước có **gate** — không tự động chuyển sang bước tiếp theo.  
@@ -22,6 +23,16 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 ---
 
 ## Giai đoạn 1: Discovery
+
+### 1.0 BA Reverse `/ba:reverse` (chỉ brownfield)
+**Người dùng**: BA / Tech Lead  
+**Khi nào**: Take-over codebase legacy từ vendor cũ HOẶC inherit project không có docs  
+**Bỏ qua nếu**: Greenfield project (xây từ đầu)  
+**Input**: Codebase đã clone về local  
+**Output**: `docs/baseline/codebase-overview.md`  
+**Gate**: User confirm scope (full take-over / estimate / refactor audit) + depth (overview / standard / deep)
+
+Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có context về tech stack & technical debt.
 
 ### 1.1 PM Ideate `/pm:ideate`
 **Người dùng**: PM / BA  
@@ -66,13 +77,20 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 ### 3.1 Dev Analyze `/dev:analyze`
 **Người dùng**: Dev  
 **Input**: GitHub Issue + Brain Dump context block  
-**Output**: `docs/tasks/[TASK-ID]/analysis.md`  
+**Output**: `docs/tasks/[TASK-ID]/analysis.md` + `analysis-compare.html` (bảng so sánh phương án có sort/filter — one-shot, không commit)  
 **Multi-agent**: task-reader → code-scout → planner  
 **Gates**:
 0. **Risk Classification** — classify task vào tiny / normal / high-risk theo `docs/risk-classifier.md` trước khi spawn subagents
 1. Confirm task understanding
 2. Confirm code map
 3. **Human chọn phương án** (không tự chọn)
+
+### 3.1b Tech Lead Gate (high-risk tasks only)
+**Người dùng**: Tech Lead / Senior Dev  
+**Khi nào**: Khi `/dev:analyze` phân loại task là **high-risk**  
+**Bỏ qua nếu**: Task là tiny hoặc normal  
+**Action**: Review `analysis.md`, confirm hoặc yêu cầu điều chỉnh phương án trước khi dev implement  
+**Gate cứng** — framework không cho phép tiếp tục implement khi chưa có senior confirm
 
 ### 3.2 Dev Implement `/dev:implement`
 **Người dùng**: Dev  
@@ -85,13 +103,24 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 4. Bước 5 — Verification Gate: diff review → AI generates self-test steps → user reports results → saves `verification.md`
 5. **Harness Delta Check** — agent tự hỏi có friction nào không, ghi vào `docs/improvement-backlog.md` nếu có
 
-**Hard stop sau Bước 5** — user phải tự trigger `/dev:pr`.
+**Hard stop sau Bước 5** — user phải tự trigger `/dev:review`.
 
-### 3.3 Security Review `/sec:review`
+### 3.3 Dev Review `/dev:review`
 **Người dùng**: Dev / Tech Lead  
-**Input**: Code diff  
-**Output**: Security findings  
-**Gate**: Block PR nếu có Critical/High issues chưa fix
+**Input**: Code diff + `analysis.md` + `verification.md`  
+**Output**: Review report gồm 3 lens: code quality, architecture, security  
+**Gates**:
+1. Confirm focus (All / Code / Arch / Security)
+2. Verdict: Approve / Approve with minor fixes / Request Changes
+3. Nếu có design decision mới → hỏi có tạo `/arch:adr` không
+
+Review 3 lens trong 1 lần chạy:
+- **Code Quality** — logic, naming, test coverage, performance, error handling
+- **Architecture** — scalability, coupling, maintainability, design decision mới
+- **Security** — OWASP Top 10, auth/authz (Ask First gate), dependency CVEs
+
+**Blocking issues** → dev fix và chạy lại `/dev:review`  
+**Approve** → tiếp tục `/dev:pr`
 
 ---
 
@@ -121,7 +150,7 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 ### 5.1 QA Test Plan `/qa:testplan`
 **Người dùng**: QA  
 **Input**: requirements.md  
-**Output**: `docs/tasks/[TASK-ID]/test-plan.md`  
+**Output**: `docs/tasks/[TASK-ID]/test-plan.md` + `test-plan.html` (interactive checklist, lưu trạng thái tick qua localStorage — one-shot, không commit)  
 **Gate**: QA + BA confirm scope + exit criteria
 
 ### 5.2 QA Execute (manual)
@@ -143,7 +172,7 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 ### 6.1 Regression `/qa:regression`
 **Người dùng**: QA  
 **Input**: Release scope (TASK-IDs)  
-**Output**: `docs/tasks/regression-[sprint].md`  
+**Output**: `docs/tasks/regression-[sprint].html` (format chính — go/no-go badge tự cập nhật theo trạng thái test, in PDF được nếu khách JP cần evidence). Markdown chỉ tạo khi cần commit lịch sử regression.  
 **Gate**: QA Lead sign-off trước khi deploy
 
 ### 6.2 Deploy (manual)
@@ -165,12 +194,13 @@ Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
 | Dev Analyze | `docs/tasks/[ID]/analysis.md` (bao gồm Risk Classification block) |
 | Dev Implement | Source code + `docs/tasks/[ID]/verification.md` |
 | Harness Delta | Entry mới trong `docs/improvement-backlog.md` (nếu có friction) |
-| Security | Security findings (inline) |
+| Dev Review | Review report (inline) — code + arch + security. `docs/decisions/ADR-NNN.md` nếu có design decision mới |
 | Dev PR | PR description |
 | QA | `docs/tasks/[ID]/test-plan.md` |
 | QA Verify | QA sign-off trong `verification.md` |
 | Docs Update | `docs/api/...` `docs/screens/...` |
-| Release | `docs/tasks/regression-[sprint].md` |
+| Release | `docs/tasks/regression-[sprint].html` (one-shot, không commit) |
+| HTML companions | `analysis-compare.html`, `test-plan.html`, `regression-checklist.html`, `sprint-status.html`, `deliverable.html` — tất cả one-shot, ignore khỏi git (xem `.gitignore`) |
 
 ---
 
@@ -186,8 +216,10 @@ JP Request → /be:bridge → requirements.md (VN) + design-jp.md (JP)
 Sau giai đoạn 5, trước khi gửi JP:
 
 ```
-QA Pass → /be:bridge tạo 単体テスト仕様書 → Gửi kèm deliverables cho JP
+QA Pass → /be:bridge tạo 単体テスト仕様書 + deliverable.html (song ngữ 2 cột, copy/print A4) → Gửi kèm deliverables cho JP
 ```
+
+PM dùng `/pm:status` với option HTML dashboard (kanban + velocity) khi cần báo cáo định kỳ cho khách JP — file HTML forward email đẹp hơn Markdown.
 
 ---
 

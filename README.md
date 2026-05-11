@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <img src="assets/logo.png" alt="Logo" width="80">
   <br><br>
   <em>A <strong>Claude Code</strong> skill pack covering the full Software Development Lifecycle (SDLC) — from requirements analysis to deployment.</em>
   <br>
@@ -20,13 +19,14 @@
 
 ## Why this framework?
 
-- **21 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **26 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
 - **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
 - **Multi-agent** for dev tasks — keeps context clean, saves tokens
 - **Two-tier docs** — ephemeral task docs + living baseline docs alongside the code
 - **Self-improving** — agents log framework friction to `docs/improvement-backlog.md` as they work
 - **JP standards** — `/be:bridge` generates 設計書 and 単体テスト仕様書 ready to send to the client
+- **HTML companion** — interactive review artifacts (sortable tables, persistent checklists, JP↔VN side-by-side) for 5 high-ROI skills, alongside Markdown for storage
 
 ---
 
@@ -152,14 +152,14 @@ claude .
 
 ```
 .claude/
-└── commands/           # 21 slash commands — type / in Claude Code
+└── commands/           # 26 slash commands — type / in Claude Code
     ├── arch/           # adr.md  review.md
-    ├── ba/             # spec.md  user-story.md
+    ├── ba/             # spec.md  user-story.md  reverse.md
     ├── be/             # bridge.md  (JP outsource)
-    ├── dev/            # analyze.md  implement.md  pr.md  debug.md
-    ├── docs/           # update.md
+    ├── dev/            # analyze.md  implement.md  review.md  pr.md  debug.md
+    ├── docs/           # update.md  project.md
     ├── ops/            # deploy.md  incident.md
-    ├── pm/             # ideate.md  breakdown.md  status.md
+    ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
     ├── qa/             # testplan.md  bug.md  regression.md
     ├── sec/            # review.md
     └── sm/             # standup.md  retro.md
@@ -172,6 +172,10 @@ agents/                 # Subagent definitions (used by orchestrator commands)
     test-gen.md         # Generate test cases
     doc-updater.md      # Propose doc updates → JSON
 
+bin/
+    install.js          # Interactive npm installer
+    dashboard.js        # Sprint dashboard generator
+
 templates/              # Skeleton templates for all document types
     task-doc-requirements.md
     baseline-api.md
@@ -179,16 +183,20 @@ templates/              # Skeleton templates for all document types
     adr.md
     github-issue.md
     pr-description.md
+    html-artifact.html      # Interactive HTML boilerplate (sort/filter/checklist)
+    html-bilingual.html     # JP↔VN 2-column layout for client deliverables
+    dashboard.html          # Dashboard HTML template (used by bin/dashboard.js)
 
 docs/
-    risk-classifier.md  # Risk gate — tiny / normal / high-risk lane assignment
-    improvement-backlog.md  # Friction log — agents write here when framework gaps are found
-    validation-matrix.md    # Global behavior-to-proof tracker for all 21 skills
-    workflows/          # Sprint lifecycle + role guide
-    tasks/              # Task docs (1 folder per issue) — gitignored per project
-    api/                # API baseline docs — long-lived
-    screens/            # Screen baseline docs — long-lived
-    decisions/          # Architecture Decision Records
+    risk-classifier.md       # Risk gate — tiny / normal / high-risk lane assignment
+    improvement-backlog.md   # Friction log — agents write here when framework gaps are found
+    validation-matrix.md     # Global behavior-to-proof tracker for all 23 skills
+    dashboard.html           # Generated sprint dashboard (open in browser)
+    workflows/               # Sprint lifecycle + role guide
+    tasks/                   # Task docs (1 folder per issue) — gitignored per project
+    api/                     # API baseline docs — long-lived
+    screens/                 # Screen baseline docs — long-lived
+    decisions/               # Architecture Decision Records
 ```
 
 ---
@@ -201,7 +209,16 @@ docs/
 |---------|-------------|----------------|
 | `/pm:ideate` | Turn a vague idea into a clear concept | Rough idea → One-pager + Not Doing list |
 | `/pm:breakdown` | Break Epic into tasks, create GitHub Issues | User Stories → Issues |
-| `/pm:status` | Sprint status report | — → Status summary |
+| `/pm:status` | Sprint status report | — → Status summary (Markdown or HTML dashboard) |
+| `/pm:dashboard` | Generate static HTML sprint dashboard | `docs/tasks/*/` → `docs/dashboard.html` |
+
+> **Dashboard** reads `docs/tasks/*/`, git log (14d), skill catalog, validation-matrix, and improvement-backlog. Renders kanban, activity timeline, validation health chart, and skill heatmap. Open `docs/dashboard.html` in any browser — no server required.
+>
+> ```bash
+> node bin/dashboard.js           # generate once
+> npm run dashboard               # same, via npm
+> npm run dashboard:watch         # auto-regenerate on file changes
+> ```
 
 ### BA (Business Analyst)
 
@@ -209,19 +226,21 @@ docs/
 |---------|-------------|----------------|
 | `/ba:spec` | Convert raw requirements into structured spec | Raw requirement → `docs/tasks/[ID]/requirements.md` |
 | `/ba:user-story` | Generate User Stories from spec | requirements.md → User Stories + AC |
+| `/ba:reverse` | Reverse engineer legacy codebase into baseline docs | Codebase → `docs/baseline/codebase-overview.md` |
 
 ### Bridge Engineer — JP Outsource
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/be:bridge` | Translate JP↔VN, generate 設計書 + dev spec | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) |
+| `/be:bridge` | Translate JP↔VN, generate 設計書 + dev spec | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) + `deliverable.html` (bilingual review) |
 
 ### Developer
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` (**stops here, review before proceeding**) |
+| `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (sortable options) (**stops here, review before proceeding**) |
 | `/dev:implement` | Implement file-by-file with human gates + verification + harness delta check | `analysis.md` → Code → `verification.md` |
+| `/dev:review` | Holistic review after implement: code quality + architecture + security in one run | Diff + `analysis.md` → Review report → Approve / Request Changes |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
 
@@ -235,9 +254,9 @@ docs/
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/qa:testplan` | Generate test plan from spec | requirements.md → `test-plan.md` |
+| `/qa:testplan` | Generate test plan from spec | requirements.md → `test-plan.md` + `test-plan.html` (interactive checklist) |
 | `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist before release | Release scope → Checklist |
+| `/qa:regression` | Regression checklist before release | Release scope → `regression-checklist.html` (go/no-go decision) |
 
 ### Architect
 
@@ -265,6 +284,7 @@ docs/
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
 | `/docs:update` | Update baseline docs after verify & merge | Diff + verify → Updated docs |
+| `/docs:project` | Sync project-level docs (README, workflows, install scripts, CLAUDE.md) | Codebase state → Updated project docs |
 
 ---
 
@@ -280,10 +300,19 @@ docs/
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
     → /dev:analyze → [review analysis.md]
     → /dev:implement → [report test results] → [review verification.md]
-    → /sec:review → /dev:pr
+    → /dev:review → /dev:pr
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
+
+### Sprint health check (anytime)
+
+```bash
+npm run dashboard        # generate docs/dashboard.html
+# open in browser → kanban + KPIs + activity + validation health
+```
+
+Or trigger via Claude Code: `/pm:dashboard`
 
 ### Receiving requirements from Japanese client
 
@@ -294,7 +323,7 @@ docs/
 ### Got an issue, need to code now
 
 ```
-/dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → /dev:review → /dev:pr
 ```
 
 > **`/dev:analyze`** classifies risk first (tiny / normal / high-risk), then stops after writing `analysis.md`. Review it, then trigger `/dev:implement` manually.  
@@ -317,6 +346,7 @@ Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide
 | 6 | **Template-first** | Commands reference templates, never duplicate format inline |
 | 7 | **Risk-first** | Classify every task into tiny / normal / high-risk before any work starts |
 | 8 | **Self-improving** | Agents log friction to `docs/improvement-backlog.md` — framework grows from real usage |
+| 9 | **Format by consumer** | Choose Markdown vs HTML by who consumes the artifact (storage → MD, interactive review → HTML) — see Output Format Convention in `CLAUDE.md` |
 
 ---
 
@@ -376,6 +406,7 @@ Deliverables map:
 | 詳細設計書 | `docs/tasks/[ID]/analysis.md` |
 | 単体テスト仕様書 | `docs/tasks/[ID]/test-plan.md` |
 | 単体テスト結果 | `docs/tasks/[ID]/verification.md` |
+| 成果物 (Deliverable) | `docs/tasks/[ID]/deliverable.html` (bilingual JP↔VN, print-ready) |
 
 ---
 
@@ -399,7 +430,7 @@ Deliverables map:
 # Verify your new skill auto-invokes correctly
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Run all 21 skills
+# Run all 26 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Requires: `claude` CLI authenticated + `jq` installed.
