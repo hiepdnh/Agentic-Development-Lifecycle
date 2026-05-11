@@ -60,8 +60,25 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/arch:adr` | Khi có quyết định kiến trúc quan trọng | docs/decisions/ADR-NNN.md |
-| `/sec:review` | Code review có auth/security changes | Security findings |
+| `/arch:review` | Review design decision trước khi dev bắt tay implement | Architecture findings |
+| `/arch:adr` | Khi có quyết định kiến trúc quan trọng cần document | `docs/decisions/ADR-NNN.md` |
+| `/sec:review` | Code review có auth/authorization/security changes | Security findings |
+
+**Vị trí trong sprint:**
+```
+dev:analyze → [Tech Lead review analysis.md nếu high-risk]
+           → dev:implement
+           → arch:review  (nếu có design decision mới)
+           → sec:review   (nếu có security changes)
+           → dev:pr
+```
+
+**3 vai trò chính:**
+1. **Gate high-risk tasks** — Khi `/dev:analyze` phân loại task là `high-risk`, framework bắt buộc dừng và yêu cầu senior/Tech Lead confirm trước khi implement. Đây là gate cứng, không phải tùy chọn.
+2. **Review design decision** — Dùng `/arch:review` khi team đề xuất pattern, cấu trúc DB, API contract... Tránh rework tốn kém do design sai từ đầu.
+3. **Audit trail cho khách JP** — Mọi quyết định kiến trúc → tạo ADR bằng `/arch:adr`. Phục vụ khi khách hỏi "なぜこの設計?" sau nhiều tháng.
+
+**Không dùng**: pm-*, ba-*, qa-testplan, ops-*
 
 ---
 

@@ -19,7 +19,7 @@
 
 ## Tại sao dùng framework này?
 
-- **23 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **25 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
 - **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
 - **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
@@ -152,14 +152,14 @@ claude .
 
 ```
 .claude/
-└── commands/           # 22 slash commands — gõ / trong Claude Code
+└── commands/           # 25 slash commands — gõ / trong Claude Code
     ├── arch/           # adr.md  review.md
-    ├── ba/             # spec.md  user-story.md
+    ├── ba/             # spec.md  user-story.md  reverse.md
     ├── be/             # bridge.md  (JP outsource)
     ├── dev/            # analyze.md  implement.md  pr.md  debug.md
-    ├── docs/           # update.md
+    ├── docs/           # update.md  project.md
     ├── ops/            # deploy.md  incident.md
-    ├── pm/             # ideate.md  breakdown.md  status.md
+    ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
     ├── qa/             # testplan.md  bug.md  regression.md
     ├── sec/            # review.md
     └── sm/             # standup.md  retro.md
@@ -185,7 +185,7 @@ templates/              # Skeleton templates cho tất cả document types
 docs/
     risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
     improvement-backlog.md  # Friction log — agent ghi vào khi phát hiện gap trong framework
-    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 22 skills
+    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 25 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
     api/                # API baseline docs — sống lâu dài
@@ -219,6 +219,7 @@ docs/
 |---------|-------|----------------|
 | `/ba:spec` | Chuyển yêu cầu thô thành spec có cấu trúc | Raw requirement → `docs/tasks/[ID]/requirements.md` |
 | `/ba:user-story` | Tạo User Stories từ spec | requirements.md → User Stories + AC |
+| `/ba:reverse` | Reverse engineer codebase legacy thành baseline docs | Codebase → `docs/baseline/codebase-overview.md` |
 
 ### Bridge Engineer — JP Outsource
 
@@ -275,6 +276,7 @@ docs/
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
 | `/docs:update` | Update baseline docs sau verify & merge | Diff + verify → Updated docs |
+| `/docs:project` | Sync tài liệu project (README, workflows, install scripts, CLAUDE.md) | Trạng thái codebase → Tài liệu project được cập nhật |
 
 ---
 
@@ -420,7 +422,7 @@ Deliverables map:
 # Verify skill mới auto-invoke đúng
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Chạy toàn bộ 22 skills
+# Chạy toàn bộ 25 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Yêu cầu: `claude` CLI đã auth + `jq` đã cài.
