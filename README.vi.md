@@ -19,7 +19,7 @@
 
 ## Tại sao dùng framework này?
 
-- **25 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **26 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
 - **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
 - **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
@@ -152,11 +152,11 @@ claude .
 
 ```
 .claude/
-└── commands/           # 25 slash commands — gõ / trong Claude Code
+└── commands/           # 26 slash commands — gõ / trong Claude Code
     ├── arch/           # adr.md  review.md
     ├── ba/             # spec.md  user-story.md  reverse.md
     ├── be/             # bridge.md  (JP outsource)
-    ├── dev/            # analyze.md  implement.md  pr.md  debug.md
+    ├── dev/            # analyze.md  implement.md  review.md  pr.md  debug.md
     ├── docs/           # update.md  project.md
     ├── ops/            # deploy.md  incident.md
     ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
@@ -231,8 +231,9 @@ docs/
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (so sánh phương án sort/filter) (**dừng — review trước khi implement**) |
+| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (**dừng — review trước khi implement**) |
 | `/dev:implement` | Implement file-by-file với gate + verification + harness delta check | `analysis.md` → Code → `verification.md` |
+| `/dev:review` | Review toàn diện sau implement: code quality + architecture + security trong 1 lần | Diff + `analysis.md` → Review report → Approve / Request Changes |
 | `/dev:pr` | Tạo PR description | Code diff → PR description |
 | `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
 
@@ -292,7 +293,7 @@ docs/
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
     → /dev:analyze → [review analysis.md]
     → /dev:implement → [báo cáo kết quả test] → [review verification.md]
-    → /sec:review → /dev:pr
+    → /dev:review → /dev:pr
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
@@ -315,7 +316,7 @@ Hoặc trong Claude Code: `/pm:dashboard`
 ### Nhận issue, cần code ngay
 
 ```
-/dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → /dev:review → /dev:pr
 ```
 
 > **`/dev:analyze`** phân loại risk trước (tiny / normal / high-risk), sau đó dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
@@ -422,7 +423,7 @@ Deliverables map:
 # Verify skill mới auto-invoke đúng
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Chạy toàn bộ 25 skills
+# Chạy toàn bộ 26 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Yêu cầu: `claude` CLI đã auth + `jq` đã cài.

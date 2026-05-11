@@ -1,6 +1,6 @@
 # Skill Flowchart — VTI SDLC Framework
 
-Sơ đồ quan hệ giữa 25 skills theo dòng chảy SDLC.
+Sơ đồ quan hệ giữa 26 skills theo dòng chảy SDLC.
 
 ---
 

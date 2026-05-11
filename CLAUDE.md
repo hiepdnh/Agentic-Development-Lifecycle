@@ -10,7 +10,7 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is the `.claude/commands/` directory — 25 Markdown skill files that Claude Code loads as slash commands.
+This repo IS the framework source. The "product" is the `.claude/commands/` directory — 26 Markdown skill files that Claude Code loads as slash commands.
 
 ### Run installer locally
 
@@ -191,6 +191,7 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | PM | `/pm:dashboard` | Generate static HTML dashboard từ `docs/tasks/*/` — kanban + health table + backlog |
 | Dev | `/dev:analyze` | Task → Implementation options (multi-agent) |
 | Dev | `/dev:implement` | Implement theo analysis.md, file-by-file với gates |
+| Dev | `/dev:review` | Review toàn diện: code quality + architecture + security trong 1 lần |
 | Dev | `/dev:pr` | Code changes → PR description |
 | Dev | `/dev:debug` | Systematic debugging: reproduce → localize → fix |
 | Arch | `/arch:review` | Review design decision |
@@ -250,7 +251,7 @@ Lane: tiny | normal | high-risk
 ```
 
 - **Tiny** → patch trực tiếp, bỏ qua analysis.md
-- **Normal** → chạy đủ dev:analyze → dev:implement → dev:pr
+- **Normal** → chạy đủ dev:analyze → dev:implement → dev:review → dev:pr
 - **High-risk** → dừng, hỏi senior trước khi tiếp tục
 
 ### Ask First Gate (thay đổi nhạy cảm)
