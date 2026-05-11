@@ -11,7 +11,7 @@
 |-------|---------|--------|
 | `/pm:ideate` | Nhận yêu cầu mơ hồ từ stakeholder | One-pager + Not Doing list |
 | `/pm:breakdown` | Sau khi có User Stories | GitHub Issues |
-| `/pm:status` | Cần báo cáo sprint cho stakeholder / khách JP | HTML status report |
+| `/pm:status` | Báo cáo sprint cho stakeholder / khách JP | Status summary (Markdown) hoặc `sprint-status.html` (dashboard kanban + velocity, recommend khi gửi khách) |
 | `/pm:dashboard` | Xem tổng quan sprint bất kỳ lúc nào | `docs/dashboard.html` — kanban + KPIs + git activity + health chart |
 
 **Dashboard usage**:
@@ -41,7 +41,7 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/dev:analyze` | Nhận issue, trước khi code | Risk classification + `analysis.md` (**dừng — review trước khi implement**) |
+| `/dev:analyze` | Nhận issue, trước khi code | Risk classification + `analysis.md` + `analysis-compare.html` (bảng so sánh phương án có sort/filter) (**dừng — review trước khi implement**) |
 | `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code + `verification.md` + harness delta (**dừng — user test rồi mới dev:pr**) |
 | `/dev:debug` | Khi bị blocked hoặc phát hiện bug | Root cause + fix |
 | `/dev:pr` | Sau implement + verify, trước tạo PR | PR description (tự đọc `verification.md`) |
@@ -69,9 +69,9 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/qa:testplan` | Sau spec, song song với dev | test-plan.md |
+| `/qa:testplan` | Sau spec, song song với dev | `test-plan.md` + `test-plan.html` (checklist tick được, lưu localStorage) |
 | `/docs:update` | Sau verify và merge | verification.md + updated baseline docs |
-| `/qa:regression` | Trước mỗi release | regression-[sprint].md |
+| `/qa:regression` | Trước mỗi release | `regression-checklist.html` (go/no-go decision, status badge tự cập nhật) — export PDF nếu khách JP cần evidence |
 
 ---
 
@@ -79,7 +79,7 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/be:bridge` | Nhận yêu cầu từ JP / Gửi deliverables cho JP | requirements.md (VN) + design-jp.md (JP) |
+| `/be:bridge` | Nhận yêu cầu từ JP / Gửi deliverables cho JP | requirements.md (VN) + design-jp.md (JP) + `deliverable.html` (song ngữ 2 cột, copy/print A4 cho 成果物) |
 
 ---
 
@@ -143,3 +143,4 @@ Hoặc trong Claude Code: `/pm:dashboard`
 - **Improvement Backlog** (`docs/improvement-backlog.md`) — agent ghi friction sau mỗi task; xem khi muốn cải tiến framework
 - **Validation Matrix** (`docs/validation-matrix.md`) — chạy `bash tests/skill-triggering/run-all.sh` rồi update cột Status
 - Xem flow đầy đủ tại `docs/workflows/sprint-lifecycle.md`
+- **Output Format Convention** — 5 skill (`/dev:analyze`, `/qa:testplan`, `/qa:regression`, `/pm:status`, `/be:bridge`) sinh HTML companion ngoài Markdown để hỗ trợ review tương tác (sort, filter, checklist, song ngữ). File HTML là one-shot, không commit — xem `CLAUDE.md` section "Output Format Convention" và `docs/analysis/html-effectiveness-thariq.md`.

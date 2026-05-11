@@ -26,6 +26,7 @@
 - **Two-tier docs** — ephemeral task docs + living baseline docs alongside the code
 - **Self-improving** — agents log framework friction to `docs/improvement-backlog.md` as they work
 - **JP standards** — `/be:bridge` generates 設計書 and 単体テスト仕様書 ready to send to the client
+- **HTML companion** — interactive review artifacts (sortable tables, persistent checklists, JP↔VN side-by-side) for 5 high-ROI skills, alongside Markdown for storage
 
 ---
 
@@ -182,7 +183,9 @@ templates/              # Skeleton templates for all document types
     adr.md
     github-issue.md
     pr-description.md
-    dashboard.html      # Dashboard HTML template (used by bin/dashboard.js)
+    html-artifact.html      # Interactive HTML boilerplate (sort/filter/checklist)
+    html-bilingual.html     # JP↔VN 2-column layout for client deliverables
+    dashboard.html          # Dashboard HTML template (used by bin/dashboard.js)
 
 docs/
     risk-classifier.md       # Risk gate — tiny / normal / high-risk lane assignment
@@ -206,7 +209,7 @@ docs/
 |---------|-------------|----------------|
 | `/pm:ideate` | Turn a vague idea into a clear concept | Rough idea → One-pager + Not Doing list |
 | `/pm:breakdown` | Break Epic into tasks, create GitHub Issues | User Stories → Issues |
-| `/pm:status` | Sprint status report | — → Status summary |
+| `/pm:status` | Sprint status report | — → Status summary (Markdown or HTML dashboard) |
 | `/pm:dashboard` | Generate static HTML sprint dashboard | `docs/tasks/*/` → `docs/dashboard.html` |
 
 > **Dashboard** reads `docs/tasks/*/`, git log (14d), skill catalog, validation-matrix, and improvement-backlog. Renders kanban, activity timeline, validation health chart, and skill heatmap. Open `docs/dashboard.html` in any browser — no server required.
@@ -228,13 +231,13 @@ docs/
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/be:bridge` | Translate JP↔VN, generate 設計書 + dev spec | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) |
+| `/be:bridge` | Translate JP↔VN, generate 設計書 + dev spec | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) + `deliverable.html` (bilingual review) |
 
 ### Developer
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` (**stops here, review before proceeding**) |
+| `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (sortable options) (**stops here, review before proceeding**) |
 | `/dev:implement` | Implement file-by-file with human gates + verification + harness delta check | `analysis.md` → Code → `verification.md` |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
@@ -249,9 +252,9 @@ docs/
 
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
-| `/qa:testplan` | Generate test plan from spec | requirements.md → `test-plan.md` |
+| `/qa:testplan` | Generate test plan from spec | requirements.md → `test-plan.md` + `test-plan.html` (interactive checklist) |
 | `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist before release | Release scope → Checklist |
+| `/qa:regression` | Regression checklist before release | Release scope → `regression-checklist.html` (go/no-go decision) |
 
 ### Architect
 
@@ -340,6 +343,7 @@ Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide
 | 6 | **Template-first** | Commands reference templates, never duplicate format inline |
 | 7 | **Risk-first** | Classify every task into tiny / normal / high-risk before any work starts |
 | 8 | **Self-improving** | Agents log friction to `docs/improvement-backlog.md` — framework grows from real usage |
+| 9 | **Format by consumer** | Choose Markdown vs HTML by who consumes the artifact (storage → MD, interactive review → HTML) — see Output Format Convention in `CLAUDE.md` |
 
 ---
 
@@ -399,6 +403,7 @@ Deliverables map:
 | 詳細設計書 | `docs/tasks/[ID]/analysis.md` |
 | 単体テスト仕様書 | `docs/tasks/[ID]/test-plan.md` |
 | 単体テスト結果 | `docs/tasks/[ID]/verification.md` |
+| 成果物 (Deliverable) | `docs/tasks/[ID]/deliverable.html` (bilingual JP↔VN, print-ready) |
 
 ---
 

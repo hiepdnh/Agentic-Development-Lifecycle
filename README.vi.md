@@ -26,6 +26,7 @@
 - **Two-tier docs** — task docs riêng + baseline docs sống cùng code
 - **Tự cải tiến** — agent ghi friction vào `docs/improvement-backlog.md` trong lúc làm việc
 - **Chuẩn JP** — `/be:bridge` tạo 設計書, 単体テスト仕様書 sẵn gửi khách
+- **HTML companion** — artifact tương tác (bảng sort/filter, checklist lưu localStorage, song ngữ JP↔VN) cho 5 skill ROI cao, song hành cùng Markdown lưu trữ
 
 ---
 
@@ -178,6 +179,8 @@ templates/              # Skeleton templates cho tất cả document types
     adr.md
     github-issue.md
     pr-description.md
+    html-artifact.html      # HTML boilerplate tương tác (sort/filter/checklist)
+    html-bilingual.html     # Layout 2 cột JP↔VN cho deliverable khách JP
 
 docs/
     risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
@@ -200,7 +203,7 @@ docs/
 |---------|-------|----------------|
 | `/pm:ideate` | Biến ý tưởng mờ thành concept rõ | Rough idea → One-pager + Not Doing list |
 | `/pm:breakdown` | Phân rã Epic thành tasks, tạo GitHub Issues | User Stories → Issues |
-| `/pm:status` | Sprint status report | — → Status summary |
+| `/pm:status` | Sprint status report | — → Status summary (Markdown hoặc HTML dashboard) |
 | `/pm:dashboard` | Tạo HTML dashboard tổng quan sprint | `docs/tasks/*/` → `docs/dashboard.html` |
 
 > **Dashboard** đọc `docs/tasks/*/`, git log (14 ngày), skill catalog, validation-matrix, improvement-backlog. Render kanban, activity timeline, validation health chart, skill heatmap. Mở `docs/dashboard.html` trong browser — không cần server.
@@ -221,13 +224,13 @@ docs/
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/be:bridge` | Dịch JP↔VN, tạo 設計書 + spec cho dev | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) |
+| `/be:bridge` | Dịch JP↔VN, tạo 設計書 + spec cho dev | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) + `deliverable.html` (review song ngữ) |
 
 ### Developer
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` (**dừng — review trước khi implement**) |
+| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (so sánh phương án sort/filter) (**dừng — review trước khi implement**) |
 | `/dev:implement` | Implement file-by-file với gate + verification + harness delta check | `analysis.md` → Code → `verification.md` |
 | `/dev:pr` | Tạo PR description | Code diff → PR description |
 | `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
@@ -242,9 +245,9 @@ docs/
 
 | Command | Mô tả | Input → Output |
 |---------|-------|----------------|
-| `/qa:testplan` | Tạo test plan từ spec | requirements.md → `test-plan.md` |
+| `/qa:testplan` | Tạo test plan từ spec | requirements.md → `test-plan.md` + `test-plan.html` (checklist tương tác) |
 | `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist trước release | Release scope → Checklist |
+| `/qa:regression` | Regression checklist trước release | Release scope → `regression-checklist.html` (quyết định go/no-go) |
 
 ### Architect
 
@@ -333,6 +336,7 @@ Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.
 | 6 | **Template-first** | Commands reference templates, không duplicate format inline |
 | 7 | **Risk-first** | Phân loại mọi task thành tiny / normal / high-risk trước khi làm |
 | 8 | **Self-improving** | Agent ghi friction vào `docs/improvement-backlog.md` — framework tự cải tiến từ thực tế dùng |
+| 9 | **Format theo consumer** | Chọn Markdown hay HTML theo người dùng cuối (lưu trữ → MD, review tương tác → HTML) — xem Output Format Convention trong `CLAUDE.md` |
 
 ---
 
@@ -392,6 +396,7 @@ Deliverables map:
 | 詳細設計書 | `docs/tasks/[ID]/analysis.md` |
 | 単体テスト仕様書 | `docs/tasks/[ID]/test-plan.md` |
 | 単体テスト結果 | `docs/tasks/[ID]/verification.md` |
+| 成果物 (Deliverable) | `docs/tasks/[ID]/deliverable.html` (song ngữ JP↔VN, print-ready) |
 
 ---
 
