@@ -1,15 +1,34 @@
 #!/bin/bash
 # VTI SDLC Skill Framework — Setup Script (macOS / Linux)
-# Usage: ./setup.sh [target-path]
-# Usage: ./setup.sh             (install to current directory)
+# Usage: ./setup.sh [target-path] [--update|-u] [--yes|-y]
+#   ./setup.sh                       Install to current directory
+#   ./setup.sh /path/to/project      Install to target path
+#   ./setup.sh --update              Update existing install (overwrites framework files)
+#   ./setup.sh --yes                 Skip confirmation prompt
 
 set -e
 
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TARGET_DIR="${1:-$(pwd)}"
+
+# Parse flags + positional target path
+UPDATE=false
+YES=false
+ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+        --update|-u) UPDATE=true ;;
+        --yes|-y)    YES=true ;;
+        *)           ARGS+=("$arg") ;;
+    esac
+done
+TARGET_DIR="${ARGS[0]:-$(pwd)}"
 
 echo ""
-echo "VTI SDLC Skill Framework — Setup"
+if $UPDATE; then
+    echo "VTI SDLC Skill Framework — Update"
+else
+    echo "VTI SDLC Skill Framework — Setup"
+fi
 echo "================================="
 echo "Source : $SOURCE_DIR"
 echo "Target : $TARGET_DIR"
@@ -26,10 +45,13 @@ if [ "$SOURCE_DIR" = "$TARGET_DIR" ]; then
     exit 1
 fi
 
-read -p "Install framework into '$TARGET_DIR'? [y/N] " confirm
-if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-    echo "Cancelled."
-    exit 0
+if ! $YES; then
+    verb=$($UPDATE && echo Update || echo Install)
+    read -p "$verb framework into '$TARGET_DIR'? [y/N] " confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo "Cancelled."
+        exit 0
+    fi
 fi
 
 echo ""
@@ -38,11 +60,35 @@ copy_dir() {
     local src="$1"
     local dst="$2"
     local label="$3"
-    if [ -d "$dst" ]; then
-        echo "  [SKIP] $label already exists — manual merge recommended"
+    [ ! -d "$src" ] && return
+    mkdir -p "$dst"
+    local copied=0 skipped=0 updated=0
+    while IFS= read -r -d '' f; do
+        local rel="${f#./}"
+        local s_file="$src/$rel"
+        local d_file="$dst/$rel"
+        mkdir -p "$(dirname "$d_file")"
+        if [ -e "$d_file" ]; then
+            if $UPDATE; then
+                cp "$s_file" "$d_file"
+                updated=$((updated+1))
+            else
+                skipped=$((skipped+1))
+            fi
+        else
+            cp "$s_file" "$d_file"
+            copied=$((copied+1))
+        fi
+    done < <(cd "$src" && find . -type f -print0)
+    local parts=""
+    [ $copied -gt 0 ]  && parts+="$copied added, "
+    [ $updated -gt 0 ] && parts+="$updated updated, "
+    [ $skipped -gt 0 ] && parts+="$skipped skipped, "
+    parts="${parts%, }"
+    if [ $copied -eq 0 ] && [ $updated -eq 0 ]; then
+        echo "  [SKIP] $label${parts:+ — $parts}"
     else
-        cp -r "$src" "$dst"
-        echo "  [OK]   $label"
+        echo "  [OK]   $label${parts:+ — $parts}"
     fi
 }
 
@@ -64,6 +110,37 @@ echo "Copying workflow docs..."
 mkdir -p "$TARGET_DIR/docs"
 copy_dir "$SOURCE_DIR/docs/workflows" "$TARGET_DIR/docs/workflows" "docs/workflows/"
 
+# 4b. docs root framework files (skip-if-exists, overwrite on --update)
+echo "Copying framework doc files..."
+for f in risk-classifier.md validation-matrix.md; do
+    s_file="$SOURCE_DIR/docs/$f"
+    d_file="$TARGET_DIR/docs/$f"
+    [ ! -f "$s_file" ] && continue
+    if [ -e "$d_file" ]; then
+        if $UPDATE; then
+            cp "$s_file" "$d_file"
+            echo "  [OK]   docs/$f — updated"
+        else
+            echo "  [SKIP] docs/$f"
+        fi
+    else
+        cp "$s_file" "$d_file"
+        echo "  [OK]   docs/$f"
+    fi
+done
+
+# 4c. improvement-backlog.md — only if missing (user-mutable, never overwrite)
+backlog_src="$SOURCE_DIR/docs/improvement-backlog.md"
+backlog_dst="$TARGET_DIR/docs/improvement-backlog.md"
+if [ -f "$backlog_src" ] && [ ! -f "$backlog_dst" ]; then
+    cp "$backlog_src" "$backlog_dst"
+    echo "  [OK]   docs/improvement-backlog.md — created"
+fi
+
+# 4d. docs/analysis (framework content)
+echo "Copying analysis docs..."
+copy_dir "$SOURCE_DIR/docs/analysis" "$TARGET_DIR/docs/analysis" "docs/analysis/"
+
 # 5. Create empty doc dirs
 echo "Creating doc directories..."
 for dir in api screens tasks decisions; do
@@ -79,7 +156,7 @@ done
 
 # 6. CLAUDE.md
 echo "Copying CLAUDE.md..."
-if [ -f "$TARGET_DIR/CLAUDE.md" ]; then
+if [ -f "$TARGET_DIR/CLAUDE.md" ] && ! $UPDATE; then
     echo "  [SKIP] CLAUDE.md already exists — merge manually"
     echo "         Reference: $SOURCE_DIR/CLAUDE.md"
 else
@@ -88,7 +165,11 @@ else
 fi
 
 echo ""
-echo "Done!"
+if $UPDATE; then
+    echo "Framework updated successfully!"
+else
+    echo "Done!"
+fi
 echo ""
 echo "Next steps:"
 echo "  1. Open CLAUDE.md and update the VTI Context section:"

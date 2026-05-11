@@ -1,17 +1,22 @@
 # VTI SDLC Skill Framework — Setup Script
 # Usage: .\setup.ps1 -TargetPath "C:\path\to\your\project"
 # Usage: .\setup.ps1                        (install to current directory)
+# Usage: .\setup.ps1 -Update                (overwrite framework files)
+# Usage: .\setup.ps1 -Yes                   (skip confirmation prompt)
 
 param(
     [string]$TargetPath = (Get-Location).Path,
-    [switch]$Yes  # skip confirmation prompt (for non-interactive / Claude Code use)
+    [switch]$Yes,
+    [switch]$Update
 )
 
 $SourcePath = $PSScriptRoot
 $ErrorActionPreference = "Stop"
 
+$mode = if ($Update) { "Update" } else { "Setup" }
+
 Write-Host ""
-Write-Host "VTI SDLC Skill Framework — Setup" -ForegroundColor Cyan
+Write-Host "VTI SDLC Skill Framework — $mode" -ForegroundColor Cyan
 Write-Host "=================================" -ForegroundColor Cyan
 Write-Host "Source : $SourcePath"
 Write-Host "Target : $TargetPath"
@@ -30,7 +35,8 @@ if ($SourcePath -eq $TargetPath) {
 
 # Confirm
 if (-not $Yes) {
-    $confirm = Read-Host "Install framework into '$TargetPath'? [y/N]"
+    $verb = if ($Update) { "Update" } else { "Install" }
+    $confirm = Read-Host "$verb framework into '$TargetPath'? [y/N]"
     if ($confirm -notmatch '^[Yy]$') {
         Write-Host "Cancelled." -ForegroundColor Yellow
         exit 0
@@ -44,25 +50,41 @@ function Copy-Dir {
     param([string]$Src, [string]$Dst, [string]$Label)
     if (-not (Test-Path $Src)) { return }
     if (-not (Test-Path $Dst)) { New-Item -ItemType Directory -Path $Dst -Force | Out-Null }
-    $copied = 0; $skipped = 0
+    $copied = 0; $skipped = 0; $updated = 0
     Get-ChildItem -Path $Src -Recurse -File | ForEach-Object {
         $rel = $_.FullName.Substring($Src.Length).TrimStart('\','/')
         $target = Join-Path $Dst $rel
         $targetDir = Split-Path $target -Parent
         if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Path $targetDir -Force | Out-Null }
         if (Test-Path $target) {
-            $skipped++
+            if ($Update) {
+                Copy-Item -Path $_.FullName -Destination $target -Force
+                $updated++
+            } else {
+                $skipped++
+            }
         } else {
             Copy-Item -Path $_.FullName -Destination $target -Force
             $copied++
         }
     }
-    if ($copied -eq 0 -and $skipped -gt 0) {
-        Write-Host "  [SKIP] $Label — all $skipped files already exist" -ForegroundColor Yellow
-    } elseif ($skipped -gt 0) {
-        Write-Host "  [OK]   $Label — $copied added, $skipped skipped" -ForegroundColor Green
+    $parts = @()
+    if ($copied -gt 0)  { $parts += "$copied added" }
+    if ($updated -gt 0) { $parts += "$updated updated" }
+    if ($skipped -gt 0) { $parts += "$skipped skipped" }
+    $summary = $parts -join ', '
+    if ($copied -eq 0 -and $updated -eq 0) {
+        if ($summary) {
+            Write-Host "  [SKIP] $Label — $summary" -ForegroundColor Yellow
+        } else {
+            Write-Host "  [SKIP] $Label" -ForegroundColor Yellow
+        }
     } else {
-        Write-Host "  [OK]   $Label" -ForegroundColor Green
+        if ($summary) {
+            Write-Host "  [OK]   $Label — $summary" -ForegroundColor Green
+        } else {
+            Write-Host "  [OK]   $Label" -ForegroundColor Green
+        }
     }
 }
 
@@ -88,6 +110,37 @@ $workflowsTarget = Join-Path $docsTarget "workflows"
 if (-not (Test-Path $docsTarget)) { New-Item -ItemType Directory -Path $docsTarget | Out-Null }
 Copy-Dir (Join-Path $SourcePath "docs\workflows") $workflowsTarget "docs/workflows/"
 
+# 4b. docs root framework files (skip-if-exists, overwrite on --update)
+Write-Host "Copying framework doc files..."
+foreach ($file in @("risk-classifier.md", "validation-matrix.md")) {
+    $srcFile = Join-Path $SourcePath "docs\$file"
+    $dstFile = Join-Path $docsTarget $file
+    if (-not (Test-Path $srcFile)) { continue }
+    if (Test-Path $dstFile) {
+        if ($Update) {
+            Copy-Item $srcFile $dstFile -Force
+            Write-Host "  [OK]   docs/$file — updated" -ForegroundColor Green
+        } else {
+            Write-Host "  [SKIP] docs/$file" -ForegroundColor Yellow
+        }
+    } else {
+        Copy-Item $srcFile $dstFile
+        Write-Host "  [OK]   docs/$file" -ForegroundColor Green
+    }
+}
+
+# 4c. improvement-backlog.md — only if missing (user-mutable, never overwrite)
+$backlogSrc = Join-Path $SourcePath "docs\improvement-backlog.md"
+$backlogDst = Join-Path $docsTarget "improvement-backlog.md"
+if ((Test-Path $backlogSrc) -and -not (Test-Path $backlogDst)) {
+    Copy-Item $backlogSrc $backlogDst
+    Write-Host "  [OK]   docs/improvement-backlog.md — created" -ForegroundColor Green
+}
+
+# 4d. docs/analysis (framework content)
+Write-Host "Copying analysis docs..."
+Copy-Dir (Join-Path $SourcePath "docs\analysis") (Join-Path $docsTarget "analysis") "docs/analysis/"
+
 # 5. Create empty doc dirs with .gitkeep
 Write-Host "Creating doc directories..."
 foreach ($dir in @("api", "screens", "tasks", "decisions")) {
@@ -104,16 +157,20 @@ foreach ($dir in @("api", "screens", "tasks", "decisions")) {
 # 6. CLAUDE.md
 Write-Host "Copying CLAUDE.md..."
 $claudeMdTarget = Join-Path $TargetPath "CLAUDE.md"
-if (Test-Path $claudeMdTarget) {
+if ((Test-Path $claudeMdTarget) -and -not $Update) {
     Write-Host "  [SKIP] CLAUDE.md already exists — merge manually" -ForegroundColor Yellow
     Write-Host "         Reference: $SourcePath\CLAUDE.md" -ForegroundColor Gray
 } else {
-    Copy-Item (Join-Path $SourcePath "CLAUDE.md") $claudeMdTarget
+    Copy-Item (Join-Path $SourcePath "CLAUDE.md") $claudeMdTarget -Force
     Write-Host "  [OK]   CLAUDE.md" -ForegroundColor Green
 }
 
 Write-Host ""
-Write-Host "Done!" -ForegroundColor Green
+if ($Update) {
+    Write-Host "Framework updated successfully!" -ForegroundColor Green
+} else {
+    Write-Host "Done!" -ForegroundColor Green
+}
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Cyan
 Write-Host "  1. Open CLAUDE.md and update the VTI Context section:"
