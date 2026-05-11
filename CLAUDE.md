@@ -203,7 +203,8 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | SM | `/sm:standup` | Daily standup summary |
 | SM | `/sm:retro` | Sprint retrospective |
 | All | `/sec:review` | Security review trước merge (3-tier: Always/Ask First/Never) |
-| All | `/docs:update` | Update baseline docs sau verify |
+| All | `/docs:update` | Update baseline screen/API docs sau verify |
+| All | `/docs:project` | Sync project-level docs: README, workflow guides, install scripts, CLAUDE.md |
 
 ---
 
