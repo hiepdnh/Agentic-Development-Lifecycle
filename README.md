@@ -19,7 +19,7 @@
 
 ## Why this framework?
 
-- **23 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **25 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
 - **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
 - **Multi-agent** for dev tasks — keeps context clean, saves tokens
@@ -152,12 +152,12 @@ claude .
 
 ```
 .claude/
-└── commands/           # 23 slash commands — type / in Claude Code
+└── commands/           # 25 slash commands — type / in Claude Code
     ├── arch/           # adr.md  review.md
-    ├── ba/             # spec.md  user-story.md
+    ├── ba/             # spec.md  user-story.md  reverse.md
     ├── be/             # bridge.md  (JP outsource)
     ├── dev/            # analyze.md  implement.md  pr.md  debug.md
-    ├── docs/           # update.md
+    ├── docs/           # update.md  project.md
     ├── ops/            # deploy.md  incident.md
     ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
     ├── qa/             # testplan.md  bug.md  regression.md
@@ -226,6 +226,7 @@ docs/
 |---------|-------------|----------------|
 | `/ba:spec` | Convert raw requirements into structured spec | Raw requirement → `docs/tasks/[ID]/requirements.md` |
 | `/ba:user-story` | Generate User Stories from spec | requirements.md → User Stories + AC |
+| `/ba:reverse` | Reverse engineer legacy codebase into baseline docs | Codebase → `docs/baseline/codebase-overview.md` |
 
 ### Bridge Engineer — JP Outsource
 
@@ -282,6 +283,7 @@ docs/
 | Command | Description | Input → Output |
 |---------|-------------|----------------|
 | `/docs:update` | Update baseline docs after verify & merge | Diff + verify → Updated docs |
+| `/docs:project` | Sync project-level docs (README, workflows, install scripts, CLAUDE.md) | Codebase state → Updated project docs |
 
 ---
 
@@ -427,7 +429,7 @@ Deliverables map:
 # Verify your new skill auto-invokes correctly
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Run all 22 skills
+# Run all 25 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Requires: `claude` CLI authenticated + `jq` installed.

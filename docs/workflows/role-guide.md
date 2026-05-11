@@ -60,6 +60,7 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
+| `/arch:review` | Review design decision trước khi commit kiến trúc | Architecture findings |
 | `/arch:adr` | Khi có quyết định kiến trúc quan trọng | docs/decisions/ADR-NNN.md |
 | `/sec:review` | Code review có auth/security changes | Security findings |
 

@@ -10,7 +10,7 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is the `.claude/commands/` directory — 22 Markdown skill files that Claude Code loads as slash commands.
+This repo IS the framework source. The "product" is the `.claude/commands/` directory — 25 Markdown skill files that Claude Code loads as slash commands.
 
 ### Run installer locally
 
