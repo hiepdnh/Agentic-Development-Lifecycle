@@ -19,7 +19,7 @@
 
 ## Why this framework?
 
-- **22 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **23 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
 - **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
 - **Multi-agent** for dev tasks — keeps context clean, saves tokens
@@ -152,14 +152,14 @@ claude .
 
 ```
 .claude/
-└── commands/           # 22 slash commands — type / in Claude Code
+└── commands/           # 23 slash commands — type / in Claude Code
     ├── arch/           # adr.md  review.md
     ├── ba/             # spec.md  user-story.md
     ├── be/             # bridge.md  (JP outsource)
     ├── dev/            # analyze.md  implement.md  pr.md  debug.md
     ├── docs/           # update.md
     ├── ops/            # deploy.md  incident.md
-    ├── pm/             # ideate.md  breakdown.md  status.md
+    ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
     ├── qa/             # testplan.md  bug.md  regression.md
     ├── sec/            # review.md
     └── sm/             # standup.md  retro.md
@@ -172,6 +172,10 @@ agents/                 # Subagent definitions (used by orchestrator commands)
     test-gen.md         # Generate test cases
     doc-updater.md      # Propose doc updates → JSON
 
+bin/
+    install.js          # Interactive npm installer
+    dashboard.js        # Sprint dashboard generator
+
 templates/              # Skeleton templates for all document types
     task-doc-requirements.md
     baseline-api.md
@@ -181,16 +185,18 @@ templates/              # Skeleton templates for all document types
     pr-description.md
     html-artifact.html      # Interactive HTML boilerplate (sort/filter/checklist)
     html-bilingual.html     # JP↔VN 2-column layout for client deliverables
+    dashboard.html          # Dashboard HTML template (used by bin/dashboard.js)
 
 docs/
-    risk-classifier.md  # Risk gate — tiny / normal / high-risk lane assignment
-    improvement-backlog.md  # Friction log — agents write here when framework gaps are found
-    validation-matrix.md    # Global behavior-to-proof tracker for all 22 skills
-    workflows/          # Sprint lifecycle + role guide
-    tasks/              # Task docs (1 folder per issue) — gitignored per project
-    api/                # API baseline docs — long-lived
-    screens/            # Screen baseline docs — long-lived
-    decisions/          # Architecture Decision Records
+    risk-classifier.md       # Risk gate — tiny / normal / high-risk lane assignment
+    improvement-backlog.md   # Friction log — agents write here when framework gaps are found
+    validation-matrix.md     # Global behavior-to-proof tracker for all 23 skills
+    dashboard.html           # Generated sprint dashboard (open in browser)
+    workflows/               # Sprint lifecycle + role guide
+    tasks/                   # Task docs (1 folder per issue) — gitignored per project
+    api/                     # API baseline docs — long-lived
+    screens/                 # Screen baseline docs — long-lived
+    decisions/               # Architecture Decision Records
 ```
 
 ---
@@ -204,6 +210,15 @@ docs/
 | `/pm:ideate` | Turn a vague idea into a clear concept | Rough idea → One-pager + Not Doing list |
 | `/pm:breakdown` | Break Epic into tasks, create GitHub Issues | User Stories → Issues |
 | `/pm:status` | Sprint status report | — → Status summary (Markdown or HTML dashboard) |
+| `/pm:dashboard` | Generate static HTML sprint dashboard | `docs/tasks/*/` → `docs/dashboard.html` |
+
+> **Dashboard** reads `docs/tasks/*/`, git log (14d), skill catalog, validation-matrix, and improvement-backlog. Renders kanban, activity timeline, validation health chart, and skill heatmap. Open `docs/dashboard.html` in any browser — no server required.
+>
+> ```bash
+> node bin/dashboard.js           # generate once
+> npm run dashboard               # same, via npm
+> npm run dashboard:watch         # auto-regenerate on file changes
+> ```
 
 ### BA (Business Analyst)
 
@@ -286,6 +301,15 @@ docs/
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
+
+### Sprint health check (anytime)
+
+```bash
+npm run dashboard        # generate docs/dashboard.html
+# open in browser → kanban + KPIs + activity + validation health
+```
+
+Or trigger via Claude Code: `/pm:dashboard`
 
 ### Receiving requirements from Japanese client
 

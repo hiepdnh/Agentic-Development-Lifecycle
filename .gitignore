@@ -2,6 +2,8 @@ research_sdlc_tools/
 *.local
 .env
 tests/.results/
+node_modules/
+package-lock.json
 
 # AI-generated task and baseline docs (dogfooding artifacts — not part of framework distribution)
 docs/tasks/*/

@@ -1,7 +1,7 @@
 # Role Guide — Ai dùng skill nào?
 
 **Framework**: VTI SDLC Skill Framework  
-**Last updated**: 2026-05-07
+**Last updated**: 2026-05-10
 
 ---
 
@@ -12,6 +12,14 @@
 | `/pm:ideate` | Nhận yêu cầu mơ hồ từ stakeholder | One-pager + Not Doing list |
 | `/pm:breakdown` | Sau khi có User Stories | GitHub Issues |
 | `/pm:status` | Báo cáo sprint cho stakeholder / khách JP | Status summary (Markdown) hoặc `sprint-status.html` (dashboard kanban + velocity, recommend khi gửi khách) |
+| `/pm:dashboard` | Xem tổng quan sprint bất kỳ lúc nào | `docs/dashboard.html` — kanban + KPIs + git activity + health chart |
+
+**Dashboard usage**:
+```bash
+npm run dashboard           # gen 1 lần
+npm run dashboard:watch     # auto-regen khi có thay đổi file
+```
+Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats KPIs · Kanban · Activity timeline (audit + git 14d) · Validation health doughnut · Skill heatmap · Sprint health table · Improvement backlog.
 
 **Không dùng**: dev-*, sec-*, qa-*, arch-*
 
@@ -110,6 +118,13 @@
 ```
 /qa:regression → [sign-off] → deploy
 ```
+
+### "Xem sprint health nhanh"
+```bash
+npm run dashboard
+# mở docs/dashboard.html → kanban + KPIs + git activity + validation health
+```
+Hoặc trong Claude Code: `/pm:dashboard`
 
 ### "Cần document quyết định kỹ thuật"
 ```
