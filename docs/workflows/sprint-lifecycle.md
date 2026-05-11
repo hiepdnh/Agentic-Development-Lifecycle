@@ -76,7 +76,7 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 ### 3.1 Dev Analyze `/dev:analyze`
 **Người dùng**: Dev  
 **Input**: GitHub Issue + Brain Dump context block  
-**Output**: `docs/tasks/[TASK-ID]/analysis.md`  
+**Output**: `docs/tasks/[TASK-ID]/analysis.md` + `analysis-compare.html` (bảng so sánh phương án có sort/filter — one-shot, không commit)  
 **Multi-agent**: task-reader → code-scout → planner  
 **Gates**:
 0. **Risk Classification** — classify task vào tiny / normal / high-risk theo `docs/risk-classifier.md` trước khi spawn subagents
@@ -131,7 +131,7 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 ### 5.1 QA Test Plan `/qa:testplan`
 **Người dùng**: QA  
 **Input**: requirements.md  
-**Output**: `docs/tasks/[TASK-ID]/test-plan.md`  
+**Output**: `docs/tasks/[TASK-ID]/test-plan.md` + `test-plan.html` (interactive checklist, lưu trạng thái tick qua localStorage — one-shot, không commit)  
 **Gate**: QA + BA confirm scope + exit criteria
 
 ### 5.2 QA Execute (manual)
@@ -153,7 +153,7 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 ### 6.1 Regression `/qa:regression`
 **Người dùng**: QA  
 **Input**: Release scope (TASK-IDs)  
-**Output**: `docs/tasks/regression-[sprint].md`  
+**Output**: `docs/tasks/regression-[sprint].html` (format chính — go/no-go badge tự cập nhật theo trạng thái test, in PDF được nếu khách JP cần evidence). Markdown chỉ tạo khi cần commit lịch sử regression.  
 **Gate**: QA Lead sign-off trước khi deploy
 
 ### 6.2 Deploy (manual)
@@ -180,7 +180,8 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 | QA | `docs/tasks/[ID]/test-plan.md` |
 | QA Verify | QA sign-off trong `verification.md` |
 | Docs Update | `docs/api/...` `docs/screens/...` |
-| Release | `docs/tasks/regression-[sprint].md` |
+| Release | `docs/tasks/regression-[sprint].html` (one-shot, không commit) |
+| HTML companions | `analysis-compare.html`, `test-plan.html`, `regression-checklist.html`, `sprint-status.html`, `deliverable.html` — tất cả one-shot, ignore khỏi git (xem `.gitignore`) |
 
 ---
 
@@ -196,8 +197,10 @@ JP Request → /be:bridge → requirements.md (VN) + design-jp.md (JP)
 Sau giai đoạn 5, trước khi gửi JP:
 
 ```
-QA Pass → /be:bridge tạo 単体テスト仕様書 → Gửi kèm deliverables cho JP
+QA Pass → /be:bridge tạo 単体テスト仕様書 + deliverable.html (song ngữ 2 cột, copy/print A4) → Gửi kèm deliverables cho JP
 ```
+
+PM dùng `/pm:status` với option HTML dashboard (kanban + velocity) khi cần báo cáo định kỳ cho khách JP — file HTML forward email đẹp hơn Markdown.
 
 ---
 

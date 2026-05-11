@@ -15,7 +15,7 @@ flowchart TD
 
     %% ── Discovery ──
     subgraph DISC ["🔍 Discovery"]
-        BRIDGE["/be:bridge\nBridge Engineer"]
+        BRIDGE["/be:bridge 🌐\nBridge Engineer"]
         IDEATE["/pm:ideate\nPM · BA"]
         REVERSE["/ba:reverse\nBA · Tech Lead"]
         BASELINE[(docs/baseline/<br/>codebase-overview.md)]
@@ -38,7 +38,7 @@ flowchart TD
     %% ── Dev per Issue ──
     subgraph DEV ["💻 Dev Cycle — per issue"]
         RISK["🔵 Risk Classifier\ndocs/risk-classifier.md"]
-        ANALYZE["/dev:analyze\nDev"]
+        ANALYZE["/dev:analyze 🌐\nDev"]
         IMPLEMENT["/dev:implement\nDev"]
         VERIFY["✅ Verification Gate\nUser reports test results"]
         HARNESS["📝 Harness Delta\ndocs/improvement-backlog.md"]
@@ -49,15 +49,15 @@ flowchart TD
 
     %% ── QA ──
     subgraph QA ["🧪 QA Cycle"]
-        TESTPLAN["/qa:testplan\nQA"]
+        TESTPLAN["/qa:testplan 🌐\nQA"]
         BUGR["/qa:bug\nQA"]
-        REGRESSION["/qa:regression\nQA"]
+        REGRESSION["/qa:regression 🌐\nQA"]
     end
 
     %% ── Sprint Ops ──
     subgraph SPRINT ["📊 Sprint Ops (lặp lại)"]
         STANDUP["/sm:standup\ndaily"]
-        STATUS["/pm:status\nper sprint"]
+        STATUS["/pm:status 🌐\nper sprint"]
         RETRO["/sm:retro\nsprint end"]
     end
 
@@ -219,3 +219,4 @@ Planning          Dev decisions
 | `→` | Luồng bắt buộc — phải đi qua |
 | `-.->` | Luồng tùy chọn / parallel |
 | `↕` | Loop (có thể quay lại) |
+| 🌐 | Skill có **HTML companion** ngoài Markdown — interactive review artifact (sort/filter/checklist hoặc song ngữ JP↔VN). One-shot, không commit. Xem `CLAUDE.md` section "Output Format Convention". |
