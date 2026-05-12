@@ -8,287 +8,136 @@
   <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
-<p align="center">
-  <br><br>
-  <em>A <strong>Claude Code</strong> skill pack covering the full Software Development Lifecycle (SDLC) — from requirements analysis to deployment.</em>
-  <br>
-  <em>Optimized for the outsource model: <strong>VN Dev Team ↔ Bridge Engineer ↔ Japanese Client</strong>.</em>
-</p>
+> **26 slash commands** covering the full SDLC — for teams building software with AI assistance.
 
 ---
 
-## Why this framework?
+## What is this?
 
-- **26 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
-- **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
-- **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
-- **Multi-agent** for dev tasks — keeps context clean, saves tokens
-- **Two-tier docs** — ephemeral task docs + living baseline docs alongside the code
-- **Self-improving** — agents log framework friction to `docs/improvement-backlog.md` as they work
-- **JP standards** — `/be:bridge` generates 設計書 and 単体テスト仕様書 ready to send to the client
-- **HTML companion** — interactive review artifacts (sortable tables, persistent checklists, JP↔VN side-by-side) for 5 high-ROI skills, alongside Markdown for storage
+A **Claude Code skill pack** for software development teams. Install it into any project to get structured, role-aware AI commands that cover every phase of the sprint lifecycle.
+
+Built for [VTI Software](https://vti.com.vn) outsource model (Vietnamese dev team → Bridge Engineer → Japanese clients), but works for any team that wants structured AI assistance.
 
 ---
 
-## Requirements
-
-| Tool | Version | Notes |
-|------|---------|-------|
-| [Claude Code](https://claude.ai/code) | Latest | CLI or IDE extension |
-| [GitHub CLI](https://cli.github.com/) | ≥ 2.0 | Used in `/pm:breakdown` to create issues |
-| Git | ≥ 2.0 | |
-
----
-
-## Installation
-
-### Option 1 — npx (recommended, no git required)
+## Quick Install
 
 ```bash
-npx github:hiepdnh/Agentic-Development-Lifecycle
-```
-
-Run from your project root. Works on Windows, macOS, Linux. No git clone, no shell scripts, no permission issues. Requires Node.js ≥ 16.
-
-Skip the confirmation prompt (non-interactive / CI):
-```bash
+# macOS / Linux — run from your target project directory
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
-**Already installed? Update to the latest skills:**
+```powershell
+# Windows
+$tmp = "$env:TEMP\vti-install"; mkdir $tmp -Force; Set-Location $tmp
+npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+```
+
+Or update an existing install:
+
 ```bash
-npx github:hiepdnh/Agentic-Development-Lifecycle --update
-# non-interactive:
 npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 ```
 
-`--update` overwrites existing skill files with the latest version. Your project-specific files (`docs/`, `agents/`, custom commands) are not touched.
-
-### Option 2 — Via Claude Code `/install` command
-
-Open your project in Claude Code, then type:
-```
-/install
-```
-Claude copies the framework files using its own file tools — no shell required.
-
-### Option 3 — One-liner with `gh`
-
-**Windows (PowerShell):**
-```powershell
-gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
-```
-
-**macOS / Linux:**
-```bash
-gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
-```
-
-### Option 4 — Classic clone
-
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git my-project
-cd my-project
-.\setup.ps1 -TargetPath "C:\path\to\your\project"
-```
-
-**macOS / Linux:**
-```bash
-git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git my-project
-cd my-project
-chmod +x setup.sh && ./setup.sh /path/to/your/project
-```
-
-### Option 5 — Manual
-
-Copy the following directories into your project root:
-
-```
-your-project/
-├── .claude/          ← copy from framework
-├── agents/           ← copy from framework
-├── templates/        ← copy from framework
-├── CLAUDE.md         ← copy and customize
-└── docs/             ← create new with structure below
-    ├── api/
-    ├── screens/
-    ├── tasks/
-    ├── decisions/
-    └── workflows/
-```
+**What gets installed**: `.claude/commands/` (26 skill files) + `agents/` (7 subagent definitions) + `templates/` + `docs/workflows/`
 
 ---
 
-## After installation
+## Skill Commands
 
-**Step 1** — Open `CLAUDE.md` and update the VTI Context section:
+### Business Analysis
 
-```markdown
-**Company**: [Company / project name]
-**Client**: [JP client name if applicable]
-**Model**: VN Dev Team ↔ Bridge Engineer (BE) ↔ JP Client
-**Language**: Code comments = English; Internal docs = Vietnamese
-**Timezone**: JST (UTC+9) — or client's timezone
-**Tech stack**: [Node.js / React / PostgreSQL / ...]
-**Repo**: [GitHub URL]
-```
-
-**Step 2** — Open the project in Claude Code:
-
-```bash
-claude .
-```
-
-**Step 3** — Type `/` to see all available commands:
-
-```
-/pm:ideate    /ba:spec    /dev:analyze    /qa:testplan    ...
-```
-
----
-
-## Project Structure
-
-```
-.claude/
-└── commands/           # 26 slash commands — type / in Claude Code
-    ├── arch/           # adr.md  review.md
-    ├── ba/             # spec.md  user-story.md  reverse.md
-    ├── be/             # bridge.md  (JP outsource)
-    ├── dev/            # analyze.md  implement.md  review.md  pr.md  debug.md
-    ├── docs/           # update.md  project.md
-    ├── ops/            # deploy.md  incident.md
-    ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
-    ├── qa/             # testplan.md  bug.md  regression.md
-    ├── sec/            # review.md
-    └── sm/             # standup.md  retro.md
-
-agents/                 # Subagent definitions (used by orchestrator commands)
-    task-reader.md      # Parse GitHub issue → JSON
-    code-scout.md       # Find related code → JSON
-    planner.md          # Generate implementation options → JSON
-    diff-reader.md      # Map git diff → AC coverage → JSON
-    test-gen.md         # Generate test cases
-    doc-updater.md      # Propose doc updates → JSON
-
-bin/
-    install.js          # Interactive npm installer
-    dashboard.js        # Sprint dashboard generator
-
-templates/              # Skeleton templates for all document types
-    task-doc-requirements.md
-    baseline-api.md
-    baseline-screen.md
-    adr.md
-    github-issue.md
-    pr-description.md
-    html-artifact.html      # Interactive HTML boilerplate (sort/filter/checklist)
-    html-bilingual.html     # JP↔VN 2-column layout for client deliverables
-    dashboard.html          # Dashboard HTML template (used by bin/dashboard.js)
-
-docs/
-    risk-classifier.md       # Risk gate — tiny / normal / high-risk lane assignment
-    improvement-backlog.md   # Friction log — agents write here when framework gaps are found
-    validation-matrix.md     # Global behavior-to-proof tracker for all 26 skills
-    dashboard.html           # Generated sprint dashboard (open in browser)
-    workflows/               # Sprint lifecycle + role guide
-    tasks/                   # Task docs (1 folder per issue) — gitignored per project
-    api/                     # API baseline docs — long-lived
-    screens/                 # Screen baseline docs — long-lived
-    decisions/               # Architecture Decision Records
-```
-
----
-
-## Commands Reference
-
-### PM (Project Manager)
-
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/pm:ideate` | Turn a vague idea into a clear concept | Rough idea → One-pager + Not Doing list |
-| `/pm:breakdown` | Break Epic into tasks, create GitHub Issues | User Stories → Issues |
-| `/pm:status` | Sprint status report | — → Status summary (Markdown or HTML dashboard) |
-| `/pm:dashboard` | Generate static HTML sprint dashboard | `docs/tasks/*/` → `docs/dashboard.html` |
+| `/pm:ideate` | Refine vague idea → clear concept with problem statement + NOT Doing list | Rough idea → Concept doc |
+| `/ba:spec` | Raw requirement → structured spec | Requirements → `requirements.md` |
+| `/ba:user-story` | Spec → User Stories with AC | Spec → User Stories |
+| `/ba:reverse` | Reverse engineer legacy codebase → baseline docs | Codebase → `docs/baseline/` |
+| `/be:bridge` | Translate JP requirements, create bilingual JP-VN deliverables | JP req → VN spec + JP doc |
 
-> **Dashboard** reads `docs/tasks/*/`, git log (14d), skill catalog, validation-matrix, and improvement-backlog. Renders kanban, activity timeline, validation health chart, and skill heatmap. Open `docs/dashboard.html` in any browser — no server required.
->
-> ```bash
-> node bin/dashboard.js           # generate once
-> npm run dashboard               # same, via npm
-> npm run dashboard:watch         # auto-regenerate on file changes
-> ```
+### Project Management
 
-### BA (Business Analyst)
-
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/ba:spec` | Convert raw requirements into structured spec | Raw requirement → `docs/tasks/[ID]/requirements.md` |
-| `/ba:user-story` | Generate User Stories from spec | requirements.md → User Stories + AC |
-| `/ba:reverse` | Reverse engineer legacy codebase into baseline docs | Codebase → `docs/baseline/codebase-overview.md` |
+| `/pm:breakdown` | Epic/Stories → Tasks with estimates + GitHub/GitLab Issues | Epic → Issues |
+| `/pm:status` | Sprint status report for stakeholders | Tasks → Status report |
+| `/pm:dashboard` | Static HTML sprint dashboard (kanban + health + backlog) | `docs/tasks/*/` → HTML |
 
-### Bridge Engineer — JP Outsource
+### Development
 
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/be:bridge` | Translate JP↔VN, generate 設計書 + dev spec | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) + `deliverable.html` (bilingual review) |
-
-### Developer
-
-| Command | Description | Input → Output |
-|---------|-------------|----------------|
-| `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (sortable options) (**stops here, review before proceeding**) |
+| `/dev:analyze` | Task → 2-3 implementation options with trade-offs | Issue + codebase → `analysis.md` |
 | `/dev:implement` | Implement file-by-file with human gates + verification + harness delta check | `analysis.md` → Code → `verification.md` |
 | `/dev:review` | Holistic review after implement: code quality + architecture + security in one run | Diff + `analysis.md` → Review report → Approve / Request Changes |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
 
-### Security
+### Architecture
 
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/sec:review` | 3-tier security review before merge | Code diff → Findings |
+| `/arch:review` | Design decision review | Design → Feedback |
+| `/arch:adr` | Create Architecture Decision Record | Decision → `docs/decisions/ADR-NNN.md` |
 
 ### QA
 
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/qa:testplan` | Generate test plan from spec | requirements.md → `test-plan.md` + `test-plan.html` (interactive checklist) |
-| `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist before release | Release scope → `regression-checklist.html` (go/no-go decision) |
-
-### Architect
-
-| Command | Description | Input → Output |
-|---------|-------------|----------------|
-| `/arch:review` | Review design decision | Design → Findings |
-| `/arch:adr` | Generate Architecture Decision Record | Decision → `docs/decisions/ADR-NNN.md` |
+| `/qa:testplan` | Spec → Test plan | Spec → `test-plan.md` |
+| `/qa:bug` | Standardized bug report | Bug info → Bug report |
+| `/qa:regression` | Regression checklist before release | Release → Go/No-go checklist |
 
 ### DevOps
 
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/ops:deploy` | Deployment checklist + CI quality gate | — → Checklist |
-| `/ops:incident` | Incident response + RCA | Incident → Response plan |
+| `/ops:deploy` | Deployment checklist + CI quality gate + rollback plan | Release → Checklist |
+| `/ops:incident` | Incident triage + parallel investigation + RCA template | Incident → RCA |
 
-### Scrum Master
+### Security
 
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/sm:standup` | Daily standup summary | Updates → Summary |
-| `/sm:retro` | Sprint retrospective | — → Retro doc |
+| `/sec:review` | Security review: Always check / Ask First / Never (OWASP Top 10) | Code → Security report |
 
-### All Roles
+### Documentation
 
-| Command | Description | Input → Output |
+| Command | What it does | Input → Output |
 |---------|-------------|----------------|
-| `/docs:update` | Update baseline docs after verify & merge | Diff + verify → Updated docs |
-| `/docs:project` | Sync project-level docs (README, workflows, install scripts, CLAUDE.md) | Codebase state → Updated project docs |
+| `/docs:update` | Update baseline screen/API docs after task verify | Verified task → Updated docs |
+| `/docs:project` | Sync project-level docs: README, workflow guides, CLAUDE.md | Changes → Updated project docs |
+
+### Scrum
+
+| Command | What it does | Input → Output |
+|---------|-------------|----------------|
+| `/sm:standup` | Daily standup summary | Updates → Standup report |
+| `/sm:retro` | Sprint retrospective | Sprint → Retro report |
 
 ---
 
-## Typical Workflows
+## How It Works
+
+### Subagents (multi-agent pattern)
+
+Heavy tasks spawn lightweight subagents to keep context clean:
+
+| Agent | Used by | Model | Purpose |
+|-------|---------|-------|---------|
+| `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON |
+| `code-scout` | `/dev:analyze` | haiku | Find relevant files |
+| `planner` | `/dev:analyze` | sonnet | Synthesize options |
+| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Map diff → AC coverage |
+| `review-reader` | `/dev:review` | haiku | Parse diff → code/arch/security signals |
+| `test-gen` | `/qa:testplan` | sonnet | Generate test cases |
+| `doc-updater` | `/docs:update` | sonnet | Update baseline docs |
+
+### Human Gates
+
+Every command has at least one `AskUserQuestion` gate — Claude presents options and **waits for your decision** before proceeding. No auto-execution.
+
+### Typical Workflows
 
 <p align="center">
   <img src="assets/workflow.png" alt="Sprint Workflow" width="100%">
@@ -298,29 +147,14 @@ docs/
 
 ```
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
-    → /dev:analyze → [review analysis.md]
-    → /dev:implement → [report test results] → [review verification.md]
+
+    ↓ (per task)
+
+/dev:analyze → [review analysis.md] → /dev:implement
     → /dev:review → /dev:pr
-    → /qa:testplan → [QA execute] → /docs:update
-    → /qa:regression → deploy
 ```
 
-### Sprint health check (anytime)
-
-```bash
-npm run dashboard        # generate docs/dashboard.html
-# open in browser → kanban + KPIs + activity + validation health
-```
-
-Or trigger via Claude Code: `/pm:dashboard`
-
-### Receiving requirements from Japanese client
-
-```
-/be:bridge → /ba:spec → /ba:user-story → /pm:breakdown → ...
-```
-
-### Got an issue, need to code now
+### Developer flow (single task)
 
 ```
 /dev:analyze → [review analysis.md] → /dev:implement → /dev:review → /dev:pr
@@ -334,105 +168,74 @@ Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide
 
 ---
 
-## Design Principles
+## Two-tier Documentation
 
-| # | Principle | Meaning |
-|---|-----------|--------|
-| 1 | **Human Gate** | Claude never acts alone — always present → ask → wait for confirm |
-| 2 | **Multiple Options** | Always offer 2-3 options with trade-offs. Never a single solution |
-| 3 | **Fresh Context** | Subagents receive only the context they need — no full history passed |
-| 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, updated after verify) |
-| 5 | **Delta Specs** | Each change is a structured proposal, not a monolith |
-| 6 | **Template-first** | Commands reference templates, never duplicate format inline |
-| 7 | **Risk-first** | Classify every task into tiny / normal / high-risk before any work starts |
-| 8 | **Self-improving** | Agents log friction to `docs/improvement-backlog.md` — framework grows from real usage |
-| 9 | **Format by consumer** | Choose Markdown vs HTML by who consumes the artifact (storage → MD, interactive review → HTML) — see Output Format Convention in `CLAUDE.md` |
+```
+docs/
+  tasks/          ← Type 1: Per-task (ephemeral, gitignored in framework source)
+    TASK-001/
+      requirements.md
+      analysis.md
+      test-plan.md
+      verification.md
+      audit.md        ← Append-only log of all skill runs + user input verbatim
+  baseline/         ← Type 2: Baseline (living docs, updated after verify)
+  screens/
+  api/
+  decisions/        ← ADRs
+  workflows/        ← Process guides
+```
+
+**Type 1** (task docs): Created per issue, gitignored in this framework repo. Your project keeps them.  
+**Type 2** (baseline docs): Updated after each verified task merge via `/docs:update`.
 
 ---
 
-## Customization
+## VTI Context
 
-### Add custom commands
+Optimized for the VTI outsource model:
 
-Create a file at `.claude/commands/[role]/[command].md`:
-
-```markdown
-# Skill: /[role]:[command]
-**Role**: [Role]
-**Purpose**: [Description]
-
-## Instructions
-...
-```
-
-### Add domain-specific rules
-
-Open `CLAUDE.md` and append:
-
-```markdown
-## Project-specific Rules
-
-- [Project-specific rule]
-- Enum values: [list]
-- Forbidden patterns: [list]
-```
-
-### Disable unused commands
-
-Delete the corresponding file from `.claude/commands/`. No impact on other commands.
+- **Bridge Engineer** — translates JP client requirements → VN team spec (`/be:bridge`)
+- **BA** — writes spec in Vietnamese from clarified requirements (`/ba:spec`)
+- **Dev** — implements with structured AI guidance, code comments in English
+- **QA** — tests per spec, generates JP-format test reports if needed
+- **Deliverables** — 設計書, 単体テスト仕様書, 成果物 formatted for Japanese clients
 
 ---
 
-## For VTI teams — JP Outsource
-
-The framework supports VTI's 3-layer outsource model:
+## Project Structure
 
 ```
-JP Client ←→ Bridge Engineer ←→ VN Dev Team
-  JP doc  ←   /be:bridge     →   VN spec
+.claude/commands/    # 26 slash command files
+agents/              # 7 subagent definitions
+docs/
+  workflows/         # Sprint lifecycle, role guide, flowchart
+  decisions/         # ADR templates
+templates/           # Skeleton templates referenced by commands
+bin/install.js       # Interactive installer (@clack/prompts)
+setup.ps1            # PowerShell installer
+setup.sh             # Bash installer
 ```
-
-**Bridge Engineer** uses `/be:bridge` to:
-- Translate JP requirements → Vietnamese spec for dev team
-- Generate 設計書 (Basic/Detail Design) to Japanese SI standards
-- Generate 単体テスト仕様書 to send to client for confirmation
-- Built-in JP↔VN glossary for consistency
-
-Deliverables map:
-
-| JP Deliverable | Framework file |
-|----------------|----------------|
-| 基本設計書 | `docs/screens/` + `docs/api/` |
-| 詳細設計書 | `docs/tasks/[ID]/analysis.md` |
-| 単体テスト仕様書 | `docs/tasks/[ID]/test-plan.md` |
-| 単体テスト結果 | `docs/tasks/[ID]/verification.md` |
-| 成果物 (Deliverable) | `docs/tasks/[ID]/deliverable.html` (bilingual JP↔VN, print-ready) |
 
 ---
 
-## Contributing
+## Development
 
-1. Fork the repo
-2. Create a branch: `feat/[command-name]` or `fix/[issue]`
-3. Add/edit commands in `.claude/commands/[role]/`
-4. Add a trigger prompt in `tests/skill-triggering/prompts/`
-5. Update `CLAUDE.md` if adding a new command
-6. Open a PR with a complete description
+This repo IS the framework. The “product” is `.claude/commands/` — 26 Markdown skill files.
 
-**Command writing conventions:**
-- Always include at least 1 Human Gate (`AskUserQuestion` tool for multi-choice, plain text for open-ended)
-- Always propose 2-3 options when a decision is needed
-- Output must be actionable — not just explanatory
-- Subagents: use the Agent tool, pass minimal context
+### Test skill triggering
 
-**Testing skill triggers:**
 ```bash
-# Verify your new skill auto-invokes correctly
-bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
-
-# Run all 26 skills
+# Run all 26 skill trigger tests
 bash tests/skill-triggering/run-all.sh
+
+# Verbose output
+bash tests/skill-triggering/run-all.sh --verbose
+
+# Filter by prefix
+bash tests/skill-triggering/run-all.sh --filter dev-*
 ```
+
 Requires: `claude` CLI authenticated + `jq` installed.
 
 ---

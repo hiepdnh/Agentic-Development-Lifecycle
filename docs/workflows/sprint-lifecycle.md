@@ -3,100 +3,91 @@
 **Framework**: VTI SDLC Skill Framework  
 **Last updated**: 2026-05-07
 
-> 📊 Xem quan hệ giữa các skills dưới dạng sơ đồ: [`skill-flowchart.md`](skill-flowchart.md)
+> 📊 Xem quick dashboard: chạy `/pm:dashboard` → tạo `sprint-status.html` (kanban + health table + backlog)
 
 ---
 
-## Tổng quan
+## Tổng quan Sprint Flow
 
 ```
-PM Ideate → BA Spec → BA Stories → PM Breakdown
-    → Dev Analyze → [Tech Lead confirm nếu high-risk]
-    → Dev Implement → [report test results] → [review verification.md]
-    → Dev Review (code + arch + security) → Dev PR
-    → QA Test Plan → QA Verify → Docs Update
-```
+Giai đoạn 1: Khởi đầu Sprint
+  PM: /pm:ideate (optional) → /ba:spec → /ba:user-story → /pm:breakdown
+  
+  [GitHub Issues được tạo, được assign cho dev]
 
-Mỗi bước có **gate** — không tự động chuyển sang bước tiếp theo.  
-Multi-choice gates dùng `AskUserQuestion` tool để render native TUI.
+Giai đoạn 2: Dev Implementation  
+  Dev: /dev:analyze → /dev:implement → /dev:review → /dev:pr
+
+Giai đoạn 3: Review & Merge
+  Reviewer: Code review (manual + /ultrareview optional)
+  QA: /qa:testplan (nếu cần) → Test execution
+
+Giai đoạn 4: Release
+  DevOps: /ops:deploy → Deploy → Monitor
+  
+  [Nếu incident: /ops:incident]
+
+Giai đoạn 5: Retrospective
+  SM: /sm:retro
+```
 
 ---
 
-## Giai đoạn 1: Discovery
+## Giai đoạn 1: Khởi đầu Sprint
 
-### 1.0 BA Reverse `/ba:reverse` (chỉ brownfield)
-**Người dùng**: BA / Tech Lead  
-**Khi nào**: Take-over codebase legacy từ vendor cũ HOẶC inherit project không có docs  
-**Bỏ qua nếu**: Greenfield project (xây từ đầu)  
-**Input**: Codebase đã clone về local  
-**Output**: `docs/baseline/codebase-overview.md`  
-**Gate**: User confirm scope (full take-over / estimate / refactor audit) + depth (overview / standard / deep)
+### 1.1 Ideation (Optional) `/pm:ideate`
+**Người dùng**: PM / BA / Product Owner  
+**Khi dùng**: Ý tưởng còn mơ hồ, chưa rõ scope. Chạy trước `/ba:spec` để tránh spec sai hướng.  
+**Input**: Ý tưởng thô  
+**Output**: Concept doc với problem statement, goals, NOT Doing list
 
-Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có context về tech stack & technical debt.
-
-### 1.1 PM Ideate `/pm:ideate`
-**Người dùng**: PM / BA  
-**Input**: Ý tưởng thô từ stakeholder  
-**Output**: One-pager + Not Doing list  
-**Gate**: PM confirm hướng đi trước khi viết spec
-
-### 1.2 BA Spec `/ba:spec`
+### 1.2 Business Spec `/ba:spec`
 **Người dùng**: BA  
-**Input**: One-pager từ pm-ideate  
+**Input**: Raw requirement (JP translated bởi BE, hoặc VN trực tiếp)  
 **Output**: `docs/tasks/[TASK-ID]/requirements.md`  
-**Gate**:
-1. BA confirm hiểu đúng vấn đề
-2. Clarify questions trả lời xong
-3. BA + PM review AC trước khi đưa dev
-
-### 1.3 BA User Stories `/ba:user-story`
-**Người dùng**: BA  
-**Input**: requirements.md  
-**Output**: User Stories với AC trong requirements.md  
-**Gate**: BA review granularity + estimate
-
----
-
-## Giai đoạn 2: Planning
-
-### 2.1 PM Breakdown `/pm:breakdown`
-**Người dùng**: PM  
-**Input**: User Stories  
-**Output**: GitHub Issues (tạo bằng `gh issue create`)  
-**Gate**: PM confirm priority + assignment trước khi tạo issue
-
-### 2.2 Sprint Planning (manual)
-- PM assign issues cho dev
-- Dev estimate lại nếu cần
-- Sprint board cập nhật
-
----
-
-## Giai đoạn 3: Development
-
-### 3.1 Dev Analyze `/dev:analyze`
-**Người dùng**: Dev  
-**Input**: GitHub Issue + Brain Dump context block  
-**Output**: `docs/tasks/[TASK-ID]/analysis.md` + `analysis-compare.html` (bảng so sánh phương án có sort/filter — one-shot, không commit)  
-**Multi-agent**: task-reader → code-scout → planner  
 **Gates**:
-0. **Risk Classification** — classify task vào tiny / normal / high-risk theo `docs/risk-classifier.md` trước khi spawn subagents
-1. Confirm task understanding
-2. Confirm code map
-3. **Human chọn phương án** (không tự chọn)
+1. Confirm scope (in/out)
+2. Confirm AC list  
+3. Q&A History append-only (resume sau interrupt)
 
-### 3.1b Tech Lead Gate (high-risk tasks only)
-**Người dùng**: Tech Lead / Senior Dev  
-**Khi nào**: Khi `/dev:analyze` phân loại task là **high-risk**  
-**Bỏ qua nếu**: Task là tiny hoặc normal  
-**Action**: Review `analysis.md`, confirm hoặc yêu cầu điều chỉnh phương án trước khi dev implement  
-**Gate cứng** — framework không cho phép tiếp tục implement khi chưa có senior confirm
+### 1.3 User Stories `/ba:user-story`
+**Người dùng**: BA / PM  
+**Input**: `requirements.md`  
+**Output**: User Stories format: "As a [user], I want [action], so that [benefit]" + AC
 
-### 3.2 Dev Implement `/dev:implement`
+### 1.4 Task Breakdown `/pm:breakdown`
+**Người dùng**: PM / Tech Lead  
+**Input**: Epic hoặc User Stories  
+**Output**: GitHub Issues (hoặc GitLab) với estimate, label, assignee  
+**Hỗ trợ**: GitHub (`gh` CLI) và GitLab (`glab` CLI)
+
+---
+
+## Giai đoạn 2: Development
+
+### 2.1 Risk Classification
+Trước khi bắt đầu bất kỳ task nào, classify risk theo `docs/risk-classifier.md`:
+- **Tiny** → patch trực tiếp, bỏ qua analysis.md
+- **Normal** → chạy đủ analyze → implement → review → PR
+- **High-risk** → dừng, hỏi senior trước khi tiếp tục
+
+### 2.2 Task Analysis `/dev:analyze`
 **Người dùng**: Dev  
-**Input**: `analysis.md`  
+**Input**: GitHub Issue + codebase  
+**Output**: `docs/tasks/[TASK-ID]/analysis.md` với 2-3 phương án + trade-off  
+**Gates**:
+1. Confirm tech stack / affected areas
+2. Chọn phương án (sau khi đọc analysis.md)
+
+**Multi-agent pattern**: `task-reader` (haiku) → `code-scout` (haiku) → `planner` (sonnet) → orchestrator tổng hợp
+
+**Hard stop** — `dev:analyze` dừng sau khi ghi `analysis.md`. User tự trigger `/dev:implement` sau khi review.
+
+### 2.3 Implementation `/dev:implement`
+**Người dùng**: Dev  
+**Input**: `analysis.md` (phương án đã chọn)  
 **Output**: Code changes + `docs/tasks/[TASK-ID]/verification.md`  
-**Gates**:
+**Gates** (per file):
 1. Confirm implementation plan + file order
 2. Confirm sau mỗi file (không tự nhảy sang file tiếp theo)
 3. Bước 4 — Dev self-check
@@ -141,87 +132,76 @@ Review 3 lens trong 1 lần chạy:
 - Tối thiểu 1 approve
 - Address comments
 
-### 4.3 Merge
-- Squash hoặc merge commit (theo convention dự án)
-- Delete branch sau merge
+### 4.3 QA (nếu cần)
+- `/qa:testplan` — tạo test plan từ spec (thường làm trước implement)
+- `/qa:regression` — regression checklist trước release lớn
 
 ---
 
-## Giai đoạn 5: QA
+## Giai đoạn 5: Release
 
-### 5.1 QA Test Plan `/qa:testplan`
-**Người dùng**: QA  
-**Input**: requirements.md  
-**Output**: `docs/tasks/[TASK-ID]/test-plan.md` + `test-plan.html` (interactive checklist, lưu trạng thái tick qua localStorage — one-shot, không commit)  
-**Gate**: QA + BA confirm scope + exit criteria
+### 5.1 Deployment `/ops:deploy`
+**Người dùng**: DevOps / Dev  
+**Output**: Deployment checklist + CI quality gate + rollback plan  
+**Chú ý**: Timezone JST đối với khách Nhật
 
-### 5.2 QA Execute (manual)
-- Chạy test cases theo test-plan.md
-- Log bugs vào GitHub Issues
-
-### 5.3 QA Verify + Docs Update `/docs:update`
-**Người dùng**: QA / Dev  
-**Input**: Code + test results  
-**Output**:
-- `docs/tasks/[TASK-ID]/verification.md`
-- Updated baseline docs (screen + API)
-**Gate**: Confirm doc changes trước khi apply
+### 5.2 Incident (nếu xảy ra) `/ops:incident`
+**Trigger**: Hệ thống bị lỗi production  
+**Pattern**: Triage → điều tra song song 3 hướng → RCA template (5 Whys)
 
 ---
 
-## Giai đoạn 6: Release
+## Giai đoạn 6: Docs Update
 
-### 6.1 Regression `/qa:regression`
-**Người dùng**: QA  
-**Input**: Release scope (TASK-IDs)  
-**Output**: `docs/tasks/regression-[sprint].html` (format chính — go/no-go badge tự cập nhật theo trạng thái test, in PDF được nếu khách JP cần evidence). Markdown chỉ tạo khi cần commit lịch sử regression.  
-**Gate**: QA Lead sign-off trước khi deploy
+### 6.1 Baseline Docs Update `/docs:update`
+**Trigger**: Sau khi task merge và verify  
+**Input**: `verification.md` + actual code  
+**Output**: Cập nhật `docs/screens/` hoặc `docs/api/` baseline
 
-### 6.2 Deploy (manual)
-- Deploy lên Staging → PM/BA demo
-- Deploy lên Production sau sign-off
-
-### 6.3 Sprint Retrospective (manual)
-- Team review: what went well / blockers
-- Update CLAUDE.md nếu có workflow change
+### 6.2 Project Docs `/docs:project`
+**Trigger**: Khi có thay đổi lớn (skill mới, team thay đổi, process update)  
+**Output**: README, CLAUDE.md, workflow guides được sync
 
 ---
 
-## Deliverables theo giai đoạn
+## Giai đoạn 7: Retrospective
 
-| Giai đoạn | File tạo ra |
-|-----------|-------------|
-| Discovery | `docs/tasks/[ID]/requirements.md` |
-| Planning | GitHub Issues |
-| Dev Analyze | `docs/tasks/[ID]/analysis.md` (bao gồm Risk Classification block) |
-| Dev Implement | Source code + `docs/tasks/[ID]/verification.md` |
-| Harness Delta | Entry mới trong `docs/improvement-backlog.md` (nếu có friction) |
-| Dev Review | Review report (inline) — code + arch + security. `docs/decisions/ADR-NNN.md` nếu có design decision mới |
-| Dev PR | PR description |
-| QA | `docs/tasks/[ID]/test-plan.md` |
-| QA Verify | QA sign-off trong `verification.md` |
-| Docs Update | `docs/api/...` `docs/screens/...` |
-| Release | `docs/tasks/regression-[sprint].html` (one-shot, không commit) |
-| HTML companions | `analysis-compare.html`, `test-plan.html`, `regression-checklist.html`, `sprint-status.html`, `deliverable.html` — tất cả one-shot, ignore khỏi git (xem `.gitignore`) |
+### 7.1 Sprint Retro `/sm:retro`
+**Trigger**: Cuối sprint  
+**Output**: Went well / Didn't go well / Actions  
+
+### 7.2 Standup `/sm:standup`
+**Trigger**: Hàng ngày  
+**Output**: Yesterday / Today / Blockers per member
 
 ---
 
-## Bridge Engineer Workflow (VTI JP Outsource)
+## Tóm tắt Gates quan trọng
 
-Trước giai đoạn 1, khi nhận yêu cầu từ JP:
+| Skill | Gate | Loại |
+|-------|------|-------|
+| `/dev:analyze` | Chọn phương án | Decision |
+| `/dev:implement` | Confirm từng file | Safety |
+| `/dev:implement` | Verification + Harness Delta | Quality |
+| `/dev:review` | Scope + Verdict | Quality |
+| `/dev:pr` | AC coverage + Reviewer | Process |
+| `/ops:deploy` | Pre-deploy checklist | Safety |
+| `/ba:spec` | Scope + AC confirm | Requirement |
 
-```
-JP Request → /be:bridge → requirements.md (VN) + design-jp.md (JP)
-   → Confirm với JP → vào giai đoạn Discovery bình thường
-```
+---
 
-Sau giai đoạn 5, trước khi gửi JP:
+## Output Format
 
-```
-QA Pass → /be:bridge tạo 単体テスト仕様書 + deliverable.html (song ngữ 2 cột, copy/print A4) → Gửi kèm deliverables cho JP
-```
+Mỗi skill chọn format theo consumer:
 
-PM dùng `/pm:status` với option HTML dashboard (kanban + velocity) khi cần báo cáo định kỳ cho khách JP — file HTML forward email đẹp hơn Markdown.
+| Artifact | Consumer | Format |
+|----------|----------|--------|
+| `analysis.md`, `requirements.md` | Git, future devs | Markdown |
+| Sprint status, regression checklist | Human đang quyết định | HTML |
+| JP deliverable (成果物) | Khách Nhật | HTML |
+| Chained sang agent | LLM | JSON |
+
+HTML artifact: interactive, sortable, dùng cho one-shot decision. Đẹp hơn Markdown.
 
 ---
 
