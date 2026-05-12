@@ -15,14 +15,35 @@ description: >
 
 ## Hướng dẫn thực hiện
 
-### Bước 1 — Thu thập context
+### Bước 1 — Thu thập context (subagent)
 
-Đọc song song:
-- `git diff HEAD~1` hoặc diff của PR
-- `docs/tasks/[TASK-ID]/analysis.md` — phương án đã chọn, để biết intent
-- `docs/tasks/[TASK-ID]/verification.md` — self-test dev đã làm, tránh kiểm tra lại
+**Xác định base branch trước khi spawn:**
 
-Nếu không có analysis.md → hỏi dev mô tả ngắn về thay đổi.
+Kiểm tra theo thứ tự:
+1. User cung cấp base branch trong lệnh (ví dụ: `/dev:review develop`)
+2. Đọc `git remote show origin` để detect default branch
+3. Nếu vẫn không rõ → dùng `AskUserQuestion` hỏi base branch trước khi tiếp tục
+
+Spawn `review-reader` agent (model: haiku) theo `agents/review-reader.md` với input:
+
+```
+GIT DIFF:
+[git diff <BASE_BRANCH>..HEAD]
+
+BASE_BRANCH: <tên branch đã xác định>
+
+ANALYSIS PATH:
+docs/tasks/[TASK-ID]/analysis.md
+
+VERIFICATION PATH:
+docs/tasks/[TASK-ID]/verification.md
+```
+
+Agent trả về JSON với `code_signals`, `arch_signals`, `security_signals`, `review_priority`, `intent_alignment`. Dùng kết quả này làm input cho Bước 3.
+
+**Fallback nếu agent fail** (timeout, diff quá lớn, lỗi spawn): bỏ qua subagent, chạy thủ công 7 grep patterns từ `agents/review-reader.md` trực tiếp trên diff và tiếp tục Bước 3 với kết quả grep thô.
+
+Nếu không có TASK-ID → dùng `git diff HEAD~1` (áp dụng cho standalone commit, không phải feature branch). Nếu analysis.md không tồn tại → hỏi dev mô tả ngắn về thay đổi trước khi spawn.
 
 ---
 
@@ -90,20 +111,11 @@ Chạy 3 lens đồng thời trên cùng diff:
 - `eval()` với user input
 - Expose stack traces cho user
 
-**Quick grep**:
-```bash
-# SQL injection candidates
-grep -rn "query\|execute\|raw" src/ | grep "\${"
-
-# Sensitive logging
-grep -rn "console.log\|logger" src/ | grep -i "password\|token\|secret"
-
-# Missing auth trên routes
-grep -rn "router\.\(get\|post\|put\|delete\)" src/routes/ | grep -v "auth\|protect\|verify"
-
-# JWT issues
-grep -rn "jwt.verify\|jwt.decode" src/
-```
+**Dùng `security_signals` từ review-reader** để populate kết quả:
+- `always_check_hits` → điền vào bảng **🔴 Blocking** nếu severity high
+- `ask_first_triggers` → điền vào bảng **⚠️ Ask First** — dừng và hỏi senior trước khi tiếp tục
+- `never_violations` → nếu có bất kỳ item nào → flag ngay là **🔴 Critical**, dừng review
+- `dependency_changes` → ghi chú cần chạy audit sau merge
 
 ---
 
@@ -128,7 +140,7 @@ grep -rn "jwt.verify\|jwt.decode" src/
 ### 🟡 Non-blocking — Nên làm, không block merge
 
 | # | Lens | File | Đề xuất |
-|---|------|------|---------|
+|---|------|------|-------|
 | 1 | Code | user.repo.js:23 | Biến `x` → `userId` cho rõ |
 | 2 | Arch | order.service.js | N+1 query — cân nhắc batch load sau |
 

@@ -8,424 +8,234 @@
   <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
-<p align="center">
-  <br><br>
-  <em>Bộ skill cho <strong>Claude Code</strong> hỗ trợ toàn bộ vòng đời phần mềm (SDLC) — từ phân tích yêu cầu đến deploy.</em>
-  <br>
-  <em>Tối ưu cho mô hình outsource: <strong>Team VN ↔ Bridge Engineer ↔ Khách hàng Nhật</strong>.</em>
-</p>
+> **26 slash commands** phủ toàn bộ SDLC — dành cho team phát triển phần mềm với AI.
 
 ---
 
-## Tại sao dùng framework này?
+## Đây là gì?
 
-- **26 slash commands** sẵn sàng cho mọi role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
-- **Human Gate** tại mỗi bước — Claude không bao giờ tự làm thay, luôn chờ confirm
-- **Risk Classifier** — mọi task được phân loại tiny / normal / high-risk trước khi bắt đầu
-- **Multi-agent** cho dev tasks — giữ context sạch, tiết kiệm token
-- **Two-tier docs** — task docs riêng + baseline docs sống cùng code
-- **Tự cải tiến** — agent ghi friction vào `docs/improvement-backlog.md` trong lúc làm việc
-- **Chuẩn JP** — `/be:bridge` tạo 設計書, 単体テスト仕様書 sẵn gửi khách
-- **HTML companion** — artifact tương tác (bảng sort/filter, checklist lưu localStorage, song ngữ JP↔VN) cho 5 skill ROI cao, song hành cùng Markdown lưu trữ
+Một **bộ skill cho Claude Code** dành cho team phát triển phần mềm. Cài vào bất kỳ project nào để có các lệnh AI theo role, có cấu trúc, phủ toàn bộ vòng đời sprint.
+
+Xây dựng cho mô hình outsource của [VTI Software](https://vti.com.vn) (team dev VN → Bridge Engineer → khách hàng Nhật), nhưng phù hợp với bất kỳ team nào muốn AI hỗ trợ có cấu trúc.
 
 ---
 
-## Yêu cầu
-
-| Tool | Phiên bản | Ghi chú |
-|------|-----------|--------|
-| [Claude Code](https://claude.ai/code) | Latest | CLI hoặc IDE extension |
-| [GitHub CLI](https://cli.github.com/) | ≥ 2.0 | Dùng trong `/pm:breakdown` để tạo issues |
-| Git | ≥ 2.0 | |
-
----
-
-## Cài đặt
-
-### Cách 1 — npx (khuyến nghị, không cần git)
+## Cài đặt nhanh
 
 ```bash
-npx github:hiepdnh/Agentic-Development-Lifecycle
-```
-
-Chạy từ thư mục gốc project. Dùng được trên Windows, macOS, Linux. Không cần clone, không script shell, không bị permission block. Yêu cầu Node.js ≥ 16.
-
-Bỏ qua confirm prompt (non-interactive / CI):
-```bash
+# macOS / Linux — chạy từ thư mục project của bạn
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
-**Đã cài rồi? Cập nhật lên phiên bản mới nhất:**
+```powershell
+# Windows
+$tmp = "$env:TEMP\vti-install"; mkdir $tmp -Force; Set-Location $tmp
+npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+```
+
+Hoặc cập nhật bản cài đặt hiện tại:
+
 ```bash
-npx github:hiepdnh/Agentic-Development-Lifecycle --update
-# non-interactive:
 npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 ```
 
-`--update` ghi đè các skill file hiện có bằng phiên bản mới nhất. Các file riêng của project (`docs/`, `agents/`, custom commands) không bị ảnh hưởng.
-
-### Cách 2 — Dùng lệnh `/install` trong Claude Code
-
-Mở project trong Claude Code, gõ:
-```
-/install
-```
-Claude dùng file tools của mình để copy framework — không cần shell.
-
-### Cách 3 — One-liner với `gh`
-
-**Windows (PowerShell):**
-```powershell
-gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 "$env:USERPROFILE\.claude\ADL"; & "$env:USERPROFILE\.claude\ADL\setup.ps1" -TargetPath (Get-Location) -Yes
-```
-
-**macOS / Linux:**
-```bash
-gh repo clone hiepdnh/Agentic-Development-Lifecycle -- --depth=1 ~/.claude/ADL && bash ~/.claude/ADL/setup.sh "$(pwd)"
-```
-
-### Cách 4 — Clone thông thường
-
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git ten-du-an
-cd ten-du-an
-.\setup.ps1 -TargetPath "C:\path\to\your\project"
-```
-
-**macOS / Linux:**
-```bash
-git clone https://github.com/hiepdnh/Agentic-Development-Lifecycle.git ten-du-an
-cd ten-du-an
-chmod +x setup.sh && ./setup.sh /path/to/your/project
-```
-
-### Cách 5 — Thủ công
-
-Copy các thư mục sau vào root của project:
-
-```
-your-project/
-├── .claude/          ← copy từ framework
-├── agents/           ← copy từ framework
-├── templates/        ← copy từ framework
-├── CLAUDE.md         ← copy và customize
-└── docs/             ← tạo mới với cấu trúc bên dưới
-    ├── api/
-    ├── screens/
-    ├── tasks/
-    ├── decisions/
-    └── workflows/
-```
+**Cài gì**: `.claude/commands/` (26 skill files) + `agents/` (7 subagent definitions) + `templates/` + `docs/workflows/`
 
 ---
 
-## Sau khi cài đặt
+## Các Skill Command
 
-**Bước 1** — Mở `CLAUDE.md` và cập nhật phần VTI Context:
+### Phân tích Nghiệp vụ
 
-```markdown
-**Công ty**: [Tên công ty / project]
-**Khách hàng**: [Tên khách hàng JP nếu có]
-**Model**: Team dev VN ↔ Bridge Engineer (BE) ↔ Khách hàng JP
-**Ngôn ngữ**: Code comments = tiếng Anh; Tài liệu nội bộ = tiếng Việt
-**Timezone**: JST (UTC+9) — hoặc timezone của khách hàng
-**Tech stack**: [Node.js / React / PostgreSQL / ...]
-**Repo**: [GitHub URL]
-```
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/pm:ideate` | Ý tưởng mơ hồ → concept rõ với problem statement + NOT Doing list | Rough idea → Concept doc |
+| `/ba:spec` | Requirement thô → spec có cấu trúc | Requirements → `requirements.md` |
+| `/ba:user-story` | Spec → User Stories với AC | Spec → User Stories |
+| `/ba:reverse` | Reverse engineer legacy codebase → baseline docs | Codebase → `docs/baseline/` |
+| `/be:bridge` | Dịch requirement JP, tạo tài liệu song ngữ JP-VN | JP req → VN spec + JP doc |
 
-**Bước 2** — Mở project trong Claude Code:
+### Quản lý Dự án
 
-```bash
-claude .
-```
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/pm:breakdown` | Epic/Stories → Tasks với estimate + GitHub/GitLab Issues | Epic → Issues |
+| `/pm:status` | Báo cáo trạng thái sprint cho stakeholder | Tasks → Status report |
+| `/pm:dashboard` | Dashboard HTML tĩnh (kanban + health + backlog) | `docs/tasks/*/` → HTML |
 
-**Bước 3** — Gõ `/` để xem danh sách commands:
+### Phát triển
 
-```
-/pm:ideate    /ba:spec    /dev:analyze    /qa:testplan    ...
-```
-
----
-
-## Cấu trúc dự án
-
-```
-.claude/
-└── commands/           # 26 slash commands — gõ / trong Claude Code
-    ├── arch/           # adr.md  review.md
-    ├── ba/             # spec.md  user-story.md  reverse.md
-    ├── be/             # bridge.md  (JP outsource)
-    ├── dev/            # analyze.md  implement.md  review.md  pr.md  debug.md
-    ├── docs/           # update.md  project.md
-    ├── ops/            # deploy.md  incident.md
-    ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
-    ├── qa/             # testplan.md  bug.md  regression.md
-    ├── sec/            # review.md
-    └── sm/             # standup.md  retro.md
-
-agents/                 # Subagent definitions (dùng bởi orchestrator commands)
-    task-reader.md      # Parse GitHub issue → JSON
-    code-scout.md       # Tìm code liên quan → JSON
-    planner.md          # Tạo implementation options → JSON
-    diff-reader.md      # Map git diff → AC coverage → JSON
-    test-gen.md         # Generate test cases
-    doc-updater.md      # Propose doc updates → JSON
-
-templates/              # Skeleton templates cho tất cả document types
-    task-doc-requirements.md
-    baseline-api.md
-    baseline-screen.md
-    adr.md
-    github-issue.md
-    pr-description.md
-    html-artifact.html      # HTML boilerplate tương tác (sort/filter/checklist)
-    html-bilingual.html     # Layout 2 cột JP↔VN cho deliverable khách JP
-
-docs/
-    risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
-    improvement-backlog.md  # Friction log — agent ghi vào khi phát hiện gap trong framework
-    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 26 skills
-    workflows/          # Sprint lifecycle + role guide
-    tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
-    api/                # API baseline docs — sống lâu dài
-    screens/            # Screen baseline docs — sống lâu dài
-    decisions/          # Architecture Decision Records
-```
-
----
-
-## Commands Reference
-
-### PM (Project Manager)
-
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/pm:ideate` | Biến ý tưởng mờ thành concept rõ | Rough idea → One-pager + Not Doing list |
-| `/pm:breakdown` | Phân rã Epic thành tasks, tạo GitHub Issues | User Stories → Issues |
-| `/pm:status` | Sprint status report | — → Status summary (Markdown hoặc HTML dashboard) |
-| `/pm:dashboard` | Tạo HTML dashboard tổng quan sprint | `docs/tasks/*/` → `docs/dashboard.html` |
-
-> **Dashboard** đọc `docs/tasks/*/`, git log (14 ngày), skill catalog, validation-matrix, improvement-backlog. Render kanban, activity timeline, validation health chart, skill heatmap. Mở `docs/dashboard.html` trong browser — không cần server.
->
-> ```bash
-> npm run dashboard           # tạo 1 lần
-> npm run dashboard:watch     # tự động tạo lại khi có thay đổi file
-> ```
-
-### BA (Business Analyst)
-
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/ba:spec` | Chuyển yêu cầu thô thành spec có cấu trúc | Raw requirement → `docs/tasks/[ID]/requirements.md` |
-| `/ba:user-story` | Tạo User Stories từ spec | requirements.md → User Stories + AC |
-| `/ba:reverse` | Reverse engineer codebase legacy thành baseline docs | Codebase → `docs/baseline/codebase-overview.md` |
-
-### Bridge Engineer — JP Outsource
-
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/be:bridge` | Dịch JP↔VN, tạo 設計書 + spec cho dev | JP requirement → `requirements.md` (VN) + `design-jp.md` (JP) + `deliverable.html` (review song ngữ) |
-
-### Developer
-
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/dev:analyze` | Phân loại risk, phân tích task, đề xuất 2-3 phương án | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (**dừng — review trước khi implement**) |
-| `/dev:implement` | Implement file-by-file với gate + verification + harness delta check | `analysis.md` → Code → `verification.md` |
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/dev:analyze` | Task → 2-3 phương án implement với trade-off | Issue + codebase → `analysis.md` |
+| `/dev:implement` | Implement file-by-file với human gate + verification + harness delta | `analysis.md` → Code → `verification.md` |
 | `/dev:review` | Review toàn diện sau implement: code quality + architecture + security trong 1 lần | Diff + `analysis.md` → Review report → Approve / Request Changes |
 | `/dev:pr` | Tạo PR description | Code diff → PR description |
 | `/dev:debug` | Debug có cấu trúc: reproduce → localize → fix | Bug report → Fix |
 
-### Security
+### Kiến trúc
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/sec:review` | Security review 3-tier trước merge | Code diff → Findings |
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/arch:review` | Review design decision | Design → Feedback |
+| `/arch:adr` | Tạo Architecture Decision Record | Decision → `docs/decisions/ADR-NNN.md` |
 
 ### QA
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/qa:testplan` | Tạo test plan từ spec | requirements.md → `test-plan.md` + `test-plan.html` (checklist tương tác) |
-| `/qa:bug` | Standardized bug report | Bug → Issue template |
-| `/qa:regression` | Regression checklist trước release | Release scope → `regression-checklist.html` (quyết định go/no-go) |
-
-### Architect
-
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/arch:review` | Review design decision | Design → Findings |
-| `/arch:adr` | Tạo Architecture Decision Record | Decision → `docs/decisions/ADR-NNN.md` |
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/qa:testplan` | Spec → Test plan | Spec → `test-plan.md` |
+| `/qa:bug` | Bug report chuẩn hóa | Bug info → Bug report |
+| `/qa:regression` | Checklist regression trước release | Release → Go/No-go checklist |
 
 ### DevOps
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/ops:deploy` | Deployment checklist + CI quality gate | — → Checklist |
-| `/ops:incident` | Incident response + RCA | Incident → Response plan |
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/ops:deploy` | Deployment checklist + CI quality gate + rollback plan | Release → Checklist |
+| `/ops:incident` | Triage incident + điều tra song song + RCA template | Incident → RCA |
 
-### Scrum Master
+### Bảo mật
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/sm:standup` | Daily standup summary | Updates → Summary |
-| `/sm:retro` | Sprint retrospective | — → Retro doc |
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/sec:review` | Security review: Always check / Ask First / Never (OWASP Top 10) | Code → Security report |
 
-### All Roles
+### Tài liệu
 
-| Command | Mô tả | Input → Output |
-|---------|-------|----------------|
-| `/docs:update` | Update baseline docs sau verify & merge | Diff + verify → Updated docs |
-| `/docs:project` | Sync tài liệu project (README, workflows, install scripts, CLAUDE.md) | Trạng thái codebase → Tài liệu project được cập nhật |
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/docs:update` | Cập nhật baseline screen/API docs sau task verify | Verified task → Updated docs |
+| `/docs:project` | Sync project-level docs: README, workflow guides, CLAUDE.md | Changes → Updated project docs |
+
+### Scrum
+
+| Command | Chức năng | Input → Output |
+|---------|-----------|----------------|
+| `/sm:standup` | Tóm tắt daily standup | Updates → Standup report |
+| `/sm:retro` | Sprint retrospective | Sprint → Retro report |
 
 ---
 
-## Luồng làm việc tiêu biểu
+## Cách hoạt động
+
+### Subagents (multi-agent pattern)
+
+Task nặng spawn subagent nhẹ để giữ context sạch:
+
+| Agent | Dùng bởi | Model | Mục đích |
+|-------|----------|-------|----------|
+| `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON |
+| `code-scout` | `/dev:analyze` | haiku | Tìm files liên quan |
+| `planner` | `/dev:analyze` | sonnet | Tổng hợp phương án |
+| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Map diff → AC coverage |
+| `review-reader` | `/dev:review` | haiku | Parse diff → code/arch/security signals |
+| `test-gen` | `/qa:testplan` | sonnet | Tạo test cases |
+| `doc-updater` | `/docs:update` | sonnet | Cập nhật baseline docs |
+
+### Human Gates
+
+Mọi command đều có ít nhất 1 `AskUserQuestion` gate — Claude trình bày lựa chọn và **chờ quyết định của bạn** trước khi tiếp tục. Không tự động thực hiện.
+
+### Workflow điển hình
 
 <p align="center">
   <img src="assets/workflow.png" alt="Sprint Workflow" width="100%">
 </p>
 
-### Full sprint (từ đầu đến cuối)
+### Sprint đầy đủ (end to end)
 
 ```
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
-    → /dev:analyze → [review analysis.md]
-    → /dev:implement → [báo cáo kết quả test] → [review verification.md]
+
+    ↓ (mỗi task)
+
+/dev:analyze → [review analysis.md] → /dev:implement
     → /dev:review → /dev:pr
-    → /qa:testplan → [QA execute] → /docs:update
-    → /qa:regression → deploy
 ```
 
-### Xem sprint health nhanh
-
-```bash
-npm run dashboard        # tạo docs/dashboard.html
-# mở trong browser → kanban + KPIs + git activity + validation health
-```
-
-Hoặc trong Claude Code: `/pm:dashboard`
-
-### Nhận yêu cầu từ khách hàng Nhật
-
-```
-/be:bridge → /ba:spec → /ba:user-story → /pm:breakdown → ...
-```
-
-### Nhận issue, cần code ngay
+### Developer flow (một task)
 
 ```
 /dev:analyze → [review analysis.md] → /dev:implement → /dev:review → /dev:pr
 ```
 
 > **`/dev:analyze`** phân loại risk trước (tiny / normal / high-risk), sau đó dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
-> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test) và nhắc Harness Delta check. Sau đó trigger `/dev:pr` — tự động đọc `verification.md`.
+> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test) và nhắc Harness Delta check. Sau đó trigger `/dev:review` — review 3 lens (code quality, architecture, security). Sau khi Approve mới trigger `/dev:pr`.
 
 Xem chi tiết từng bước tại [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
 
 ---
 
-## Nguyên tắc thiết kế
+## Two-tier Documentation
 
-| # | Nguyên tắc | Ý nghĩa |
-|---|-----------|--------|
-| 1 | **Human Gate** | Claude không tự làm — luôn present → hỏi → chờ confirm |
-| 2 | **Multiple Options** | Luôn đưa 2-3 phương án với trade-off. Không bao giờ 1 giải pháp |
-| 3 | **Fresh Context** | Subagent nhận context tối thiểu — không pass full history |
-| 4 | **Two-tier Docs** | Task docs (ephemeral) + Baseline docs (living, update sau verify) |
-| 5 | **Delta Specs** | Mỗi thay đổi là 1 proposal có cấu trúc, không phải monolith |
-| 6 | **Template-first** | Commands reference templates, không duplicate format inline |
-| 7 | **Risk-first** | Phân loại mọi task thành tiny / normal / high-risk trước khi làm |
-| 8 | **Self-improving** | Agent ghi friction vào `docs/improvement-backlog.md` — framework tự cải tiến từ thực tế dùng |
-| 9 | **Format theo consumer** | Chọn Markdown hay HTML theo người dùng cuối (lưu trữ → MD, review tương tác → HTML) — xem Output Format Convention trong `CLAUDE.md` |
+```
+docs/
+  tasks/          ← Type 1: Per-task (ephemeral, gitignored trong framework source)
+    TASK-001/
+      requirements.md
+      analysis.md
+      test-plan.md
+      verification.md
+      audit.md        ← Append-only log mọi skill chạy + user input verbatim
+  baseline/         ← Type 2: Baseline (living docs, cập nhật sau verify)
+  screens/
+  api/
+  decisions/        ← ADRs
+  workflows/        ← Hướng dẫn quy trình
+```
+
+**Type 1** (task docs): Tạo per issue, gitignored trong framework repo này. Project của bạn giữ lại.  
+**Type 2** (baseline docs): Cập nhật sau mỗi task merge qua `/docs:update`.
 
 ---
 
-## Tùy chỉnh cho dự án
+## VTI Context
 
-### Thêm custom commands
+Tối ưu cho mô hình outsource VTI:
 
-Tạo file trong `.claude/commands/[role]/[command].md`:
-
-```markdown
-# Skill: /[role]:[command]
-**Role**: [Role]
-**Mục đích**: [Mô tả]
-
-## Hướng dẫn thực hiện
-...
-```
-
-### Thêm domain-specific rules
-
-Mở `CLAUDE.md` và thêm vào cuối:
-
-```markdown
-## Project-specific Rules
-
-- [Rule đặc thù của dự án]
-- Enum values: [list]
-- Forbidden patterns: [list]
-```
-
-### Tắt commands không dùng
-
-Xóa file command tương ứng trong `.claude/commands/`. Không ảnh hưởng các commands khác.
+- **Bridge Engineer** — dịch requirement khách JP → spec cho team VN (`/be:bridge`)
+- **BA** — viết spec tiếng Việt từ requirement đã clarify (`/ba:spec`)
+- **Dev** — implement với AI guidance có cấu trúc, code comment tiếng Anh
+- **QA** — test theo spec, tạo test report format Nhật nếu cần
+- **Deliverables** — 設計書, 単体テスト仕様書, 成果物 format cho khách Nhật
 
 ---
 
-## Cho team VTI — JP Outsource
-
-Framework hỗ trợ mô hình 3 lớp đặc thù của VTI:
+## Cấu trúc dự án
 
 ```
-Khách hàng JP ←→ Bridge Engineer ←→ Team Dev VN
-     JP doc    ←  /be:bridge      →  VN spec
+.claude/commands/    # 26 slash command files
+agents/              # 7 subagent definitions
+docs/
+  workflows/         # Sprint lifecycle, role guide, flowchart
+  decisions/         # ADR templates
+templates/           # Skeleton templates
+bin/install.js       # Installer tương tác (@clack/prompts)
+setup.ps1            # PowerShell installer
+setup.sh             # Bash installer
 ```
-
-**Bridge Engineer** dùng `/be:bridge` để:
-- Dịch yêu cầu JP → spec tiếng Việt cho dev
-- Tạo 設計書 (Basic/Detail Design) theo chuẩn SI Nhật
-- Tạo 単体テスト仕様書 để gửi khách confirm
-- Bộ từ vựng chuẩn JP↔VN built-in để nhất quán
-
-Deliverables map:
-
-| JP Deliverable | Framework file |
-|----------------|----------------|
-| 基本設計書 | `docs/screens/` + `docs/api/` |
-| 詳細設計書 | `docs/tasks/[ID]/analysis.md` |
-| 単体テスト仕様書 | `docs/tasks/[ID]/test-plan.md` |
-| 単体テスト結果 | `docs/tasks/[ID]/verification.md` |
-| 成果物 (Deliverable) | `docs/tasks/[ID]/deliverable.html` (song ngữ JP↔VN, print-ready) |
 
 ---
 
-## Contributing
+## Phát triển
 
-1. Fork repo
-2. Tạo branch: `feat/[command-name]` hoặc `fix/[issue]`
-3. Thêm/sửa command trong `.claude/commands/[role]/`
-4. Thêm trigger prompt trong `tests/skill-triggering/prompts/`
-5. Update `CLAUDE.md` nếu thêm command mới
-6. Tạo PR với description đầy đủ
+Repo này là framework source. “Sản phẩm” là `.claude/commands/` — 26 Markdown skill files.
 
-**Convention khi viết command:**
-- Luôn có ít nhất 1 Human Gate (`AskUserQuestion` tool cho multi-choice, plain text cho open-ended)
-- Luôn đề xuất 2-3 options khi có quyết định
-- Output phải actionable — không chỉ giải thích
-- Subagent: dùng Agent tool, pass context tối thiểu
+### Test skill triggering
 
-**Test skill trigger:**
 ```bash
-# Verify skill mới auto-invoke đúng
-bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
-
-# Chạy toàn bộ 26 skills
+# Chạy toàn bộ 26 skill trigger tests
 bash tests/skill-triggering/run-all.sh
+
+# Verbose output
+bash tests/skill-triggering/run-all.sh --verbose
+
+# Lọc theo prefix
+bash tests/skill-triggering/run-all.sh --filter dev-*
 ```
+
 Yêu cầu: `claude` CLI đã auth + `jq` đã cài.
 
 ---
