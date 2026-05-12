@@ -39,7 +39,18 @@ Or update an existing install:
 npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 ```
 
-**What gets installed**: `.claude/commands/` (26 skill files) + `agents/` (7 subagent definitions) + `templates/` + `docs/workflows/`
+**What gets installed**: `.claude/commands/` (skill files) + `agents/` (subagent definitions) + `templates/` + `docs/workflows/`
+
+### Developer Lite (minimal install)
+
+Just want the developer workflow without PM/BA/QA/Ops overhead?
+
+```bash
+# Copy only developer skills into your project
+node packages/developer-lite/bin/install.js --yes
+```
+
+Includes: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` `/sec:review` `/arch:adr` `/docs:update`
 
 ---
 
