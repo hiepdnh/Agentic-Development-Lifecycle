@@ -106,10 +106,10 @@ Confirm để tôi apply thay đổi.
 
 ### Bước 5 — Sau khi apply
 
-Trước khi ghi bất kỳ file doc nào, lấy commit baseline của merge hiện tại:
+Trước khi ghi bất kỳ file doc nào, lấy commit của HEAD hiện tại (phải là sau khi merge — nếu chưa merge thì đây là feature branch HEAD):
 
 ```bash
-git log -1 --format="%h %s"   # short SHA + commit message
+git log -1 --format="%h %s"   # short-sha + commit message
 ```
 
 Dùng kết quả để điền vào các trường metadata của mỗi doc được cập nhật:
