@@ -15,14 +15,24 @@ description: >
 
 ## Hướng dẫn thực hiện
 
-### Bước 1 — Thu thập context
+### Bước 1 — Thu thập context (subagent)
 
-Đọc song song:
-- `git diff HEAD~1` hoặc diff của PR
-- `docs/tasks/[TASK-ID]/analysis.md` — phương án đã chọn, để biết intent
-- `docs/tasks/[TASK-ID]/verification.md` — self-test dev đã làm, tránh kiểm tra lại
+Spawn `review-reader` agent (model: haiku) theo `agents/review-reader.md` với input:
 
-Nếu không có analysis.md → hỏi dev mô tả ngắn về thay đổi.
+```
+GIT DIFF:
+[git diff main..HEAD]
+
+ANALYSIS PATH:
+docs/tasks/[TASK-ID]/analysis.md
+
+VERIFICATION PATH:
+docs/tasks/[TASK-ID]/verification.md
+```
+
+Agent trả về JSON với `code_signals`, `arch_signals`, `security_signals`, `review_priority`, `intent_alignment`. Dùng kết quả này làm input cho Bước 3.
+
+Nếu không có TASK-ID → dùng `git diff HEAD~1`. Nếu analysis.md không tồn tại → hỏi dev mô tả ngắn về thay đổi trước khi spawn.
 
 ---
 
@@ -90,20 +100,7 @@ Chạy 3 lens đồng thời trên cùng diff:
 - `eval()` với user input
 - Expose stack traces cho user
 
-**Quick grep**:
-```bash
-# SQL injection candidates
-grep -rn "query\|execute\|raw" src/ | grep "\${"
-
-# Sensitive logging
-grep -rn "console.log\|logger" src/ | grep -i "password\|token\|secret"
-
-# Missing auth trên routes
-grep -rn "router\.\(get\|post\|put\|delete\)" src/routes/ | grep -v "auth\|protect\|verify"
-
-# JWT issues
-grep -rn "jwt.verify\|jwt.decode" src/
-```
+**Dùng `security_signals` từ review-reader** — `always_check_hits`, `ask_first_triggers`, `never_violations` đã được grep sẵn.
 
 ---
 
