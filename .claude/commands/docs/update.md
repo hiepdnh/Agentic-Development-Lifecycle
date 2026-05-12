@@ -106,6 +106,17 @@ Confirm để tôi apply thay đổi.
 
 ### Bước 5 — Sau khi apply
 
+Trước khi ghi bất kỳ file doc nào, lấy commit baseline của merge hiện tại:
+
+```bash
+git log -1 --format="%h %s"   # short SHA + commit message
+```
+
+Dùng kết quả để điền vào các trường metadata của mỗi doc được cập nhật:
+- `**Last updated**: [YYYY-MM-DD HH:mm JST]` — thời điểm chạy skill
+- `**Updated by task**: [TASK-ID]`
+- `**Commit**: \`[short-sha]\` — [commit message]`
+
 Cập nhật `docs/tasks/[TASK-ID]/verification.md`:
 
 ```markdown

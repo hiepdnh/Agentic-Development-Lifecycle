@@ -2,6 +2,7 @@
 sessionId: [TASK-ID-YYYYMMDD-HHMM]
 createdAt: [YYYY-MM-DD HH:mm JST]
 updatedAt: [YYYY-MM-DD HH:mm JST]
+commitSha: [sha]
 roundCount: 0
 ---
 
