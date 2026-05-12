@@ -1,7 +1,7 @@
 # Sprint Lifecycle — End-to-End Guide
 
 **Framework**: VTI SDLC Skill Framework  
-**Last updated**: 2026-05-07
+**Last updated**: 2026-05-12
 
 > 📊 Xem quick dashboard: chạy `/pm:dashboard` → tạo `sprint-status.html` (kanban + health table + backlog)
 
@@ -96,7 +96,7 @@ Trước khi bắt đầu bất kỳ task nào, classify risk theo `docs/risk-cl
 
 **Hard stop sau Bước 5** — user phải tự trigger `/dev:review`.
 
-### 3.3 Dev Review `/dev:review`
+### 2.4 Dev Review `/dev:review`
 **Người dùng**: Dev / Tech Lead  
 **Input**: Code diff + `analysis.md` + `verification.md`  
 **Output**: Review report gồm 3 lens: code quality, architecture, security  
@@ -115,9 +115,9 @@ Review 3 lens trong 1 lần chạy:
 
 ---
 
-## Giai đoạn 4: Review & Merge
+## Giai đoạn 3: Review & Merge
 
-### 4.1 Dev PR `/dev:pr`
+### 3.1 Dev PR `/dev:pr`
 **Người dùng**: Dev  
 **Input**: Code diff + `analysis.md` + `verification.md` (nếu có)  
 **Output**: PR description (Testing section tự động populate từ `verification.md`)  
@@ -127,50 +127,50 @@ Review 3 lens trong 1 lần chạy:
 2. Confirm AC coverage
 3. Confirm reviewer list
 
-### 4.2 Code Review (manual)
+### 3.2 Code Review (manual)
 - Reviewer dùng `/ultrareview` nếu cần AI assist
 - Tối thiểu 1 approve
 - Address comments
 
-### 4.3 QA (nếu cần)
+### 3.3 QA (nếu cần)
 - `/qa:testplan` — tạo test plan từ spec (thường làm trước implement)
 - `/qa:regression` — regression checklist trước release lớn
 
 ---
 
-## Giai đoạn 5: Release
+## Giai đoạn 4: Release
 
-### 5.1 Deployment `/ops:deploy`
+### 4.1 Deployment `/ops:deploy`
 **Người dùng**: DevOps / Dev  
 **Output**: Deployment checklist + CI quality gate + rollback plan  
 **Chú ý**: Timezone JST đối với khách Nhật
 
-### 5.2 Incident (nếu xảy ra) `/ops:incident`
+### 4.2 Incident (nếu xảy ra) `/ops:incident`
 **Trigger**: Hệ thống bị lỗi production  
 **Pattern**: Triage → điều tra song song 3 hướng → RCA template (5 Whys)
 
 ---
 
-## Giai đoạn 6: Docs Update
+## Giai đoạn 5: Docs Update
 
-### 6.1 Baseline Docs Update `/docs:update`
+### 5.1 Baseline Docs Update `/docs:update`
 **Trigger**: Sau khi task merge và verify  
 **Input**: `verification.md` + actual code  
-**Output**: Cập nhật `docs/screens/` hoặc `docs/api/` baseline
+**Output**: Cập nhật `docs/screens/` hoặc `docs/api/` baseline, kèm metadata: `Last updated` (JST), `Updated by task`, `Commit` (short-sha)
 
-### 6.2 Project Docs `/docs:project`
+### 5.2 Project Docs `/docs:project`
 **Trigger**: Khi có thay đổi lớn (skill mới, team thay đổi, process update)  
 **Output**: README, CLAUDE.md, workflow guides được sync
 
 ---
 
-## Giai đoạn 7: Retrospective
+## Giai đoạn 6: Retrospective
 
-### 7.1 Sprint Retro `/sm:retro`
+### 6.1 Sprint Retro `/sm:retro`
 **Trigger**: Cuối sprint  
 **Output**: Went well / Didn't go well / Actions  
 
-### 7.2 Standup `/sm:standup`
+### 6.2 Standup `/sm:standup`
 **Trigger**: Hàng ngày  
 **Output**: Yesterday / Today / Blockers per member
 
