@@ -327,7 +327,7 @@ Or trigger via Claude Code: `/pm:dashboard`
 ```
 
 > **`/dev:analyze`** classifies risk first (tiny / normal / high-risk), then stops after writing `analysis.md`. Review it, then trigger `/dev:implement` manually.  
-> **`/dev:implement`** stops after writing `verification.md` (diff review + self-test results), then prompts a Harness Delta check. Then trigger `/dev:pr` — it reads `verification.md` automatically.
+> **`/dev:implement`** stops after writing `verification.md` (diff review + self-test results), then prompts a Harness Delta check. Then trigger `/dev:review` — 3-lens report (code quality, architecture, security). After Approve, trigger `/dev:pr`.
 
 Full step-by-step: [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)
