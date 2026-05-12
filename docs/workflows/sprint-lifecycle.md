@@ -13,7 +13,7 @@
 PM Ideate → BA Spec → BA Stories → PM Breakdown
     → Dev Analyze → [Tech Lead confirm nếu high-risk]
     → Dev Implement → [report test results] → [review verification.md]
-    → Arch Review (nếu có design decision) → Sec Review → Dev PR
+    → Dev Review (code + arch + security) → Dev PR
     → QA Test Plan → QA Verify → Docs Update
 ```
 
@@ -103,23 +103,24 @@ Sau bước này, các skill downstream (`/ba:spec`, `/be:bridge`) sẽ có cont
 4. Bước 5 — Verification Gate: diff review → AI generates self-test steps → user reports results → saves `verification.md`
 5. **Harness Delta Check** — agent tự hỏi có friction nào không, ghi vào `docs/improvement-backlog.md` nếu có
 
-**Hard stop sau Bước 5** — user phải tự trigger `/dev:pr`.
+**Hard stop sau Bước 5** — user phải tự trigger `/dev:review`.
 
-### 3.3 Architecture Review `/arch:review` (tuỳ chọn)
-**Người dùng**: Tech Lead / Architect  
-**Khi nào**: Khi implementation tạo ra design decision mới (pattern mới, thay đổi cấu trúc DB, API contract mới)  
-**Bỏ qua nếu**: Không có design decision mới — chỉ implement theo spec đã có  
-**Input**: Code diff + `analysis.md`  
-**Output**: Architecture findings  
-**Gate**: Block PR nếu có finding Critical chưa được address
-
-Nếu có quyết định kiến trúc quan trọng cần document → tạo ADR bằng `/arch:adr` sau bước này.
-
-### 3.4 Security Review `/sec:review`
+### 3.3 Dev Review `/dev:review`
 **Người dùng**: Dev / Tech Lead  
-**Input**: Code diff  
-**Output**: Security findings  
-**Gate**: Block PR nếu có Critical/High issues chưa fix
+**Input**: Code diff + `analysis.md` + `verification.md`  
+**Output**: Review report gồm 3 lens: code quality, architecture, security  
+**Gates**:
+1. Confirm focus (All / Code / Arch / Security)
+2. Verdict: Approve / Approve with minor fixes / Request Changes
+3. Nếu có design decision mới → hỏi có tạo `/arch:adr` không
+
+Review 3 lens trong 1 lần chạy:
+- **Code Quality** — logic, naming, test coverage, performance, error handling
+- **Architecture** — scalability, coupling, maintainability, design decision mới
+- **Security** — OWASP Top 10, auth/authz (Ask First gate), dependency CVEs
+
+**Blocking issues** → dev fix và chạy lại `/dev:review`  
+**Approve** → tiếp tục `/dev:pr`
 
 ---
 
@@ -193,8 +194,7 @@ Nếu có quyết định kiến trúc quan trọng cần document → tạo ADR
 | Dev Analyze | `docs/tasks/[ID]/analysis.md` (bao gồm Risk Classification block) |
 | Dev Implement | Source code + `docs/tasks/[ID]/verification.md` |
 | Harness Delta | Entry mới trong `docs/improvement-backlog.md` (nếu có friction) |
-| Arch Review | Architecture findings (inline) + `docs/decisions/ADR-NNN.md` (nếu có quyết định cần document) |
-| Security | Security findings (inline) |
+| Dev Review | Review report (inline) — code + arch + security. `docs/decisions/ADR-NNN.md` nếu có design decision mới |
 | Dev PR | PR description |
 | QA | `docs/tasks/[ID]/test-plan.md` |
 | QA Verify | QA sign-off trong `verification.md` |

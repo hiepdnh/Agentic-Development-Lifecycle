@@ -41,13 +41,13 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/dev:analyze` | Nhận issue, trước khi code | Risk classification + `analysis.md` + `analysis-compare.html` (bảng so sánh phương án có sort/filter) (**dừng — review trước khi implement**) |
-| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code + `verification.md` + harness delta (**dừng — user test rồi mới dev:pr**) |
+| `/dev:analyze` | Nhận issue, trước khi code | Risk classification + `analysis.md` + `analysis-compare.html` (**dừng — review trước khi implement**) |
+| `/dev:implement` | Sau dev-analyze, phương án đã chọn | Code + `verification.md` + harness delta (**dừng — user test rồi mới dev:review**) |
+| `/dev:review` | Sau implement, trước tạo PR | Review report: code quality + architecture + security trong 1 lần |
 | `/dev:debug` | Khi bị blocked hoặc phát hiện bug | Root cause + fix |
-| `/dev:pr` | Sau implement + verify, trước tạo PR | PR description (tự đọc `verification.md`) |
-| `/sec:review` | Sau implement, trước tạo PR | Security findings |
+| `/dev:pr` | Sau dev:review Approve, trước tạo PR | PR description (tự đọc `verification.md`) |
 
-**Thứ tự bắt buộc**: `dev:analyze` → [review `analysis.md`] → `dev:implement` → [report test results] → `sec:review` → `dev:pr`
+**Thứ tự bắt buộc**: `dev:analyze` → [review `analysis.md`] → `dev:implement` → [report test results] → `dev:review` → `dev:pr`
 
 **Risk lanes** (xem `docs/risk-classifier.md`):
 - **Tiny** → patch trực tiếp, bỏ qua `dev:analyze`
@@ -60,9 +60,10 @@ Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats K
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
-| `/arch:review` | Review design decision trước khi dev bắt tay implement | Architecture findings |
-| `/arch:adr` | Khi có quyết định kiến trúc quan trọng cần document | `docs/decisions/ADR-NNN.md` |
-| `/sec:review` | Code review có auth/authorization/security changes | Security findings |
+| `/dev:review` | Review code của dev sau implement — chạy thay vì /arch:review + /sec:review riêng lẻ | Review report: code + arch + security |
+| `/arch:adr` | Khi `/dev:review` phát hiện design decision mới cần document | `docs/decisions/ADR-NNN.md` |
+| `/arch:review` | Standalone — khi chỉ cần review design decision, không phải full review | Architecture findings |
+| `/sec:review` | Standalone — khi cần quick security check (hotfix, emergency patch) | Security findings |
 
 **Vị trí trong sprint:**
 ```
@@ -123,7 +124,7 @@ dev:analyze → [Tech Lead review analysis.md nếu high-risk]
 
 ### "Nhận issue mới, cần code"
 ```
-/dev:analyze → [review analysis.md] → /dev:implement → [report test results] → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → [report test results] → /dev:review → /dev:pr
 ```
 
 ### "Code xong, cần QA"

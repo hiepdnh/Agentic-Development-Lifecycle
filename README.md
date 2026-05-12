@@ -19,7 +19,7 @@
 
 ## Why this framework?
 
-- **25 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
+- **26 slash commands** ready for every role: PM, BA, Dev, QA, Arch, DevOps, SM, BE
 - **Human Gate** at every step — Claude never acts autonomously, always presents → asks → waits for confirmation
 - **Risk Classifier** — every task is classified as tiny / normal / high-risk before any work starts
 - **Multi-agent** for dev tasks — keeps context clean, saves tokens
@@ -152,11 +152,11 @@ claude .
 
 ```
 .claude/
-└── commands/           # 25 slash commands — type / in Claude Code
+└── commands/           # 26 slash commands — type / in Claude Code
     ├── arch/           # adr.md  review.md
     ├── ba/             # spec.md  user-story.md  reverse.md
     ├── be/             # bridge.md  (JP outsource)
-    ├── dev/            # analyze.md  implement.md  pr.md  debug.md
+    ├── dev/            # analyze.md  implement.md  review.md  pr.md  debug.md
     ├── docs/           # update.md  project.md
     ├── ops/            # deploy.md  incident.md
     ├── pm/             # ideate.md  breakdown.md  status.md  dashboard.md
@@ -190,7 +190,7 @@ templates/              # Skeleton templates for all document types
 docs/
     risk-classifier.md       # Risk gate — tiny / normal / high-risk lane assignment
     improvement-backlog.md   # Friction log — agents write here when framework gaps are found
-    validation-matrix.md     # Global behavior-to-proof tracker for all 23 skills
+    validation-matrix.md     # Global behavior-to-proof tracker for all 26 skills
     dashboard.html           # Generated sprint dashboard (open in browser)
     workflows/               # Sprint lifecycle + role guide
     tasks/                   # Task docs (1 folder per issue) — gitignored per project
@@ -240,6 +240,7 @@ docs/
 |---------|-------------|----------------|
 | `/dev:analyze` | Classify risk, then analyze task and propose 2-3 implementation options | Issue + Brain Dump → `analysis.md` + `analysis-compare.html` (sortable options) (**stops here, review before proceeding**) |
 | `/dev:implement` | Implement file-by-file with human gates + verification + harness delta check | `analysis.md` → Code → `verification.md` |
+| `/dev:review` | Holistic review after implement: code quality + architecture + security in one run | Diff + `analysis.md` → Review report → Approve / Request Changes |
 | `/dev:pr` | Generate PR description | Code diff → PR description |
 | `/dev:debug` | Structured debugging: reproduce → localize → fix | Bug report → Fix |
 
@@ -299,7 +300,7 @@ docs/
 /pm:ideate → /ba:spec → /ba:user-story → /pm:breakdown
     → /dev:analyze → [review analysis.md]
     → /dev:implement → [report test results] → [review verification.md]
-    → /sec:review → /dev:pr
+    → /dev:review → /dev:pr
     → /qa:testplan → [QA execute] → /docs:update
     → /qa:regression → deploy
 ```
@@ -322,7 +323,7 @@ Or trigger via Claude Code: `/pm:dashboard`
 ### Got an issue, need to code now
 
 ```
-/dev:analyze → [review analysis.md] → /dev:implement → /sec:review → /dev:pr
+/dev:analyze → [review analysis.md] → /dev:implement → /dev:review → /dev:pr
 ```
 
 > **`/dev:analyze`** classifies risk first (tiny / normal / high-risk), then stops after writing `analysis.md`. Review it, then trigger `/dev:implement` manually.  
@@ -336,7 +337,7 @@ Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide
 ## Design Principles
 
 | # | Principle | Meaning |
-|---|-----------|---------|
+|---|-----------|--------|
 | 1 | **Human Gate** | Claude never acts alone — always present → ask → wait for confirm |
 | 2 | **Multiple Options** | Always offer 2-3 options with trade-offs. Never a single solution |
 | 3 | **Fresh Context** | Subagents receive only the context they need — no full history passed |
@@ -429,7 +430,7 @@ Deliverables map:
 # Verify your new skill auto-invokes correctly
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/[role]-[name].txt
 
-# Run all 25 skills
+# Run all 26 skills
 bash tests/skill-triggering/run-all.sh
 ```
 Requires: `claude` CLI authenticated + `jq` installed.

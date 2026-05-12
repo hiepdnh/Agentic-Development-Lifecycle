@@ -1,6 +1,6 @@
 # Skill Flowchart — VTI SDLC Framework
 
-Sơ đồ quan hệ giữa 25 skills theo dòng chảy SDLC.
+Sơ đồ quan hệ giữa 26 skills theo dòng chảy SDLC.
 
 ---
 
@@ -43,7 +43,7 @@ flowchart TD
         VERIFY["✅ Verification Gate\nUser reports test results"]
         HARNESS["📝 Harness Delta\ndocs/improvement-backlog.md"]
         DEBUG["/dev:debug\nDev"]
-        SEC["/sec:review\nAll"]
+        DEVREVIEW["/dev:review\nDev · Tech Lead"]
         PR["/dev:pr\nDev"]
     end
 
@@ -109,11 +109,11 @@ flowchart TD
     %% Verification
     IMPLEMENT -->|"diff + self-test steps"| VERIFY
     VERIFY -->|"verification.md"| HARNESS
-    HARNESS -->|"hard stop"| SEC
+    HARNESS -->|"hard stop"| DEVREVIEW
 
     %% Pre-merge
-    SEC -->|"issue tìm thấy"| IMPLEMENT
-    SEC --> PR
+    DEVREVIEW -->|"blocking issues"| IMPLEMENT
+    DEVREVIEW --> PR
 
     %% Post-merge
     PR --> DOCS
@@ -166,7 +166,7 @@ Issue → Risk Classifier (tiny/normal/high-risk)
     [normal] → /dev:analyze → [review analysis.md]
                     → /dev:implement → [report test results → verification.md]
                     → [harness delta check]
-                    → /sec:review → /dev:pr → /docs:update
+                    → /dev:review → /dev:pr → /docs:update
                          ↕ (bug)
                      /dev:debug
     [tiny]  → patch direct
@@ -205,7 +205,8 @@ Planning          Dev decisions
 | `/pm:breakdown` | `/ba:user-story` hoặc User Stories đã có |
 | `/dev:analyze` | Risk Classifier đã chạy (xem `docs/risk-classifier.md`) + Issue/task rõ ràng (AC defined) |
 | `/dev:implement` | `docs/tasks/[ID]/analysis.md` đã tồn tại |
-| `/dev:pr` | `/dev:implement` Bước 5 done + `verification.md` saved + Harness Delta check done + `/sec:review` passed |
+| `/dev:review` | `/dev:implement` Bước 5 done + `verification.md` saved + Harness Delta check done |
+| `/dev:pr` | `/dev:review` Approve + không có blocking issues |
 | `/docs:update` | PR đã merge |
 | `/qa:regression` | Tất cả PR của sprint đã merge |
 | `/ops:deploy` | `/qa:regression` đã sign-off |
