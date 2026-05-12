@@ -112,6 +112,7 @@ Each agent file defines an **input contract** and **output JSON shape**. When sp
 | `review-reader` | `/dev:review` | haiku | Parse diff → code/arch/security signals cho 3-lens review |
 | `test-gen` | `/qa:testplan` | sonnet | Generate test cases from spec |
 | `doc-updater` | `/docs:update` | sonnet | Update baseline docs after verification |
+| `pr-resolver` | `/dev:pr` | sonnet | Analyze PR review comments → propose fixes per comment |
 
 ### Permissions model
 
@@ -183,17 +184,23 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | Role | Command | Chức năng |
 |------|---------|----------|
 | BE | `/be:bridge` | Requirement JP → Clarify ambiguity → Spec cho team VN |
+| BE | `/be:changerequest` | 変更依頼 — impact analysis, approval trail, version control spec changes |
+| BE | `/be:glossary` | Duy trì glossary JP-VN-EN — thêm term mới, resolve conflict dịch thuật |
 | PM / BA | `/pm:ideate` | Ý tưởng mờ → Concept rõ (trước /ba:spec) |
+| PM | `/pm:kickoff` | Bootstrap greenfield project: tech stack → ADRs → docs structure → sprint 0 checklist |
 | BA | `/ba:spec` | Raw requirement → Structured spec |
 | BA | `/ba:user-story` | Spec → User Stories + AC |
 | BA / Tech Lead | `/ba:reverse` | Reverse engineer codebase brownfield → baseline docs (take-over, audit) |
 | PM | `/pm:breakdown` | Epic → Tasks với estimate, tạo GitHub Issues |
 | PM | `/pm:status` | Sprint status report |
 | PM | `/pm:dashboard` | Generate static HTML dashboard từ `docs/tasks/*/` — kanban + health table + backlog |
+| PM | `/pm:release` | Tạo Release Notes / リリースノート từ merged PRs + closed issues |
+| PM | `/pm:handover` | Tạo gói bàn giao dự án (引き継ぎ) — codebase map + decisions + contact matrix |
+| PM | `/pm:maintain` | Workflow maintenance phase: triage → fix → monthly report (月次保守報告書) |
 | Dev | `/dev:analyze` | Task → Implementation options (multi-agent) |
-| Dev | `/dev:implement` | Implement theo analysis.md, file-by-file với gates |
-| Dev | `/dev:review` | Review toàn diện: code quality + architecture + security trong 1 lần |
-| Dev | `/dev:pr` | Code changes → PR description |
+| Dev | `/dev:implement` | Implement theo analysis.md, file-by-file với gates (hỗ trợ TDD lane opt-in) |
+| Dev | `/dev:review` | Review toàn diện: code quality + architecture + performance + security trong 1 lần |
+| Dev | `/dev:pr` | Code changes → PR description (hỗ trợ PR comment resolver) |
 | Dev | `/dev:debug` | Systematic debugging: reproduce → localize → fix |
 | Arch | `/arch:review` | Review design decision |
 | Arch | `/arch:adr` | Generate Architecture Decision Record |

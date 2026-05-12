@@ -9,10 +9,14 @@
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|
+| `/pm:kickoff` | Bắt đầu dự án mới greenfield | Tech stack ADRs + docs structure + Sprint 0 checklist |
 | `/pm:ideate` | Nhận yêu cầu mơ hồ từ stakeholder | One-pager + Not Doing list |
 | `/pm:breakdown` | Sau khi có User Stories | GitHub Issues |
 | `/pm:status` | Báo cáo sprint cho stakeholder / khách JP | Status summary (Markdown) hoặc `sprint-status.html` (dashboard kanban + velocity, recommend khi gửi khách) |
 | `/pm:dashboard` | Xem tổng quan sprint bất kỳ lúc nào | `docs/dashboard.html` — kanban + KPIs + git activity + health chart |
+| `/pm:release` | Trước mỗi release gửi JP / stakeholder | `release-[version].html` + Markdown — リリースノート song ngữ |
+| `/pm:handover` | Dev rời team / kết thúc contract JP | `handover.md` (VN) + `引き継ぎ書.md` (JP) |
+| `/pm:maintain` | Project vào maintenance/sustain phase | Triage board + fix workflow + `月次保守報告書` |
 
 **Dashboard usage**:
 ```bash
@@ -22,6 +26,8 @@ npm run dashboard:watch     # auto-regen khi có thay đổi file
 Mở `docs/dashboard.html` trong browser. Không cần server. Sections: Stats KPIs · Kanban · Activity timeline (audit + git 14d) · Validation health doughnut · Skill heatmap · Sprint health table · Improvement backlog.
 
 **Không dùng**: dev-*, sec-*, qa-*, arch-*
+
+**Last updated**: 2026-05-12
 
 ---
 
@@ -98,6 +104,8 @@ dev:analyze → [Tech Lead review analysis.md nếu high-risk]
 | Skill | Khi nào | Output |
 |-------|---------|--------|
 | `/be:bridge` | Nhận yêu cầu từ JP / Gửi deliverables cho JP | requirements.md (VN) + design-jp.md (JP) + `deliverable.html` (song ngữ 2 cột, copy/print A4 cho 成果物) |
+| `/be:changerequest` | Khách JP yêu cầu thay đổi spec | CR-NNN-vn.md + CR-NNN-jp.md (変更依頼書) |
+| `/be:glossary` | Sau mỗi session bridge có `[GLOSSARY?]` tag / Thuật ngữ không nhất quán | templates/jp-vn-en-glossary.md updated |
 
 ---
 
@@ -111,6 +119,12 @@ dev:analyze → [Tech Lead review analysis.md nếu high-risk]
 ---
 
 ## Workflow nhanh theo tình huống
+
+### "Bắt đầu dự án mới (greenfield)"
+```
+/pm:kickoff → [tech stack + ADRs + docs structure] → /be:bridge (基本設計書 nếu JP)
+    → /pm:breakdown → Sprint 1
+```
 
 ### "Nhận yêu cầu từ khách hàng Nhật"
 ```
@@ -127,6 +141,11 @@ dev:analyze → [Tech Lead review analysis.md nếu high-risk]
 /dev:analyze → [review analysis.md] → /dev:implement → [report test results] → /dev:review → /dev:pr
 ```
 
+### "Khách JP yêu cầu thay đổi spec giữa sprint"
+```
+/be:changerequest → [impact analysis] → [JP approve] → update requirements.md → /dev:analyze
+```
+
 ### "Code xong, cần QA"
 ```
 /qa:testplan → [execute manual] → /docs:update
@@ -134,7 +153,22 @@ dev:analyze → [Tech Lead review analysis.md nếu high-risk]
 
 ### "Trước khi release"
 ```
-/qa:regression → [sign-off] → deploy
+/qa:regression → [sign-off] → deploy → /pm:release (release notes)
+```
+
+### "Project vào maintenance phase"
+```
+/pm:maintain triage → fix → cuối tháng: monthly report gửi JP
+```
+
+### "Dev rời team / kết thúc contract JP"
+```
+/pm:handover → [handover meeting] → người mới shadow → update CLAUDE.md
+```
+
+### "Trả lời review comments trên PR"
+```
+/dev:pr → [chọn PR resolver] → pr-resolver agent phân tích → fix blocking items → re-push
 ```
 
 ### "Xem sprint health nhanh"

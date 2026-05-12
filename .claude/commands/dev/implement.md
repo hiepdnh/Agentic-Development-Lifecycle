@@ -34,6 +34,29 @@ Dùng **Agent tool** để spawn subagent. Mỗi subagent nhận context tối t
 - Danh sách files cần thay đổi
 - Quyết định kỹ thuật đã confirm
 
+### Bước 1b — Gate: TDD Lane (opt-in)
+
+Trước khi implement, hỏi:
+
+```
+## Mode implement
+
+| | Lựa chọn |
+|---|---------|
+| A | Standard — implement code trước, test sau (mặc định) |
+| B | TDD — viết test trước, code sau (recommend cho business logic phức tạp) |
+```
+
+**Nếu chọn TDD (B)**:
+1. Với mỗi file business logic: viết test (failing) trước
+2. Gate: confirm test cases cover đủ ACs
+3. Implement code cho test pass
+4. Báo cáo: "Tests: N passing / M failing" sau mỗi file
+
+**Nếu chọn Standard (A)**: tiếp tục bình thường.
+
+**Chờ confirm.**
+
 ### Bước 2 — Gate: Xác nhận implementation plan
 
 ```

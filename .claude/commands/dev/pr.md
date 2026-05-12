@@ -117,6 +117,33 @@ Subagent trả về: summary of changes, files changed, AC coverage, test result
 - [ ] `docs/api/[domain]/[endpoint].md`
 ```
 
+### Bước 3b — PR Comment Resolver (opt-in)
+
+Nếu PR đã có review comments từ reviewer (re-review cycle), hỏi:
+
+```
+## Có review comments cần resolve không?
+
+| | Lựa chọn |
+|---|---------|
+| A | Có — spawn pr-resolver agent để phân tích và đề xuất fix |
+| B | Không — bỏ qua bước này |
+```
+
+**Nếu chọn A**, spawn subagent:
+
+```
+Agent(
+  description: "pr-resolver: analyze review comments and propose fixes",
+  prompt: "[theo agents/pr-resolver.md input contract]\n\nPR NUMBER: [N]\nCOMMENTS: [paste từ GitHub/GitLab]\nDIFF CONTEXT: [git diff main..HEAD tóm tắt]",
+  model: "sonnet"
+)
+```
+
+Trình bày kết quả từ pr-resolver — blocking comments trước, sorted by priority.
+
+**Chờ confirm từng blocking item trước khi implement fix.**
+
 ### Bước 4 — Gate cuối
 
 ```

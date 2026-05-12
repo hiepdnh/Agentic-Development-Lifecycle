@@ -1,7 +1,7 @@
 ---
 name: dev:review
 description: >
-  Review toàn diện code sau implement: code quality, architecture, security trong 1 lần chạy.
+  Review toàn diện code sau implement: code quality, architecture, performance, security trong 1 lần chạy.
   Thay thế việc phải chạy /arch:review + /sec:review riêng lẻ sau dev:implement.
   Trigger khi: user nói "review code", "review trước merge", "check code xem ổn không",
   "code review", "review implementation", "kiểm tra code", hoặc gõ /dev:review.
@@ -9,7 +9,7 @@ description: >
 
 # Skill: /dev:review
 **Role**: Developer / Tech Lead  
-**Mục đích**: Review toàn diện sau `dev:implement` — code quality, architecture, security — trong 1 lần chạy. Kết quả là quyết định Approve / Request Changes trước khi chạy `/dev:pr`.
+**Mục đích**: Review toàn diện sau `dev:implement` — code quality, architecture, performance, security — trong 1 lần chạy. Kết quả là quyết định Approve / Request Changes trước khi chạy `/dev:pr`.
 
 ---
 
@@ -51,16 +51,16 @@ Nếu không có TASK-ID → dùng `git diff HEAD~1` (áp dụng cho standalone 
 
 Dùng `AskUserQuestion` tool:
 
-- **Focus**: All (mặc định) / Code only / Architecture only / Security only
+- **Focus**: All (mặc định) / Code only / Architecture only / Performance only / Security only
 - **Constraint**: Deadline gấp? Known tech debt cần bỏ qua? Framework đặc thù?
 
 **Chờ confirm.**
 
 ---
 
-### Bước 3 — Review theo 3 lens
+### Bước 3 — Review theo 4 lens
 
-Chạy 3 lens đồng thời trên cùng diff:
+Chạy 4 lens đồng thời trên cùng diff:
 
 #### Lens 1 — Code Quality
 
@@ -86,7 +86,20 @@ Chạy 3 lens đồng thời trên cùng diff:
 | Testability | Có thể unit test mà không cần mock quá nhiều không? |
 | Design decision | Có pattern/approach mới chưa có trong codebase → cần ADR không? |
 
-#### Lens 3 — Security (OWASP Top 10)
+#### Lens 3 — Performance
+
+| Điểm kiểm tra | Tìm gì |
+|--------------|--------|
+| Database queries | N+1 queries, missing indexes, full table scan trong loop |
+| Caching | Data read nhiều lần mà không cache, cache invalidation sai |
+| Payload size | Response trả toàn bộ records, thiếu pagination |
+| Blocking I/O | Sync I/O trong async context, blocking calls trong hot path |
+| Resource leaks | DB connection không close, file handle không release |
+| Scalability | Stateful logic chạy trên stateless server, shared mutable state |
+
+> Lens này chỉ flag **potential issues** — không phải mọi N+1 đều cần fix ngay. Classify severity: Critical (ảnh hưởng P1 users) / Medium (sẽ thành vấn đề ở scale 10x) / Low (backlog OK).
+
+#### Lens 4 — Security (OWASP Top 10)
 
 **Always check** (mọi PR):
 - Input validation và sanitize
@@ -153,6 +166,7 @@ Chạy 3 lens đồng thời trên cùng diff:
 |------|--------|
 | Code Quality | ✅ OK / 🔴 [N] blocking / 🟡 [N] non-blocking |
 | Architecture | ✅ OK / 🔴 [N] blocking — ADR cần tạo: [có / không] |
+| Performance | ✅ OK / 🔴 [N] critical / 🟡 [N] medium / ℹ️ [N] low |
 | Security (Always) | ✅ OK / 🔴 [N] issues |
 | Security (Ask First) | ✅ Không có / ⚠️ [N] items cần confirm |
 | Dependencies (CVEs) | ✅ OK / 🔴 [N] critical alerts |

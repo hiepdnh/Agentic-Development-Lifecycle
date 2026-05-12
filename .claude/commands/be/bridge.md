@@ -41,7 +41,7 @@ Loại tài liệu cần tạo:
 - [ ] 基本設計書 (Basic Design) — spec cấp cao, confirm với JP trước khi dev
 - [ ] 詳細設計書 (Detail Design) — spec chi tiết cho dev VN
 - [ ] 単体テスト仕様書 (UT Spec) — test cases format chuẩn JP
-- [ ] 変更依頼 (Change Request) — yêu cầu thay đổi + impact analysis
+- [ ] 変更依頼 (Change Request) — yêu cầu thay đổi + impact analysis → **dùng `/be:changerequest` thay thế** để có approval trail đầy đủ
 - [ ] 障害報告書 (Incident Report) — báo cáo bug/incident
 
 Input language: JP / EN / VN
