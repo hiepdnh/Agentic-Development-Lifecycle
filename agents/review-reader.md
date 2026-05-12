@@ -12,7 +12,10 @@ model: haiku
 
 ```
 GIT DIFF:
-[Output của git diff main..HEAD hoặc diff của PR]
+[Output của git diff <BASE_BRANCH>..HEAD hoặc diff của PR]
+
+BASE_BRANCH:
+[Tên branch dùng làm baseline — ví dụ: main, develop, release/1.2, staging]
 
 ANALYSIS PATH (optional):
 docs/tasks/[TASK-ID]/analysis.md
