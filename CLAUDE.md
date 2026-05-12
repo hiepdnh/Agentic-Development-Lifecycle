@@ -58,7 +58,7 @@ Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 Verify Claude auto-invokes the correct skill for naive prompts (no `/command` syntax):
 
 ```bash
-# All 22 skills
+# All 26 skills
 bash tests/skill-triggering/run-all.sh
 
 # With flags
@@ -104,7 +104,7 @@ Each agent file defines an **input contract** and **output JSON shape**. When sp
 - Summarize agent output before passing to the next agent in a chain
 
 | Agent | Spawned by | Model | Purpose |
-|-------|-----------|-------|---------|
+|-------|-----------|-------|--------|
 | `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON (no codebase access) |
 | `code-scout` | `/dev:analyze` | haiku | Find relevant files for a task (read-only) |
 | `planner` | `/dev:analyze` | sonnet | Synthesize task + code map → 2-3 implementation options |
@@ -180,7 +180,7 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 ## Skill Commands
 
 | Role | Command | Chức năng |
-|------|---------|-----------|
+|------|---------|----------|
 | BE | `/be:bridge` | Requirement JP → Clarify ambiguity → Spec cho team VN |
 | PM / BA | `/pm:ideate` | Ý tưởng mờ → Concept rõ (trước /ba:spec) |
 | BA | `/ba:spec` | Raw requirement → Structured spec |
@@ -328,7 +328,7 @@ Tham khảo bài viết Thariq Shihipar — *"The Unreasonable Effectiveness of 
 ### Skill format matrix
 
 | Skill | Format chính | HTML companion (one-shot, không commit) |
-|-------|-------------|-----------------------------------------|
+|-------|-------------|------------------------------------------|
 | `/dev:analyze` | MD (`analysis.md`) | `analysis-compare.html` — sort/filter phương án |
 | `/qa:testplan` | MD (`test-plan.md`) | `test-plan.html` — checklist tick + localStorage |
 | `/qa:regression` | HTML | `regression-checklist.html` — go/no-go decision |

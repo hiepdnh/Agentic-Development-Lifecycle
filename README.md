@@ -190,7 +190,7 @@ templates/              # Skeleton templates for all document types
 docs/
     risk-classifier.md       # Risk gate — tiny / normal / high-risk lane assignment
     improvement-backlog.md   # Friction log — agents write here when framework gaps are found
-    validation-matrix.md     # Global behavior-to-proof tracker for all 23 skills
+    validation-matrix.md     # Global behavior-to-proof tracker for all 26 skills
     dashboard.html           # Generated sprint dashboard (open in browser)
     workflows/               # Sprint lifecycle + role guide
     tasks/                   # Task docs (1 folder per issue) — gitignored per project
@@ -337,7 +337,7 @@ Who uses which skill: [`docs/workflows/role-guide.md`](docs/workflows/role-guide
 ## Design Principles
 
 | # | Principle | Meaning |
-|---|-----------|---------|
+|---|-----------|--------|
 | 1 | **Human Gate** | Claude never acts alone — always present → ask → wait for confirm |
 | 2 | **Multiple Options** | Always offer 2-3 options with trade-offs. Never a single solution |
 | 3 | **Fresh Context** | Subagents receive only the context they need — no full history passed |

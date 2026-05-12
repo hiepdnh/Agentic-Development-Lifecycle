@@ -57,7 +57,7 @@ Chạy 3 lens đồng thời trên cùng diff:
 Đánh giá theo 6 chiều:
 
 | Chiều | Câu hỏi |
-|-------|---------|
+|-------|--------|
 | Correctness | Logic có đúng với spec không? |
 | Scalability | Chịu được load tăng 10x không? Bottleneck ở đâu? |
 | Maintainability | Dev mới có hiểu và sửa được trong 6 tháng không? |
@@ -138,7 +138,7 @@ grep -rn "jwt.verify\|jwt.decode" src/
 ### ✅ Tổng hợp
 
 | Lens | Kết quả |
-|------|---------|
+|------|--------|
 | Code Quality | ✅ OK / 🔴 [N] blocking / 🟡 [N] non-blocking |
 | Architecture | ✅ OK / 🔴 [N] blocking — ADR cần tạo: [có / không] |
 | Security (Always) | ✅ OK / 🔴 [N] issues |

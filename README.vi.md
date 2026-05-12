@@ -33,7 +33,7 @@
 ## Yêu cầu
 
 | Tool | Phiên bản | Ghi chú |
-|------|-----------|---------|
+|------|-----------|--------|
 | [Claude Code](https://claude.ai/code) | Latest | CLI hoặc IDE extension |
 | [GitHub CLI](https://cli.github.com/) | ≥ 2.0 | Dùng trong `/pm:breakdown` để tạo issues |
 | Git | ≥ 2.0 | |
@@ -185,7 +185,7 @@ templates/              # Skeleton templates cho tất cả document types
 docs/
     risk-classifier.md  # Risk gate — phân loại tiny / normal / high-risk cho mọi task
     improvement-backlog.md  # Friction log — agent ghi vào khi phát hiện gap trong framework
-    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 25 skills
+    validation-matrix.md    # Bảng tracking behavior-to-proof cho toàn bộ 26 skills
     workflows/          # Sprint lifecycle + role guide
     tasks/              # Task docs (1 folder per issue) — gitignored theo dự án
     api/                # API baseline docs — sống lâu dài
@@ -330,7 +330,7 @@ Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.
 ## Nguyên tắc thiết kế
 
 | # | Nguyên tắc | Ý nghĩa |
-|---|-----------|---------|
+|---|-----------|--------|
 | 1 | **Human Gate** | Claude không tự làm — luôn present → hỏi → chờ confirm |
 | 2 | **Multiple Options** | Luôn đưa 2-3 phương án với trade-off. Không bao giờ 1 giải pháp |
 | 3 | **Fresh Context** | Subagent nhận context tối thiểu — không pass full history |
