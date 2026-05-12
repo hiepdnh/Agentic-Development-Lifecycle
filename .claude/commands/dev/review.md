@@ -41,7 +41,9 @@ docs/tasks/[TASK-ID]/verification.md
 
 Agent trả về JSON với `code_signals`, `arch_signals`, `security_signals`, `review_priority`, `intent_alignment`. Dùng kết quả này làm input cho Bước 3.
 
-Nếu không có TASK-ID → dùng `git diff HEAD~1`. Nếu analysis.md không tồn tại → hỏi dev mô tả ngắn về thay đổi trước khi spawn.
+**Fallback nếu agent fail** (timeout, diff quá lớn, lỗi spawn): bỏ qua subagent, chạy thủ công 7 grep patterns từ `agents/review-reader.md` trực tiếp trên diff và tiếp tục Bước 3 với kết quả grep thô.
+
+Nếu không có TASK-ID → dùng `git diff HEAD~1` (áp dụng cho standalone commit, không phải feature branch). Nếu analysis.md không tồn tại → hỏi dev mô tả ngắn về thay đổi trước khi spawn.
 
 ---
 
@@ -109,7 +111,11 @@ Chạy 3 lens đồng thời trên cùng diff:
 - `eval()` với user input
 - Expose stack traces cho user
 
-**Dùng `security_signals` từ review-reader** — `always_check_hits`, `ask_first_triggers`, `never_violations` đã được grep sẵn.
+**Dùng `security_signals` từ review-reader** để populate kết quả:
+- `always_check_hits` → điền vào bảng **🔴 Blocking** nếu severity high
+- `ask_first_triggers` → điền vào bảng **⚠️ Ask First** — dừng và hỏi senior trước khi tiếp tục
+- `never_violations` → nếu có bất kỳ item nào → flag ngay là **🔴 Critical**, dừng review
+- `dependency_changes` → ghi chú cần chạy audit sau merge
 
 ---
 
