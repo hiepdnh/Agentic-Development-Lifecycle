@@ -17,11 +17,20 @@ description: >
 
 ### Bước 1 — Thu thập context (subagent)
 
+**Xác định base branch trước khi spawn:**
+
+Kiểm tra theo thứ tự:
+1. User cung cấp base branch trong lệnh (ví dụ: `/dev:review develop`)
+2. Đọc `git remote show origin` để detect default branch
+3. Nếu vẫn không rõ → dùng `AskUserQuestion` hỏi base branch trước khi tiếp tục
+
 Spawn `review-reader` agent (model: haiku) theo `agents/review-reader.md` với input:
 
 ```
 GIT DIFF:
-[git diff main..HEAD]
+[git diff <BASE_BRANCH>..HEAD]
+
+BASE_BRANCH: <tên branch đã xác định>
 
 ANALYSIS PATH:
 docs/tasks/[TASK-ID]/analysis.md

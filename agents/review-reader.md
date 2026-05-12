@@ -12,7 +12,10 @@ model: haiku
 
 ```
 GIT DIFF:
-[Output của git diff main..HEAD hoặc diff của PR]
+[Output của git diff <BASE_BRANCH>..HEAD hoặc diff của PR]
+
+BASE_BRANCH:
+[Tên branch dùng làm baseline — ví dụ: main, develop, release/1.2, staging]
 
 ANALYSIS PATH (optional):
 docs/tasks/[TASK-ID]/analysis.md
@@ -128,7 +131,7 @@ grep -n "console\.log\|logger\." | grep -i "password\|token\|secret\|otp"
 grep -n "router\.\(get\|post\|put\|delete\)" | grep -v "auth\|protect\|verify\|middleware"
 
 # Hardcoded secrets
-grep -n "password\s*=\s*['\"].|secret\s*=\s*['\"].|api_key\s*=\s*['\"]"
+grep -n "password\s*=\s*['\"].|secret\s*=\s*['\"].|api_key\s*=\s*['\"]" 
 
 # eval with input
 grep -n "eval("
@@ -156,6 +159,6 @@ Nếu diff rỗng:
 {
   "error": "empty_diff",
   "message": "Không có changes để review",
-  "needs": ["git diff main..HEAD", "Hoặc chỉ định commit range cụ thể"]
+  "needs": ["git diff <BASE_BRANCH>..HEAD", "Hoặc chỉ định commit range cụ thể"]
 }
 ```
