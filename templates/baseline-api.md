@@ -2,8 +2,9 @@
 
 **Endpoint**: `[METHOD] /api/v[N]/[path]`  
 **Domain**: [Auth / User / Order / ...]  
-**Last updated**: [YYYY-MM-DD]  
-**Updated by task**: [PROJECT-XXX]
+**Last updated**: [YYYY-MM-DD HH:mm JST]  
+**Updated by task**: [PROJECT-XXX]  
+**Commit**: `[short-sha]` — [commit message]
 
 ---
 
