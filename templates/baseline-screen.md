@@ -2,8 +2,9 @@
 
 **Route/URL**: `/[path]`  
 **Feature**: [Tên feature]  
-**Last updated**: [YYYY-MM-DD]  
-**Updated by task**: [PROJECT-XXX]
+**Last updated**: [YYYY-MM-DD HH:mm JST]  
+**Updated by task**: [PROJECT-XXX]  
+**Commit**: `[short-sha]` — [commit message]
 
 ---
 

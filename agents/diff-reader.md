@@ -13,7 +13,10 @@ model: haiku
 
 ```
 GIT DIFF:
-[Output của git diff main..HEAD hoặc staged changes]
+[Output của git diff <BASE_BRANCH>..HEAD hoặc staged changes]
+
+BASE_BRANCH:
+[Tên branch dùng làm baseline — ví dụ: main, develop, release/1.2, staging]
 
 SPEC PATH:
 docs/tasks/[TASK-ID]/requirements.md

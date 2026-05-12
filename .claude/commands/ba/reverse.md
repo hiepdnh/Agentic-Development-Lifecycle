@@ -117,13 +117,21 @@ AskUserQuestion({
 
 ### Bước 4 — Sinh baseline docs
 
+Trước khi viết bất kỳ file nào, lấy commit baseline hiện tại:
+
+```bash
+git log -1 --format="%h %s"   # short-sha + commit message
+```
+
+Dùng kết quả để điền vào `generatedFrom` (short-sha) và `generatedAt` (timestamp JST tại thời điểm chạy skill).
+
 Tạo folder `docs/baseline/` (nếu chưa có) và viết:
 
 **`docs/baseline/codebase-overview.md`** — luôn tạo:
 ```markdown
 ---
 generatedAt: [YYYY-MM-DD HH:mm JST]
-generatedFrom: [git commit SHA]
+generatedFrom: [short-sha]
 scope: [path scanned]
 ---
 
@@ -193,4 +201,10 @@ scope: [path scanned]
 - **Không expose secrets** dù tìm thấy — chỉ flag "hardcoded credential at file:line" mà không paste content
 - **Luôn dùng Explore subagent** cho scan — không scan trong main context để tránh nhồi token
 - **Output `docs/baseline/`** — phân biệt với `docs/screens/` (screen baseline) và `docs/api/` (API baseline cho feature mới)
-- **Re-run sau N tháng**: nếu codebase thay đổi nhiều, append section "## Drift since [date]" thay vì overwrite
+- **Re-run sau N tháng**: nếu codebase thay đổi nhiều, append section `## Drift since [date] · commit=[short-sha]` thay vì overwrite. Cập nhật frontmatter:
+  ```yaml
+  generatedAt: [original date]
+  generatedFrom: [original short-sha]
+  updatedAt: [YYYY-MM-DD HH:mm JST]
+  updatedCommit: [new short-sha]
+  ```

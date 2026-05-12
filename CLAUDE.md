@@ -109,6 +109,7 @@ Each agent file defines an **input contract** and **output JSON shape**. When sp
 | `code-scout` | `/dev:analyze` | haiku | Find relevant files for a task (read-only) |
 | `planner` | `/dev:analyze` | sonnet | Synthesize task + code map → 2-3 implementation options |
 | `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Summarize git diff for PR description |
+| `review-reader` | `/dev:review` | haiku | Parse diff → code/arch/security signals cho 3-lens review |
 | `test-gen` | `/qa:testplan` | sonnet | Generate test cases from spec |
 | `doc-updater` | `/docs:update` | sonnet | Update baseline docs after verification |
 
@@ -206,6 +207,7 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | All | `/sec:review` | Security review trước merge (3-tier: Always/Ask First/Never) |
 | All | `/docs:update` | Update baseline screen/API docs sau verify |
 | All | `/docs:project` | Sync project-level docs: README, workflow guides, install scripts, CLAUDE.md |
+| All | `/install` | Cài VTI SDLC framework vào project hiện tại — copy commands, agents, templates, workflows |
 
 ---
 
@@ -287,7 +289,7 @@ Mỗi subagent nhận **chỉ context cần thiết** — không pass full conve
 Output từ subagent được tóm tắt trước khi pass vào subagent tiếp theo.
 
 Model được chỉ định per-agent để tối ưu token (xem frontmatter `model:` trong mỗi file `agents/*.md`):
-- **haiku**: read-only/parse agents (task-reader, code-scout, diff-reader)
+- **haiku**: read-only/parse agents (task-reader, code-scout, diff-reader, review-reader)
 - **sonnet**: reasoning/synthesis agents (planner, doc-updater, test-gen)
 
 Subagent definitions: `agents/` folder.
