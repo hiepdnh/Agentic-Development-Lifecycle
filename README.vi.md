@@ -320,7 +320,7 @@ Hoặc trong Claude Code: `/pm:dashboard`
 ```
 
 > **`/dev:analyze`** phân loại risk trước (tiny / normal / high-risk), sau đó dừng sau khi ghi `analysis.md`. Review xong mới trigger `/dev:implement` thủ công.  
-> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test) và nhắc Harness Delta check. Sau đó trigger `/dev:pr` — tự động đọc `verification.md`.
+> **`/dev:implement`** dừng sau khi ghi `verification.md` (diff review + kết quả self-test) và nhắc Harness Delta check. Sau đó trigger `/dev:review` — review 3 lens (code quality, architecture, security). Sau khi Approve mới trigger `/dev:pr`.
 
 Xem chi tiết từng bước tại [`docs/workflows/sprint-lifecycle.md`](docs/workflows/sprint-lifecycle.md)  
 Ai dùng skill nào: [`docs/workflows/role-guide.md`](docs/workflows/role-guide.md)

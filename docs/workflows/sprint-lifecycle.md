@@ -130,9 +130,11 @@ Review 3 lens trong 1 lần chạy:
 **Người dùng**: Dev  
 **Input**: Code diff + `analysis.md` + `verification.md` (nếu có)  
 **Output**: PR description (Testing section tự động populate từ `verification.md`)  
+**Prerequisite**: `/dev:review` đã chạy và verdict = Approve (hoặc Approve with minor fixes).  
 **Gate**:
-1. Confirm AC coverage
-2. Confirm reviewer list
+1. Kiểm tra `/dev:review` đã Approve chưa — nếu chưa, dừng và hướng dẫn chạy review trước
+2. Confirm AC coverage
+3. Confirm reviewer list
 
 ### 4.2 Code Review (manual)
 - Reviewer dùng `/ultrareview` nếu cần AI assist
