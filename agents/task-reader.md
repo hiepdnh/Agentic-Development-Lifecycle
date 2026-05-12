@@ -1,6 +1,11 @@
+---
+model: haiku
+---
+
 # Agent: task-reader
 **Type**: Subagent (spawned by dev-analyze)  
-**Scope**: Read-only. Nhận nội dung issue, trả về structured JSON. Không đọc codebase.
+**Scope**: Read-only. Nhận nội dung issue, trả về structured JSON. Không đọc codebase.  
+**Recommended model**: haiku — parse/extract only, no reasoning required.
 
 ---
 

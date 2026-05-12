@@ -1,6 +1,11 @@
+---
+model: sonnet
+---
+
 # Agent: doc-updater
 **Type**: Subagent (spawned by docs-update)  
-**Scope**: Đọc baseline docs + diff-reader output, tạo doc update proposals. Không tự apply.
+**Scope**: Đọc baseline docs + diff-reader output, tạo doc update proposals. Không tự apply.  
+**Recommended model**: sonnet — proposals require accurate technical writing and context synthesis.
 
 ---
 

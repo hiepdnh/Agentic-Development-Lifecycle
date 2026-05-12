@@ -49,7 +49,8 @@ Ví dụ spawn task-reader:
 ```
 Agent(
   description: "Parse GitHub issue into structured JSON",
-  prompt: "Read this issue and return structured JSON per agents/task-reader.md spec.\n\nISSUE CONTENT:\n[paste issue content here]"
+  prompt: "Read this issue and return structured JSON per agents/task-reader.md spec.\n\nISSUE CONTENT:\n[paste issue content here]",
+  model: "haiku"
 )
 ```
 
@@ -57,7 +58,17 @@ Ví dụ spawn code-scout:
 ```
 Agent(
   description: "Find relevant files for auth task",
-  prompt: "Find files relevant to this task. Return JSON per agents/code-scout.md spec.\n\nTASK SUMMARY: [summary]\nTECH STACK: [stack]\nAFFECTED AREAS: [areas]"
+  prompt: "Find files relevant to this task. Return JSON per agents/code-scout.md spec.\n\nTASK SUMMARY: [summary]\nTECH STACK: [stack]\nAFFECTED AREAS: [areas]",
+  model: "haiku"
+)
+```
+
+Ví dụ spawn planner:
+```
+Agent(
+  description: "Synthesize task + code map into implementation options",
+  prompt: "Create 2-3 implementation options per agents/planner.md spec.\n\nTASK: [task-reader JSON]\nCODE MAP: [code-scout JSON]\nCONSTRAINTS: [from Gate 1]",
+  model: "sonnet"
 )
 ```
 
@@ -209,6 +220,22 @@ Trước khi bạn chọn, tôi cần hỏi thêm:
 ```
 
 **Chờ human chọn phương án.**
+
+### Bước 6.5 — Render HTML companion (so sánh phương án)
+
+Trước khi human chọn ở Bước 6, sinh `docs/tasks/[TASK-ID]/analysis-compare.html` từ template `templates/html-artifact.html`:
+
+- Inject `<table id="options" data-sortable>` với các cột: Phương án | Effort (h) | Risk | Files chạm | Ưu | Nhược
+- Mỗi phương án 1 row, cột Effort dùng `data-type="number"` để sort
+- Risk render bằng `<span class="pill pill-ok|warn|err">` (Low/Med/High)
+- Mỗi phương án có `<details>` mở rộng cho mô tả dài
+
+File HTML là one-shot review artifact — KHÔNG commit (đã có `.gitignore` cho `docs/tasks/**/*.html`).
+
+```
+✓ Đã sinh `docs/tasks/[TASK-ID]/analysis-compare.html`
+  Mở bằng browser để sort/filter trước khi quyết định.
+```
 
 ### Bước 7 — Tạo Task Doc
 

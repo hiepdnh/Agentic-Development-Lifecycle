@@ -4,12 +4,13 @@
       "Read(**)",
       "Glob(**)",
       "Grep(**)",
+      "Write(**)",
+      "Edit(**)",
       "Bash(git log*)",
       "Bash(git diff*)",
       "Bash(git status*)"
     ],
     "deny": [
-      "Bash(git push*)",
       "Bash(git reset --hard*)",
       "Bash(rm -rf*)"
     ]

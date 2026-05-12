@@ -30,6 +30,14 @@ Spawn subagent để đọc:
 - `docs/tasks/[TASK-ID]/requirements.md` — AC cần verify
 - `docs/tasks/[TASK-ID]/verification.md` — kết quả self-test (nếu tồn tại)
 
+```
+Agent(
+  description: "Read git diff and map changes to AC coverage",
+  prompt: "Read the git diff and spec, return AC coverage per agents/diff-reader.md spec.\n\nGIT DIFF:\n[git diff main..HEAD]\n\nSPEC PATH: docs/tasks/[TASK-ID]/requirements.md\n\nBASELINE DOCS TO CHECK: [list relevant docs/screens/ and docs/api/ files]",
+  model: "haiku"
+)
+```
+
 Subagent trả về: summary of changes, files changed, AC coverage, test results (nếu có).
 
 ### Bước 2 — Gate: Xác nhận coverage

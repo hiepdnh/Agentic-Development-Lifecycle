@@ -24,6 +24,14 @@ Bridge Engineer là cầu nối giữa khách hàng Nhật và team dev VN:
 
 ## Hướng dẫn thực hiện
 
+### Bước 0 — Load glossary (bắt buộc)
+
+Trước khi phân tích/dịch bất kỳ thuật ngữ nào, đọc `templates/jp-vn-en-glossary.md` để load bộ từ vựng JP↔VN↔EN chuẩn.
+
+Trong toàn bộ skill (Bước 1→4), khi gặp thuật ngữ kỹ thuật/nghiệp vụ JP:
+- Ưu tiên dùng từ tương ứng trong glossary
+- Nếu thuật ngữ KHÔNG có trong glossary → đánh dấu `[GLOSSARY?]` và đề xuất bổ sung ở Bước 4
+
 ### Bước 1 — Gate: Xác định loại công việc
 
 ```
@@ -167,6 +175,25 @@ Tạo `docs/tasks/[TASK-ID]/ut-spec-jp.md`:
 - — : 対象外
 ```
 
+#### 3d. Deliverable HTML song ngữ (cho khách JP)
+
+Sinh `docs/tasks/[TASK-ID]/deliverable.html` từ template `templates/html-bilingual.html` — đây là format chính khi forward cho khách Nhật:
+
+- Header: title JP/VN, TASK-ID, timestamp JST, label "成果物"
+- Mỗi item nội dung tạo 1 `<div class="row">` 2 cột (JP trái, VN phải) với nội dung tương ứng
+- Thuật ngữ kỹ thuật JP có trong glossary → wrap bằng `<span class="glossary" data-tooltip="JP=VN">` để khách hover thấy bản dịch
+- Copy button per row (`data-copy-parent`) để khách copy đoạn JP/VN bất kỳ
+- `@media print`: in A4 đẹp, 2 cột giữ nguyên, copy button ẩn — khách có thể Cmd+P → Save as PDF làm bản chính thức
+
+File HTML KHÔNG commit (đã có `.gitignore` cho `docs/tasks/**/*.html`). Nếu cần lưu version chính thức gửi khách → export PDF rồi attach vào email/issue.
+
+```
+✓ Đã sinh:
+  - docs/tasks/[TASK-ID]/requirements.md   (cho dev VN, commit)
+  - docs/tasks/[TASK-ID]/design-jp.md       (gửi khách JP qua email, commit)
+  - docs/tasks/[TASK-ID]/deliverable.html   (mở review nội bộ trước khi gửi khách, KHÔNG commit)
+```
+
 ### Bước 4 — Gate cuối
 
 ```
@@ -174,6 +201,8 @@ Tạo `docs/tasks/[TASK-ID]/ut-spec-jp.md`:
 
 Checklist song ngữ:
 - [ ] Thuật ngữ JP ↔ VN nhất quán trong toàn bộ tài liệu
+- [ ] Tất cả thuật ngữ đã match với `templates/jp-vn-en-glossary.md` — không còn `[GLOSSARY?]` nào chưa resolve
+- [ ] Thuật ngữ mới (không có trong glossary) đã liệt kê để bổ sung vào glossary
 - [ ] Business logic trong spec VN = 設計書 JP (không thừa/thiếu)
 - [ ] Câu hỏi mở đã resolve hoặc đánh dấu [要確認]
 - [ ] Format tài liệu JP đúng chuẩn (bảng, thứ tự mục)

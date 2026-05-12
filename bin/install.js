@@ -109,6 +109,36 @@ async function main() {
   const workflowsResult = copyDir(path.join(src, 'docs', 'workflows'), path.join(docsDst, 'workflows'));
   s.stop(resultMsg('docs/workflows/', workflowsResult));
 
+  // 4b. docs root framework files (always overwrite on --update)
+  s.start('Copying framework doc files...');
+  const docRootFiles = ['risk-classifier.md', 'validation-matrix.md'];
+  let docRootCopied = 0, docRootUpdated = 0;
+  for (const file of docRootFiles) {
+    const srcFile = path.join(src, 'docs', file);
+    const dstFile = path.join(docsDst, file);
+    if (!fs.existsSync(srcFile)) continue;
+    if (fs.existsSync(dstFile)) {
+      if (UPDATE) { fs.copyFileSync(srcFile, dstFile); docRootUpdated++; }
+    } else {
+      fs.copyFileSync(srcFile, dstFile);
+      docRootCopied++;
+    }
+  }
+  s.stop(resultMsg('docs/ framework files', { copied: docRootCopied, skipped: docRootFiles.length - docRootCopied - docRootUpdated, updated: docRootUpdated }));
+
+  // 4d. docs/analysis (framework content — skip-if-exists, overwrite on --update)
+  s.start('Copying analysis docs...');
+  const analysisResult = copyDir(path.join(src, 'docs', 'analysis'), path.join(docsDst, 'analysis'));
+  s.stop(resultMsg('docs/analysis/', analysisResult));
+
+  // 4c. improvement-backlog.md — only if missing (user-mutable, never overwrite)
+  const backlogSrc = path.join(src, 'docs', 'improvement-backlog.md');
+  const backlogDst = path.join(docsDst, 'improvement-backlog.md');
+  if (fs.existsSync(backlogSrc) && !fs.existsSync(backlogDst)) {
+    fs.copyFileSync(backlogSrc, backlogDst);
+    log.info(`${pc.green('◆')} docs/improvement-backlog.md ${pc.dim('— created')}`);
+  }
+
   // 5. empty doc dirs
   s.start('Creating doc directories...');
   const docDirs = ['api', 'screens', 'tasks', 'decisions'];
