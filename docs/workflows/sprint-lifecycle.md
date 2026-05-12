@@ -99,13 +99,13 @@ Trước khi bắt đầu bất kỳ task nào, classify risk theo `docs/risk-cl
 ### 2.4 Dev Review `/dev:review`
 **Người dùng**: Dev / Tech Lead  
 **Input**: Code diff + `analysis.md` + `verification.md`  
-**Output**: Review report gồm 3 lens: code quality, architecture, security  
+**Output**: Review report gồm 4 lens: code quality, architecture, performance, security  
 **Gates**:
 1. Confirm focus (All / Code / Arch / Security)
 2. Verdict: Approve / Approve with minor fixes / Request Changes
 3. Nếu có design decision mới → hỏi có tạo `/arch:adr` không
 
-Review 3 lens trong 1 lần chạy:
+Review 4 lens trong 1 lần chạy:
 - **Code Quality** — logic, naming, test coverage, performance, error handling
 - **Architecture** — scalability, coupling, maintainability, design decision mới
 - **Security** — OWASP Top 10, auth/authz (Ask First gate), dependency CVEs
@@ -173,6 +173,59 @@ Review 3 lens trong 1 lần chạy:
 ### 6.2 Standup `/sm:standup`
 **Trigger**: Hàng ngày  
 **Output**: Yesterday / Today / Blockers per member
+
+---
+
+## Greenfield Project Kickoff
+
+Trước giai đoạn 1, khi bắt đầu dự án mới từ đầu:
+
+```
+/pm:kickoff → Tech stack decision + ADRs → docs/ structure → Sprint 0 checklist
+    → Nếu JP client: /be:bridge tạo 基本設計書 → JP confirm
+    → Sprint 1: vào giai đoạn Discovery bình thường
+```
+
+---
+
+## Change Request Workflow (giữa sprint)
+
+Khi spec thay đổi sau sign-off:
+
+```
+JP yêu cầu thay đổi → /be:changerequest → Impact analysis + CR document
+    → Approval (VTI PM + khách JP) → Cập nhật requirements.md (ghi CR ref)
+    → Tạo issue mới hoặc cập nhật issue gốc → Dev workflow bình thường
+```
+
+**Không implement trước khi CR được approve.**
+
+---
+
+## Maintenance Mode Workflow
+
+Sau go-live, khi project vào sustain/support phase:
+
+```
+Yêu cầu đến → /pm:maintain triage (P1/P2/P3/P4)
+    → P1: Hotfix ngay + /ops:incident
+    → P2/P3: Dev fix (tiny hoặc normal lane)
+    → P4: Batch vào monthly backlog
+    → Cuối tháng: /pm:maintain → 月次保守報告書 → gửi JP
+```
+
+---
+
+## Handover Workflow
+
+Khi kết thúc project hoặc team member rời:
+
+```
+/pm:handover → 引き継ぎ書 VN + JP
+    → Handover meeting + walk-through
+    → Người tiếp nhận shadow 1-2 sprint
+    → Update contact matrix trong CLAUDE.md
+```
 
 ---
 
