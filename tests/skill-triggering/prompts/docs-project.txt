@@ -1,0 +1,1 @@
+README dự án và workflow guide đã cũ so với code hiện tại. Cần sync lại project-level docs — README, hướng dẫn cài đặt và CLAUDE.md — cho khớp với trạng thái mới.
