@@ -10,7 +10,7 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is the `.claude/commands/` directory — 26 Markdown skill files that Claude Code loads as slash commands.
+This repo IS the framework source. The "product" is the `.claude/commands/` directory — 32 Markdown skill files that Claude Code loads as slash commands.
 
 ### Run installer locally
 
@@ -58,7 +58,7 @@ Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 Verify Claude auto-invokes the correct skill for naive prompts (no `/command` syntax):
 
 ```bash
-# All 26 skills
+# All 32 skills
 bash tests/skill-triggering/run-all.sh
 
 # With flags

@@ -1,0 +1,1 @@
+Vừa implement xong feature giỏ hàng. Trước khi tạo PR, review giúp code xem chất lượng, kiến trúc, performance và security có ổn không.

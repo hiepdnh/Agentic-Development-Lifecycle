@@ -47,6 +47,16 @@ Format:
 | IB-013 | Competitive research (G-07) | Không có PR comment resolver — dev phải manually address từng comment | Tạo agents/pr-resolver.md + wire vào /dev:pr opt-in gate | ✅ done |
 | IB-014 | Competitive research (G-08) | dev:implement không enforce test-first — TDD lane không có | Thêm TDD lane opt-in (Bước 1b) vào /dev:implement | ✅ done |
 | IB-015 | Competitive research (G-09) | dev:review bỏ qua performance lens — N+1, caching, scalability không được check | Thêm Lens 3 Performance vào /dev:review | ✅ done |
+| IB-016 | Framework review 2026-05-13 | `be:changerequest`, `pm:handover` inline templates thay vì reference `templates/` — DRY risk | Extract inline templates ra `templates/change-request.md`, `templates/handover.md` | open |
+| IB-017 | Framework review 2026-05-13 | `pm:ideate` dùng plain text Q&A thay vì `AskUserQuestion` tool | Refactor sang AskUserQuestion cho gates có options rõ ràng | open |
+| IB-018 | Framework review 2026-05-13 | `install.md` dùng text confirmation thay vì `AskUserQuestion` | Chuyển sang AskUserQuestion cho consistency | open |
+| IB-019 | Framework review 2026-05-13 | `dev:debug.md` mô tả subagent trong lý thuyết nhưng không spawn trong execution flow | Hoặc wire Agent() spawn vào flow, hoặc xoá phần lý thuyết | open |
+| IB-020 | Framework review 2026-05-13 | `agents/test-gen.md` output hybrid JSON + prose, không consistent với 7 agents còn lại | Chuẩn hoá thành pure JSON | open |
+| IB-021 | Framework review 2026-05-13 | `agents/code-scout.md` `read_status: "partial \| full"` không có guidance khi nào dùng gì | Thêm decision rule vào agent spec | open |
+| IB-022 | Framework review 2026-05-13 | `bin/dashboard.js:176` date comparison dùng string compare — fragile với non-ISO inputs | Convert sang Date object trước khi compare | open |
+| IB-023 | Framework review 2026-05-13 | `bin/dashboard.js` watch mode không watch git activity changes | Thêm git HEAD/index vào watcher | open |
+| IB-024 | Framework review 2026-05-13 | `setup.ps1` + `setup.sh` prompt `[y/N]` chỉ accept `Y/y`, không accept `yes` (không consistent với `install.js`) | Accept cả `yes`/`y` (case-insensitive) | open |
+| IB-025 | Framework review 2026-05-13 | `setup.ps1:162` GitHub URL hardcoded — khó maintain khi đổi org/repo | Đưa URL ra biến đầu file | open |
 
 ---
 

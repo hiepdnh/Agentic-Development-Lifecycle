@@ -5,7 +5,10 @@ tests/.results/
 node_modules/
 package-lock.json
 
-# AI-generated task and baseline docs (dogfooding artifacts — not part of framework distribution)
+# AI-generated task and baseline docs (dogfooding artifacts in THIS framework repo only).
+# Downstream users who install the framework into their own project SHOULD commit their
+# /arch:adr output, screen baselines and API baselines normally — these patterns only
+# apply to this source repo so we don't accidentally ship test artifacts via npm/npx.
 docs/tasks/*/
 docs/decisions/*.md
 docs/screens/*/
@@ -13,4 +16,3 @@ docs/api/*/
 
 # One-shot HTML review artifacts (per Output Format Convention in CLAUDE.md)
 docs/tasks/**/*.html
-docs/reports/*.html
