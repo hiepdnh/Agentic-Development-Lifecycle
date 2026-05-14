@@ -1,0 +1,1 @@
+Chúng tôi bắt đầu dự án mới cho khách hàng Nhật, greenfield project, cần setup framework từ đầu. Tech stack chưa quyết định.

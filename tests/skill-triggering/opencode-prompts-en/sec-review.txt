@@ -1,0 +1,1 @@
+The PR adding the user avatar upload feature is about to merge. I need a security review before approving — especially the file handling part.

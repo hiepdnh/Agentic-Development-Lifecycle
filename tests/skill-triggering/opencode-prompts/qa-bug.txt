@@ -1,0 +1,1 @@
+Vừa phát hiện khi upload file PDF lớn hơn 10MB thì app bị crash không có thông báo lỗi. Cần viết bug report chuẩn để submit cho dev fix.

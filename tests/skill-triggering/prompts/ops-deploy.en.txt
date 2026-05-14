@@ -1,0 +1,1 @@
+﻿We are about to release version 2.3.0 to production this Friday. Help me create a deployment checklist and rollback plan.

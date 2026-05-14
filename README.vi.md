@@ -8,13 +8,15 @@
   <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
-> **26 slash commands** phủ toàn bộ SDLC — dành cho team phát triển phần mềm với AI.
+> **32 skills cho Claude Code & OpenCode** — phủ toàn bộ SDLC cho team phát triển phần mềm với AI.
 
 ---
 
 ## Đây là gì?
 
-Một **bộ skill cho Claude Code** dành cho team phát triển phần mềm. Cài vào bất kỳ project nào để có các lệnh AI theo role, có cấu trúc, phủ toàn bộ vòng đời sprint.
+Một **bộ skill AI** cho team phát triển phần mềm. Cài vào bất kỳ project nào để có các skill theo role, có cấu trúc, phủ toàn bộ vòng đời sprint.
+
+Hỗ trợ **cả Claude Code và OpenCode** — cùng bộ skill, khác runtime.
 
 Xây dựng cho mô hình outsource của [VTI Software](https://vti.com.vn) (team dev VN → Bridge Engineer → khách hàng Nhật), nhưng phù hợp với bất kỳ team nào muốn AI hỗ trợ có cấu trúc.
 
@@ -22,9 +24,14 @@ Xây dựng cho mô hình outsource của [VTI Software](https://vti.com.vn) (te
 
 ## Cài đặt nhanh
 
+### Claude Code
+
 ```bash
 # macOS / Linux — chạy từ thư mục project của bạn
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+
+# Hoặc dùng installer trực tiếp
+node /path/to/ClaudeSkill/bin/install.js --yes
 ```
 
 ```powershell
@@ -33,13 +40,25 @@ $tmp = "$env:TEMP\vti-install"; mkdir $tmp -Force; Set-Location $tmp
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
-Hoặc cập nhật bản cài đặt hiện tại:
+Cập nhật bản cài đặt hiện tại:
 
 ```bash
 npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 ```
 
-**Cài gì**: `.claude/commands/` (26 skill files) + `agents/` (7 subagent definitions) + `templates/` + `docs/workflows/`
+### OpenCode
+
+```bash
+# Cài vào project — target .opencode/skills/ theo mặc định
+node /path/to/ClaudeSkill/bin/install.js --yes --opencode
+```
+
+```powershell
+# Windows
+node E:\AI Bootcamp\ClaudeSkill\bin\install.js --yes --opencode
+```
+
+**Cài gì**: thư mục skills + `agents/` + `templates/` + `docs/workflows/`
 
 ---
 
@@ -54,6 +73,8 @@ npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 | `/ba:user-story` | Spec → User Stories với AC | Spec → User Stories |
 | `/ba:reverse` | Reverse engineer legacy codebase → baseline docs | Codebase → `docs/baseline/` |
 | `/be:bridge` | Dịch requirement JP, tạo tài liệu song ngữ JP-VN | JP req → VN spec + JP doc |
+| `/be:changerequest` | 変更依頼 — impact analysis, approval trail, version control spec thay đổi | CR → Impact analysis + JP doc |
+| `/be:glossary` | Duy trì glossary JP↔VN↔EN — thêm term, resolve conflict dịch thuật | Term mới → Glossary update |
 
 ### Quản lý Dự án
 
@@ -62,6 +83,10 @@ npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 | `/pm:breakdown` | Epic/Stories → Tasks với estimate + GitHub/GitLab Issues | Epic → Issues |
 | `/pm:status` | Báo cáo trạng thái sprint cho stakeholder | Tasks → Status report |
 | `/pm:dashboard` | Dashboard HTML tĩnh (kanban + health + backlog) | `docs/tasks/*/` → HTML |
+| `/pm:kickoff` | Bootstrap greenfield project: tech stack → ADRs → docs structure → sprint 0 checklist | Requirement → Project scaffold |
+| `/pm:release` | Tạo Release Notes / リリースノート từ merged PRs + closed issues | PRs + Issues → Release Notes |
+| `/pm:handover` | Tạo gói bàn giao dự án (引き継ぎ) — codebase map + decisions + contact matrix | Project → Handover package |
+| `/pm:maintain` | Workflow maintenance phase: triage → fix → monthly report (月次保守報告書) | Incident → Fix + Report |
 
 ### Phát triển
 
@@ -123,19 +148,23 @@ npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 
 Task nặng spawn subagent nhẹ để giữ context sạch:
 
-| Agent | Dùng bởi | Model | Mục đích |
-|-------|----------|-------|----------|
-| `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON |
-| `code-scout` | `/dev:analyze` | haiku | Tìm files liên quan |
-| `planner` | `/dev:analyze` | sonnet | Tổng hợp phương án |
-| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Map diff → AC coverage |
-| `review-reader` | `/dev:review` | haiku | Parse diff → code/arch/security signals |
-| `test-gen` | `/qa:testplan` | sonnet | Tạo test cases |
-| `doc-updater` | `/docs:update` | sonnet | Cập nhật baseline docs |
+| Agent | Dùng bởi | Claude Code | OpenCode | Mục đích |
+|-------|----------|-------------|----------|----------|
+| `task-reader` | `/dev:analyze` | haiku | explorer | Parse issue → structured JSON |
+| `code-scout` | `/dev:analyze` | haiku | explorer | Tìm files liên quan |
+| `planner` | `/dev:analyze` | sonnet | oracle | Tổng hợp phương án |
+| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | explorer | Map diff → AC coverage |
+| `review-reader` | `/dev:review` | haiku | explorer | Parse diff → code/arch/security signals |
+| `test-gen` | `/qa:testplan` | sonnet | oracle | Tạo test cases |
+| `doc-updater` | `/docs:update` | sonnet | oracle | Cập nhật baseline docs |
+| `pr-resolver` | `/dev:pr` | sonnet | oracle | Phân tích review comments → fixes |
 
 ### Human Gates
 
-Mọi command đều có ít nhất 1 `AskUserQuestion` gate — Claude trình bày lựa chọn và **chờ quyết định của bạn** trước khi tiếp tục. Không tự động thực hiện.
+Mọi skill đều có ít nhất 1 human gate — skill trình bày lựa chọn và **chờ quyết định của bạn** trước khi tiếp tục. Không tự động thực hiện.
+
+- **Claude Code**: `AskUserQuestion` tool
+- **OpenCode**: `question` tool
 
 ### Workflow điển hình
 
@@ -206,37 +235,41 @@ Tối ưu cho mô hình outsource VTI:
 ## Cấu trúc dự án
 
 ```
-.claude/commands/    # 26 slash command files
-agents/              # 7 subagent definitions
+.claude/commands/    # 32 Claude Code slash command files
+.opencode/skills/    # 32 OpenCode skill files (auto-trigger)
+agents/              # 8 subagent definitions
 docs/
   workflows/         # Sprint lifecycle, role guide, flowchart
   decisions/         # ADR templates
 templates/           # Skeleton templates
-bin/install.js       # Installer tương tác (@clack/prompts)
-setup.ps1            # PowerShell installer
-setup.sh             # Bash installer
+bin/install.js       # Installer tương tác (@clack/prompts) — hỗ trợ --opencode
+setup.ps1            # PowerShell installer (Claude Code)
+setup.sh             # Bash installer (Claude Code)
 ```
 
 ---
 
 ## Phát triển
 
-Repo này là framework source. “Sản phẩm” là `.claude/commands/` — 26 Markdown skill files.
+Repo này là framework source. "Sản phẩm" là skill files cho cả hai nền tảng — `.claude/commands/` và `.opencode/skills/` (mỗi bên 32 files).
 
 ### Test skill triggering
 
+**Claude Code:**
 ```bash
-# Chạy toàn bộ 26 skill trigger tests
 bash tests/skill-triggering/run-all.sh
-
-# Verbose output
 bash tests/skill-triggering/run-all.sh --verbose
-
-# Lọc theo prefix
 bash tests/skill-triggering/run-all.sh --filter dev-*
 ```
-
 Yêu cầu: `claude` CLI đã auth + `jq` đã cài.
+
+**OpenCode:**
+```powershell
+pwsh tests/skill-triggering/opencode-run-all.ps1
+pwsh tests/skill-triggering/opencode-run-all.ps1 -Verbose
+pwsh tests/skill-triggering/opencode-run-all.ps1 -Filter "dev-*"
+```
+Kiểm tra mapping prompt→skill file. Full trigger validation cần chạy trong OpenCode session.
 
 ---
 

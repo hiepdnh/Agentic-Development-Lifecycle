@@ -1,0 +1,1 @@
+The JWT token expires after 15 minutes instead of the configured 1 hour. The bug isn't consistently reproducible — it only happens in about 30% of sessions. Not sure why.

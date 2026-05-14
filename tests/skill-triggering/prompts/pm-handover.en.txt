@@ -1,0 +1,1 @@
+﻿We are handing over this project to another team next month. Help me create the handover package with codebase map, decisions, and contacts.

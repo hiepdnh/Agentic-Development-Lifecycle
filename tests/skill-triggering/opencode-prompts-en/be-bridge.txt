@@ -1,0 +1,1 @@
+The Japanese client sent a requirement document in Japanese about the order management screen. I need to translate and clarify these requirements into a Vietnamese document the dev team can understand.

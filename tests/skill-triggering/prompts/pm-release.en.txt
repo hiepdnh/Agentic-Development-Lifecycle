@@ -1,0 +1,1 @@
+﻿Sprint 12 is done. Help me create the release notes for version 2.3.0 from the merged PRs and closed issues.

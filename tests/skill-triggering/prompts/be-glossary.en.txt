@@ -1,0 +1,1 @@
+﻿In the Japanese requirements doc, there are 2 terms I am not sure how to translate: 受注 and 発注. They look similar but may have different meanings. Help me add them to the glossary.

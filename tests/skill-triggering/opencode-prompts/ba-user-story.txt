@@ -1,0 +1,1 @@
+Tôi đã có spec cho tính năng SSO rồi. Giờ cần tạo user stories kèm acceptance criteria để PM tạo issue trên Jira.

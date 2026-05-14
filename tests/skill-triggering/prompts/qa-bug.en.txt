@@ -1,0 +1,1 @@
+﻿I found a bug — when a user uploads a PDF larger than 10MB, the system shows a blank page instead of an error message. Help me write the bug report.

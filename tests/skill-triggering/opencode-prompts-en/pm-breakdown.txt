@@ -1,0 +1,1 @@
+The "Order Management" epic has been approved. I need it broken down into smaller tasks with estimates for next week's sprint planning, and create GitHub Issues for the team.

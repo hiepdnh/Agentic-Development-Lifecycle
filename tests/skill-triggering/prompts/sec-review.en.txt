@@ -1,0 +1,1 @@
+﻿I am about to merge the authentication refactor PR. Can you do a security review to check for vulnerabilities before I merge?

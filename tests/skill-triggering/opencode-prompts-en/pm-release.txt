@@ -1,0 +1,1 @@
+Sprint 5 just wrapped up. I need release notes to send to the Japanese client, compiled from all the merged PRs in this sprint.

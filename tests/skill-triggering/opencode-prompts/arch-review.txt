@@ -1,0 +1,1 @@
+Design hiện tại dùng shared database giữa 3 service. Nhờ review kiến trúc này xem có vấn đề gì không, đặc biệt về coupling và scalability.

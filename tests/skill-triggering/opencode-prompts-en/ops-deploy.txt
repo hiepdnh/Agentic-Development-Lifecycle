@@ -1,0 +1,1 @@
+We need to release version 2.5 to production this week. Please prepare a full deployment checklist so we don't miss any steps during deploy.

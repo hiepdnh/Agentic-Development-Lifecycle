@@ -1,0 +1,1 @@
+Update the overall project documentation: README, workflow guides, install scripts. Sync all project-level docs after the team just changed the tech stack and CI/CD pipeline.

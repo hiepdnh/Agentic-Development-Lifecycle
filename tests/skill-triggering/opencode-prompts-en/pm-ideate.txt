@@ -1,0 +1,1 @@
+I have an idea for some feature to help the team track task progress better, but I'm not sure about the specifics yet. I'd like to brainstorm and clarify what to build.

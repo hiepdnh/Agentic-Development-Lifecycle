@@ -1,0 +1,1 @@
+Task TASK-042 has been verified and merged to main. I need to update the baseline docs for the profile screen and the /users/{id} API endpoint to reflect the changes just released.

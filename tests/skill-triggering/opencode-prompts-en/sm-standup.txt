@@ -1,0 +1,1 @@
+Here are updates from the 5 team members: Nam — fixed login bug yesterday, writing tests today. Hoa — reviewing PR #45, blocked waiting for design. Duy — staging deploy done, waiting on QA. Lan — tested search feature, found 2 bugs. Tuấn — on leave. Summarize today's standup for me.

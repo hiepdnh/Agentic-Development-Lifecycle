@@ -1,0 +1,1 @@
+Dự án đã go-live rồi, không có sprint mới, chỉ còn fix bug và hỗ trợ maintenance cho khách JP theo hợp đồng bảo trì. Giúp tôi setup maintenance workflow và triage bug đầu tiên.

@@ -1,0 +1,1 @@
+﻿Here are today standup updates from the team: John - finished login API, blocked on DB migration approval. Mary - reviewing PR #45. Tom - no blockers, working on export feature. Please format this.

@@ -1,0 +1,1 @@
+﻿We just decided to switch from a monolith to microservices for the payment module. I need to document this architecture decision so the team and client can reference it later.

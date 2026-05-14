@@ -1,0 +1,1 @@
+﻿I want to install the VTI SDLC framework into my current project. Copy the skill commands and agent definitions here.

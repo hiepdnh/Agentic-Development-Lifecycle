@@ -1,0 +1,1 @@
+Khách hàng Nhật vừa email yêu cầu thay đổi spec giữa sprint. Họ muốn thêm tính năng export PDF vào module đã sign-off rồi. Cần tạo change request.

@@ -1,0 +1,223 @@
+---
+name: pm:breakdown
+description: >
+  Phân rã Epic/User Stories thành Tasks cụ thể với estimate, tạo GitHub/GitLab Issues chuẩn.
+  Trigger khi: user nói "breakdown epic", "tạo tasks từ story", "phân rã feature",
+  "tạo github issues", "tạo gitlab issues", "sprint planning", "estimate tasks", hoặc gõ /pm:breakdown.
+---
+
+# /pm:breakdown
+**Role**: Project Manager
+**Mục đích**: Phân rã Epic/User Stories thành Tasks cụ thể, tạo GitHub/GitLab Issues với template chuẩn.
+
+---
+
+## Hướng dẫn thực hiện
+
+### Bước 1 — Đọc input
+
+Nhận vào: Epic description, User Stories, hoặc yêu cầu trực tiếp từ PM.
+Đọc `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\requirements.md` nếu có.
+
+### Bước 2 — Gate: Clarify trước khi breakdown
+
+```
+question({
+  questions: [{
+    question: "Bạn dùng platform nào để tạo issues?",
+    header: "Platform",
+    options: [
+      { label: "GitHub (gh CLI)", description: "Dùng gh issue create" },
+      { label: "GitLab (glab CLI)", description: "Dùng glab issue create" },
+      { label: "Chỉ generate markdown", description: "Không tạo issue tự động" },
+    ]
+  }, {
+    question: "Sprint này có bao nhiêu dev và capacity (人日 hoặc story points)?",
+    header: "Capacity",
+    options: [
+      { label: "Nhập", description: "Cung cấp số dev và capacity" },
+    ]
+  }, {
+    question: "Có milestone/deadline cụ thể không?",
+    header: "Milestone",
+    options: [
+      { label: "Có", description: "Có milestone/deadline cụ thể" },
+      { label: "Không", description: "Chưa có milestone" },
+    ]
+  }, {
+    question: "Team đang dùng label convention nào? (ví dụ: backend, flutter, P0, testing)",
+    header: "Labels",
+    options: [
+      { label: "Nhập", description: "Cung cấp danh sách labels" },
+    ]
+  }]
+})
+```
+
+### Bước 3 — Đề xuất task breakdown (2-3 phương án)
+
+```
+## Tôi có [N] phương án breakdown:
+
+### Phương án A: [Tên] — [Ưu điểm chính]
+[Task list với estimate]
+- Ưu: [...]
+- Nhược: [...]
+
+### Phương án B: [Tên] — [Ưu điểm chính]
+[Task list với estimate]
+- Ưu: [...]
+- Nhược: [...]
+
+**Đề xuất của tôi**: Phương án [X] vì [lý do].
+Bạn muốn chọn phương án nào, hoặc kết hợp?
+```
+
+### Bước 4 — Tạo GitHub Issue format
+
+Sau khi PM confirm, tạo nội dung issue theo template:
+
+```markdown
+## [TASK-ID] [Tên Task]
+
+**Type**: Feature / Bug / Tech Debt / Refactor
+**Priority**: 🔴 High / 🟡 Medium / 🟢 Low
+**Estimate**: [X] story points / [X] giờ
+**Sprint**: Sprint [N]
+**Assigned to**: [Username]
+**Labels**: [backend, frontend, api, ...]
+
+---
+
+### Mô tả
+[Mô tả ngắn gọn task cần làm]
+
+### Liên kết
+- User Story: US-[XXX]
+- Spec: `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\requirements.md`
+- Màn hình liên quan: `E:\AI Bootcamp\ClaudeSkill\docs\screens\[feature]\screen.md`
+- API liên quan: `E:\AI Bootcamp\ClaudeSkill\docs\api\[domain]\[endpoint].md`
+
+### Acceptance Criteria
+- [ ] AC-001: [Điều kiện nghiệm thu]
+- [ ] AC-002: [Điều kiện nghiệm thu]
+
+### Technical Notes
+[Những ghi chú kỹ thuật quan trọng cho dev]
+
+### Definition of Done
+- [ ] Code complete + unit tests pass
+- [ ] Code review approved
+- [ ] Integration tests pass
+- [ ] Docs updated (nếu thay đổi API/screen)
+- [ ] Demo cho BA/PM
+```
+
+### Bước 5 — Gate cuối trước khi tạo
+
+```
+question({
+  questions: [{
+    question: "Liệt kê [N] issues đã chuẩn bị — issue nào cần adjust priority hoặc estimate?",
+    header: "Review",
+    options: [
+      { label: "Tất cả OK", description: "Không cần điều chỉnh" },
+      { label: "Cần adjust", description: "Một số issue cần điều chỉnh priority/estimate" },
+    ]
+  }, {
+    question: "Dependencies: thứ tự tạo issue có phụ thuộc vào nhau không?",
+    header: "Deps",
+    options: [
+      { label: "Không", description: "Không có dependencies" },
+      { label: "Có", description: "Có dependencies giữa các issues" },
+    ]
+  }, {
+    question: "Xác nhận tạo issues?",
+    header: "Confirm",
+    options: [
+      { label: "Tạo tất cả", description: "Tạo toàn bộ issues" },
+      { label: "Chọn từng issue", description: "Tạo từng issue một" },
+    ]
+  }]
+})
+```
+
+---
+
+### Bước 6 — Tạo issues trên platform
+
+#### Nếu chọn GitLab (`glab` CLI)
+
+Kiểm tra `glab` đã auth chưa:
+```bash
+glab auth status
+```
+
+Tạo từng issue theo template (chạy tuần tự, không batch):
+```bash
+glab issue create \
+  --title "[TASK-ID] Tên task" \
+  --description "$(cat <<'EOF'
+## Mô tả
+[Mô tả task]
+
+## Liên kết
+- Spec: docs/tasks/[TASK-ID]/requirements.md
+
+## Acceptance Criteria
+- [ ] AC-001: ...
+- [ ] AC-002: ...
+
+## Definition of Done
+- [ ] Code complete + unit tests pass
+- [ ] Code review approved
+- [ ] Demo cho BA/PM
+EOF
+)" \
+  --label "P0,backend,flutter" \
+  --assignee "username" \
+  --milestone "Sprint N"
+```
+
+Sau mỗi issue tạo thành công, in ra URL issue để confirm:
+```
+✅ Issue tạo thành công: https://gitlab.com/[org]/[repo]/-/issues/[number]
+```
+
+Nếu `glab` chưa có hoặc chưa auth, hướng dẫn:
+```bash
+# Cài glab
+brew install glab          # macOS
+# hoặc: https://gitlab.com/gitlab-org/cli#installation
+
+# Auth
+glab auth login
+```
+
+#### Nếu chọn GitHub (`gh` CLI hoặc MCP)
+
+Dùng `gh issue create`:
+```bash
+gh issue create \
+  --title "[TASK-ID] Tên task" \
+  --body "$(cat issue-body.md)" \
+  --label "P0,backend" \
+  --assignee "username" \
+  --milestone "Sprint N"
+```
+
+Hoặc dùng GitHub MCP tool `mcp__github__issue_write` nếu có sẵn trong session.
+
+#### Nếu chọn chỉ generate markdown
+
+Output file `E:\AI Bootcamp\ClaudeSkill\docs\tasks\sprint-[N]-issues.md` chứa toàn bộ nội dung issues, sẵn sàng paste thủ công.
+
+---
+
+## Lưu ý
+
+- Mỗi issue phải self-contained: dev đọc xong hiểu ngay mà không cần hỏi thêm.
+- Link đến docs luôn dùng relative path trong repo.
+- Task ID format: `[PROJECT-XXX]` — customize theo convention của team.
+- `glab` cần được auth với token có quyền `api` scope trên GitLab project.
+- Với GitLab self-hosted: set `GITLAB_HOST` hoặc dùng `glab auth login --hostname gitlab.your-company.com`.

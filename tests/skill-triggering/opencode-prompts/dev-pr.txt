@@ -1,0 +1,1 @@
+Code xong feature thanh toán VNPay rồi. Cần soạn mô tả PR để submit lên cho tech lead review, bao gồm những gì đã thay đổi và cách test.

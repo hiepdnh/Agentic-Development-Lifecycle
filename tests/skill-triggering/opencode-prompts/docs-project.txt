@@ -1,0 +1,1 @@
+Cập nhật tài liệu dự án tổng thể: README, workflow guides, install scripts. Đồng bộ các project-level docs sau khi team vừa thay đổi tech stack và quy trình CI/CD.

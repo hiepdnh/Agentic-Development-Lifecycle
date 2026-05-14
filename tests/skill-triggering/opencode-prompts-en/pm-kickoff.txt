@@ -1,0 +1,1 @@
+We're starting a new greenfield project for a Japanese client and need to set up the framework from scratch. Tech stack hasn't been decided yet.

@@ -1,0 +1,1 @@
+﻿I just updated the install script to support the --opencode flag. The README and CLAUDE.md need to be updated to reflect this new option.

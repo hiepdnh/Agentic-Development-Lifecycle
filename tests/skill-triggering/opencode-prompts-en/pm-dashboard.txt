@@ -1,0 +1,1 @@
+Generate a sprint dashboard from the tasks in docs/tasks. I want to see a kanban board with task status, health summary, and backlog to report to the Japanese client.

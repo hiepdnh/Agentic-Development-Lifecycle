@@ -1,0 +1,1 @@
+There's a task to migrate user data from PostgreSQL to MongoDB. I'm not sure which approach to take — I need an analysis of possible implementation options and their trade-offs.

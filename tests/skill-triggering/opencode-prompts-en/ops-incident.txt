@@ -1,0 +1,1 @@
+Production is down — the /checkout API is returning 500 for all users since 14:30 JST. On-call needs triage guidance right away.
