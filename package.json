@@ -1,6 +1,6 @@
 {
   "name": "agentic-development-lifecycle",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "VTI SDLC Skill Framework for Claude Code",
   "bin": {
     "agentic-development-lifecycle": "bin/install.js",
