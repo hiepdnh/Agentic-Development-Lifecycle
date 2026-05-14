@@ -1,0 +1,1 @@
+PR thêm tính năng upload avatar vừa implement xong. Review code toàn diện trước khi merge: code quality, architecture, performance, security. Tôi muốn xem có bug gì không, có vấn đề bảo mật nào không.

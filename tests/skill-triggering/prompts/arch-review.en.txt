@@ -1,0 +1,1 @@
+﻿The current design uses a shared database across 3 services. Please review this architecture for issues, especially around coupling and scalability.

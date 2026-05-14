@@ -10,7 +10,7 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is the `.claude/commands/` directory — 32 Markdown skill files that Claude Code loads as slash commands.
+This repo IS the framework source. The "product" is skill files for both platforms: `.claude/commands/` (32 VN + 32 EN files for Claude Code) and `.opencode/skills/` (32 VN + 32 EN files for OpenCode).
 
 ### Run installer locally
 
@@ -57,8 +57,9 @@ Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 
 Verify Claude auto-invokes the correct skill for naive prompts (no `/command` syntax):
 
+**Claude Code:**
 ```bash
-# All 32 skills
+# All skills — VN prompts + EN variants (.en.txt)
 bash tests/skill-triggering/run-all.sh
 
 # With flags
@@ -70,13 +71,21 @@ bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/ba-spec.t
 bash tests/skill-triggering/run-test.sh tests/skill-triggering/prompts/ba-spec.txt 5  # custom max-turns
 ```
 
-**Prompt filename → expected skill**: the test harness derives the expected skill by replacing the **first** hyphen with a colon (`ba-spec.txt` → `ba:spec`, `sm-standup.txt` → `sm:standup`). New prompt files must follow this pattern.
+Requires: `claude` CLI authenticated, `jq` installed. Raw logs in `tests/.results/<timestamp>/` (gitignored).
 
-Requires: `claude` CLI authenticated, `jq` installed. Raw logs in `tests/.results/<timestamp>/` (gitignored). See `tests/README.md` for debugging failures.
+**OpenCode:**
+```powershell
+pwsh tests/skill-triggering/opencode-run-all.ps1
+pwsh tests/skill-triggering/opencode-run-all.ps1 -Verbose
+pwsh tests/skill-triggering/opencode-run-all.ps1 -Filter "dev-*"
+```
+Validates prompt→skill file mapping (smoke test). Full trigger validation requires a live OpenCode session.
+
+**Prompt filename → expected skill**: replace the **first** hyphen with a colon (`ba-spec.txt` → `ba:spec`, `ba-spec.en.txt` → `ba:spec.en`). New prompt files must follow this pattern.
 
 ### Command file anatomy
 
-Every `.claude/commands/[role]/[name].md` must have frontmatter + `# Skill:` header:
+**Claude Code (VN)** — `.claude/commands/[role]/[name].md`:
 
 ```markdown
 ---
@@ -93,9 +102,30 @@ description: >
 ## [Steps with Human Gates]
 ```
 
-- `name` — must match the file path convention (`role:command`)
-- `description` — used by Claude to decide when to auto-trigger; include Vietnamese trigger phrases
-- Every command must have at least 1 `**Chờ confirm.**` gate
+**Claude Code (EN)** — `.claude/commands/[role]/[name].en.md`:
+
+```markdown
+---
+name: role:command
+description: >
+  One-line description in English.
+  Triggers when: user says "...", or types /role:command.
+---
+
+# Skill: /role:command
+**Role**: [Role name]
+**Purpose**: [Purpose]
+```
+
+**OpenCode** — `.opencode/skills/[role]/[name].md` (VN) and `[name].en.md` (EN):
+- Header: `# /role:command` (no "Skill:" prefix)
+- Spawn syntax: `task(subagent_type: "explorer"|"oracle")` instead of `Agent(model: "haiku"|"sonnet")`
+- Gate tool: `question` instead of `AskUserQuestion`
+
+Rules:
+- `name` — must match file path convention (`role:command`)
+- `description` — used to auto-trigger; VN files include Vietnamese phrases, EN files include English phrases
+- Every command must have at least 1 human gate (`**Chờ confirm.**` in VN, `**Wait for confirm.**` in EN)
 
 ### Subagent definitions (`agents/`)
 
@@ -163,7 +193,10 @@ When adding new commands that need shell access, update `settings.json`.
 ## Cấu trúc thư mục
 
 ```
-.claude/commands/    # Slash commands cho từng role
+.claude/commands/    # Skills (VN) + .en.md variants (EN) cho Claude Code
+.opencode/skills/    # Skills (VN) + .en.md variants (EN) cho OpenCode
+packages/
+  developer-lite/    # Minimal 8-skill sub-package cho individual devs
 agents/              # Subagent definitions (spawned bởi orchestrator commands)
 docs/
   tasks/             # Task docs (Type 1) — mỗi issue 1 folder, kèm audit.md
@@ -173,7 +206,7 @@ docs/
   decisions/         # Architecture Decision Records (ADR)
   workflows/         # Process guides và sprint lifecycle
 templates/           # Template skeleton — commands reference đến đây
-bin/install.js       # Interactive npm installer (@clack/prompts)
+bin/install.js       # Interactive npm installer — supports --opencode flag
 setup.ps1 / setup.sh # Shell-based installer alternatives
 ```
 

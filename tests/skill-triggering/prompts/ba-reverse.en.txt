@@ -1,0 +1,1 @@
+﻿The client just handed over a legacy codebase — previous vendor is gone, no documentation exists. I need to analyze this codebase to understand the tech stack, package structure, and technical debt before committing to estimates for new features.

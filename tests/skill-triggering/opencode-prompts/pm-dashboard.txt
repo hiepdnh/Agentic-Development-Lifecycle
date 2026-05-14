@@ -1,0 +1,1 @@
+Tạo dashboard tổng hợp sprint này từ các task trong docs/tasks. Tôi muốn xem kanban board với trạng thái từng task, health summary, và backlog để báo cáo cho khách hàng Nhật.

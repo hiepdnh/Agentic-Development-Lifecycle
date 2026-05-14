@@ -1,0 +1,1 @@
+Just found that when uploading a PDF larger than 10MB, the app crashes with no error message. I need a proper bug report to submit to the devs for fixing.

@@ -1,0 +1,1 @@
+The client sent an email requesting a new SSO login feature with Google and Microsoft. Help me write a detailed spec for this feature so the dev team can start working on it.

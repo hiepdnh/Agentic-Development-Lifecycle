@@ -1,0 +1,1 @@
+Epic "Quản lý đơn hàng" đã được approve. Cần phân rã thành các task nhỏ với estimate để đưa vào sprint planning tuần sau, tạo GitHub Issues luôn cho team.

@@ -1,0 +1,1 @@
+﻿Generate the sprint dashboard so I can share the current status with the team and client.

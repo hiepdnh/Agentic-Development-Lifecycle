@@ -1,0 +1,1 @@
+Production đang bị lỗi, API /checkout trả về 500 cho tất cả user kể từ 14:30 JST. On-call đang cần hướng dẫn triage ngay.

@@ -1,0 +1,1 @@
+Phân tích xong rồi, team đã chọn phương án dùng Redis cache. Giờ bắt đầu implement feature notification theo plan đã thống nhất.

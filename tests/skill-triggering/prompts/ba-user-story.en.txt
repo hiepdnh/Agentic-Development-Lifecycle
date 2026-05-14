@@ -1,0 +1,1 @@
+﻿I already have the spec for the SSO feature. Now I need to create user stories with acceptance criteria so the PM can create Jira issues.

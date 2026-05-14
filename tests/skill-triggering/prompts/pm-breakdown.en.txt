@@ -1,0 +1,1 @@
+﻿I have the spec for the SSO feature. Help me break it down into tasks with estimates that I can create as GitHub issues.

@@ -1,0 +1,1 @@
+The project is live now — no more sprints, only bug fixes and maintenance support for the JP client under the maintenance contract. Help me set up the maintenance workflow and triage the first bug.

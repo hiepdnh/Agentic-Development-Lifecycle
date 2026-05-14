@@ -1,0 +1,1 @@
+Spec cho tính năng reset password đã xong. Cần tạo test plan đầy đủ với test cases happy path, edge case và negative để team QA thực hiện.

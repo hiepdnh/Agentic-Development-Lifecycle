@@ -1,0 +1,1 @@
+Task TASK-042 đã verify và merge vào main rồi. Cần cập nhật lại tài liệu baseline cho màn hình profile và API endpoint /users/{id} theo những thay đổi vừa release.

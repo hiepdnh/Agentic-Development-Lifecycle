@@ -8,13 +8,15 @@
   <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
-> **26 slash commands** covering the full SDLC — for teams building software with AI assistance.
+> **32 skills for Claude Code & OpenCode** — covering the full SDLC for teams building software with AI assistance.
 
 ---
 
 ## What is this?
 
-A **Claude Code skill pack** for software development teams. Install it into any project to get structured, role-aware AI commands that cover every phase of the sprint lifecycle.
+An **AI skill pack** for software development teams. Install it into any project to get structured, role-aware skills that cover every phase of the sprint lifecycle.
+
+Supports **both Claude Code and OpenCode** — same skills, different runtime.
 
 Built for [VTI Software](https://vti.com.vn) outsource model (Vietnamese dev team → Bridge Engineer → Japanese clients), but works for any team that wants structured AI assistance.
 
@@ -22,9 +24,14 @@ Built for [VTI Software](https://vti.com.vn) outsource model (Vietnamese dev tea
 
 ## Quick Install
 
+### Claude Code
+
 ```bash
 # macOS / Linux — run from your target project directory
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+
+# Or with the installer directly
+node /path/to/ClaudeSkill/bin/install.js --yes
 ```
 
 ```powershell
@@ -33,20 +40,32 @@ $tmp = "$env:TEMP\vti-install"; mkdir $tmp -Force; Set-Location $tmp
 npx github:hiepdnh/Agentic-Development-Lifecycle --yes
 ```
 
-Or update an existing install:
+Update an existing install:
 
 ```bash
 npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
 ```
 
-**What gets installed**: `.claude/commands/` (skill files) + `agents/` (subagent definitions) + `templates/` + `docs/workflows/`
+### OpenCode
+
+```bash
+# Install into your project — targets .opencode/skills/ by default
+node /path/to/ClaudeSkill/bin/install.js --yes --opencode
+```
+
+```powershell
+# Windows
+node /path/to/ClaudeSkill/bin/install.js --yes --opencode
+```
+
+What gets installed: skills directory + `agents/` + `templates/` + `docs/workflows/`
 
 ### Developer Lite (minimal install)
 
 Just want the developer workflow without PM/BA/QA/Ops overhead?
 
 ```bash
-# Copy only developer skills into your project
+# Claude Code
 node packages/developer-lite/bin/install.js --yes
 ```
 
@@ -65,6 +84,8 @@ Includes: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` `
 | `/ba:user-story` | Spec → User Stories with AC | Spec → User Stories |
 | `/ba:reverse` | Reverse engineer legacy codebase → baseline docs | Codebase → `docs/baseline/` |
 | `/be:bridge` | Translate JP requirements, create bilingual JP-VN deliverables | JP req → VN spec + JP doc |
+| `/be:changerequest` | 変更依頼 — impact analysis, approval trail, version control spec changes | CR → Impact analysis + JP doc |
+| `/be:glossary` | Maintain JP↔VN↔EN glossary — add terms, resolve translation conflicts | New term → Glossary update |
 
 ### Project Management
 
@@ -73,6 +94,10 @@ Includes: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` `
 | `/pm:breakdown` | Epic/Stories → Tasks with estimates + GitHub/GitLab Issues | Epic → Issues |
 | `/pm:status` | Sprint status report for stakeholders | Tasks → Status report |
 | `/pm:dashboard` | Static HTML sprint dashboard (kanban + health + backlog) | `docs/tasks/*/` → HTML |
+| `/pm:kickoff` | Bootstrap greenfield project: tech stack → ADRs → docs structure → sprint 0 checklist | Requirement → Project scaffold |
+| `/pm:release` | Generate Release Notes / リリースノート from merged PRs + closed issues | PRs + Issues → Release Notes |
+| `/pm:handover` | Create project handover package (引き継ぎ) — codebase map + decisions + contact matrix | Project → Handover package |
+| `/pm:maintain` | Maintenance phase workflow: triage → fix → monthly report (月次保守報告書) | Incident → Fix + Report |
 
 ### Development
 
@@ -134,19 +159,23 @@ Includes: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` `
 
 Heavy tasks spawn lightweight subagents to keep context clean:
 
-| Agent | Used by | Model | Purpose |
-|-------|---------|-------|---------|
-| `task-reader` | `/dev:analyze` | haiku | Parse issue → structured JSON |
-| `code-scout` | `/dev:analyze` | haiku | Find relevant files |
-| `planner` | `/dev:analyze` | sonnet | Synthesize options |
-| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | Map diff → AC coverage |
-| `review-reader` | `/dev:review` | haiku | Parse diff → code/arch/security signals |
-| `test-gen` | `/qa:testplan` | sonnet | Generate test cases |
-| `doc-updater` | `/docs:update` | sonnet | Update baseline docs |
+| Agent | Used by | Claude Code | OpenCode | Purpose |
+|-------|---------|-------------|----------|---------|
+| `task-reader` | `/dev:analyze` | haiku | explorer | Parse issue → structured JSON |
+| `code-scout` | `/dev:analyze` | haiku | explorer | Find relevant files |
+| `planner` | `/dev:analyze` | sonnet | oracle | Synthesize options |
+| `diff-reader` | `/dev:pr`, `/docs:update` | haiku | explorer | Map diff → AC coverage |
+| `review-reader` | `/dev:review` | haiku | explorer | Parse diff → code/arch/security signals |
+| `test-gen` | `/qa:testplan` | sonnet | oracle | Generate test cases |
+| `doc-updater` | `/docs:update` | sonnet | oracle | Update baseline docs |
+| `pr-resolver` | `/dev:pr` | sonnet | oracle | Analyze review comments → fixes |
 
 ### Human Gates
 
-Every command has at least one `AskUserQuestion` gate — Claude presents options and **waits for your decision** before proceeding. No auto-execution.
+Every skill has at least 1 human gate — skills present options and **wait for your decision** before proceeding. No auto-execution.
+
+- **Claude Code**: `AskUserQuestion` tool
+- **OpenCode**: `question` tool
 
 ### Typical Workflows
 
@@ -217,37 +246,41 @@ Optimized for the VTI outsource model:
 ## Project Structure
 
 ```
-.claude/commands/    # 26 slash command files
-agents/              # 7 subagent definitions
+.claude/commands/    # 32 Claude Code slash command files
+.opencode/skills/    # 32 OpenCode skill files (auto-triggered)
+agents/              # 8 subagent definitions
 docs/
   workflows/         # Sprint lifecycle, role guide, flowchart
   decisions/         # ADR templates
-templates/           # Skeleton templates referenced by commands
-bin/install.js       # Interactive installer (@clack/prompts)
-setup.ps1            # PowerShell installer
-setup.sh             # Bash installer
+templates/           # Skeleton templates referenced by all skills
+bin/install.js       # Interactive installer (@clack/prompts) — supports --opencode
+setup.ps1            # PowerShell installer (Claude Code)
+setup.sh             # Bash installer (Claude Code)
 ```
 
 ---
 
 ## Development
 
-This repo IS the framework. The “product” is `.claude/commands/` — 26 Markdown skill files.
+This repo IS the framework. The "product" is skill files for both platforms — `.claude/commands/` and `.opencode/skills/` (32 files each).
 
 ### Test skill triggering
 
+**Claude Code:**
 ```bash
-# Run all 26 skill trigger tests
 bash tests/skill-triggering/run-all.sh
-
-# Verbose output
 bash tests/skill-triggering/run-all.sh --verbose
-
-# Filter by prefix
 bash tests/skill-triggering/run-all.sh --filter dev-*
 ```
-
 Requires: `claude` CLI authenticated + `jq` installed.
+
+**OpenCode:**
+```powershell
+pwsh tests/skill-triggering/opencode-run-all.ps1
+pwsh tests/skill-triggering/opencode-run-all.ps1 -Verbose
+pwsh tests/skill-triggering/opencode-run-all.ps1 -Filter "dev-*"
+```
+Validates prompt→skill file mapping. Full trigger validation requires an OpenCode session.
 
 ---
 

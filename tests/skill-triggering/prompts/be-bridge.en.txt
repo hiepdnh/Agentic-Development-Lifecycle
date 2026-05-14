@@ -1,0 +1,1 @@
+﻿The Japanese client sent a requirements document for a new reporting screen. I need to analyze it, clarify ambiguous points, and prepare a clear spec for the Vietnamese dev team.

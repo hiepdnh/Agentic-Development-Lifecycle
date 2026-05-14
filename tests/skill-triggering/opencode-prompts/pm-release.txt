@@ -1,0 +1,1 @@
+Sprint 5 vừa xong, cần tạo release notes để gửi cho khách hàng Nhật. Tổng hợp từ các PR đã merge trong sprint này.

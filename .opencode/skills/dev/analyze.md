@@ -1,0 +1,291 @@
+---
+name: dev:analyze
+description: >
+  Phân tích task/issue và đề xuất 2-3 phương án implement với trade-off. Dùng multi-agent để giữ context sạch.
+  Trigger khi: user nói "analyze task", "phân tích issue", "xem có cách nào làm",
+  "đề xuất phương án", "implementation options", hoặc gõ /dev:analyze.
+---
+
+# /dev:analyze
+**Role**: Developer  
+**Mục đích**: Phân tích task/issue và đề xuất các phương án thi công. Dùng multi-agent để giữ context sạch.
+
+---
+
+## Brain Dump Pattern (input contract)
+
+Trước khi chạy skill này, dev nên cung cấp context block sau để giảm hallucination:
+
+```
+Tech stack: [language, framework, DB, infra]
+Relevant files: [file paths đã biết liên quan]
+Constraints: [performance, security, backward compat, deadline]
+Known gotchas: [vấn đề đã biết trong codebase]
+Issue/Task: [link hoặc paste nội dung]
+```
+
+Nếu không có đủ context → skill sẽ hỏi trước khi tiếp tục.
+
+---
+
+## Kiến trúc Multi-Agent
+
+Skill này orchestrate các subagent để giữ context sạch:
+
+```
+dev-analyze (orchestrator)
+├── [Subagent 1] task-reader    → parse issue → structured understanding
+├── [Subagent 2] code-scout     → tìm code liên quan (read-only)
+└── [Subagent 3] planner        → tổng hợp → đề xuất phương án
+```
+
+Mỗi subagent nhận **chỉ context cần thiết**, trả về kết quả nén.
+
+## Cách spawn subagent
+
+Dùng **task tool** của OpenCode để spawn mỗi subagent. Prompt phải self-contained — không pass full conversation history.
+
+Ví dụ spawn task-reader:
+```
+task(
+  description: "Parse GitHub issue into structured JSON",
+  prompt: "Read this issue and return structured JSON per agents/task-reader.md spec.\n\nISSUE CONTENT:\n[paste issue content here]",
+  subagent_type: "explorer"
+)
+```
+
+Ví dụ spawn code-scout:
+```
+task(
+  description: "Find relevant files for auth task",
+  prompt: "Find files relevant to this task. Return JSON per agents/code-scout.md spec.\n\nTASK SUMMARY: [summary]\nTECH STACK: [stack]\nAFFECTED AREAS: [areas]",
+  subagent_type: "explorer"
+)
+```
+
+Ví dụ spawn planner:
+```
+task(
+  description: "Synthesize task + code map into implementation options",
+  prompt: "Create 2-3 implementation options per agents/planner.md spec.\n\nTASK: [task-reader JSON]\nCODE MAP: [code-scout JSON]\nCONSTRAINTS: [from Gate 1]",
+  subagent_type: "oracle"
+)
+```
+
+---
+
+## Hướng dẫn thực hiện
+
+### Bước 0 — Risk Classification
+
+Trước khi spawn bất kỳ subagent nào, classify risk theo `E:\AI Bootcamp\ClaudeSkill\docs\risk-classifier.md`:
+
+```
+## Risk Classification — [TASK-ID]
+
+**Input type**: [new-spec | spec-slice | change-request | maintenance | new-initiative | framework-improvement]
+**Risk checklist**: [chỉ liệt kê items YES — ví dụ: R-06 ✅ (shared config)]
+**Lane**: tiny | normal | high-risk
+**Lý do**: [1 câu]
+```
+
+- **Tiny lane** → skip toàn bộ skill này, patch trực tiếp
+- **High-risk lane** → dừng ngay, hiện `⚠️ Ask First Gate`, chờ confirm senior trước khi tiếp tục
+- **Normal lane** → tiếp tục Bước 1 bên dưới
+
+### Bước 1 — Spawn Subagent: task-reader
+
+Spawn subagent với nhiệm vụ:
+> "Đọc issue/task sau và trả về JSON structured:
+> - task_id, title, type (feature/bug/refactor)
+> - business_goal (tại sao cần làm)
+> - acceptance_criteria (list)
+> - technical_hints (nếu có trong issue)
+> - unknowns (những gì chưa rõ)
+> 
+> Issue content: [paste nội dung issue]"
+
+Subagent CHỈ nhận nội dung issue, không nhận codebase context.
+
+### Bước 2 — Gate 1: Xác nhận hiểu task
+
+Dùng `question` tool để xác nhận:
+
+question({
+  questions: [{
+    question: "Tôi hiểu đúng mục tiêu task chưa?",
+    header: "Hiểu task",
+    options: [
+      { label: "Đúng rồi", description: "Tiếp tục scan codebase" },
+      { label: "Chưa đúng", description: "Cần sửa lại mục tiêu" },
+      { label: "Thiếu constraint", description: "Có constraint chưa đề cập" },
+    ]
+  }, {
+    question: "Có màn hình/API doc nào tôi nên đọc trước?",
+    header: "Docs",
+    options: [
+      { label: "Không cần", description: "Tiếp tục luôn" },
+      { label: "Có docs", description: "Sẽ cung cấp link/path" },
+    ]
+  }]
+})
+
+**Chờ confirm.**
+
+### Bước 3 — Spawn Subagent: code-scout
+
+Sau khi nhận confirm, spawn subagent với nhiệm vụ:
+> "Tìm trong codebase các file/module liên quan đến: [task summary].
+> Trả về:
+> - file_path:line_number cho mỗi điểm liên quan
+> - Mô tả ngắn tại sao file đó liên quan
+> - Patterns/conventions hiện tại cần theo
+> 
+> CHỈ đọc, không sửa gì cả."
+
+Subagent nhận task summary + file patterns để tìm kiếm, không nhận full conversation history.
+
+### Bước 4 — Gate 2: Xác nhận code map
+
+Dùng `question` tool:
+
+question({
+  questions: [{
+    question: "Có file quan trọng nào tôi bỏ sót không?",
+    header: "Files",
+    options: [
+      { label: "Không thiếu", description: "Code map đầy đủ" },
+      { label: "Có thiếu", description: "Sẽ bổ sung file" },
+    ]
+  }, {
+    question: "Có module nào nên TRÁNH chạm vào trong task này?",
+    header: "Avoid",
+    options: [
+      { label: "Không có", description: "Tất cả files đều OK để sửa" },
+      { label: "Có module cấm", description: "Sẽ liệt kê" },
+    ]
+  }]
+})
+
+**Chờ confirm.**
+
+### Bước 5 — Spawn Subagent: planner
+
+Spawn subagent với:
+> "Dựa trên:
+> - Task: [summary]
+> - AC: [list]
+> - Relevant files: [file map]
+> - Constraints: [từ Gate 1]
+> 
+> Đề xuất 2-3 phương án implement với trade-off.
+> Mỗi phương án gồm: tên, mô tả, files cần thay đổi, estimate, ưu/nhược."
+
+### Bước 6 — Gate 3: Trình bày phương án (QUAN TRỌNG NHẤT)
+
+```
+## Tôi có [N] phương án thi công:
+
+### Phương án A: [Tên] — [Từ khóa đặc trưng]
+**Mô tả**: [...]
+**Files cần thay đổi**:
+  - `[file]` — [lý do]
+**Estimate**: [X giờ]
+**Ưu**: [...]
+**Nhược**: [...]
+**Risk**: [...]
+
+### Phương án B: [Tên]
+[tương tự]
+
+### Phương án C: [Tên] (nếu có)
+[tương tự]
+
+---
+**Đề xuất của tôi**: Phương án [X] vì [lý do cụ thể].
+```
+
+Dùng `question` tool để chọn:
+
+question({
+  questions: [{
+    question: "Priority: speed vs maintainability?",
+    header: "Priority",
+    options: [
+      { label: "Speed", description: "Ưu tiên tốc độ deliver" },
+      { label: "Maintainability", description: "Ưu tiên code sạch, dễ bảo trì" },
+      { label: "Cân bằng", description: "Cân bằng cả hai" },
+    ]
+  }, {
+    question: "Bạn muốn chọn phương án nào?",
+    header: "Chọn PA",
+    options: [
+      { label: "Phương án A", description: "[Tên PA A]" },
+      { label: "Phương án B", description: "[Tên PA B]" },
+      { label: "Phương án C", description: "[Tên PA C] (nếu có)" },
+    ]
+  }]
+})
+
+**Chờ human chọn phương án.**
+
+### Bước 6.5 — Render HTML companion (so sánh phương án)
+
+Trước khi human chọn ở Bước 6, sinh `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis-compare.html` từ template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+
+- Inject `<table id="options" data-sortable>` với các cột: Phương án | Effort (h) | Risk | Files chạm | Ưu | Nhược
+- Mỗi phương án 1 row, cột Effort dùng `data-type="number"` để sort
+- Risk render bằng `<span class="pill pill-ok|warn|err">` (Low/Med/High)
+- Mỗi phương án có `<details>` mở rộng cho mô tả dài
+
+File HTML là one-shot review artifact — KHÔNG commit (đã có `.gitignore` cho `docs/tasks/**/*.html`).
+
+```
+✓ Đã sinh `docs/tasks/[TASK-ID]/analysis-compare.html`
+  Mở bằng browser để sort/filter trước khi quyết định.
+```
+
+### Bước 7 — Tạo Task Doc
+
+Sau khi human chọn, tạo `docs/tasks/[TASK-ID]/analysis.md`:
+
+```markdown
+# Analysis: [TASK-ID]
+
+## Phương án đã chọn: [Tên]
+**Lý do**: [từ discussion]
+
+## Files sẽ thay đổi
+| File | Loại thay đổi | Ghi chú |
+|------|--------------|---------|
+| | | |
+
+## Những phương án đã cân nhắc và lý do không chọn
+- Phương án A: [lý do không chọn]
+- Phương án B: [lý do không chọn]
+
+## Câu hỏi mở còn lại
+- [ ] [Question nếu có]
+```
+
+```
+## Phân tích hoàn tất ✓
+
+`docs/tasks/[TASK-ID]/analysis.md` đã được lưu.
+
+**DỪNG TẠI ĐÂY.** Không tự động implement.
+
+Hãy review `analysis.md`, sau đó dùng `/dev:implement` để bắt đầu code.
+```
+
+**Chờ human trigger `/dev:implement`.**  
+Không được tự ý bắt đầu implement dù user có vẻ đồng ý.
+
+---
+
+## Lưu ý cho orchestrator
+
+- Mỗi subagent nhận context tối thiểu cần thiết
+- Không pass full conversation history vào subagent
+- Kết quả từ subagent được tóm tắt trước khi dùng cho subagent tiếp theo
+- Nếu subagent trả về quá nhiều file (>20), yêu cầu lọc thêm

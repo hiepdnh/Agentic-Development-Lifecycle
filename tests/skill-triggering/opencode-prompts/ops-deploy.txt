@@ -1,0 +1,1 @@
+Tuần này cần release version 2.5 lên production. Cần chuẩn bị deployment checklist đầy đủ để không bỏ sót bước nào khi deploy.

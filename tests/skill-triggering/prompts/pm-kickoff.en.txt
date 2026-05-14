@@ -1,0 +1,1 @@
+﻿We are starting a new project — an internal HR management system. Help me kick it off: define tech stack, create ADRs, and set up the docs structure.

@@ -1,0 +1,1 @@
+Đây là update của 5 người trong team: Nam: hôm qua fix bug login, hôm nay viết test. Hoa: đang review PR #45, blocker chờ design. Duy: deploy staging xong, chờ QA. Lan: test feature search, thấy 2 lỗi. Tuấn: nghỉ phép. Tổng hợp standup hôm nay cho tôi.

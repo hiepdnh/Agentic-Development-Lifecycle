@@ -1,0 +1,1 @@
+Chuẩn bị deploy lên production vào thứ 6. Cần chạy regression test để confirm không có tính năng cũ nào bị break trước khi sign-off release.

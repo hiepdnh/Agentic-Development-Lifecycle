@@ -1,0 +1,1 @@
+The spec for the password reset feature is done. I need a comprehensive test plan with happy path, edge case, and negative test cases for the QA team to execute.

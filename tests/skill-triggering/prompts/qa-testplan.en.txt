@@ -1,0 +1,1 @@
+﻿I have the spec for the SSO login feature. Help me create a comprehensive test plan with happy path, edge cases, and negative tests.

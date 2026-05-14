@@ -1,0 +1,1 @@
+The Japanese client just emailed asking for a spec change mid-sprint. They want to add a PDF export feature to an already signed-off module. I need to create a change request.

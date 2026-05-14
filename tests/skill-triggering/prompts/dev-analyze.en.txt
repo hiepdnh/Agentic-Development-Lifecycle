@@ -1,0 +1,1 @@
+﻿I have a task to add rate limiting to the login API. The current system has no rate limit, so brute force attacks are possible. Help me analyze the task and propose implementation options.

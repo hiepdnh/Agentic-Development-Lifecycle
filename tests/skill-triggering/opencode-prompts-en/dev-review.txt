@@ -1,0 +1,1 @@
+The PR adding the avatar upload feature has just been implemented. Do a comprehensive code review before merging: code quality, architecture, performance, and security. I want to check for bugs and security issues.
