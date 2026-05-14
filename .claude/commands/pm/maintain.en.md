@@ -15,7 +15,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 Maintenance phase differs from active development:
 - No regular sprint planning / backlog grooming

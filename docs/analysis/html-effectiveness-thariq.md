@@ -49,7 +49,7 @@ Theo các snippet và discussion trên HN/Linux.do, bộ demo gồm những patt
 12. **Decision log** — ADR có filter theo trạng thái.
 13. **Onboarding doc** — checklist tick được, lưu trong localStorage.
 14. **Performance report** — chart từ Chart.js inline.
-15. **Translation table** (đặc biệt phù hợp VTI: JP↔VN) — cột song ngữ, click copy.
+15. **Translation table** (đặc biệt phù hợp cho outsource teams: JP↔VN) — cột song ngữ, click copy.
 16. **Glossary** — search-as-you-type.
 17. **Form spec** — render form đúng như sẽ build, validate inline.
 18. **Bug repro** — minimal HTML repro chạy được, không cần setup.
@@ -67,7 +67,7 @@ Thariq không cực đoan — bài viết thừa nhận Markdown vẫn tốt khi
 
 → Quy tắc rút ra: chọn format theo *consumer cuối cùng*, không theo thói quen.
 
-## 5. Implication cho VTI SDLC Framework
+## 5. Implication for Agentic Development Lifecycle
 
 Bài viết có vài hệ luỵ trực tiếp với framework này:
 
@@ -99,7 +99,7 @@ Bài viết là một **format-shift call** quan trọng:
 3. Claude Code (và các coding agent nói chung) viết HTML rất tốt — tận dụng đi.
 4. Áp dụng có chọn lọc: artifact một lần → HTML; artifact lưu trữ → Markdown.
 
-Với VTI, đây là cơ hội nâng cấp deliverables cho khách JP (vốn coi trọng hình thức 成果物) mà không tốn thêm effort thiết kế — chỉ cần thay đổi prompt cuối của một số skill.
+Đây là cơ hội nâng cấp deliverables cho khách JP (vốn coi trọng hình thức 成果物) mà không tốn thêm effort thiết kế — chỉ cần thay đổi prompt cuối của một số skill.
 
 ---
 

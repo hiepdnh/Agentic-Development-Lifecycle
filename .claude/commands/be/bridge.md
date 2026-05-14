@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## Context VTI
+## Context
 
 Bridge Engineer là cầu nối giữa khách hàng Nhật và team dev VN:
 - **Input**: Yêu cầu từ JP (tiếng Nhật hoặc Anh) — email, meeting notes, 仕様書 gốc

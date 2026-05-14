@@ -1,4 +1,4 @@
-# VTI SDLC Skill Framework — Setup Script
+# Agentic Development Lifecycle — Setup Script
 # Usage: .\setup.ps1 -TargetPath "C:\path\to\your\project"
 # Usage: .\setup.ps1                        (install to current directory)
 # Usage: .\setup.ps1 -Update                (overwrite framework files)
@@ -16,7 +16,7 @@ $ErrorActionPreference = "Stop"
 $mode = if ($Update) { "Update" } else { "Setup" }
 
 Write-Host ""
-Write-Host "VTI SDLC Skill Framework — $mode" -ForegroundColor Cyan
+Write-Host "Agentic Development Lifecycle — $mode" -ForegroundColor Cyan
 Write-Host "=================================" -ForegroundColor Cyan
 Write-Host "Source : $SourcePath"
 Write-Host "Target : $TargetPath"
@@ -173,7 +173,7 @@ if ($Update) {
 }
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Cyan
-Write-Host "  1. Open CLAUDE.md and update the VTI Context section:"
+Write-Host "  1. Open CLAUDE.md and update the Project Context section:"
 Write-Host "       - Company/project name"
 Write-Host "       - Customer name"
 Write-Host "       - Repo URL"

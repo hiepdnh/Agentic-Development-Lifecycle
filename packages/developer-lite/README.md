@@ -1,7 +1,7 @@
 # Developer Lite — Skill Pack for Claude Code
 
 Minimal SDLC skill set for individual developers and small teams.  
-Stripped from the full [VTI SDLC Framework](../../README.md) — no PM, BA, QA, Ops, or Bridge Engineer overhead.
+Stripped from the full [Agentic Development Lifecycle](../../README.md) — no PM, BA, QA, Ops, or Bridge Engineer overhead.
 
 ## Skills included
 

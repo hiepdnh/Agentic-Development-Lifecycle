@@ -44,7 +44,7 @@ question({
       { label: "README", description: "Nội dung giới thiệu, quick start, badges" },
       { label: "Workflow guides", description: "docs/workflows/*.md (sprint lifecycle, role guide)" },
       { label: "Install scripts", description: "bin/install.js, setup.sh, setup.ps1" },
-      { label: "AGENTS.md", description: "Skill commands, cấu trúc thư mục, context VTI" },
+      { label: "AGENTS.md", description: "Skill commands, cấu trúc thư mục, project context" },
       { label: "Tất cả", description: "Scan toàn bộ và đề xuất những gì lỗi thời" },
     ]
   }, {
@@ -76,7 +76,7 @@ Với mỗi file trong scope, so sánh nội dung hiện tại với thực tế
 - [ ] Skill commands table có đủ 22+ skills không?
 - [ ] Cấu trúc thư mục có khớp với `ls .opencode/skills/` không?
 - [ ] Subagent table trong `agents/` có đúng không?
-- [ ] VTI Context có cần update project name / repo URL không?
+- [ ] Project Context có cần update project name / repo URL không?
 
 **Workflow guides audit checklist:**
 - [ ] `docs/workflows/sprint-lifecycle.md` — process còn đúng không?

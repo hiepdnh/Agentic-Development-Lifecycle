@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 Spec changes after sign-off are the highest risk in JP outsource:
 - JP clients often request small changes via email/chat without a formal CR
@@ -82,7 +82,7 @@ Analyze across 4 dimensions:
 | # | Question | Options |
 |---|---------|---------|
 | 1 | Is the impact analysis accurate? | A: Accurate / B: Needs adjustment: ___ / C: Other: ___ |
-| 2 | Who will approve the CR from VTI side? | _(enter PM / Tech Lead name)_ |
+| 2 | Who will approve the CR from team side? | _(enter PM / Tech Lead name)_ |
 | 3 | Should we send the estimate to JP before approval? | A: Yes — send estimate email first / B: No — proceed with CR doc / C: Other: ___ |
 ```
 
@@ -139,7 +139,7 @@ Analyze across 4 dimensions:
 
 | Role | Name | Decision | Date | Notes |
 |------|------|----------|------|-------|
-| VTI PM | [...] | Approve / Reject / Pending | [...] | [...] |
+| PM | [...] | Approve / Reject / Pending | [...] | [...] |
 | Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
 | JP Client | [...] | Approve / Reject / Pending | [...] | [...] |
 
@@ -191,7 +191,7 @@ Analyze across 4 dimensions:
 
 | 役割 | 氏名 | 承認 | 日付 | コメント |
 |------|------|------|------|---------|
-| VTI PM | [...] | 承認/却下/未回答 | [...] | [...] |
+| PM | [...] | 承認/却下/未回答 | [...] | [...] |
 | Client PM | [...] | 承認/却下/未回答 | [...] | [...] |
 
 ## 5. 変更履歴
@@ -214,7 +214,7 @@ Checklist:
 - [ ] Impact analysis reviewed by PM and Tech Lead
 - [ ] Estimate confirmed (not "TBD")
 - [ ] CR-jp.md translated using correct glossary terminology
-- [ ] Approval table includes all 3 parties: VTI PM + Tech Lead + JP Client
+- [ ] Approval table includes all 3 parties: PM + Tech Lead + JP Client
 
 Next steps:
 - [ ] Send CR-jp.md to JP client for confirmation
@@ -228,7 +228,7 @@ Next steps:
 
 ## Rules
 
-- **DO NOT** implement changes before the CR is approved by both VTI PM and JP client
+- **DO NOT** implement changes before the CR is approved by both PM and JP client
 - Every CR must have a number (CR-001, CR-002...) — track in `docs/tasks/[TASK-ID]/cr/`
 - If the CR changes architecture → trigger `/arch:adr` after approval
 - If the CR adds a security-sensitive feature → trigger `/sec:review` after implementation

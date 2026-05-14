@@ -44,7 +44,7 @@ question({
       { label: "README", description: "Introduction, quick start, badges" },
       { label: "Workflow guides", description: "docs/workflows/*.md (sprint lifecycle, role guide)" },
       { label: "Install scripts", description: "bin/install.js, setup.sh, setup.ps1" },
-      { label: "AGENTS.md", description: "Skill commands, directory structure, VTI context" },
+      { label: "AGENTS.md", description: "Skill commands, directory structure, project context" },
       { label: "All", description: "Scan everything and suggest what is outdated" },
     ]
   }, {
@@ -76,7 +76,7 @@ For each file in scope, compare current content against reality:
 - [ ] Does the skill commands table include all 22+ skills?
 - [ ] Does the directory structure match `ls .opencode/skills/`?
 - [ ] Is the subagent table in `agents/` correct?
-- [ ] Does the VTI Context need a project name / repo URL update?
+- [ ] Does the Project Context need a project name / repo URL update?
 
 **Workflow guides audit checklist:**
 - [ ] `docs/workflows/sprint-lifecycle.md` — is the process still accurate?

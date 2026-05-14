@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## Context VTI
+## Context
 
 Greenfield project khác brownfield:
 - Không có `ba:reverse` — không có codebase cũ để đọc
@@ -44,7 +44,7 @@ question({
     header: "Client",
     options: [
       { label: "JP outsource", description: "Khách hàng Nhật Bản outsource" },
-      { label: "Internal VTI", description: "Dự án nội bộ VTI" },
+      { label: "Internal", description: "Dự án nội bộ" },
     ]
   }, {
     question: "Timeline: Deadline đầu tiên? (YYYY-MM-DD JST)",
@@ -149,7 +149,7 @@ Bổ sung section "Project Context" vào AGENTS.md:
 **Tên dự án**: [Tên]
 **Khách hàng**: [Tên JP client]
 **Bridge Engineer**: [Tên]
-**PM VTI**: [Tên]
+**PM**: [Tên]
 **Repo**: [URL]
 **Staging**: [URL]
 **Production**: [URL]

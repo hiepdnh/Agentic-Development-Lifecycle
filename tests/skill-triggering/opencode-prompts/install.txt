@@ -1,1 +1,1 @@
-Cài đặt VTI SDLC framework vào dự án mới của tôi. Dự án này là greenfield React + Node.js, team 4 dev VN + 1 BE, khách hàng Nhật.
+Cài đặt Agentic Development Lifecycle framework vào dự án mới của tôi. Dự án này là greenfield React + Node.js, team 4 dev VN + 1 BE, khách hàng Nhật.

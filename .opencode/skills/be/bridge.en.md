@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 The Bridge Engineer is the bridge between the Japanese client and the VN dev team:
 - **Input**: Request from JP (Japanese or English) — email, meeting notes, original 仕様書

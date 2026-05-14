@@ -1,4 +1,4 @@
-# Contributing to VTI SDLC Skill Framework
+# Contributing to Agentic Development Lifecycle
 
 Thanks for your interest. This guide covers how to add skills, fix bugs, and submit PRs.
 

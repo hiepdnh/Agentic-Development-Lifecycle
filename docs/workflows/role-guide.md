@@ -1,6 +1,6 @@
 # Role Guide — Ai dùng skill nào?
 
-**Framework**: VTI SDLC Skill Framework  
+**Framework**: Agentic Development Lifecycle  
 **Last updated**: 2026-05-10
 
 ---
@@ -99,7 +99,7 @@ dev:analyze → [Tech Lead review analysis.md nếu high-risk]
 
 ---
 
-## Bridge Engineer (VTI)
+## Bridge Engineer
 
 | Skill | Khi nào | Output |
 |-------|---------|--------|

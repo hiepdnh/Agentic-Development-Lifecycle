@@ -57,4 +57,4 @@
 <!-- Chạy /docs:update sau khi merge để cập nhật baseline docs -->
 
 ---
-<!-- Template version: 1.0 | Framework: VTI SDLC Skills -->
+<!-- Template version: 1.0 | Framework: Agentic Development Lifecycle -->

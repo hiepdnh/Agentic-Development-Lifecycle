@@ -15,7 +15,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 Greenfield project differs from brownfield:
 - No `ba:reverse` — no existing codebase to read
@@ -32,7 +32,7 @@ Greenfield project differs from brownfield:
 Use the `AskUserQuestion` tool:
 
 - **Project type**: Web app / Mobile app / API / Microservice / Library / Other
-- **Client**: JP outsource / Internal VTI / Other
+- **Client**: JP outsource / Internal / Other
 - **Timeline**: First deadline (format YYYY-MM-DD JST)
 - **Team size**: Number of devs / QA / BE
 
@@ -101,7 +101,7 @@ Add a "Project Context" section to CLAUDE.md:
 **Project name**: [Name]
 **Client**: [JP client name]
 **Bridge Engineer**: [Name]
-**VTI PM**: [Name]
+**PM**: [Name]
 **Repo**: [URL]
 **Staging**: [URL]
 **Production**: [URL]

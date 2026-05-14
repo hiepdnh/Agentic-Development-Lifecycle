@@ -1,5 +1,5 @@
 #!/bin/bash
-# VTI SDLC Skill Framework — Setup Script (macOS / Linux)
+# Agentic Development Lifecycle — Setup Script (macOS / Linux)
 # Usage: ./setup.sh [target-path] [--update|-u] [--yes|-y]
 #   ./setup.sh                       Install to current directory
 #   ./setup.sh /path/to/project      Install to target path
@@ -25,9 +25,9 @@ TARGET_DIR="${ARGS[0]:-$(pwd)}"
 
 echo ""
 if $UPDATE; then
-    echo "VTI SDLC Skill Framework — Update"
+    echo "Agentic Development Lifecycle — Update"
 else
-    echo "VTI SDLC Skill Framework — Setup"
+    echo "Agentic Development Lifecycle — Setup"
 fi
 echo "================================="
 echo "Source : $SOURCE_DIR"
@@ -172,7 +172,7 @@ else
 fi
 echo ""
 echo "Next steps:"
-echo "  1. Open CLAUDE.md and update the VTI Context section:"
+echo "  1. Open CLAUDE.md and update the Project Context section:"
 echo "       - Company/project name, customer, repo URL, tech stack"
 echo ""
 echo "  2. Open your project in Claude Code:"

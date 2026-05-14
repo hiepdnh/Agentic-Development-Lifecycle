@@ -45,4 +45,4 @@ Những thông tin kỹ thuật quan trọng cho dev:
 - [ ] Demo cho BA/PM (nếu feature mới)
 
 ---
-<!-- Template version: 1.0 | Framework: VTI SDLC Skills -->
+<!-- Template version: 1.0 | Framework: Agentic Development Lifecycle -->

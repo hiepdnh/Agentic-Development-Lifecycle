@@ -24,7 +24,7 @@ const BANNER_OC = [
   ' ║ ╚═╗└─┘└─┘┘└┘───└─┘    ║ ╚═╗└─┘',
   ' ╚═══╝                   ╚═══╝',
   '',
-  '  VTI SDLC Framework — OpenCode Port',
+  '  Agentic Development Lifecycle — OpenCode Port',
 ].join('\n');
 
 const src = path.resolve(__dirname, '..');
@@ -78,7 +78,7 @@ async function main() {
   console.log(pc.cyan(BANNER));
   console.log();
 
-  const title = UPDATE ? ` VTI SDLC Skill Framework — Update (${PLATFORM}) ` : ` VTI SDLC Skill Framework — Setup (${PLATFORM}) `;
+  const title = UPDATE ? ` Agentic Development Lifecycle — Update (${PLATFORM}) ` : ` Agentic Development Lifecycle — Setup (${PLATFORM}) `;
   intro(pc.bgCyan(pc.black(title)));
 
   if (src === dst) {
@@ -210,7 +210,7 @@ async function main() {
   if (OPENCODE) {
     note(
       [
-        `1. Open ${pc.cyan(CONFIG_FILE)} → update VTI Context section`,
+        `1. Open ${pc.cyan(CONFIG_FILE)} → update Project Context section`,
         `   (project name, client, repo URL, tech stack)`,
         ``,
         `2. Skills are auto-loaded from ${pc.cyan('.opencode/skills/')}`,
@@ -227,7 +227,7 @@ async function main() {
   } else {
     note(
       [
-        `1. Open ${pc.cyan(CONFIG_FILE)} → update VTI Context section`,
+        `1. Open ${pc.cyan(CONFIG_FILE)} → update Project Context section`,
         `   (project name, client, repo URL, tech stack)`,
         ``,
         `2. Open project in Claude Code:`,

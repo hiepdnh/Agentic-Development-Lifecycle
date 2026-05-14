@@ -1,7 +1,7 @@
 ---
 name: opencode-test-harness
 description: >
-  Test harness for OpenCode VTI SDLC skills. Validates that skills auto-trigger correctly
+  Test harness for OpenCode Agentic Development Lifecycle skills. Validates that skills auto-trigger correctly
   for naive Vietnamese prompts.
 ---
 
@@ -9,7 +9,7 @@ description: >
 
 ## Overview
 
-Tests whether VTI SDLC skills auto-trigger correctly in OpenCode when given naive Vietnamese prompts (no explicit `/role:command` syntax).
+Tests whether Agentic Development Lifecycle skills auto-trigger correctly in OpenCode when given naive Vietnamese prompts (no explicit `/role:command` syntax).
 
 ## How It Works
 

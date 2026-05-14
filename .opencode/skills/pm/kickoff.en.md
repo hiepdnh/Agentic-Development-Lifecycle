@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 Greenfield project differs from brownfield:
 - No `ba:reverse` — no existing codebase to read
@@ -44,7 +44,7 @@ question({
     header: "Client",
     options: [
       { label: "JP outsource", description: "Japanese outsource client" },
-      { label: "Internal VTI", description: "Internal VTI project" },
+      { label: "Internal", description: "Internal project" },
     ]
   }, {
     question: "Timeline: First deadline? (YYYY-MM-DD JST)",
@@ -149,7 +149,7 @@ Add a "Project Context" section to AGENTS.md:
 **Project name**: [Name]
 **Client**: [JP client name]
 **Bridge Engineer**: [Name]
-**PM VTI**: [Name]
+**PM**: [Name]
 **Repo**: [URL]
 **Staging**: [URL]
 **Production**: [URL]

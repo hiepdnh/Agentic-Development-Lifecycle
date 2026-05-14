@@ -1,9 +1,9 @@
 ---
 name: install
 description: >
-  Cài VTI SDLC framework vào project hiện tại — copy commands, agents, templates, workflows.
+  Cài Agentic Development Lifecycle framework vào project hiện tại — copy commands, agents, templates, workflows.
   Không dùng shell, chỉ dùng Glob/Read/Write tools.
-  Trigger khi: user nói "cài framework", "install skill pack", "setup VTI framework",
+  Trigger khi: user nói "cài framework", "install skill pack", "setup ADL framework",
   "copy commands vào project", hoặc gõ /install.
 ---
 
@@ -114,7 +114,7 @@ docs/ (empty dirs)            [OK/SKIP] (api, screens, tasks, decisions)
 CLAUDE.md                     [OK/SKIP]
 
 Bước tiếp theo:
-1. Mở CLAUDE.md, cập nhật section "VTI Context" (project name, khách hàng, repo URL, tech stack)
+1. Mở CLAUDE.md, cập nhật section "Project Context" (project name, khách hàng, repo URL, tech stack)
 2. Gõ / để xem commands có sẵn: /pm:ideate  /ba:spec  /dev:analyze  /qa:testplan ...
 ```
 

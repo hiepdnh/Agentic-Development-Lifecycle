@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 Spec changes after sign-off are the highest risk in JP outsourcing:
 - Japanese clients often request small changes via email/chat without a formal CR
@@ -114,11 +114,11 @@ question({
       { label: "Needs adjustment", description: "I will describe what needs to be changed" }
     ]
   }, {
-    question: "Who is the VTI-side CR approver?",
+    question: "Who is the team-side CR approver?",
     header: "VN Approver",
     options: [
-      { label: "PM", description: "VTI PM approves" },
-      { label: "Tech Lead", description: "VTI Tech Lead approves" },
+      { label: "PM", description: "PM approves" },
+      { label: "Tech Lead", description: "Tech Lead approves" },
       { label: "Both", description: "Both PM and Tech Lead" }
     ]
   }, {
@@ -182,7 +182,7 @@ question({
 
 | Role | Tên | Quyết định | Ngày | Ghi chú |
 |------|-----|-----------|------|---------|
-| VTI PM | [...] | Approve / Reject / Pending | [...] | [...] |
+| PM | [...] | Approve / Reject / Pending | [...] | [...] |
 | Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
 | JP Client | [...] | Approve / Reject / Pending | [...] | [...] |
 
@@ -234,7 +234,7 @@ question({
 
 | 役割 | 氏名 | 承認 | 日付 | コメント |
 |------|------|------|------|---------|
-| VTI PM | [...] | 承認/却下/未回答 | [...] | [...] |
+| PM | [...] | 承認/却下/未回答 | [...] | [...] |
 | お客様 PM | [...] | 承認/却下/未回答 | [...] | [...] |
 
 ## 5. 変更履歴
@@ -257,7 +257,7 @@ Checklist:
 - [ ] Impact analysis reviewed by PM and Tech Lead
 - [ ] Estimate confirmed (not "TBD")
 - [ ] CR-jp.md translated using correct terms from the glossary
-- [ ] Approval table includes all 3 parties: VTI PM + Tech Lead + JP Client
+- [ ] Approval table includes all 3 parties: PM + Tech Lead + JP Client
 
 Next steps:
 - [ ] Send CR-jp.md to the Japanese client for confirmation
@@ -281,7 +281,7 @@ question({
 
 ## Rules
 
-- **DO NOT** implement changes before the CR is approved by both VTI PM and the Japanese client
+- **DO NOT** implement changes before the CR is approved by both PM and the Japanese client
 - Every CR must have a number (CR-001, CR-002...) — track in `docs/tasks/[TASK-ID]/cr/`
 - If the CR changes the architecture → trigger `/arch:adr` after approval
 - If the CR adds a security-sensitive feature → trigger `/sec:review` after implementation
