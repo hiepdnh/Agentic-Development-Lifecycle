@@ -1,0 +1,15 @@
+# Large images — displayed on GitHub, not needed in npm package
+assets/banner.png
+assets/logo.png
+assets/workflow.png
+
+# Secrets
+.env
+*.local
+
+# Dev tooling
+tests/
+research_sdlc_tools/
+
+# Git artifacts
+.git/

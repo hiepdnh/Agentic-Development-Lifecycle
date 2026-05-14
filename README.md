@@ -5,7 +5,7 @@
 </div>
 
 <p align="center">
-  <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
+  <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
 > **32 skills for Claude Code & OpenCode** — covering the full SDLC for teams building software with AI assistance.
@@ -180,7 +180,7 @@ Every skill has at least 1 human gate — skills present options and **wait for 
 ### Typical Workflows
 
 <p align="center">
-  <img src="assets/workflow.png" alt="Sprint Workflow" width="100%">
+  <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/workflow.png" alt="Sprint Workflow" width="100%">
 </p>
 
 ### Full sprint (end to end)

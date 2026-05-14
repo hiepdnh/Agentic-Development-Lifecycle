@@ -5,7 +5,7 @@
 </div>
 
 <p align="center">
-  <img src="assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
+  <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
 > **32 skills cho Claude Code & OpenCode** — phủ toàn bộ SDLC cho team phát triển phần mềm với AI.
@@ -180,7 +180,7 @@ Mọi skill đều có ít nhất 1 human gate — skill trình bày lựa chọ
 ### Workflow điển hình
 
 <p align="center">
-  <img src="assets/workflow.png" alt="Sprint Workflow" width="100%">
+  <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/workflow.png" alt="Sprint Workflow" width="100%">
 </p>
 
 ### Sprint đầy đủ (end to end)
