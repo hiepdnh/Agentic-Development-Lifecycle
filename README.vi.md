@@ -55,10 +55,21 @@ node /path/to/ClaudeSkill/bin/install.js --yes --opencode
 
 ```powershell
 # Windows
-node E:\AI Bootcamp\ClaudeSkill\bin\install.js --yes --opencode
+node /path/to/ClaudeSkill/bin/install.js --yes --opencode
 ```
 
 **Cài gì**: thư mục skills + `agents/` + `templates/` + `docs/workflows/`
+
+### Developer Lite (cài tối giản)
+
+Chỉ cần developer workflow mà không cần overhead PM/BA/QA/Ops?
+
+```bash
+# Claude Code
+node packages/developer-lite/bin/install.js --yes
+```
+
+Bao gồm: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` `/sec:review` `/arch:adr` `/docs:update`
 
 ---
 

@@ -55,7 +55,7 @@ node /path/to/ClaudeSkill/bin/install.js --yes --opencode
 
 ```powershell
 # Windows
-node E:\AI Bootcamp\ClaudeSkill\bin\install.js --yes --opencode
+node /path/to/ClaudeSkill/bin/install.js --yes --opencode
 ```
 
 What gets installed: skills directory + `agents/` + `templates/` + `docs/workflows/`
