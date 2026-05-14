@@ -1,7 +1,7 @@
 ---
 name: install
 description: >
-  Install the VTI SDLC framework into the current project (OpenCode port).
+  Install the Agentic Development Lifecycle framework into the current project (OpenCode port).
   Copy skills, agents, templates, workflows to the .opencode/ directory.
   Trigger when: user says "install framework", "set up SDLC", "setup skills",
   "/install", or needs to bootstrap the framework for a new project.
@@ -9,7 +9,7 @@ description: >
 
 # /install
 **Role**: All
-**Purpose**: Install the VTI SDLC framework (OpenCode port) into the current project.
+**Purpose**: Install the Agentic Development Lifecycle framework (OpenCode port) into the current project.
 
 ---
 
@@ -42,7 +42,7 @@ No arguments needed. Skill auto-detects:
 <!-- Gate: Confirm installation -->
 question({
   questions: [{
-    question: "Install the VTI SDLC Framework (OpenCode) into this project?",
+    question: "Install the Agentic Development Lifecycle (OpenCode) into this project?",
     header: "Confirm",
     options: [
       { label: "Install", description: "Copy skills to .opencode/skills/" },
@@ -144,7 +144,7 @@ docs/ (empty dirs)             [OK/SKIP] (api, screens, tasks, decisions)
 CLAUDE.md                      [OK/SKIP]
 
 Next steps:
-1. Open CLAUDE.md, update the "VTI Context" section (project name, client, repo URL, tech stack)
+1. Open CLAUDE.md, update the "Project Context" section (project name, client, repo URL, tech stack)
 2. Type / to see available skills: pm:ideate  ba:spec  dev:analyze  qa:testplan ...
 ```
 

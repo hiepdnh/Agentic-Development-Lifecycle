@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 The glossary is the single source of truth for terminology:
 - BE uses it when translating JP → VN requirements

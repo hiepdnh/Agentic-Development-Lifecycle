@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## Context VTI
+## Context
 
 Glossary là single source of truth cho thuật ngữ:
 - BE dùng khi dịch yêu cầu JP → VN

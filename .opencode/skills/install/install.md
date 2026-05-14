@@ -1,7 +1,7 @@
 ---
 name: install
 description: >
-  Cài VTI SDLC framework vào project hiện tại (OpenCode port).
+  Cài Agentic Development Lifecycle framework vào project hiện tại (OpenCode port).
   Copy skills, agents, templates, workflows vào thư mục .opencode/.
   Trigger khi: user nói "cài framework", "cài đặt SDLC", "setup skills",
   "/install", hoặc cần bootstrap framework cho project mới.
@@ -9,7 +9,7 @@ description: >
 
 # /install
 **Role**: All
-**Mục đích**: Cài VTI SDLC framework (OpenCode port) vào project hiện tại.
+**Mục đích**: Cài Agentic Development Lifecycle framework (OpenCode port) vào project hiện tại.
 
 ---
 
@@ -42,7 +42,7 @@ Không cần argument. Skill tự detect:
 <!-- Gate: Xác nhận cài đặt -->
 question({
   questions: [{
-    question: "Cài VTI SDLC Framework (OpenCode) vào project này?",
+    question: "Cài Agentic Development Lifecycle (OpenCode) vào project này?",
     header: "Confirm",
     options: [
       { label: "Cài đặt", description: "Copy skills vào .opencode/skills/" },
@@ -144,7 +144,7 @@ docs/ (empty dirs)             [OK/SKIP] (api, screens, tasks, decisions)
 CLAUDE.md                      [OK/SKIP]
 
 Bước tiếp theo:
-1. Mở CLAUDE.md, cập nhật section "VTI Context" (project name, khách hàng, repo URL, tech stack)
+1. Mở CLAUDE.md, cập nhật section "Project Context" (project name, khách hàng, repo URL, tech stack)
 2. Gõ / để xem skills có sẵn: pm:ideate  ba:spec  dev:analyze  qa:testplan ...
 ```
 

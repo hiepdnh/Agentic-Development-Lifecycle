@@ -1,1 +1,1 @@
-Mới clone repo dự án mới về máy. Cần cài framework VTI SDLC vào project hiện tại — copy commands, agents, templates và workflows.
+Mới clone repo dự án mới về máy. Cần cài framework Agentic Development Lifecycle vào project hiện tại — copy commands, agents, templates và workflows.

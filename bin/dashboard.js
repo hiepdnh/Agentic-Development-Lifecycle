@@ -194,7 +194,7 @@ function build() {
 // ── Main ────────────────────────────────────────────────────
 
 function main() {
-  console.log(pc.cyan('\n  VTI SDLC Dashboard Generator\n'));
+  console.log(pc.cyan('\n  Agentic Development Lifecycle — Dashboard\n'));
 
   const s = build();
   console.log(`  ${pc.green('◆')} ${pc.cyan(OUT)}`);

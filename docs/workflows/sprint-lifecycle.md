@@ -1,6 +1,6 @@
 # Sprint Lifecycle — End-to-End Guide
 
-**Framework**: VTI SDLC Skill Framework  
+**Framework**: Agentic Development Lifecycle  
 **Last updated**: 2026-05-12
 
 > 📊 Xem quick dashboard: chạy `/pm:dashboard` → tạo `sprint-status.html` (kanban + health table + backlog)
@@ -194,7 +194,7 @@ Khi spec thay đổi sau sign-off:
 
 ```
 JP yêu cầu thay đổi → /be:changerequest → Impact analysis + CR document
-    → Approval (VTI PM + khách JP) → Cập nhật requirements.md (ghi CR ref)
+    → Approval (PM + khách JP) → Cập nhật requirements.md (ghi CR ref)
     → Tạo issue mới hoặc cập nhật issue gốc → Dev workflow bình thường
 ```
 

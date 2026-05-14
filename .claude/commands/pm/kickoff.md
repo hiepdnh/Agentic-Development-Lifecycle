@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## Context VTI
+## Context
 
 Greenfield project khác brownfield:
 - Không có `ba:reverse` — không có codebase cũ để đọc
@@ -30,7 +30,7 @@ Greenfield project khác brownfield:
 Dùng `AskUserQuestion` tool:
 
 - **Loại dự án**: Web app / Mobile app / API / Microservice / Library / Other
-- **Khách hàng**: JP outsource / Internal VTI / Other
+- **Khách hàng**: JP outsource / Internal / Other
 - **Timeline**: Deadline đầu tiên (format YYYY-MM-DD JST)
 - **Team size**: Số dev / QA / BE
 
@@ -99,7 +99,7 @@ Bổ sung section "Project Context" vào CLAUDE.md:
 **Tên dự án**: [Tên]
 **Khách hàng**: [Tên JP client]
 **Bridge Engineer**: [Tên]
-**PM VTI**: [Tên]
+**PM**: [Tên]
 **Repo**: [URL]
 **Staging**: [URL]
 **Production**: [URL]

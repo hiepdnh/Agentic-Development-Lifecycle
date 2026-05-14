@@ -1,10 +1,10 @@
 {
   "name": "agentic-development-lifecycle",
   "version": "1.1.3",
-  "description": "VTI SDLC Skill Framework for Claude Code",
+  "description": "Agentic Development Lifecycle — SDLC skill framework for Claude Code & OpenCode",
   "bin": {
     "agentic-development-lifecycle": "bin/install.js",
-    "vti-dashboard": "bin/dashboard.js"
+    "adl-dashboard": "bin/dashboard.js"
   },
   "scripts": {
     "install-framework": "node bin/install.js",
@@ -15,7 +15,7 @@
     "@clack/prompts": "^0.9.0",
     "picocolors": "^1.1.0"
   },
-  "keywords": ["claude-code", "sdlc", "vti", "ai-agent"],
+  "keywords": ["claude-code", "sdlc", "ai-agent", "agentic", "opencode"],
   "repository": {
     "type": "git",
     "url": "https://github.com/hiepdnh/Agentic-Development-Lifecycle.git"

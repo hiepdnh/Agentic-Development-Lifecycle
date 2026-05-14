@@ -1,4 +1,4 @@
-# Skill Flowchart — VTI SDLC Framework
+# Skill Flowchart — Agentic Development Lifecycle
 
 Sơ đồ quan hệ giữa 26 skills theo dòng chảy SDLC.
 

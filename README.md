@@ -1,11 +1,11 @@
-# VTI SDLC Skill Framework
+# Agentic Development Lifecycle
 
 <div align="right">
   <strong>🇬🇧 English</strong> &nbsp;|&nbsp; <a href="README.vi.md">🇻🇳 Tiếng Việt</a>
 </div>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
+  <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/banner.png" alt="Agentic Development Lifecycle" width="100%">
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@ An **AI skill pack** for software development teams. Install it into any project
 
 Supports **both Claude Code and OpenCode** — same skills, different runtime.
 
-Built for [VTI Software](https://vti.com.vn) outsource model (Vietnamese dev team → Bridge Engineer → Japanese clients), but works for any team that wants structured AI assistance.
+Works for any team that wants structured AI assistance — especially useful for outsource/consulting teams with client handoffs and multilingual deliverables.
 
 ---
 
@@ -233,14 +233,14 @@ docs/
 
 ---
 
-## VTI Context
+## Project Context
 
-Optimized for the VTI outsource model:
+Designed for consulting/outsource teams with structured client communication:
 
-- **Bridge Engineer** — translates JP client requirements → VN team spec (`/be:bridge`)
-- **BA** — writes spec in Vietnamese from clarified requirements (`/ba:spec`)
+- **Bridge Engineer** — translates client requirements → team spec (`/be:bridge`)
+- **BA** — writes spec from clarified requirements (`/ba:spec`)
 - **Dev** — implements with structured AI guidance, code comments in English
-- **QA** — tests per spec, generates JP-format test reports if needed
+- **QA** — tests per spec, generates formatted test reports if needed
 - **Deliverables** — 設計書, 単体テスト仕様書, 成果物 formatted for Japanese clients
 
 ---

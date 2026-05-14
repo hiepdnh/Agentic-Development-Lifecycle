@@ -41,7 +41,7 @@ Use the `AskUserQuestion` tool to ask:
   - `README` — intro content, quick start, badges
   - `Workflow guides` — docs/workflows/*.md (sprint lifecycle, role guide)
   - `Install scripts` — bin/install.js, setup.sh, setup.ps1
-  - `CLAUDE.md` — skill commands, directory structure, VTI context
+  - `CLAUDE.md` — skill commands, directory structure, project context
   - `All` — scan everything and suggest what's outdated
 
 - **Source of changes**: Where are the changes coming from?
@@ -69,7 +69,7 @@ For each file in scope, compare current content with reality:
 - [ ] Does the skill commands table include all 22+ skills?
 - [ ] Does the directory structure match `ls .claude/commands/`?
 - [ ] Is the subagent table in `agents/` accurate?
-- [ ] Does the VTI Context need a project name / repo URL update?
+- [ ] Does the Project Context need a project name / repo URL update?
 
 **Workflow guides audit checklist:**
 - [ ] `docs/workflows/sprint-lifecycle.md` — is the process still accurate?

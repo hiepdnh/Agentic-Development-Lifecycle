@@ -16,7 +16,7 @@ description: >
 
 ---
 
-## VTI Context
+## Project Context
 
 Handover in the JP outsource model has 2 scenarios:
 - **Dev leaves mid-project**: handover to a new dev within the same VN team
@@ -198,7 +198,7 @@ If `codebase-overview.md` is missing → suggest running `/ba:reverse` first.
 
 | 役割 | 氏名 | メール | 備考 |
 |------|------|-------|------|
-| PM (VTI) | [...] | [...] | |
+| PM | [...] | [...] | |
 | Bridge Engineer | [...] | [...] | |
 | Tech Lead | [...] | [...] | |
 

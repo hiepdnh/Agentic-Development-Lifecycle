@@ -2,9 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# SDLC Skill Framework — VTI Software
+# Agentic Development Lifecycle
 
-Framework hỗ trợ toàn bộ SDLC cho mọi role. Tối ưu cho VTI outsource model (team VN → BE → khách Nhật).
+Framework hỗ trợ toàn bộ SDLC cho mọi role. Dùng được cho bất kỳ team nào muốn AI assistance có cấu trúc.
 
 ---
 
@@ -158,16 +158,16 @@ When adding new commands that need shell access, update `settings.json`.
 
 ---
 
-## VTI Context
+## Project Context
 
-**Công ty**: VTI Software — outsource phần mềm cho khách hàng Nhật Bản  
-**Model**: Team dev VN ↔ Bridge Engineer (BE) ↔ Khách hàng JP  
+**Công ty**: [Tên công ty / Company name]  
+**Model**: [Mô hình team — ví dụ: Dev team ↔ Bridge Engineer ↔ Client]  
 **Ngôn ngữ**: Code comments = tiếng Anh; Tài liệu nội bộ = tiếng Việt; Giao tiếp khách JP = tiếng Nhật  
 **Encoding**: UTF-8 (hỗ trợ ký tự Nhật)  
 **Timezone**: JST (UTC+9) cho deadline và meeting với khách  
 **Deliverables JP style**: 設計書 (design doc), 単体テスト仕様書 (unit test spec), 成果物 (deliverables)
 
-### Roles đặc thù VTI
+### Roles
 
 | Role | Mô tả |
 |------|-------|
@@ -250,7 +250,7 @@ setup.ps1 / setup.sh # Shell-based installer alternatives
 | All | `/sec:review` | Security review trước merge (3-tier: Always/Ask First/Never) |
 | All | `/docs:update` | Update baseline screen/API docs sau verify |
 | All | `/docs:project` | Sync project-level docs: README, workflow guides, install scripts, CLAUDE.md |
-| All | `/install` | Cài VTI SDLC framework vào project hiện tại — copy commands, agents, templates, workflows |
+| All | `/install` | Cài Agentic Development Lifecycle vào project hiện tại — copy commands, agents, templates, workflows |
 
 ---
 
@@ -395,7 +395,7 @@ Khác biệt với Q&A History trong `requirements.md`: Q&A History chỉ ghi cl
 
 ---
 
-## VTI Deliverable Standards
+## Deliverable Standards
 
 Khi cần gửi tài liệu cho khách JP, format theo:
 
@@ -412,7 +412,7 @@ BE dùng `/be:bridge` để review và format lại trước khi gửi khách.
 
 ## Customization per project
 
-1. Cập nhật section "VTI Context" với project name, khách hàng, repo URL
+1. Cập nhật section "Project Context" với project name, khách hàng, repo URL
 2. Thêm GitHub token, Jira URL, Confluence space vào `.env` hoặc settings
 3. Thêm domain-specific skills nếu cần (ví dụ: `/domain-check` cho business rules đặc thù)
 4. Cập nhật estimate unit: story points, man-days (人日), hay hours

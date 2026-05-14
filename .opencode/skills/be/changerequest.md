@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## Context VTI
+## Context
 
 Thay đổi spec sau sign-off là rủi ro cao nhất trong JP outsource:
 - Khách JP hay yêu cầu thay đổi nhỏ qua email/chat mà không có formal CR
@@ -114,11 +114,11 @@ question({
       { label: "Cần điều chỉnh", description: "Tôi sẽ mô tả điều cần sửa" }
     ]
   }, {
-    question: "Ai là người approve CR phía VTI?",
+    question: "Ai là người approve CR phía team?",
     header: "VN Approver",
     options: [
-      { label: "PM", description: "PM VTI approve" },
-      { label: "Tech Lead", description: "Tech Lead VTI approve" },
+      { label: "PM", description: "PM approve" },
+      { label: "Tech Lead", description: "Tech Lead approves" },
       { label: "Cả hai", description: "Cả PM và Tech Lead" }
     ]
   }, {
@@ -182,7 +182,7 @@ question({
 
 | Role | Tên | Quyết định | Ngày | Ghi chú |
 |------|-----|-----------|------|---------|
-| PM VTI | [...] | Approve / Reject / Pending | [...] | [...] |
+| PM | [...] | Approve / Reject / Pending | [...] | [...] |
 | Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
 | Khách JP | [...] | Approve / Reject / Pending | [...] | [...] |
 
@@ -234,7 +234,7 @@ question({
 
 | 役割 | 氏名 | 承認 | 日付 | コメント |
 |------|------|------|------|---------|
-| VTI PM | [...] | 承認/却下/未回答 | [...] | [...] |
+| PM | [...] | 承認/却下/未回答 | [...] | [...] |
 | お客様 PM | [...] | 承認/却下/未回答 | [...] | [...] |
 
 ## 5. 変更履歴
@@ -257,7 +257,7 @@ Checklist:
 - [ ] Impact analysis đã được PM và Tech Lead review
 - [ ] Estimate đã được confirm (không phải "TBD")
 - [ ] CR-jp.md đã được dịch đúng thuật ngữ từ glossary
-- [ ] Approval table có đủ 3 bên: VTI PM + Tech Lead + Khách JP
+- [ ] Approval table có đủ 3 bên: PM + Tech Lead + Khách JP
 
 Bước tiếp theo:
 - [ ] Gửi CR-jp.md cho khách JP để confirm
@@ -281,7 +281,7 @@ question({
 
 ## Quy tắc
 
-- **KHÔNG** implement thay đổi trước khi CR được approve bởi cả VTI PM và khách JP
+- **KHÔNG** implement thay đổi trước khi CR được approve bởi cả PM và khách JP
 - Mọi CR phải có số (CR-001, CR-002...) — track trong `docs/tasks/[TASK-ID]/cr/`
 - Nếu CR thay đổi kiến trúc → trigger `/arch:adr` sau khi approve
 - Nếu CR thêm security-sensitive feature → trigger `/sec:review` sau implement

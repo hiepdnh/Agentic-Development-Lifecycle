@@ -13,7 +13,7 @@ description: >
 
 ---
 
-## Context VTI
+## Context
 
 Maintenance phase khác active development:
 - Không có sprint planning / backlog grooming thường xuyên

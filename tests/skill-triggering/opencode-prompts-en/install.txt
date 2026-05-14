@@ -1,1 +1,1 @@
-Install the VTI SDLC framework into my new project. It's a greenfield React + Node.js project, team of 4 VN devs + 1 BE, with a Japanese client.
+Install the Agentic Development Lifecycle framework into my new project. It's a greenfield React + Node.js project, team of 4 VN devs + 1 BE, with a Japanese client.

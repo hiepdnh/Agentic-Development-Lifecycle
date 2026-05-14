@@ -1,9 +1,9 @@
 ﻿---
 name: install
 description: >
-  Install the VTI SDLC framework into the current project — copy commands, agents, templates, workflows.
+  Install the Agentic Development Lifecycle framework into the current project — copy commands, agents, templates, workflows.
   Does not use shell, only Glob/Read/Write tools.
-  Triggers when: user says "install framework", "install skill pack", "setup VTI framework",
+  Triggers when: user says "install framework", "install skill pack", "setup ADL framework",
   "copy commands into project", or types /install.
 ---
 
@@ -114,7 +114,7 @@ docs/ (empty dirs)            [OK/SKIP] (api, screens, tasks, decisions)
 CLAUDE.md                     [OK/SKIP]
 
 Next steps:
-1. Open CLAUDE.md, update the "VTI Context" section (project name, client, repo URL, tech stack)
+1. Open CLAUDE.md, update the "Project Context" section (project name, client, repo URL, tech stack)
 2. Type / to see available commands: /pm:ideate  /ba:spec  /dev:analyze  /qa:testplan ...
 ```
 
