@@ -24,9 +24,10 @@ function copyDir(srcDir, dstDir) {
       const r = copyDir(s, d);
       copied += r.copied; skipped += r.skipped; updated += r.updated;
     } else {
-      if (fs.existsSync(d) && !UPDATE) { skipped++; continue; }
+      const existed = fs.existsSync(d);
+      if (existed && !UPDATE) { skipped++; continue; }
       fs.copyFileSync(s, d);
-      fs.existsSync(d) ? updated++ : copied++;
+      existed ? updated++ : copied++;
     }
   }
   return { copied, skipped, updated };
@@ -52,6 +53,11 @@ function install() {
   const cmdDst = path.join(dst, '.claude', 'commands');
   const r1 = copyDir(cmdSrc, cmdDst);
 
+  // Copy agents/ — subagent definitions referenced by /dev:pr, /dev:review, /docs:update
+  const agentsSrc = path.join(src, 'agents');
+  const agentsDst = path.join(dst, 'agents');
+  const r2 = copyDir(agentsSrc, agentsDst);
+
   // Copy CLAUDE.md only if not exists (don't overwrite user's CLAUDE.md)
   const claudeSrc = path.join(src, 'CLAUDE.md');
   const claudeDst = path.join(dst, 'CLAUDE.md');
@@ -67,7 +73,9 @@ function install() {
   }
 
   const total = r1.copied + r1.updated;
+  const agentsTotal = r2.copied + r2.updated;
   console.log(`\n  ✓ Skills installed: ${total} files`);
+  console.log(`  ✓ Agents installed: ${agentsTotal} files`);
   console.log(`  ✓ CLAUDE.md: ${claudeStatus}`);
   console.log('\n  Skills available:');
   console.log('    /dev:analyze   /dev:implement  /dev:review');

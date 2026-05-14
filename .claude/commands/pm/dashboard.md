@@ -14,6 +14,15 @@ description: >
 
 ## Hướng dẫn thực hiện
 
+### Bước 0 — Confirm scope
+
+Trước khi generate, trình bày:
+- Sẽ scan: `docs/tasks/*/` (tất cả task folder hiện có)
+- Sẽ ghi: `docs/dashboard.html` (hoặc custom `--out` path)
+- Sẽ overwrite file dashboard.html cũ nếu đã tồn tại
+
+**Chờ confirm.** Tiếp tục generate?
+
 ### Bước 1 — Chạy generator
 
 ```bash

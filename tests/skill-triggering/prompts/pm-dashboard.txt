@@ -1,0 +1,1 @@
+Sprint review chiều nay với khách. Tạo dashboard HTML tổng quan sprint hiện tại — kanban các task và backlog improvement — để mở trong browser cho cả team xem.

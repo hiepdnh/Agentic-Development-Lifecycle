@@ -59,7 +59,7 @@ Verify Claude auto-invokes the correct skill for naive prompts (no `/command` sy
 
 **Claude Code:**
 ```bash
-# VN prompts (28 skills) + EN prompts (32 .en.txt variants)
+# All skills — VN prompts + EN variants (.en.txt)
 bash tests/skill-triggering/run-all.sh
 
 # With flags
