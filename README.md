@@ -8,6 +8,12 @@
   <img src="https://raw.githubusercontent.com/hiepdnh/Agentic-Development-Lifecycle/main/assets/banner.png" alt="VTI SDLC Skill Framework" width="100%">
 </p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/agentic-development-lifecycle"><img src="https://img.shields.io/npm/v/agentic-development-lifecycle.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/agentic-development-lifecycle"><img src="https://img.shields.io/npm/dm/agentic-development-lifecycle.svg" alt="npm downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
+</p>
+
 > **32 skills for Claude Code & OpenCode** — covering the full SDLC for teams building software with AI assistance.
 
 ---
@@ -28,34 +34,30 @@ Built for [VTI Software](https://vti.com.vn) outsource model (Vietnamese dev tea
 
 ```bash
 # macOS / Linux — run from your target project directory
-npx github:hiepdnh/Agentic-Development-Lifecycle --yes
-
-# Or with the installer directly
-node /path/to/ClaudeSkill/bin/install.js --yes
+npx agentic-development-lifecycle --yes
 ```
 
 ```powershell
-# Windows
-$tmp = "$env:TEMP\vti-install"; mkdir $tmp -Force; Set-Location $tmp
-npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+# Windows — run from your target project directory
+npx agentic-development-lifecycle --yes
 ```
 
 Update an existing install:
 
 ```bash
-npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
+npx agentic-development-lifecycle --update --yes
 ```
 
 ### OpenCode
 
 ```bash
-# Install into your project — targets .opencode/skills/ by default
-node /path/to/ClaudeSkill/bin/install.js --yes --opencode
+# macOS / Linux
+npx agentic-development-lifecycle --yes --opencode
 ```
 
 ```powershell
 # Windows
-node /path/to/ClaudeSkill/bin/install.js --yes --opencode
+npx agentic-development-lifecycle --yes --opencode
 ```
 
 What gets installed: skills directory + `agents/` + `templates/` + `docs/workflows/`

@@ -35,22 +35,25 @@ npm run install-framework -- --update  # update existing
 
 ### Install via npx (end-user path)
 
+Package published at: https://www.npmjs.com/package/agentic-development-lifecycle
+
 ```bash
 # macOS/Linux — from the target project directory
-npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+npx agentic-development-lifecycle --yes
+
+# OpenCode
+npx agentic-development-lifecycle --yes --opencode
 
 # Update existing install
-npx github:hiepdnh/Agentic-Development-Lifecycle --update --yes
+npx agentic-development-lifecycle --update --yes
 ```
 
 ### Test installation
 
 ```powershell
-# Windows: copy framework to temp dir, run from there
+# Windows: test in temp dir
 $tmp = "$env:TEMP\test-install"; mkdir $tmp -Force
-node bin/install.js --yes   # run from project root — blocked (src===dst)
-# Instead: npx . from temp target
-Set-Location $tmp; npx github:hiepdnh/Agentic-Development-Lifecycle --yes
+Set-Location $tmp; npx agentic-development-lifecycle --yes
 ```
 
 ### Testing skill triggering
