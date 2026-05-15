@@ -4,6 +4,8 @@ const { intro, outro, confirm, spinner, log, cancel, isCancel, note } = require(
 const pc = require('picocolors');
 const fs = require('fs');
 const path = require('path');
+const cursorTransformer = require('./transformers/cursor');
+const antigravityTransformer = require('./transformers/antigravity');
 
 const BANNER_CC = [
   ' ██╗   ██╗████████╗██╗    █████╗ ██████╗ ██╗      ██████╗ ',
@@ -27,11 +29,46 @@ const BANNER_OC = [
   '  Agentic Development Lifecycle — OpenCode Port',
 ].join('\n');
 
+const BANNER_CURSOR = [
+  '  ██████╗██╗   ██╗██████╗ ███████╗ ██████╗ ██████╗ ',
+  ' ██╔════╝██║   ██║██╔══██╗██╔════╝██╔═══██╗██╔══██╗',
+  ' ██║     ██║   ██║██████╔╝███████╗██║   ██║██████╔╝',
+  ' ██║     ██║   ██║██╔══██╗╚════██║██║   ██║██╔══██╗',
+  ' ╚██████╗╚██████╔╝██║  ██║███████║╚██████╔╝██║  ██║',
+  '  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝',
+  '',
+  '  Agentic Development Lifecycle — Cursor Port',
+].join('\n');
+
+const BANNER_AG = [
+  '  █████╗ ███╗   ██╗████████╗██╗ ██████╗ ',
+  ' ██╔══██╗████╗  ██║╚══██╔══╝██║██╔════╝ ',
+  ' ███████║██╔██╗ ██║   ██║   ██║██║  ███╗',
+  ' ██╔══██║██║╚██╗██║   ██║   ██║██║   ██║',
+  ' ██║  ██║██║ ╚████║   ██║   ██║╚██████╔╝',
+  ' ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝ ╚═════╝ ',
+  '',
+  '  Agentic Development Lifecycle — Antigravity Port',
+].join('\n');
+
 const src = path.resolve(__dirname, '..');
 const dst = process.cwd();
 const YES = process.argv.includes('--yes') || process.argv.includes('-y');
 const UPDATE = process.argv.includes('--update') || process.argv.includes('-u');
-const OPENCODE = process.argv.includes('--opencode') || process.argv.includes('-o');
+
+function parsePlatform() {
+  const flags = process.argv;
+  const set = [];
+  if (flags.includes('--cursor') || flags.includes('-c')) set.push('cursor');
+  if (flags.includes('--antigravity') || flags.includes('-a')) set.push('antigravity');
+  if (flags.includes('--opencode') || flags.includes('-o')) set.push('opencode');
+  if (set.length > 1) {
+    console.error(pc.red(`Multiple platform flags set: ${set.join(', ')}. Pick only one.`));
+    process.exit(1);
+  }
+  return set[0] || 'claude';
+}
+const PLATFORM_KEY = parsePlatform();
 
 function parseLang() {
   const i = process.argv.findIndex((a) => a === '--lang' || a === '-l');
@@ -45,10 +82,17 @@ function parseLang() {
 }
 const LANG = parseLang();
 
-const BANNER = OPENCODE ? BANNER_OC : BANNER_CC;
-const PLATFORM = OPENCODE ? 'OpenCode' : 'Claude Code';
-const COMMANDS_DIR = OPENCODE ? '.opencode/skills' : '.claude/commands';
-const CONFIG_FILE = OPENCODE ? 'AGENTS.md' : 'CLAUDE.md';
+const PLATFORM_CONFIG = {
+  claude:      { label: 'Claude Code',  banner: BANNER_CC,     commandsDir: '.claude/commands',   configFile: 'CLAUDE.md' },
+  opencode:    { label: 'OpenCode',     banner: BANNER_OC,     commandsDir: '.opencode/skills',   configFile: 'AGENTS.md' },
+  cursor:      { label: 'Cursor',       banner: BANNER_CURSOR, commandsDir: '.cursor/rules',      configFile: '.cursorrules' },
+  antigravity: { label: 'Antigravity',  banner: BANNER_AG,     commandsDir: '.antigravity/skills', configFile: 'AGENTS.md' },
+};
+const CFG = PLATFORM_CONFIG[PLATFORM_KEY];
+const BANNER = CFG.banner;
+const PLATFORM = CFG.label;
+const COMMANDS_DIR = CFG.commandsDir;
+const CONFIG_FILE = CFG.configFile;
 
 function langFilter(filename) {
   if (LANG === 'all') return true;
@@ -119,7 +163,7 @@ async function main() {
   }
 
   log.info(`Target: ${pc.green(dst)}`);
-  log.info(`Platform: ${pc.cyan(PLATFORM)} (use ${pc.dim('--opencode')} to switch)`);
+  log.info(`Platform: ${pc.cyan(PLATFORM)} (use ${pc.dim('--opencode | --cursor | --antigravity')} to switch)`);
   log.info(`Language: ${pc.cyan(LANG)} (use ${pc.dim('--lang ja|en|vi|all')} to filter)`);
 
   if (!YES) {
@@ -138,22 +182,37 @@ async function main() {
   const s = spinner();
 
   // 1. Commands directory (lang-aware)
-  if (OPENCODE) {
+  const cmdDstPath = path.join(dst, COMMANDS_DIR);
+  fs.mkdirSync(path.dirname(cmdDstPath), { recursive: true });
+
+  if (PLATFORM_KEY === 'opencode') {
     s.start('Copying OpenCode skill files...');
-    const ocDst = path.join(dst, '.opencode');
-    fs.mkdirSync(ocDst, { recursive: true });
-    const cmdResult = copyDir(path.join(src, '.opencode', 'skills'), path.join(ocDst, 'skills'), true);
+    const cmdResult = copyDir(path.join(src, '.opencode', 'skills'), cmdDstPath, true);
+    s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
+  } else if (PLATFORM_KEY === 'antigravity') {
+    s.start('Copying Antigravity skill files (from OpenCode source)...');
+    const cmdResult = antigravityTransformer.copyAndTransform(
+      path.join(src, '.opencode', 'skills'),
+      cmdDstPath,
+      { langFilter, update: UPDATE }
+    );
+    s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
+  } else if (PLATFORM_KEY === 'cursor') {
+    s.start('Transforming Claude Code commands → Cursor rules (.mdc)...');
+    const cmdResult = cursorTransformer.copyAndTransform(
+      path.join(src, '.claude', 'commands'),
+      cmdDstPath,
+      { langFilter, update: UPDATE }
+    );
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   } else {
     s.start('Copying skill commands...');
-    const claudeDst = path.join(dst, '.claude');
-    fs.mkdirSync(claudeDst, { recursive: true });
-    const cmdResult = copyDir(path.join(src, '.claude', 'commands'), path.join(claudeDst, 'commands'), true);
+    const cmdResult = copyDir(path.join(src, '.claude', 'commands'), cmdDstPath, true);
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   }
 
-  // 2. agents (Claude Code only — OpenCode does not use agents/ directory) — lang-aware
-  if (!OPENCODE) {
+  // 2. agents (Claude Code only — other platforms do not use agents/ directory) — lang-aware
+  if (PLATFORM_KEY === 'claude') {
     s.start('Copying agent definitions...');
     const agentsResult = copyDir(path.join(src, 'agents'), path.join(dst, 'agents'), true);
     s.stop(resultMsg('agents/', agentsResult));
@@ -220,15 +279,15 @@ async function main() {
       : `${pc.green('◆')} docs/ subdirs ${pc.dim(`— ${docCreated} created`)}`
   );
 
-  // 6. Main config file (CLAUDE.md for Claude Code, AGENTS.md for OpenCode)
+  // 6. Main config file — varies per platform:
+  //    Claude Code → CLAUDE.md, OpenCode/Antigravity → AGENTS.md, Cursor → .cursorrules
   const configDst = path.join(dst, CONFIG_FILE);
   if (fs.existsSync(configDst) && !UPDATE) {
     log.warn(`${CONFIG_FILE} already exists — merge manually`);
-    log.info(`Reference: ${pc.dim(path.join(src, CONFIG_FILE))}`);
+    log.info(`Reference: ${pc.dim(path.join(src, 'CLAUDE.md'))}`);
   } else {
     s.start(UPDATE ? `Updating ${CONFIG_FILE}...` : `Copying ${CONFIG_FILE}...`);
-    // For OpenCode, always copy CLAUDE.md as AGENTS.md (or use existing AGENTS.md if present)
-    if (OPENCODE) {
+    if (PLATFORM_KEY === 'opencode' || PLATFORM_KEY === 'antigravity') {
       const ocConfigSrc = path.join(src, 'AGENTS.md');
       const ccConfigSrc = path.join(src, 'CLAUDE.md');
       const actualSrc = fs.existsSync(ocConfigSrc) ? ocConfigSrc : ccConfigSrc;
@@ -241,7 +300,7 @@ async function main() {
 
   console.log();
 
-  if (OPENCODE) {
+  if (PLATFORM_KEY === 'opencode') {
     note(
       [
         `1. Open ${pc.cyan(CONFIG_FILE)} → update Project Context section`,
@@ -255,6 +314,41 @@ async function main() {
         ``,
         `4. Available skills:`,
         `   /pm:ideate  /ba:spec  /dev:analyze  /qa:testplan ...`,
+      ].join('\n'),
+      'Next steps'
+    );
+  } else if (PLATFORM_KEY === 'cursor') {
+    note(
+      [
+        `1. Open ${pc.cyan(CONFIG_FILE)} → update Project Context section`,
+        `   (project name, client, repo URL, tech stack)`,
+        ``,
+        `2. Open project in Cursor → Cmd/Ctrl+Shift+P → ${pc.cyan('"Cursor: Reload Rules"')}`,
+        `   Rules auto-attach to Agent based on ${pc.dim('description')} matching.`,
+        ``,
+        `3. Test a skill — open Cursor Agent and type:`,
+        `   ${pc.dim('"phân tích task này và đề xuất phương án implement"')}`,
+        ``,
+        `4. Caveats:`,
+        `   - Cursor Agent is single-agent; multi-agent skills (eg ${pc.dim('/dev:analyze')}) run inline.`,
+        `   - User gates render as plain markdown prompts (no native TUI).`,
+      ].join('\n'),
+      'Next steps'
+    );
+  } else if (PLATFORM_KEY === 'antigravity') {
+    note(
+      [
+        `1. Open ${pc.cyan(CONFIG_FILE)} → update Project Context section`,
+        `   (project name, client, repo URL, tech stack)`,
+        ``,
+        `2. Open project in Antigravity → Agent Manager loads ${pc.cyan('.antigravity/skills/')}`,
+        `   Skills are ported from the OpenCode source (task/question syntax).`,
+        ``,
+        `3. Test a skill — type a natural request like:`,
+        `   ${pc.dim('"Phân tích task này và đề xuất phương án implement"')}`,
+        ``,
+        `4. Caveat: Antigravity skill convention is still stabilising — if Agent Manager`,
+        `   misinterprets ${pc.dim('task()/question()')} syntax, file an issue.`,
       ].join('\n'),
       'Next steps'
     );

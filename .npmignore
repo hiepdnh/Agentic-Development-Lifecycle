@@ -9,7 +9,11 @@ assets/workflow.png
 
 # Dev tooling
 tests/
+scripts/
 research_sdlc_tools/
+
+# CI
+.github/
 
 # Git artifacts
 .git/

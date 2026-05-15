@@ -14,7 +14,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
 
-> **32 skills for Claude Code & OpenCode** — covering the full SDLC for teams building software with AI assistance.
+> **32 skills for Claude Code, OpenCode, Cursor & Antigravity** — covering the full SDLC for teams building software with AI assistance.
 
 ---
 
@@ -22,7 +22,7 @@
 
 An **AI skill pack** for software development teams. Install it into any project to get structured, role-aware skills that cover every phase of the sprint lifecycle.
 
-Supports **both Claude Code and OpenCode** — same skills, different runtime.
+Supports **Claude Code, OpenCode, Cursor, and Google Antigravity** — same skill source, different runtime targets (Cursor + Antigravity are transformed at install time from the canonical Claude Code source).
 
 Works for any team that wants structured AI assistance — especially useful for outsource/consulting teams with client handoffs and multilingual deliverables.
 
@@ -60,7 +60,23 @@ npx agentic-development-lifecycle --yes --opencode
 npx agentic-development-lifecycle --yes --opencode
 ```
 
-What gets installed: skills directory + `agents/` + `templates/` + `docs/workflows/`
+### Cursor
+
+```bash
+npx agentic-development-lifecycle --yes --cursor
+```
+
+Generates `.cursor/rules/<role>/<name>.mdc` + `.cursorrules` (project context). Cursor Agent auto-attaches rules based on the `description` frontmatter. Single-agent runtime — multi-agent skills (e.g. `/dev:analyze`) execute inline.
+
+### Antigravity
+
+```bash
+npx agentic-development-lifecycle --yes --antigravity
+```
+
+Generates `.antigravity/skills/` (ported from OpenCode source — `task()` / `question()` syntax) + `AGENTS.md` (project context).
+
+What gets installed (all platforms): skills directory + `templates/` + `docs/workflows/` (and `agents/` for Claude Code only).
 
 ### Developer Lite (minimal install)
 
@@ -276,23 +292,27 @@ Designed for consulting/outsource teams with structured client communication:
 ## Project Structure
 
 ```
-.claude/commands/    # 32 Claude Code slash command files
-.opencode/skills/    # 32 OpenCode skill files (auto-triggered)
-agents/              # 8 subagent definitions
+.claude/commands/         # 32 Claude Code slash command files (canonical source)
+.opencode/skills/         # 32 OpenCode skill files (hand-ported — task()/question() syntax)
+agents/                   # 8 subagent definitions (Claude Code only)
+bin/
+  install.js              # Interactive installer — flags: --opencode | --cursor | --antigravity
+  transformers/
+    cursor.js             # .claude/commands/*.md → .cursor/rules/*.mdc at install time
+    antigravity.js        # .opencode/skills/ → .antigravity/skills/ alias
 docs/
-  workflows/         # Sprint lifecycle, role guide, flowchart
-  decisions/         # ADR templates
-templates/           # Skeleton templates referenced by all skills
-bin/install.js       # Interactive installer (@clack/prompts) — supports --opencode
-setup.ps1            # PowerShell installer (Claude Code)
-setup.sh             # Bash installer (Claude Code)
+  workflows/              # Sprint lifecycle, role guide, flowchart
+  decisions/              # ADR templates
+templates/                # Skeleton templates referenced by all skills
+setup.ps1                 # PowerShell installer (Claude Code)
+setup.sh                  # Bash installer (Claude Code)
 ```
 
 ---
 
 ## Development
 
-This repo IS the framework. The "product" is skill files for both platforms — `.claude/commands/` and `.opencode/skills/` (32 files each).
+This repo IS the framework. The canonical source lives in `.claude/commands/` (32 files × 3 languages = 96 files). The `.opencode/skills/` tree is a hand-maintained port. Cursor and Antigravity targets are generated at install time by transformers in `bin/transformers/` — no separate source files to keep in sync.
 
 ### Test skill triggering
 
