@@ -7,8 +7,25 @@
 param(
     [string]$TargetPath = (Get-Location).Path,
     [switch]$Yes,
-    [switch]$Update
+    [switch]$Update,
+    [ValidateSet('ja','en','vi','all')]
+    [string]$Language = 'all'
 )
+
+function Test-LangFilter {
+    param([string]$Filename)
+    if ($Language -eq 'all') { return $true }
+    if ($Filename -notmatch '\.(md|txt)$') { return $true }
+    $isJa = $Filename -match '\.ja\.(md|txt)$'
+    $isEn = $Filename -match '\.en\.(md|txt)$'
+    $isBase = (-not $isJa) -and (-not $isEn)
+    switch ($Language) {
+        'vi' { return $isBase }
+        'en' { return $isEn -or $isBase }
+        'ja' { return $isJa -or $isBase }
+    }
+    return $true
+}
 
 $SourcePath = $PSScriptRoot
 $ErrorActionPreference = "Stop"
@@ -18,8 +35,9 @@ $mode = if ($Update) { "Update" } else { "Setup" }
 Write-Host ""
 Write-Host "Agentic Development Lifecycle — $mode" -ForegroundColor Cyan
 Write-Host "=================================" -ForegroundColor Cyan
-Write-Host "Source : $SourcePath"
-Write-Host "Target : $TargetPath"
+Write-Host "Source   : $SourcePath"
+Write-Host "Target   : $TargetPath"
+Write-Host "Language : $Language  (-Language ja|en|vi|all)"
 Write-Host ""
 
 # Validate target
@@ -47,14 +65,18 @@ Write-Host ""
 
 # Helper
 function Copy-Dir {
-    param([string]$Src, [string]$Dst, [string]$Label)
+    param([string]$Src, [string]$Dst, [string]$Label, [bool]$ApplyFilter = $true)
     if (-not (Test-Path $Src)) { return }
     if (-not (Test-Path $Dst)) { New-Item -ItemType Directory -Path $Dst -Force | Out-Null }
-    $copied = 0; $skipped = 0; $updated = 0
+    $copied = 0; $skipped = 0; $updated = 0; $filtered = 0
     Get-ChildItem -Path $Src -Recurse -File | ForEach-Object {
         $rel = $_.FullName.Substring($Src.Length).TrimStart('\','/')
         $target = Join-Path $Dst $rel
         $targetDir = Split-Path $target -Parent
+        if ($ApplyFilter -and -not (Test-LangFilter $_.Name)) {
+            $filtered++
+            return
+        }
         if (-not (Test-Path $targetDir)) { New-Item -ItemType Directory -Path $targetDir -Force | Out-Null }
         if (Test-Path $target) {
             if ($Update) {
@@ -69,9 +91,10 @@ function Copy-Dir {
         }
     }
     $parts = @()
-    if ($copied -gt 0)  { $parts += "$copied added" }
-    if ($updated -gt 0) { $parts += "$updated updated" }
-    if ($skipped -gt 0) { $parts += "$skipped skipped" }
+    if ($copied -gt 0)   { $parts += "$copied added" }
+    if ($updated -gt 0)  { $parts += "$updated updated" }
+    if ($skipped -gt 0)  { $parts += "$skipped skipped" }
+    if ($filtered -gt 0) { $parts += "$filtered filtered" }
     $summary = $parts -join ', '
     if ($copied -eq 0 -and $updated -eq 0) {
         if ($summary) {

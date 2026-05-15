@@ -1,7 +1,7 @@
 # Agentic Development Lifecycle
 
 <div align="right">
-  <a href="README.md">🇬🇧 English</a> &nbsp;|&nbsp; <strong>🇻🇳 Tiếng Việt</strong>
+  <a href="README.md">🇬🇧 English</a> &nbsp;|&nbsp; <strong>🇻🇳 Tiếng Việt</strong> &nbsp;|&nbsp; <a href="README.ja.md">🇯🇵 日本語</a>
 </div>
 
 <p align="center">
