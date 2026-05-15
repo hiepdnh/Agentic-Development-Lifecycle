@@ -115,6 +115,20 @@ Validates prompt→skill file mapping (smoke test). Full trigger validation requ
 
 **Prompt filename → expected skill**: replace the **first** hyphen with a colon (`ba-spec.txt` → `ba:spec`, `ba-spec.en.txt` → `ba:spec.en`). New prompt files must follow this pattern.
 
+### Validate skill files
+
+```bash
+npm run validate
+# or: node scripts/validate-skills.js
+```
+
+Checks per-skill: VN/EN/JA variants all exist, frontmatter has `name:` + `description:`, `name:` matches the file path (`role:command`).
+
+### CI (GitHub Actions)
+
+- `.github/workflows/installer-smoke.yml` — runs `bin/install.js` for all 4 platforms × {ubuntu, windows} on every PR, asserts 96 skill files copied + correct config file present.
+- `.github/workflows/validate-skills.yml` — runs the validator above on every PR.
+
 ### Command file anatomy
 
 **Claude Code (VN)** — `.claude/commands/[role]/[name].md`:

@@ -1,0 +1,72 @@
+name: Installer Smoke
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: install ${{ matrix.platform }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        platform: [claude, opencode, cursor, antigravity]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Install into temp dir
+        shell: bash
+        run: |
+          tmp="$(mktemp -d)"
+          flag=""
+          case "${{ matrix.platform }}" in
+            opencode)    flag="--opencode" ;;
+            cursor)      flag="--cursor" ;;
+            antigravity) flag="--antigravity" ;;
+          esac
+          cd "$tmp"
+          node "$GITHUB_WORKSPACE/bin/install.js" --yes $flag
+          echo "INSTALL_DIR=$tmp" >> "$GITHUB_ENV"
+
+      - name: Verify output
+        shell: bash
+        run: |
+          cd "$INSTALL_DIR"
+          case "${{ matrix.platform }}" in
+            claude)
+              count=$(find .claude/commands -name "*.md" | wc -l)
+              test -f CLAUDE.md || { echo "FAIL: CLAUDE.md missing"; exit 1; }
+              test -d agents   || { echo "FAIL: agents/ missing"; exit 1; }
+              ;;
+            opencode)
+              count=$(find .opencode/skills -name "*.md" | wc -l)
+              test -f AGENTS.md || { echo "FAIL: AGENTS.md missing"; exit 1; }
+              ;;
+            cursor)
+              count=$(find .cursor/rules -name "*.mdc" | wc -l)
+              stray=$(find .cursor/rules -name "*.md" | wc -l)
+              test -f .cursorrules || { echo "FAIL: .cursorrules missing"; exit 1; }
+              test "$stray" = "0"  || { echo "FAIL: $stray stray .md files (.cursor/rules should only contain .mdc)"; exit 1; }
+              ;;
+            antigravity)
+              count=$(find .antigravity/skills -name "*.md" | wc -l)
+              test -f AGENTS.md || { echo "FAIL: AGENTS.md missing"; exit 1; }
+              ;;
+          esac
+          count=$(echo "$count" | tr -d ' ')
+          test "$count" = "96" || { echo "FAIL: found $count skill files (expected 96)"; exit 1; }
+          echo "OK: $count skill files installed for ${{ matrix.platform }} on ${{ matrix.os }}"
