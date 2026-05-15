@@ -1,28 +1,49 @@
 #!/usr/bin/env bash
 # Run all skill-triggering tests.
-# Usage: run-all.sh [--verbose] [--filter <glob>]
+# Usage: run-all.sh [--verbose] [--filter <glob>] [--lang ja|en|vi|all]
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROMPTS_DIR="$SCRIPT_DIR/prompts"
 VERBOSE=false
 FILTER="*"
+LANG_FILTER="all"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --verbose) VERBOSE=true; shift ;;
     --filter)  FILTER="$2"; shift 2 ;;
+    --lang)    LANG_FILTER="$2"; shift 2 ;;
     *) echo "Unknown flag: $1" >&2; exit 1 ;;
   esac
 done
+
+case "$LANG_FILTER" in
+  ja|en|vi|all) ;;
+  *) echo "ERROR: --lang must be one of: ja, en, vi, all" >&2; exit 1 ;;
+esac
+
+# Build glob pattern based on language
+case "$LANG_FILTER" in
+  vi)  GLOB="${FILTER}.txt"; LANG_EXCLUDE='\.(en|ja)\.txt$' ;;
+  en)  GLOB="${FILTER}.en.txt"; LANG_EXCLUDE="" ;;
+  ja)  GLOB="${FILTER}.ja.txt"; LANG_EXCLUDE="" ;;
+  all) GLOB="${FILTER}*.txt"; LANG_EXCLUDE="" ;;
+esac
 
 PASS=0
 FAIL=0
 FAIL_LIST=()
 
-for prompt in "$PROMPTS_DIR"/$FILTER.txt; do
+for prompt in "$PROMPTS_DIR"/$GLOB; do
+  # For --lang vi, exclude .en.txt and .ja.txt
+  if [[ "$LANG_FILTER" = "vi" && "$prompt" =~ \.(en|ja)\.txt$ ]]; then
+    continue
+  fi
   [[ -f "$prompt" ]] || continue
   BASENAME="$(basename "$prompt" .txt)"
+
+  # Skip duplicate matches if glob expanded unexpectedly
 
   if $VERBOSE; then
     bash "$SCRIPT_DIR/run-test.sh" "$prompt" && PASS=$((PASS+1)) || { FAIL=$((FAIL+1)); FAIL_LIST+=("$BASENAME"); }

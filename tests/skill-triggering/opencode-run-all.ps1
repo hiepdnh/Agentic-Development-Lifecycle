@@ -1,18 +1,18 @@
 #!/usr/bin/env pwsh
 # OpenCode Skill Triggering Test — Orchestrator
-# Usage: ./opencode-run-all.ps1 [-Verbose] [-Filter <glob>] [-Language vi|en]
+# Usage: ./opencode-run-all.ps1 [-Verbose] [-Filter <glob>] [-Language vi|en|ja]
 param(
     [switch]$Verbose,
     [string]$Filter = '*',
-    [ValidateSet('vi', 'en')]
+    [ValidateSet('vi', 'en', 'ja')]
     [string]$Language = 'vi'
 )
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$promptsDir = if ($Language -eq 'en') {
-    Join-Path $scriptDir 'opencode-prompts-en'
-} else {
-    Join-Path $scriptDir 'opencode-prompts'
+$promptsDir = switch ($Language) {
+    'ja' { Join-Path $scriptDir 'opencode-prompts-ja' }
+    'en' { Join-Path $scriptDir 'opencode-prompts-en' }
+    default { Join-Path $scriptDir 'opencode-prompts' }
 }
 
 Write-Host "Language: $Language | Prompts dir: $(Split-Path -Leaf $promptsDir)" -ForegroundColor Cyan

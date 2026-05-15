@@ -1,0 +1,1 @@
+このプロジェクトに Agentic Development Lifecycle フレームワークをインストールしてください。
