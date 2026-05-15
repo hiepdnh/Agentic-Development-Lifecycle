@@ -179,6 +179,37 @@ Spawn subagent with:
 > Propose 2-3 implementation options with trade-offs.
 > Each option includes: name, description, files to change, estimate, pros/cons."
 
+### Step 5.5 — Parallel Design Stubs (if planner identifies artifact types)
+
+Based on the planner output, spawn parallel design agents **in a single message** (runs concurrently):
+
+- **If the task involves new or modified screens** → spawn `screen-designer` (model: haiku) per `agents/screen-designer.md`
+- **If the task involves new or modified API endpoints** → spawn `api-designer` (model: haiku) per `agents/api-designer.md`
+- **If the task has no screens or APIs** → skip this step and continue to Step 6
+
+Each agent receives:
+```
+TASK SUMMARY: [task-reader JSON summary]
+SELECTED OPTION: [name + description of the planner's top recommended option]
+AFFECTED SCREENS / AFFECTED APIS: [from planner output or code-scout]
+EXISTING DOCS: [content from docs/screens or docs/api if available]
+```
+
+Merge the agents' output into `docs/tasks/[TASK-ID]/analysis.md` under dedicated sections:
+- `## Screen Design Stub` — from screen-designer output
+- `## API Design Stub` — from api-designer output
+
+These stubs give the human richer context when selecting an option in Step 6.
+
+```
+✓ Design stubs generated:
+  - Screen: [N] screens — [name list]
+  - API: [N] endpoints — [method + path list]
+  See details in analysis.md before choosing an option.
+```
+
+---
+
 ### Step 6 — Gate 3: Present options (MOST IMPORTANT)
 
 ```

@@ -179,6 +179,37 @@ Spawn subagent với:
 > Đề xuất 2-3 phương án implement với trade-off.
 > Mỗi phương án gồm: tên, mô tả, files cần thay đổi, estimate, ưu/nhược."
 
+### Bước 5.5 — Parallel Design Stubs (nếu planner xác định artifact type)
+
+Dựa trên planner output, spawn parallel design agents **trong cùng 1 message** (chạy song song):
+
+- **Nếu task có màn hình mới hoặc sửa màn hình hiện tại** → spawn `screen-designer` (model: haiku) theo `agents/screen-designer.md`
+- **Nếu task có API endpoint mới hoặc thay đổi contract API** → spawn `api-designer` (model: haiku) theo `agents/api-designer.md`
+- **Nếu task không có màn hình / API** → bỏ qua bước này, tiếp tục Bước 6
+
+Mỗi agent nhận input:
+```
+TASK SUMMARY: [task-reader JSON summary]
+SELECTED OPTION: [tên + mô tả phương án planner đề xuất cao nhất]
+AFFECTED SCREENS / AFFECTED APIS: [từ planner output hoặc code-scout]
+EXISTING DOCS: [nội dung docs/screens hoặc docs/api liên quan nếu có]
+```
+
+Merge kết quả từ các agents vào `docs/tasks/[TASK-ID]/analysis.md` dưới section riêng:
+- `## Screen Design Stub` — từ screen-designer output
+- `## API Design Stub` — từ api-designer output
+
+Stub này giúp human có đủ thông tin để chọn phương án ở Bước 6.
+
+```
+✓ Design stubs đã sinh:
+  - Screen: [N] màn hình — [tên danh sách]
+  - API: [N] endpoint — [danh sách method + path]
+  Xem chi tiết trong analysis.md trước khi chọn phương án.
+```
+
+---
+
 ### Bước 6 — Gate 3: Trình bày phương án (QUAN TRỌNG NHẤT)
 
 ```

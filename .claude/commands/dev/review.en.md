@@ -17,6 +17,13 @@ description: >
 
 ### Step 1 — Gather context (subagent)
 
+**Check for a previous review round (if any):**
+
+Look for `docs/tasks/[TASK-ID]/review-log-R*.md`. If it exists:
+- Load the `B-xx` (Blocking) list from the most recent round
+- Use that list to verify each item has been addressed in the current diff
+- Report clearly: `B-01 ✅ fixed` / `B-01 ❌ still present`
+
 **Determine the base branch before spawning:**
 
 Check in order:
@@ -201,6 +208,13 @@ Next step: /dev:pr
 ```
 
 **If Request Changes:**
+
+Write `docs/tasks/[TASK-ID]/review-log-R[N].md` using template `templates/review-log.en.md`:
+- Fill in Meta (task_id, round, verdict: request-changes, timestamp JST)
+- Populate the Blocking table with IDs like `B-xx` — one row per issue with file:line + specific fix
+- Populate Ask First if applicable
+- Populate Non-blocking
+
 ```
 Review complete. Verdict: Request Changes
 
@@ -208,5 +222,6 @@ Must fix before merge:
 1. [Blocking issue 1 — file:line — specific fix]
 2. [Blocking issue 2 — file:line — specific fix]
 
-After fixes are done, re-run /dev:review.
+Review Log written: `docs/tasks/[TASK-ID]/review-log-R[N].md`
+After fixes are done, re-run /dev:review — AI will verify each B-xx item automatically.
 ```

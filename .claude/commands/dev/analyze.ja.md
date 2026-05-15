@@ -178,6 +178,37 @@ Agent(
 > トレードオフ付き 2-3 実装オプションを提案。
 > 各オプション: 名前、説明、変更ファイル、見積もり、長所/短所。」
 
+### ステップ 5.5 — 並列デザインスタブ（プランナーがアーティファクトタイプを特定した場合）
+
+プランナー出力に基づき、**1 つのメッセージで**並列設計エージェントをスポーン（同時実行）:
+
+- **タスクに新規または変更された画面が含まれる場合** → `agents/screen-designer.md` に従い `screen-designer`（model: haiku）をスポーン
+- **タスクに新規または変更された API エンドポイントが含まれる場合** → `agents/api-designer.md` に従い `api-designer`（model: haiku）をスポーン
+- **タスクに画面 / API がない場合** → このステップをスキップしてステップ 6 へ
+
+各エージェントへの入力:
+```
+TASK SUMMARY: [task-reader JSON サマリー]
+SELECTED OPTION: [プランナー推奨オプションの名前 + 説明]
+AFFECTED SCREENS / AFFECTED APIS: [プランナー出力または code-scout から]
+EXISTING DOCS: [docs/screens または docs/api の関連内容（あれば）]
+```
+
+エージェントの出力を `docs/tasks/[TASK-ID]/analysis.md` の専用セクションにマージ:
+- `## Screen Design Stub` — screen-designer 出力から
+- `## API Design Stub` — api-designer 出力から
+
+これらのスタブにより、ステップ 6 でのオプション選択時に十分な情報を提供。
+
+```
+✓ デザインスタブ生成完了:
+  - 画面: [N] 件 — [名前リスト]
+  - API: [N] エンドポイント — [メソッド + パス一覧]
+  オプション選択前に analysis.md を確認してください。
+```
+
+---
+
 ### ステップ 6 — ゲート 3: オプション提示（最重要）
 
 ```
