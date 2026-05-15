@@ -10,7 +10,15 @@ Framework hỗ trợ toàn bộ SDLC cho mọi role. Dùng được cho bất k�
 
 ## Developing This Framework
 
-This repo IS the framework source. The "product" is skill files for both platforms: `.claude/commands/` (32 VN + 32 EN + 32 JP files for Claude Code) and `.opencode/skills/` (32 VN + 32 EN + 32 JP files for OpenCode).
+This repo IS the framework source. Two hand-maintained skill trees serve as canonical sources:
+
+- `.claude/commands/` — Claude Code (32 VN + 32 EN + 32 JP = 96 files)
+- `.opencode/skills/` — OpenCode hand port (96 files) with `task()` / `question()` syntax
+
+Cursor and Antigravity targets are **generated at install time** from these sources — no separate hand-maintained tree:
+
+- **Cursor** → `bin/transformers/cursor.js` transforms `.claude/commands/*.md` → `.cursor/rules/*.mdc` (rewrites frontmatter to `description` + `globs: []` + `alwaysApply: false`; strips the `# Skill:` prefix; relabels `Agent(...)` blocks as `Sub-task Agent(...)`). Cursor Agent is single-agent, so multi-agent skills execute inline.
+- **Antigravity** → `bin/transformers/antigravity.js` copies `.opencode/skills/*` → `.antigravity/skills/*` (alias — OpenCode `task()`/`question()` syntax is reused since Antigravity's skill convention is not yet stable).
 
 **Language variants** (per skill / agent / template / workflow doc):
 - `name.md` — Vietnamese (canonical source — VN baseline)
@@ -51,6 +59,12 @@ npx agentic-development-lifecycle --yes
 # OpenCode
 npx agentic-development-lifecycle --yes --opencode
 
+# Cursor (.cursor/rules/*.mdc + .cursorrules)
+npx agentic-development-lifecycle --yes --cursor
+
+# Antigravity (.antigravity/skills/ + AGENTS.md — aliases OpenCode source)
+npx agentic-development-lifecycle --yes --antigravity
+
 # Update existing install
 npx agentic-development-lifecycle --update --yes
 
@@ -60,6 +74,8 @@ npx agentic-development-lifecycle --yes --lang en      # English only + base
 npx agentic-development-lifecycle --yes --lang vi      # Vietnamese only (no .en.md/.ja.md)
 npx agentic-development-lifecycle --yes --lang all     # All variants (default)
 ```
+
+Mutually-exclusive platform flags: pass only one of `--opencode`, `--cursor`, `--antigravity`. Default (no flag) is Claude Code.
 
 ### Test installation
 
@@ -137,6 +153,16 @@ description: >
 - Header: `# /role:command` (no "Skill:" prefix)
 - Spawn syntax: `task(subagent_type: "explorer"|"oracle")` instead of `Agent(model: "haiku"|"sonnet")`
 - Gate tool: `question` instead of `AskUserQuestion`
+
+**Cursor** (generated at install) — `.cursor/rules/[role]/[name].mdc`:
+- Frontmatter drops `name:`, keeps `description`, adds `globs: []` + `alwaysApply: false`
+- Header `# /role:command` (Skill: prefix stripped)
+- Body keeps Claude `Agent(...)` blocks, relabelled as `Sub-task Agent(...)` so Cursor Agent treats them as inline subtasks (Cursor is single-agent)
+- Project context: `.cursorrules` at repo root (copied from CLAUDE.md)
+
+**Antigravity** (generated at install) — `.antigravity/skills/[role]/[name].md`:
+- Alias of `.opencode/skills/` (same `task()` / `question()` syntax)
+- Project context: `AGENTS.md` at repo root
 
 Rules:
 - `name` — must match file path convention (`role:command`)
@@ -227,21 +253,25 @@ When adding new commands that need shell access, update `settings.json`.
 ## Cấu trúc thư mục
 
 ```
-.claude/commands/    # Skills (VN) + .en.md variants (EN) cho Claude Code
-.opencode/skills/    # Skills (VN) + .en.md variants (EN) cho OpenCode
+.claude/commands/         # Canonical source — Skills (VN) + .en.md + .ja.md cho Claude Code
+.opencode/skills/         # Hand port cho OpenCode (task() / question() syntax)
 packages/
-  developer-lite/    # Minimal 8-skill sub-package cho individual devs
-agents/              # Subagent definitions (spawned bởi orchestrator commands)
+  developer-lite/         # Minimal 8-skill sub-package cho individual devs
+agents/                   # Subagent definitions (spawned bởi orchestrator commands)
+bin/
+  install.js              # Interactive installer — flags: --opencode | --cursor | --antigravity
+  transformers/
+    cursor.js             # Transform .claude/commands/*.md → .cursor/rules/*.mdc at install
+    antigravity.js        # Alias .opencode/skills/ → .antigravity/skills/ at install
 docs/
-  tasks/             # Task docs (Type 1) — mỗi issue 1 folder, kèm audit.md
-  baseline/          # Codebase reverse-engineering output (từ /ba:reverse)
-  screens/           # Screen baseline docs (Type 2)
-  api/               # API baseline docs (Type 2)
-  decisions/         # Architecture Decision Records (ADR)
-  workflows/         # Process guides và sprint lifecycle
-templates/           # Template skeleton — commands reference đến đây
-bin/install.js       # Interactive npm installer — supports --opencode flag
-setup.ps1 / setup.sh # Shell-based installer alternatives
+  tasks/                  # Task docs (Type 1) — mỗi issue 1 folder, kèm audit.md
+  baseline/               # Codebase reverse-engineering output (từ /ba:reverse)
+  screens/                # Screen baseline docs (Type 2)
+  api/                    # API baseline docs (Type 2)
+  decisions/              # Architecture Decision Records (ADR)
+  workflows/              # Process guides và sprint lifecycle
+templates/                # Template skeleton — commands reference đến đây
+setup.ps1 / setup.sh      # Shell-based installer alternatives (Claude Code only)
 ```
 
 ---
