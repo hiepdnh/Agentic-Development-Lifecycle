@@ -1,6 +1,6 @@
 {
   "name": "agentic-development-lifecycle",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Agentic Development Lifecycle — SDLC skill framework for Claude Code, OpenCode, Cursor & Antigravity (English / Tiếng Việt / 日本語)",
   "bin": {
     "agentic-development-lifecycle": "bin/install.js",
