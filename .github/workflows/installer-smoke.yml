@@ -67,5 +67,5 @@ jobs:
               ;;
           esac
           count=$(echo "$count" | tr -d ' ')
-          test "$count" = "96" || { echo "FAIL: found $count skill files (expected 96)"; exit 1; }
+          test "$count" = "102" || { echo "FAIL: found $count skill files (expected 102)"; exit 1; }
           echo "OK: $count skill files installed for ${{ matrix.platform }} on ${{ matrix.os }}"
