@@ -33,43 +33,75 @@ const YES = process.argv.includes('--yes') || process.argv.includes('-y');
 const UPDATE = process.argv.includes('--update') || process.argv.includes('-u');
 const OPENCODE = process.argv.includes('--opencode') || process.argv.includes('-o');
 
+function parseLang() {
+  const i = process.argv.findIndex((a) => a === '--lang' || a === '-l');
+  if (i >= 0 && i + 1 < process.argv.length) {
+    const v = process.argv[i + 1].toLowerCase();
+    if (['ja', 'en', 'vi', 'all'].includes(v)) return v;
+    console.error(pc.red(`Invalid --lang value: ${v}. Must be one of: ja, en, vi, all`));
+    process.exit(1);
+  }
+  return 'all';
+}
+const LANG = parseLang();
+
 const BANNER = OPENCODE ? BANNER_OC : BANNER_CC;
 const PLATFORM = OPENCODE ? 'OpenCode' : 'Claude Code';
 const COMMANDS_DIR = OPENCODE ? '.opencode/skills' : '.claude/commands';
 const CONFIG_FILE = OPENCODE ? 'AGENTS.md' : 'CLAUDE.md';
 
-function copyDir(srcDir, dstDir) {
-  if (!fs.existsSync(srcDir)) return { copied: 0, skipped: 0, updated: 0 };
+function langFilter(filename) {
+  if (LANG === 'all') return true;
+  if (!filename.endsWith('.md') && !filename.endsWith('.txt')) return true;
+  const isJa = /\.ja\.(md|txt)$/.test(filename);
+  const isEn = /\.en\.(md|txt)$/.test(filename);
+  const isBase = !isJa && !isEn;
+  if (LANG === 'vi') return isBase;
+  if (LANG === 'en') return isEn || isBase;
+  if (LANG === 'ja') return isJa || isBase;
+  return true;
+}
+
+function copyDir(srcDir, dstDir, filterEnabled = false) {
+  if (!fs.existsSync(srcDir)) return { copied: 0, skipped: 0, updated: 0, filtered: 0 };
   fs.mkdirSync(dstDir, { recursive: true });
-  let copied = 0, skipped = 0, updated = 0;
+  let copied = 0, skipped = 0, updated = 0, filtered = 0;
   for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
     const s = path.join(srcDir, entry.name);
     const d = path.join(dstDir, entry.name);
     if (entry.isDirectory()) {
-      const sub = copyDir(s, d);
+      const sub = copyDir(s, d, filterEnabled);
       copied += sub.copied;
       skipped += sub.skipped;
       updated += sub.updated;
-    } else if (fs.existsSync(d)) {
-      if (UPDATE) {
-        fs.copyFileSync(s, d);
-        updated++;
-      } else {
-        skipped++;
-      }
+      filtered += sub.filtered;
     } else {
-      fs.copyFileSync(s, d);
-      copied++;
+      if (filterEnabled && !langFilter(entry.name)) {
+        filtered++;
+        continue;
+      }
+      if (fs.existsSync(d)) {
+        if (UPDATE) {
+          fs.copyFileSync(s, d);
+          updated++;
+        } else {
+          skipped++;
+        }
+      } else {
+        fs.copyFileSync(s, d);
+        copied++;
+      }
     }
   }
-  return { copied, skipped, updated };
+  return { copied, skipped, updated, filtered };
 }
 
-function resultMsg(label, { copied, skipped, updated }) {
+function resultMsg(label, { copied, skipped, updated, filtered = 0 }) {
   const parts = [];
   if (copied > 0) parts.push(`${copied} added`);
   if (updated > 0) parts.push(`${updated} updated`);
   if (skipped > 0) parts.push(`${skipped} skipped`);
+  if (filtered > 0) parts.push(`${filtered} filtered`);
   const icon = (copied === 0 && updated === 0) ? pc.yellow('○') : pc.green('◆');
   return `${icon} ${label}${parts.length ? pc.dim(` — ${parts.join(', ')}`) : ''}`;
 }
@@ -88,6 +120,7 @@ async function main() {
 
   log.info(`Target: ${pc.green(dst)}`);
   log.info(`Platform: ${pc.cyan(PLATFORM)} (use ${pc.dim('--opencode')} to switch)`);
+  log.info(`Language: ${pc.cyan(LANG)} (use ${pc.dim('--lang ja|en|vi|all')} to filter)`);
 
   if (!YES) {
     const action = UPDATE ? 'Update' : 'Install';
@@ -104,48 +137,49 @@ async function main() {
 
   const s = spinner();
 
-  // 1. Commands directory
+  // 1. Commands directory (lang-aware)
   if (OPENCODE) {
     s.start('Copying OpenCode skill files...');
     const ocDst = path.join(dst, '.opencode');
     fs.mkdirSync(ocDst, { recursive: true });
-    const cmdResult = copyDir(path.join(src, '.opencode', 'skills'), path.join(ocDst, 'skills'));
+    const cmdResult = copyDir(path.join(src, '.opencode', 'skills'), path.join(ocDst, 'skills'), true);
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   } else {
     s.start('Copying skill commands...');
     const claudeDst = path.join(dst, '.claude');
     fs.mkdirSync(claudeDst, { recursive: true });
-    const cmdResult = copyDir(path.join(src, '.claude', 'commands'), path.join(claudeDst, 'commands'));
+    const cmdResult = copyDir(path.join(src, '.claude', 'commands'), path.join(claudeDst, 'commands'), true);
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   }
 
-  // 2. agents (Claude Code only — OpenCode does not use agents/ directory)
+  // 2. agents (Claude Code only — OpenCode does not use agents/ directory) — lang-aware
   if (!OPENCODE) {
     s.start('Copying agent definitions...');
-    const agentsResult = copyDir(path.join(src, 'agents'), path.join(dst, 'agents'));
+    const agentsResult = copyDir(path.join(src, 'agents'), path.join(dst, 'agents'), true);
     s.stop(resultMsg('agents/', agentsResult));
   }
 
-  // 3. templates
+  // 3. templates — lang-aware (.html files always pass filter via langFilter)
   s.start('Copying templates...');
-  const templatesResult = copyDir(path.join(src, 'templates'), path.join(dst, 'templates'));
+  const templatesResult = copyDir(path.join(src, 'templates'), path.join(dst, 'templates'), true);
   s.stop(resultMsg('templates/', templatesResult));
 
-  // 4. docs/workflows
+  // 4. docs/workflows — lang-aware
   s.start('Copying workflow docs...');
   const docsDst = path.join(dst, 'docs');
   fs.mkdirSync(docsDst, { recursive: true });
-  const workflowsResult = copyDir(path.join(src, 'docs', 'workflows'), path.join(docsDst, 'workflows'));
+  const workflowsResult = copyDir(path.join(src, 'docs', 'workflows'), path.join(docsDst, 'workflows'), true);
   s.stop(resultMsg('docs/workflows/', workflowsResult));
 
-  // 4b. docs root framework files (always overwrite on --update)
+  // 4b. docs root framework files (always overwrite on --update) — lang-aware
   s.start('Copying framework doc files...');
-  const docRootFiles = ['risk-classifier.md', 'validation-matrix.md'];
-  let docRootCopied = 0, docRootUpdated = 0;
+  const docRootFiles = ['risk-classifier.md', 'risk-classifier.ja.md', 'validation-matrix.md'];
+  let docRootCopied = 0, docRootUpdated = 0, docRootFiltered = 0;
   for (const file of docRootFiles) {
     const srcFile = path.join(src, 'docs', file);
     const dstFile = path.join(docsDst, file);
     if (!fs.existsSync(srcFile)) continue;
+    if (!langFilter(file)) { docRootFiltered++; continue; }
     if (fs.existsSync(dstFile)) {
       if (UPDATE) { fs.copyFileSync(srcFile, dstFile); docRootUpdated++; }
     } else {
@@ -153,7 +187,7 @@ async function main() {
       docRootCopied++;
     }
   }
-  s.stop(resultMsg('docs/ framework files', { copied: docRootCopied, skipped: docRootFiles.length - docRootCopied - docRootUpdated, updated: docRootUpdated }));
+  s.stop(resultMsg('docs/ framework files', { copied: docRootCopied, skipped: docRootFiles.length - docRootCopied - docRootUpdated - docRootFiltered, updated: docRootUpdated, filtered: docRootFiltered }));
 
   // 4d. docs/analysis (framework content — skip-if-exists, overwrite on --update)
   s.start('Copying analysis docs...');

@@ -13,15 +13,47 @@ SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Parse flags + positional target path
 UPDATE=false
 YES=false
+LANG_FILTER="all"
 ARGS=()
+expect_lang=false
 for arg in "$@"; do
+    if $expect_lang; then
+        LANG_FILTER="$arg"
+        expect_lang=false
+        continue
+    fi
     case "$arg" in
-        --update|-u) UPDATE=true ;;
-        --yes|-y)    YES=true ;;
-        *)           ARGS+=("$arg") ;;
+        --update|-u)    UPDATE=true ;;
+        --yes|-y)       YES=true ;;
+        --lang|-l)      expect_lang=true ;;
+        --lang=*)       LANG_FILTER="${arg#*=}" ;;
+        *)              ARGS+=("$arg") ;;
     esac
 done
 TARGET_DIR="${ARGS[0]:-$(pwd)}"
+
+case "$LANG_FILTER" in
+    ja|en|vi|all) ;;
+    *) echo "ERROR: --lang must be one of: ja, en, vi, all (got: $LANG_FILTER)"; exit 1 ;;
+esac
+
+# Returns 0 (true) if filename should be included for current LANG_FILTER.
+lang_filter() {
+    local fname="$1"
+    [ "$LANG_FILTER" = "all" ] && return 0
+    case "$fname" in
+        *.md|*.txt) ;;
+        *) return 0 ;;
+    esac
+    case "$fname" in
+        *.ja.md|*.ja.txt) [ "$LANG_FILTER" = "ja" ] && return 0 || return 1 ;;
+        *.en.md|*.en.txt) [ "$LANG_FILTER" = "en" ] && return 0 || return 1 ;;
+        *) [ "$LANG_FILTER" = "vi" ] && return 0
+           [ "$LANG_FILTER" = "ja" ] && return 0
+           [ "$LANG_FILTER" = "en" ] && return 0
+           return 1 ;;
+    esac
+}
 
 echo ""
 if $UPDATE; then
@@ -30,8 +62,9 @@ else
     echo "Agentic Development Lifecycle — Setup"
 fi
 echo "================================="
-echo "Source : $SOURCE_DIR"
-echo "Target : $TARGET_DIR"
+echo "Source   : $SOURCE_DIR"
+echo "Target   : $TARGET_DIR"
+echo "Language : $LANG_FILTER  (--lang ja|en|vi|all)"
 echo ""
 
 # Validate
@@ -60,13 +93,19 @@ copy_dir() {
     local src="$1"
     local dst="$2"
     local label="$3"
+    local apply_filter="${4:-true}"
     [ ! -d "$src" ] && return
     mkdir -p "$dst"
-    local copied=0 skipped=0 updated=0
+    local copied=0 skipped=0 updated=0 filtered=0
     while IFS= read -r -d '' f; do
         local rel="${f#./}"
         local s_file="$src/$rel"
         local d_file="$dst/$rel"
+        local base="$(basename "$rel")"
+        if $apply_filter && ! lang_filter "$base"; then
+            filtered=$((filtered+1))
+            continue
+        fi
         mkdir -p "$(dirname "$d_file")"
         if [ -e "$d_file" ]; then
             if $UPDATE; then
@@ -81,9 +120,10 @@ copy_dir() {
         fi
     done < <(cd "$src" && find . -type f -print0)
     local parts=""
-    [ $copied -gt 0 ]  && parts+="$copied added, "
-    [ $updated -gt 0 ] && parts+="$updated updated, "
-    [ $skipped -gt 0 ] && parts+="$skipped skipped, "
+    [ $copied -gt 0 ]   && parts+="$copied added, "
+    [ $updated -gt 0 ]  && parts+="$updated updated, "
+    [ $skipped -gt 0 ]  && parts+="$skipped skipped, "
+    [ $filtered -gt 0 ] && parts+="$filtered filtered, "
     parts="${parts%, }"
     if [ $copied -eq 0 ] && [ $updated -eq 0 ]; then
         echo "  [SKIP] $label${parts:+ — $parts}"
@@ -112,10 +152,14 @@ copy_dir "$SOURCE_DIR/docs/workflows" "$TARGET_DIR/docs/workflows" "docs/workflo
 
 # 4b. docs root framework files (skip-if-exists, overwrite on --update)
 echo "Copying framework doc files..."
-for f in risk-classifier.md validation-matrix.md; do
+for f in risk-classifier.md risk-classifier.ja.md validation-matrix.md; do
     s_file="$SOURCE_DIR/docs/$f"
     d_file="$TARGET_DIR/docs/$f"
     [ ! -f "$s_file" ] && continue
+    if ! lang_filter "$f"; then
+        echo "  [SKIP] docs/$f — filtered ($LANG_FILTER)"
+        continue
+    fi
     if [ -e "$d_file" ]; then
         if $UPDATE; then
             cp "$s_file" "$d_file"
