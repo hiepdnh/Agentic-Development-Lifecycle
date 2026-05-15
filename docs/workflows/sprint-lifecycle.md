@@ -1,7 +1,7 @@
 # Sprint Lifecycle — End-to-End Guide
 
 **Framework**: Agentic Development Lifecycle  
-**Last updated**: 2026-05-12
+**Last updated**: 2026-05-15
 
 > 📊 Xem quick dashboard: chạy `/pm:dashboard` → tạo `sprint-status.html` (kanban + health table + backlog)
 

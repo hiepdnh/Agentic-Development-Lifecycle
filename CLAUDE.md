@@ -458,7 +458,7 @@ Tham khảo bài viết Thariq Shihipar — *"The Unreasonable Effectiveness of 
 | `/qa:regression` | HTML | `regression-checklist.html` — go/no-go decision |
 | `/pm:status` | HTML | `sprint-status.html` — kanban + velocity |
 | `/be:bridge` | MD + HTML | `deliverable.html` — 2 cột JP/VN, copy button |
-| Còn lại (17 skill) | MD | (xem nhóm B trong `docs/analysis/html-effectiveness-thariq.md` để mở rộng khi cần) |
+| Còn lại (27 skill) | MD | (xem nhóm B trong `docs/analysis/html-effectiveness-thariq.md` để mở rộng khi cần) |
 
 HTML artifact dùng template `templates/html-artifact.html` (interactive) hoặc `templates/html-bilingual.html` (JP-VN). File HTML one-shot KHÔNG commit — `.gitignore` loại trừ `docs/tasks/**/*.html`.
 
