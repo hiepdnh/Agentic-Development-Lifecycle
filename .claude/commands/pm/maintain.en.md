@@ -113,63 +113,16 @@ Record in `docs/maintenance/[YEAR-MONTH]-backlog.md`:
 
 ### Step 4 — Monthly Report
 
-Create `docs/reports/monthly-[YYYY-MM].md` at end of month:
+Create `docs/reports/monthly-[YYYY-MM].md` using template `templates/monthly-maintenance-report.en.md`.
 
-```markdown
-# 月次保守報告書 / Monthly Maintenance Report
+Fill in the 5 sections:
+1. **Objectives and Results This Month** — SLA %, bugs resolved, CRs implemented vs target
+2. **Work Performed** — list every task/CR with ID, type, effort in 人日, result
+3. **Incidents/Issues** — list all incidents with severity, RCA summary, status; calculate MTTR
+4. **System Health** — assess Performance/Security/Dependencies/Backup status
+5. **Next Month's Plan** — list planned work with priority and estimate; note any risks
 
-**Period**: [YYYY-MM]  
-**Project**: [Name]  
-**Prepared by**: [BE name]  
-**Date**: [YYYY-MM-DD JST]
-
----
-
-## 月次サマリー / Summary
-
-| 項目 | 件数 |
-|------|------|
-| 受付件数 (Total requests) | [N] |
-| 完了件数 (Completed) | [N] |
-| 継続中 (In progress) | [N] |
-| 次月繰越 (Carried over) | [N] |
-
-## 対応内訳 / Breakdown by Type
-
-| 種別 | 件数 | 代表的な対応 |
-|------|------|------------|
-| バグ修正 (Bug fix) | [N] | [...] |
-| 機能改善 (Improvement) | [N] | [...] |
-| 問い合わせ対応 (Inquiry) | [N] | [...] |
-
-## 完了した対応 / Completed Items
-
-| ID | 内容 | 優先度 | 完了日 | 担当者 |
-|----|------|--------|--------|--------|
-| M-001 | [...] | P2 | [Date] | [...] |
-
-## 未完了・次月繰越 / Outstanding Items
-
-| ID | 内容 | 優先度 | 予定完了日 | 理由 |
-|----|------|--------|-----------|------|
-| M-005 | [...] | P3 | [Date] | [...] |
-
-## 稼働時間 / Man-hours
-
-| 担当者 | 工数 (人時) |
-|--------|------------|
-| [Dev name] | [X]h |
-| [BE name] | [X]h |
-| **合計** | **[Total]h** |
-
-## 特記事項 / Notes
-
-[Anything noteworthy to report to JP client]
-
-## 次月予定 / Next Month Plan
-
-[What will be done next month]
-```
+Translate key sections to Japanese if the report will be sent to the JP client (BE reviews before sending).
 
 ### Step 5 — Final gate
 

@@ -155,6 +155,34 @@ Bao gồm: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` 
 
 ---
 
+## Templates & Artifacts
+
+Mỗi skill ghi output ra một template có cấu trúc. Tất cả template hỗ trợ **VN / EN / JP** (`name.md` / `name.en.md` / `name.ja.md`).
+
+| Template | Artifact tạo ra | Chuẩn |
+|----------|----------------|-------|
+| `task-doc-requirements` | Spec yêu cầu | IEEE 29148 (SRS) |
+| `user-story` | User Story + Acceptance Criteria | Connextra / INVEST |
+| `analysis` | Các phương án implement + trade-off | — |
+| `verification` | Kết quả kiểm thử + sign-off | IEEE 829 |
+| `test-plan` | Kế hoạch kiểm thử với ma trận TC | IEEE 829 |
+| `bug-report` | Báo cáo lỗi (Severity / Priority / Steps) | — |
+| `adr` | Architecture Decision Record | MADR (Markdown Architectural Decision Records) |
+| `pr-description` | Mô tả Pull Request | — |
+| `github-issue` | GitHub / GitLab issue | — |
+| `audit` | Audit log append-only theo task | — |
+| `change-request` | 変更依頼書 — phân tích ảnh hưởng + lịch sử duyệt | — |
+| `release-notes` | Release Notes / リリースノート | Keep a Changelog |
+| `handover` | 引き継ぎ書 — codebase map + contact matrix | — |
+| `monthly-maintenance-report` | 月次保守報告書 | — |
+| `incident-report` | RCA sự cố + blameless postmortem | Google SRE / PagerDuty |
+| `baseline-screen` | Đặc tả màn hình / 画面定義書 | IPA 基本設計書 (JP) |
+| `baseline-api` | Đặc tả API / API定義書 | IPA API定義書 (JP) |
+
+Variant JP bao gồm các trường phía khách hàng (`顧客名`, `プロジェクト名`, `対象システム`) và dùng ngôn ngữ 敬語 khi cần thiết.
+
+---
+
 ## Cách hoạt động
 
 ### Subagents (multi-agent pattern)

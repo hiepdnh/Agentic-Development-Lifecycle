@@ -65,7 +65,7 @@ question({
 
 ### Step 3 — Draft the Specification Document
 
-After receiving the answers, create `docs/tasks/[TASK-ID]/requirements.md` using the template `E:\AI Bootcamp\ClaudeSkill\templates\task-doc-requirements.md`.
+After receiving the answers, create `docs/tasks/[TASK-ID]/requirements.md` using template `templates/task-doc-requirements.en.md`.
 
 **Frontmatter**: fill in `sessionId` (format `TASK-ID-YYYYMMDD-HHMM`), `createdAt`, `updatedAt`, `roundCount: 1`.
 

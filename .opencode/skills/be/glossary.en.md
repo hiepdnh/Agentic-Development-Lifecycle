@@ -9,7 +9,7 @@ description: >
 
 # /be:glossary
 **Role**: Bridge Engineer  
-**Purpose**: Maintain `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` — the standard vocabulary set shared across the entire JP outsourcing project.
+**Purpose**: Maintain `templates/jp-vn-en-glossary.md` — the standard vocabulary set shared across the entire JP outsourcing project.
 
 ---
 
@@ -45,7 +45,7 @@ question({
 
 ### Step 2 — Read the current glossary
 
-Read the entire `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md`.
+Read the entire `templates/jp-vn-en-glossary.md`.
 
 Check:
 - Are there any terms that use multiple different translations?
@@ -79,7 +79,7 @@ question({
   }]
 })
 
-After confirmation: edit `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` — add to the correct section alphabetically (JP reading order).
+After confirmation: edit `templates/jp-vn-en-glossary.md` — add to the correct section alphabetically (JP reading order).
 
 #### 3b. Resolve translation conflicts
 
@@ -154,7 +154,7 @@ Notable new terms:
 |----|----|----|
 | [...] | [...] | [...] |
 
-Updated file: E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md
+Updated file: templates/jp-vn-en-glossary.md
 ```
 
 ---

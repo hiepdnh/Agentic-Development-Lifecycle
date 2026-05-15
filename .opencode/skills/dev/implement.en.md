@@ -14,7 +14,7 @@ description: >
 
 ## Important: Run /dev:analyze first
 
-This skill requires `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis.md` to already exist.
+This skill requires `docs/tasks\[TASK-ID]\analysis.md` to already exist.
 If it doesn't exist → run `/dev:analyze` first.
 
 ---
@@ -29,7 +29,7 @@ Use OpenCode's **task tool** to spawn subagents. Each subagent receives minimal 
 
 ### Step 1 — Read analysis doc
 
-Read `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis.md`:
+Read `docs/tasks\[TASK-ID]\analysis.md`:
 - Selected option
 - List of files to change
 - Technical decisions confirmed
@@ -175,28 +175,15 @@ Run the test steps above and report results:
 
 **Wait for user to report test results.**
 
-After receiving the results, create `docs/tasks/[TASK-ID]/verification.md`:
+After receiving test results, create `docs/tasks/[TASK-ID]/verification.md` using template `templates/verification.en.md`.
 
-```markdown
-# Verification: [TASK-ID]
-
-## Diff Summary
-[từ subagent output]
-
-## AC Coverage
-- ✅/❌ AC-001: [...]
-- ✅/❌ AC-002: [...]
-
-## Self-Test Results
-| # | Action | Expected | Result | Notes |
-|---|--------|---------|--------|-------|
-| T-01 | [...] | [...] | PASS/FAIL | [...] |
-
-## Sign-off
-- Tester: [user]
-- Date: [date]
-- Status: PASS / FAIL / CONDITIONAL
-```
+Fill in:
+- **Frontmatter**: `taskId`, `verifiedBy` (user name), `signOffStatus` (Pending → update to Pass/Fail after user reports)
+- **AC results table**: from subagent output — each AC with test method and result
+- **Automated Tests**: paste actual test output (command + pass/fail count + coverage %)
+- **Manual Test Steps**: T-01...T-N from Self-Test table above with actual results filled in
+- **Issues Found**: FAIL results → describe with severity
+- **Sign-off**: tick dev self-review checkbox; date = today JST
 
 ```
 ## Verification hoàn tất ✓
@@ -219,7 +206,7 @@ Before finishing, ask yourself:
 - Is there any template missing an important field?
 - Is there any issue recurring from a previous task?
 
-If yes → add an entry to `E:\AI Bootcamp\ClaudeSkill\docs\improvement-backlog.md` immediately (no need to ask human):
+If yes → add an entry to `docs/improvement-backlog.md` immediately (no need to ask human):
 ```
 | IB-XXX | dev:implement / [TASK-ID] | [mô tả friction] | [proposed fix] | open |
 ```
@@ -232,5 +219,5 @@ If yes → add an entry to `E:\AI Bootcamp\ClaudeSkill\docs\improvement-backlog.
 - Do not refactor code outside the task scope
 - Do not add features beyond the defined ACs
 - Migration could lose data → **always ask for confirmation** before creating
-- If any sensitive change is detected → stop, see `E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`
+- If any sensitive change is detected → stop, see `assets/ask-first-gates.md`
 - If an unrelated bug is found → make a note, create a separate issue, do not fix immediately

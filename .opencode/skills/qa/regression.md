@@ -45,7 +45,7 @@ question({
 
 ### Bước 3 — Tạo Regression Checklist (HTML là format chính)
 
-Regression checklist là **one-shot decision artifact** (chạy → tick → go/no-go) — format chính là HTML, không cần Markdown commit. Sinh `docs/tasks/regression-[sprint-or-version].html` từ template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+Regression checklist là **one-shot decision artifact** (chạy → tick → go/no-go) — format chính là HTML, không cần Markdown commit. Sinh `docs/tasks/regression-[sprint-or-version].html` từ template `templates/html-artifact.html`:
 
 - 3 sections collapse `<details>` cho 🔴 Must Test / 🟡 Should Test / 🟢 Smoke
 - Mỗi section là `<table data-sortable>` với cột: ID | Test Case | Steps | Expected | Result | Bug?

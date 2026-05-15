@@ -1,7 +1,9 @@
+<!-- lang: vi | Template: github-issue | Framework: Agentic Development Lifecycle -->
+
 ## [TASK-ID] [Tên Task ngắn gọn, mô tả rõ what cần làm]
 
 **Type**: <!-- Feature / Bug / Tech Debt / Refactor / Research -->  
-**Priority**: <!-- 🔴 High / 🟡 Medium / 🟢 Low -->  
+**Priority**: <!-- High / Medium / Low -->  
 **Estimate**: <!-- X story points hoặc X giờ -->  
 **Sprint**: Sprint <!-- N -->  
 **Labels**: <!-- backend, frontend, api, database, devops, ... -->
@@ -43,6 +45,3 @@ Những thông tin kỹ thuật quan trọng cho dev:
 - [ ] Integration tests pass
 - [ ] Baseline docs cập nhật (nếu thay đổi screen/API)
 - [ ] Demo cho BA/PM (nếu feature mới)
-
----
-<!-- Template version: 1.0 | Framework: Agentic Development Lifecycle -->

@@ -9,7 +9,7 @@ description: >
 
 # /be:glossary
 **Role**: Bridge Engineer  
-**Mục đích**: Duy trì `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` — bộ từ vựng chuẩn dùng chung cho toàn dự án JP outsource.
+**Mục đích**: Duy trì `templates/jp-vn-en-glossary.md` — bộ từ vựng chuẩn dùng chung cho toàn dự án JP outsource.
 
 ---
 
@@ -45,7 +45,7 @@ question({
 
 ### Bước 2 — Đọc glossary hiện tại
 
-Đọc `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` toàn bộ.
+Đọc `templates/jp-vn-en-glossary.md` toàn bộ.
 
 Kiểm tra:
 - Có terms nào dùng nhiều cách dịch khác nhau không?
@@ -79,7 +79,7 @@ question({
   }]
 })
 
-Sau confirm: edit `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` — thêm vào đúng section theo alphabet (JP reading order).
+Sau confirm: edit `templates/jp-vn-en-glossary.md` — thêm vào đúng section theo alphabet (JP reading order).
 
 #### 3b. Resolve conflict dịch thuật
 
@@ -154,7 +154,7 @@ Terms mới đáng chú ý:
 |----|----|----|
 | [...] | [...] | [...] |
 
-File đã cập nhật: E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md
+File đã cập nhật: templates/jp-vn-en-glossary.md
 ```
 
 ---

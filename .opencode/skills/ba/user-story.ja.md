@@ -35,6 +35,8 @@ description: >
 
 requirements.md 内 User Stories セクション
 
+**テンプレート**: `templates/user-story.ja.md`
+
 ---
 
 ## ヒューマンゲート

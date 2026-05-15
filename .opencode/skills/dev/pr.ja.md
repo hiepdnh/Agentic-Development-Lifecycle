@@ -35,6 +35,8 @@ description: >
 
 PR ディスクリプション（Testing セクションは verification.md から自動入力）
 
+**テンプレート**: `templates/pr-description.ja.md`
+
 ---
 
 ## ヒューマンゲート

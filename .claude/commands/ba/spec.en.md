@@ -48,7 +48,7 @@ Present in the following format:
 
 ### Step 3 — Draft Specification Document
 
-After receiving answers, create `docs/tasks/[TASK-ID]/requirements.md` using template `templates/task-doc-requirements.md`.
+After receiving answers, create `docs/tasks/[TASK-ID]/requirements.md` using template `templates/task-doc-requirements.en.md`.
 
 **Frontmatter**: fill in `sessionId` (format `TASK-ID-YYYYMMDD-HHMM`), `createdAt`, `updatedAt`, `roundCount: 1`.
 

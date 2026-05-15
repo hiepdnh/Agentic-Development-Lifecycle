@@ -55,32 +55,7 @@ question({
 
 ### Step 3 — Create User Stories
 
-Each User Story follows this format:
-
-```markdown
-## US-[ID]: [Short name]
-
-**Epic**: [Epic name if any]  
-**Priority**: [High/Medium/Low]  
-**Estimate**: [Story points or hours]  
-**Dependencies**: [US-XXX if any]
-
-### User Story
-As a **[actor]**,  
-I want to **[action]**,  
-So that **[business value]**.
-
-### Acceptance Criteria
-- [ ] **AC-001**: Given [context], When [action], Then [expected result]
-- [ ] **AC-002**: Given [context], When [action], Then [expected result]
-
-### Out of scope
-- [Items not in this story]
-
-### Notes
-- [Related business rule: BR-XXX]
-- [Related screens if any]
-```
+Create each User Story using template `templates/user-story.en.md`.
 
 ### Step 4 — Final Gate: Review + Suggest priority order
 

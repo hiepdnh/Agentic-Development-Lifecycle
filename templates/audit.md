@@ -1,5 +1,6 @@
 ---
 taskId: [TASK-ID]
+lang: vi
 createdAt: [YYYY-MM-DD HH:mm JST]
 ---
 

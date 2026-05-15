@@ -32,70 +32,18 @@ question({
 
 ### Step 3 — Create Test Plan
 
-Create file `docs/tasks/[TASK-ID]/test-plan.md`:
-
-```markdown
-# Test Plan: [TASK-ID] — [Feature name]
-
-**QA**: [Name]  
-**Date**: [Date]  
-**Version**: 1.0
-
-## 1. Scope
-
-### In scope
-- [AC-001]: [...]
-- [AC-002]: [...]
-
-### Out of scope
-- [Not tested this sprint]
-
-## 2. Test Strategy
-
-| Level | Approach | Tools |
-|-------|----------|-------|
-| Unit | [Dev self-test] | [JUnit/Jest/...] |
-| Integration | [API testing] | [Postman/RestAssured] |
-| E2E | [Manual/Selenium] | [...] |
-| Performance | [Load test if needed] | [...] |
-
-## 3. Test Cases
-
-### TC-001: [Happy Path — Name]
-**Pre-condition**: [State before test]  
-**Steps**:
-1. [Step 1]
-2. [Step 2]  
-**Expected**: [Expected result]  
-**Priority**: High/Medium/Low
-
-### TC-002: [Edge Case — Name]
-...
-
-### TC-003: [Negative Case — Name]
-...
-
-## 4. Test Data
-
-| Data | Description | How to create |
-|------|-------------|---------------|
-| | | |
-
-## 5. Regression Checklist
-
-- [ ] [Feature A] still works normally
-- [ ] [Feature B] is not affected
-
-## 6. Exit Criteria
-
-- [ ] All High priority test cases pass
-- [ ] No unresolved Critical/High bugs
-- [ ] Regression has no new regressions
-```
+Create file `docs/tasks/[TASK-ID]/test-plan.md` using template `templates/test-plan.en.md`. Fill in:
+- **QA** + **Date** + **Version**
+- Scope: In scope (AC-001, AC-002...) and Out of scope
+- Test Strategy: level (Unit/Integration/E2E/Performance), approach, tools
+- Test Cases: TC-001 Happy Path, TC-002 Edge Case, TC-003 Negative Case (each with pre-condition, steps, expected, priority)
+- Test Data: table of data + how to create
+- Regression Checklist: features to check for regression
+- Exit Criteria: conditions for test completion
 
 ### Step 3.5 — Render HTML companion (interactive checklist)
 
-Generate `docs/tasks/[TASK-ID]/test-plan.html` from template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+Generate `docs/tasks/[TASK-ID]/test-plan.html` from template `templates/html-artifact.html`:
 
 - Inject `<ul class="checklist" data-storage-key="testplan-[TASK-ID]">` for each TC
 - Each `<li>` has `<input type="checkbox" data-id="TC-XXX">` + label = TC name

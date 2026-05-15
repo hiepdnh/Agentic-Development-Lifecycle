@@ -51,78 +51,17 @@ Who will check which direction?
 
 ### Step 3 — Create RCA Template
 
-After the incident is resolved, create `docs/decisions/INC-[XXX]-RCA.md`:
+After the incident is resolved, create `docs/reports/INC-[XXX]-RCA.md` using template `templates/incident-report.en.md`.
 
-```markdown
-# Root Cause Analysis: INC-[XXX]
-
-**Severity**: P[N]  
-**Duration**: [Start] → [End] ([X minutes/hours])  
-**Impact**: [Number of users, revenue, SLA breach...]  
-**Incident Commander**: [Name]  
-**Date RCA completed**: [Date]
-
----
-
-## Timeline
-
-| Time | Event | Actor |
-|------|-------|-------|
-| HH:MM | Incident detected | [Monitor/User report] |
-| HH:MM | On-call paged | [System] |
-| HH:MM | Investigation started | [Name] |
-| HH:MM | Root cause identified | [Name] |
-| HH:MM | Fix deployed | [Name] |
-| HH:MM | Incident resolved | [Name] |
-
-## 5 Whys
-
-**Symptom**: [Observable symptom]
-
-1. **Why?** → [Answer 1]
-2. **Why?** → [Answer 2]
-3. **Why?** → [Answer 3]
-4. **Why?** → [Answer 4]
-5. **Why?** → **Root Cause**: [Root cause]
-
-## Root Cause
-
-[Clear description of root cause, no blame assigned]
-
-## Contributing Factors
-
-- [Factor 1]
-- [Factor 2]
-
-## Impact Analysis
-
-- Users affected: [N]
-- Services affected: [list]
-- Data integrity: [OK / At risk / Compromised]
-- SLA breach: [Yes/No]
-
-## Fix Applied
-
-[Description of temporary fix and permanent fix]
-
-## Action Items (Lessons & Improvements)
-
-| ID | Action | Owner | Deadline | Priority |
-|----|--------|-------|----------|----------|
-| AI-001 | [Prevent recurrence] | [Name] | [Date] | High |
-| AI-002 | [Improve detection] | [Name] | [Date] | Medium |
-| AI-003 | [Improve response] | [Name] | [Date] | Medium |
-
-## What Went Well
-
-- [Fast response at point X]
-- [Good communication]
-
-## What Needs Improvement
-
-- [Alert was too slow]
-- [Runbook not updated]
-```
+Fill in:
+- **Frontmatter**: incidentId, severity (P1-P4), startTime/endTime/durationMinutes, incidentCommander
+- **Summary**: 2-3 sentences — what happened, when, user impact
+- **Impact**: users affected, features affected, SLA impact, whether JP client was notified
+- **Timeline**: use actual timestamps from the incident; include detection → ack → root cause found → fix → resolved
+- **Root Cause**: trigger event + 5 Whys analysis + contributing factors
+- **What Went Well / What Didn't**: blameless — focus on systems, not people
+- **Action Items**: at minimum AI-001 (prevent recurrence), AI-002 (improve detection), AI-003 (update runbook)
+- **Supporting Materials**: links to logs, dashboards, related PRs
 
 ### Step 4 — Final RCA gate
 

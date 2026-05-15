@@ -78,7 +78,7 @@ task(
 
 ### Step 0 — Risk Classification
 
-Before spawning any subagent, classify risk according to `E:\AI Bootcamp\ClaudeSkill\docs\risk-classifier.md`:
+Before spawning any subagent, classify risk according to `docs/risk-classifier.md`:
 
 ```
 ## Risk Classification — [TASK-ID]
@@ -231,7 +231,7 @@ question({
 
 ### Step 6.5 — Render HTML companion (option comparison)
 
-Before the human selects in Step 6, generate `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis-compare.html` from template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+Before the human selects in Step 6, generate `docs/tasks\[TASK-ID]\analysis-compare.html` from template `templates/html-artifact.html`:
 
 - Inject `<table id="options" data-sortable>` with columns: Option | Effort (h) | Risk | Files Touched | Pros | Cons
 - Each option gets 1 row, Effort column uses `data-type="number"` for sorting

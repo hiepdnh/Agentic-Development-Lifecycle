@@ -160,7 +160,7 @@ scope: [path scanned]
 - `docs/baseline/api-inventory.md` — list endpoints + nguồn gốc trong code
 - `docs/baseline/db-schema.md` — tables + relationships
 
-**Audit**: append entry vào `docs/baseline/audit.md` (template: `E:\AI Bootcamp\ClaudeSkill\templates\audit.md`).
+**Audit**: append entry vào `docs/baseline/audit.md` (template: `templates/audit.md`).
 
 ### Bước 5 — Gate cuối: Review + handoff
 

@@ -80,42 +80,18 @@ The subagent returns: summary of changes, files changed, AC coverage, test resul
 
 ### Step 3 — Create PR Description
 
-```markdown
-## [TASK-ID] [Short feature/fix name]
+Create PR description using template `templates/pr-description.en.md`.
 
-### 📋 Summary
-[2-3 sentences describing WHAT and WHY of this PR]
-
-### 🔗 Links
-- Issue: #[number]
-- Spec: `docs/tasks/[TASK-ID]/requirements.md`
-- Analysis: `docs/tasks/[TASK-ID]/analysis.md`
-
-### ✅ Acceptance Criteria
-- [x] AC-001: [Description] — verified by [test/manual]
-- [x] AC-002: [Description] — verified by [test/manual]
-
-### 🔧 Changes
-| File | Change type | Description |
-|------|-------------|-------------|
-| `[file]` | Added/Modified/Deleted | [...] |
-
-### 🧪 Testing
-**Unit Tests**: [Pass/Fail/N/A]  
-**Integration Tests**: [Pass/Fail/N/A]  
-**Self-Test Results**: [From `docs/tasks/[TASK-ID]/verification.md` — summarize T-01…T-N]  
-**Overall**: PASS / FAIL / CONDITIONAL
-
-### ⚠️ Breaking Changes
-[None / Description if any]
-
-### 📝 Notes for Reviewer
-[Points to note during review, important design decisions]
-
-### 📚 Docs to update after merge
-- [ ] `docs/screens/[feature]/screen.md`
-- [ ] `docs/api/[domain]/[endpoint].md`
-```
+Fill in all sections from the diff-reader output and AC coverage data:
+- **Summary**: 2-3 sentences from the context
+- **Links**: issue number, spec path, analysis path
+- **Acceptance Criteria**: from requirements.md, mark each [x] with test evidence
+- **Changes table**: from diff-reader file list
+- **How to Test**: from verification.md T-steps (manual verification steps T-01...T-N)
+- **Breaking Changes**: from Gate 2 answers
+- **Notes for Reviewer**: from Gate 2 answers
+- **Release Notes Summary**: 1-line description for the changelog
+- **Docs to Update**: from verification.md docs list
 
 ### Step 3b — PR Comment Resolver (opt-in)
 

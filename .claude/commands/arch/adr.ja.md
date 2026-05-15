@@ -33,7 +33,9 @@ description: >
 
 ## 出力
 
-docs/decisions/ADR-NNN.md
+docs/decisions/ADR-[NNN]-[slug].md
+
+**テンプレート**: `templates/adr.ja.md`
 
 ---
 

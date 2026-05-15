@@ -35,6 +35,8 @@ description: >
 
 docs/tasks/[TASK-ID]/requirements.md
 
+**テンプレート**: `templates/task-doc-requirements.ja.md`
+
 ---
 
 ## ヒューマンゲート

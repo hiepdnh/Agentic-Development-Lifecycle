@@ -113,26 +113,11 @@ Use the result to fill in metadata fields for each updated doc:
 - `**Updated by task**: [TASK-ID]`
 - `**Commit**: \`[short-sha]\` — [commit message]`
 
-Update `docs/tasks/[TASK-ID]/verification.md`:
-
-```markdown
-# Verification: [TASK-ID]
-
-**Verified by**: [Name]  
-**Date**: [Date]  
-**Status**: ✅ Done
-
-## AC Verification
-- [x] AC-001: [Verified by test/manual]
-- [x] AC-002: [...]
-
-## Docs Updated
-- [x] `docs/screens/[feature]/screen.md` — [summary of change]
-- [x] `docs/api/[domain]/[endpoint].md` — [summary of change]
-
-## Notes
-[Any important observations for future maintainers]
-```
+Update `docs/tasks/[TASK-ID]/verification.md` using template `templates/verification.en.md`. Fill in:
+- **Verified by** + **Date** + **Status**
+- List of verified ACs (AC-001, AC-002...)
+- List of updated docs (screen.md, endpoint.md...)
+- **Notes**: important observations for future maintainers
 
 ```
 Task [TASK-ID] fully completed:

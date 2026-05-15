@@ -90,6 +90,10 @@ For each file that needs updating, show a clear diff:
 ~~[Content to remove because it's no longer accurate]~~
 ```
 
+**Template reference**:
+- Screen docs follow `templates/baseline-screen.en.md` — update only the changed sections
+- API docs follow `templates/baseline-api.en.md` — update only the changed fields/behaviors
+
 ### Step 4 — Gate: Review each file
 
 ```
@@ -117,26 +121,13 @@ Use the result to fill in the metadata fields of each updated doc:
 - `**Updated by task**: [TASK-ID]`
 - `**Commit**: \`[short-sha]\` — [commit message]`
 
-Update `docs/tasks/[TASK-ID]/verification.md`:
+Update `docs/tasks/[TASK-ID]/verification.md` (using `templates/verification.en.md` if creating from scratch):
 
-```markdown
-# Verification: [TASK-ID]
-
-**Verified by**: [Name]  
-**Date**: [Date]  
-**Status**: ✅ Done
-
-## AC Verification
-- [x] AC-001: [Verified by test/manual]
-- [x] AC-002: [...]
-
-## Docs Updated
+Add to the **Docs Updated** section in the verification file:
 - [x] `docs/screens/[feature]/screen.md` — [summary of change]
 - [x] `docs/api/[domain]/[endpoint].md` — [summary of change]
 
-## Notes
-[Any observations important for future maintainers]
-```
+Update status to "Pass" if all docs are confirmed accurate.
 
 ```
 Task [TASK-ID] is fully complete:

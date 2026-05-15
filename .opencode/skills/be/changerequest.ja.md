@@ -92,99 +92,23 @@ description: >
 
 #### 4a. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-vn.md`（ベトナム語 — 内部用）
 
-```markdown
-# Change Request: CR-[NUMBER]
+テンプレート `templates/change-request.ja.md` を使用して作成。
 
-**Dự án**: [Tên dự án]
-**Task gốc**: [TASK-ID]
-**CR Number**: CR-[NUMBER]
-**Ngày tạo**: [YYYY-MM-DD JST]
-**Người tạo**: [Bridge Engineer name]
-**Status**: Draft / Pending Approval / Approved / Rejected
-
----
-
-## 1. Mô tả yêu cầu thay đổi
-
-**Từ khách JP**: [原文または VN 要約]
-
-**Nguồn**: [メール/会議日付 / Slack message / ...]
-
-## 2. Thay đổi so với spec gốc
-
-| # | Spec gốc | Spec mới | Loại |
-|---|---------|---------|------|
-| 1 | [...] | [...] | Thêm / Sửa / Bỏ |
-
-## 3. Impact Analysis
-
-[ステップ 2 の影響分析をペースト]
-
-## 4. Approval
-
-| Role | Tên | Quyết định | Ngày | Ghi chú |
-|------|-----|-----------|------|---------|
-| PM | [...] | Approve / Reject / Pending | [...] | [...] |
-| Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
-| Khách JP | [...] | Approve / Reject / Pending | [...] | [...] |
-
-## 5. Lịch sử
-
-| Version | Ngày | Thay đổi | Người thực hiện |
-|---------|------|---------|----------------|
-| 1.0 | [Date] | Tạo mới | [Name] |
-```
+必要事項を記入:
+- CR 番号、元タスク、作成者、ステータス
+- JP 顧客からの変更要求説明（原文または VN 要約）
+- 変更前 vs 変更後の比較表
+- 4 軸での影響分析: スコープ / 工数 / リスク / スケジュール
+- 承認テーブル（PM + Tech Lead + JP 顧客の 3 者）
 
 #### 4b. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-jp.md`（日本語 — JP 顧客送付用）
 
-```markdown
-# 変更依頼書: CR-[NUMBER]
+テンプレート `templates/change-request.ja.md` を使用して作成。
 
-**プロジェクト**: [プロジェクト名]
-**対象タスク**: [TASK-ID]
-**変更依頼番号**: CR-[NUMBER]
-**作成日**: [YYYY-MM-DD]
-**作成者**: [Bridge Engineer 氏名]
-**ステータス**: ドラフト / 承認待ち / 承認済み / 却下
-
----
-
-## 1. 変更内容
-
-[変更の概要を日本語で記述]
-
-## 2. 変更前・変更後の比較
-
-| # | 変更前 | 変更後 | 変更種別 |
-|---|--------|--------|---------|
-| 1 | [...] | [...] | 追加 / 修正 / 削除 |
-
-## 3. 影響範囲
-
-### 工数への影響
-- 追加工数: [X 人日]
-- 対応スプリント: スプリント [N]
-
-### スケジュールへの影響
-- 現在の納期: [Date]
-- 変更後の影響: [影響なし / X日遅延 / 要再調整]
-
-### リスク
-- [リスク内容]
-
-## 4. 承認欄
-
-| 役割 | 氏名 | 承認 | 日付 | コメント |
-|------|------|------|------|---------|
-| PM | [...] | 承認/却下/未回答 | [...] | [...] |
-| お客様 PM | [...] | 承認/却下/未回答 | [...] | [...] |
-
-## 5. 変更履歴
-
-| バージョン | 日付 | 変更内容 | 担当者 |
-|------------|------|---------|--------|
-| 1.0 | [Date] | 初版作成 | [Name] |
-```
+これは JP 顧客に送付する正式文書。確認事項:
+- 全セクションを敬語で日本語表記
+- 工数は人日で記載
+- 承認欄に JP 側確認者を含む
 
 ### ステップ 5 — 最終ゲート
 

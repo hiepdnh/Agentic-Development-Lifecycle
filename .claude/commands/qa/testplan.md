@@ -41,66 +41,7 @@ Trước khi soạn test plan, tôi cần hỏi:
 
 ### Bước 3 — Tạo Test Plan
 
-Tạo file `docs/tasks/[TASK-ID]/test-plan.md`:
-
-```markdown
-# Test Plan: [TASK-ID] — [Feature name]
-
-**QA**: [Name]  
-**Ngày**: [Date]  
-**Version**: 1.0
-
-## 1. Scope
-
-### In scope
-- [AC-001]: [...]
-- [AC-002]: [...]
-
-### Out of scope
-- [Không test gì trong sprint này]
-
-## 2. Test Strategy
-
-| Level | Approach | Tools |
-|-------|----------|-------|
-| Unit | [Dev tự test] | [JUnit/Jest/...] |
-| Integration | [API testing] | [Postman/RestAssured] |
-| E2E | [Manual/Selenium] | [...] |
-| Performance | [Load test nếu cần] | [...] |
-
-## 3. Test Cases
-
-### TC-001: [Happy Path — Tên]
-**Pre-condition**: [Trạng thái trước khi test]  
-**Steps**:
-1. [Bước 1]
-2. [Bước 2]  
-**Expected**: [Kết quả mong đợi]  
-**Priority**: High/Medium/Low
-
-### TC-002: [Edge Case — Tên]
-...
-
-### TC-003: [Negative Case — Tên]
-...
-
-## 4. Test Data
-
-| Data | Mô tả | Cách tạo |
-|------|-------|----------|
-| | | |
-
-## 5. Regression Checklist
-
-- [ ] [Feature A] vẫn hoạt động bình thường
-- [ ] [Feature B] không bị ảnh hưởng
-
-## 6. Exit Criteria
-
-- [ ] Tất cả test cases High priority pass
-- [ ] Không có bug Critical/High chưa fix
-- [ ] Regression không có regression mới
-```
+Tạo `docs/tasks/[TASK-ID]/test-plan.md` sử dụng template `templates/test-plan.md`.
 
 ### Bước 3.5 — Render HTML companion (interactive checklist)
 

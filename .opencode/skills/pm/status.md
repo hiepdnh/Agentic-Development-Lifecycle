@@ -64,8 +64,8 @@ question({
 ### Bước 3 — Tạo Status Report
 
 **Format quyết định ở Gate 2**:
-- **HTML dashboard** (default cho stakeholder / khách JP): sinh `E:\AI Bootcamp\ClaudeSkill\docs\reports\sprint-[N]-status.html` từ template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`
-- **Markdown**: sinh inline trong chat hoặc save `E:\AI Bootcamp\ClaudeSkill\docs\reports\sprint-[N]-status.md` — dùng template Markdown phía dưới
+- **HTML dashboard** (default cho stakeholder / khách JP): sinh `docs/reports\sprint-[N]-status.html` từ template `templates/html-artifact.html`
+- **Markdown**: sinh inline trong chat hoặc save `docs/reports\sprint-[N]-status.md` — dùng template Markdown phía dưới
 - **Text**: tóm tắt 1 màn hình trong chat
 
 #### HTML format

@@ -34,7 +34,7 @@ question({
 
 ### Bước 2 — Tạo ADR
 
-Tạo file `docs/decisions/ADR-[NNN]-[slug].md` dùng template `E:\AI Bootcamp\ClaudeSkill\templates\adr.md`.
+Tạo file `docs/decisions/ADR-[NNN]-[slug].md` dùng template `templates/adr.md`.
 
 Điền đầy đủ các section:
 - **Context**: tình huống + constraints dẫn đến quyết định

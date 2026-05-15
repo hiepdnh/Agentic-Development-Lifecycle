@@ -58,43 +58,17 @@ Which option would you like, or a combination?
 
 ### Step 4 — Create GitHub Issue format
 
-After PM confirms, create issue content following the template:
+After PM confirms, create issue content using template `templates/github-issue.en.md`.
 
-```markdown
-## [TASK-ID] [Task Name]
-
-**Type**: Feature / Bug / Tech Debt / Refactor  
-**Priority**: 🔴 High / 🟡 Medium / 🟢 Low  
-**Estimate**: [X] story points / [X] hours  
-**Sprint**: Sprint [N]  
-**Assigned to**: [Username]  
-**Labels**: [backend, frontend, api, ...]
-
----
-
-### Description
-[Brief description of the task]
-
-### Links
-- User Story: US-[XXX]
-- Spec: `docs/tasks/[TASK-ID]/requirements.md`
-- Related screen: `docs/screens/[feature]/screen.md`
-- Related API: `docs/api/[domain]/[endpoint].md`
-
-### Acceptance Criteria
-- [ ] AC-001: [Acceptance condition]
-- [ ] AC-002: [Acceptance condition]
-
-### Technical Notes
-[Important technical notes for the developer]
-
-### Definition of Done
-- [ ] Code complete + unit tests pass
-- [ ] Code review approved
-- [ ] Integration tests pass
-- [ ] Docs updated (if API/screen changed)
-- [ ] Demo to BA/PM
-```
+Fill in all fields:
+- **TASK-ID** and task name from the breakdown
+- **Type**: Feature / Bug / Tech Debt / Refactor
+- **Priority**: High / Medium / Low (decided in Step 3)
+- **Estimate**: from confirmed estimate
+- **Sprint**: current Sprint N
+- **Acceptance Criteria**: from the task's requirements.md
+- **Technical Notes**: key technical points for developers
+- **Labels**: per the team convention selected in Step 2
 
 ### Step 5 — Final gate before creation
 
