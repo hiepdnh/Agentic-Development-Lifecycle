@@ -35,6 +35,8 @@ description: >
 
 バグレポート（GitHub Issue または docs/tasks/[TASK]/bugs/）
 
+**テンプレート**: `templates/bug-report.ja.md`
+
 ---
 
 ## ヒューマンゲート

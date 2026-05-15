@@ -86,7 +86,7 @@ Read the request and identify:
 
 #### 3a. Spec for VN devs
 
-Create `docs/tasks/[TASK-ID]/requirements.md` following the standard template (see `templates/task-doc-requirements.md`).
+Create `docs/tasks/[TASK-ID]/requirements.md` following the standard template (see `templates/task-doc-requirements.en.md`).
 Language: Vietnamese.
 
 #### 3b. 設計書 for JP client

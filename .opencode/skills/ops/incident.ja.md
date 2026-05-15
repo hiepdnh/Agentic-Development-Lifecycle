@@ -35,6 +35,8 @@ description: >
 
 RCA 文書 + 障害報告書（JP 顧客送付）
 
+**テンプレート**: `templates/incident-report.ja.md`
+
 ---
 
 ## ヒューマンゲート

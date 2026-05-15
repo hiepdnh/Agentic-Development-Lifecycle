@@ -1,60 +1,80 @@
+---
+templateId: pr-description
+version: "1.0"
+lang: vi
+---
+<!-- lang: vi -->
+
 ## [TASK-ID] [Mô tả ngắn gọn thay đổi]
 
-### 📋 Summary
+### Type of change
+
+- [ ] Bug fix (non-breaking change — fixes an issue)
+- [ ] New feature (non-breaking change — adds functionality)
+- [ ] Breaking change (fix or feature causing existing functionality to change)
+- [ ] Refactor (code change with no functional effect)
+- [ ] Documentation update
+- [ ] Tech debt / dependency update
+
+### Summary
 
 <!-- 2-3 câu: WHAT thay đổi và WHY. Đủ để reviewer hiểu ngữ cảnh mà không cần đọc spec. -->
 
-### 🔗 Liên kết
+### Links
 
 - Closes #[issue-number]
 - Spec: `docs/tasks/[TASK-ID]/requirements.md`
 - Analysis: `docs/tasks/[TASK-ID]/analysis.md`
 
-### ✅ Acceptance Criteria
+### Acceptance Criteria
 
-- [x] AC-001: [Mô tả] — verified bởi `[test file / manual step]`
-- [x] AC-002: [Mô tả] — verified bởi `[...]`
-- [ ] AC-003: [Chưa done — lý do, sẽ xử lý ở issue #XXX]
+- [x] AC-001: [Mô tả] — verified by `[test file / manual step]`
+- [x] AC-002: [Mô tả] — verified by `[...]`
+- [ ] AC-003: [Not done — reason, will be addressed in issue #XXX]
 
-### 🔧 Changes
+### Changes
 
-| File | Loại | Mô tả thay đổi |
-|------|------|----------------|
+| File | Type | Description |
+|------|------|-------------|
 | `src/[file]` | Modified | [...] |
 | `src/[file]` | Added | [...] |
 | `src/[file]` | Deleted | [...] |
 
-### 🧪 Testing
+### How to Test
 
-**Automated Tests**:
+**Automated**:
 - [ ] Unit tests pass: `[test command]`
 - [ ] Integration tests pass: `[test command]`
 
-**Manual Testing**:
-<!-- Mô tả những gì đã test thủ công, environment, test account dùng -->
+**Manual verification**:
+<!-- Steps to manually verify the change. Include test data, environment, test accounts if applicable. -->
+1. [Step 1]
+2. [Step 2]
+3. Expected result: [...]
 
-### ⚠️ Breaking Changes
+### Breaking Changes
 
-<!-- None / Hoặc mô tả cụ thể: endpoint X đổi response format, field Y required... -->
+<!-- None / Or describe specifically: endpoint X changed response format, field Y now required... -->
 
-### 🗃️ Database Changes
+### Database Changes
 
-<!-- None / Migration: [tên file migration] — [mô tả] -->
+<!-- None / Migration: [migration filename] — [description] -->
 
-### 📝 Notes cho Reviewer
+### Notes for Reviewer
 
 <!-- 
-- Quyết định design quan trọng và lý do
-- Areas cần review kỹ nhất
-- Known limitations hoặc tech debt được accept
+- Important design decisions and rationale
+- Areas needing closest review
+- Known limitations or intentionally accepted tech debt
 -->
 
-### 📚 Docs cần update sau merge
+### Release Notes Summary
 
-- [ ] `docs/screens/[feature]/screen.md` — [mô tả thay đổi]
-- [ ] `docs/api/[domain]/[endpoint].md` — [mô tả thay đổi]
+<!-- One-line description for release notes (as it should appear to end users / customers) -->
 
-<!-- Chạy /docs:update sau khi merge để cập nhật baseline docs -->
+### Docs to Update After Merge
 
----
-<!-- Template version: 1.0 | Framework: Agentic Development Lifecycle -->
+- [ ] `docs/screens/[feature]/screen.md` — [describe change]
+- [ ] `docs/api/[domain]/[endpoint].md` — [describe change]
+
+<!-- Run /docs:update after merge to sync baseline docs -->

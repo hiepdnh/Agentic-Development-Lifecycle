@@ -48,7 +48,7 @@ question({
   }]
 })
 
-**Ask First Gate**: If the bug occurs on production with real users → notify the team immediately before debugging. See `E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`.
+**Ask First Gate**: If the bug occurs on production with real users → notify the team immediately before debugging. See `assets/ask-first-gates.md`.
 
 ### Step 2 — Localize
 
@@ -118,7 +118,7 @@ question({
   }]
 })
 
-**Ask First Gate**: If the fix involves any sensitive changes (`E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`) → requires senior review before applying.
+**Ask First Gate**: If the fix involves any sensitive changes (`assets/ask-first-gates.md`) → requires senior review before applying.
 
 ### Step 5 — Guard
 

@@ -41,66 +41,7 @@ Before writing the test plan, I need to ask:
 
 ### Step 3 — Create Test Plan
 
-Create file `docs/tasks/[TASK-ID]/test-plan.md`:
-
-```markdown
-# Test Plan: [TASK-ID] — [Feature name]
-
-**QA**: [Name]  
-**Date**: [Date]  
-**Version**: 1.0
-
-## 1. Scope
-
-### In scope
-- [AC-001]: [...]
-- [AC-002]: [...]
-
-### Out of scope
-- [Not tested in this sprint]
-
-## 2. Test Strategy
-
-| Level | Approach | Tools |
-|-------|----------|-------|
-| Unit | [Dev self-test] | [JUnit/Jest/...] |
-| Integration | [API testing] | [Postman/RestAssured] |
-| E2E | [Manual/Selenium] | [...] |
-| Performance | [Load test if needed] | [...] |
-
-## 3. Test Cases
-
-### TC-001: [Happy Path — Name]
-**Pre-condition**: [State before test]  
-**Steps**:
-1. [Step 1]
-2. [Step 2]  
-**Expected**: [Expected result]  
-**Priority**: High/Medium/Low
-
-### TC-002: [Edge Case — Name]
-...
-
-### TC-003: [Negative Case — Name]
-...
-
-## 4. Test Data
-
-| Data | Description | How to create |
-|------|-------------|---------------|
-| | | |
-
-## 5. Regression Checklist
-
-- [ ] [Feature A] still works normally
-- [ ] [Feature B] is not affected
-
-## 6. Exit Criteria
-
-- [ ] All High priority test cases pass
-- [ ] No Critical/High bugs unfixed
-- [ ] No new regressions found
-```
+Create `docs/tasks/[TASK-ID]/test-plan.md` using template `templates/test-plan.en.md`.
 
 ### Step 3.5 — Render HTML companion (interactive checklist)
 

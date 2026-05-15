@@ -14,7 +14,7 @@ description: >
 
 ## Ask First Gates (stop before creating PR if any apply)
 
-> Full list + rationale: `E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`
+> Full list + rationale: `assets/ask-first-gates.md`
 
 If the PR contains any sensitive changes from the list above → flag them clearly in Gate 2 and wait for senior confirmation.
 
@@ -84,42 +84,18 @@ question({
 
 ### Step 3 — Create PR Description
 
-```markdown
-## [TASK-ID] [Tên feature/fix ngắn gọn]
+Create PR description using template `templates/pr-description.en.md`.
 
-### 📋 Summary
-[2-3 câu mô tả WHAT và WHY của PR này]
-
-### 🔗 Liên kết
-- Issue: #[number]
-- Spec: `docs/tasks/[TASK-ID]/requirements.md`
-- Analysis: `docs/tasks/[TASK-ID]/analysis.md`
-
-### ✅ Acceptance Criteria
-- [x] AC-001: [Mô tả] — verified bởi [test/manual]
-- [x] AC-002: [Mô tả] — verified bởi [test/manual]
-
-### 🔧 Changes
-| File | Loại thay đổi | Mô tả |
-|------|--------------|-------|
-| `[file]` | Added/Modified/Deleted | [...] |
-
-### 🧪 Testing
-**Unit Tests**: [Pass/Fail/N/A]  
-**Integration Tests**: [Pass/Fail/N/A]  
-**Self-Test Results**: [Lấy từ `docs/tasks/[TASK-ID]/verification.md` — tóm tắt T-01…T-N]  
-**Overall**: PASS / FAIL / CONDITIONAL
-
-### ⚠️ Breaking Changes
-[None / Mô tả nếu có]
-
-### 📝 Notes cho Reviewer
-[Những điểm cần chú ý khi review, quyết định design quan trọng]
-
-### 📚 Docs cần cập nhật sau merge
-- [ ] `docs/screens/[feature]/screen.md`
-- [ ] `docs/api/[domain]/[endpoint].md`
-```
+Fill in all sections from the diff-reader output and AC coverage data:
+- **Summary**: 2-3 sentences from the context
+- **Links**: issue number, spec path, analysis path
+- **Acceptance Criteria**: from requirements.md, mark each [x] with test evidence
+- **Changes table**: from diff-reader file list
+- **How to Test**: from verification.md T-steps (manual verification steps T-01...T-N)
+- **Breaking Changes**: from Gate 2 answers
+- **Notes for Reviewer**: from Gate 2 answers
+- **Release Notes Summary**: 1-line description for the changelog
+- **Docs to Update**: from verification.md docs list
 
 ### Step 3b — PR Comment Resolver (opt-in)
 

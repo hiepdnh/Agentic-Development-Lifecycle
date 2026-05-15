@@ -92,114 +92,26 @@ Phân tích theo 4 chiều:
 
 #### 4a. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-vn.md` (tiếng Việt — nội bộ)
 
-```markdown
-# Change Request: CR-[NUMBER]
+Tạo dùng template `templates/change-request.md`.
 
-**Dự án**: [Tên dự án]  
-**Task gốc**: [TASK-ID]  
-**CR Number**: CR-[NUMBER]  
-**Ngày tạo**: [YYYY-MM-DD JST]  
-**Người tạo**: [Bridge Engineer name]  
-**Status**: Draft / Pending Approval / Approved / Rejected
-
----
-
-## 1. Mô tả yêu cầu thay đổi
-
-**Từ khách JP**: [Mô tả nguyên văn hoặc tóm tắt yêu cầu bằng tiếng Việt]
-
-**Nguồn**: [Email/Meeting ngày... / Slack message / ...]
-
-## 2. Thay đổi so với spec gốc
-
-| # | Spec gốc | Spec mới | Loại |
-|---|---------|---------|------|
-| 1 | [...] | [...] | Thêm / Sửa / Bỏ |
-| 2 | [...] | [...] | Thêm / Sửa / Bỏ |
-
-## 3. Impact Analysis
-
-### Scope
-- Files bị ảnh hưởng: [list]
-- ACs thay đổi: [list]
-- Test cases cần cập nhật: [list]
-
-### Effort
-- Estimate: [X man-hours]
-- Sprint: Sprint [N] / Sprint [N+1]
-
-### Risk
-- Risk mới: [list]
-- Regression risk: [Low / Medium / High]
-
-### Schedule
-- Impact đến deadline: [Mô tả]
-
-## 4. Approval
-
-| Role | Tên | Quyết định | Ngày | Ghi chú |
-|------|-----|-----------|------|---------|
-| PM | [...] | Approve / Reject / Pending | [...] | [...] |
-| Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
-| Khách JP | [...] | Approve / Reject / Pending | [...] | [...] |
-
-## 5. Lịch sử
-
-| Version | Ngày | Thay đổi | Người thực hiện |
-|---------|------|---------|----------------|
-| 1.0 | [Date] | Tạo mới | [Name] |
-```
+Điền vào 10 mục từ kết quả phân tích ảnh hưởng:
+- CR ID, tiêu đề, loại thay đổi, người yêu cầu, mức ảnh hưởng trong frontmatter
+- Mô tả thay đổi (từ tóm tắt yêu cầu JP)
+- Lý do/Bối cảnh
+- Bảng chức năng bị ảnh hưởng (từ scope impact Bước 2)
+- Bảng phân tích kỹ thuật (DB/API/UI/Integration/Security/Performance)
+- Ước tính công việc (Dev/QA/Review+Deploy tính bằng 人日)
+- Rủi ro và biện pháp
+- Kế hoạch triển khai (ngày mục tiêu, sprint, điều kiện tiên quyết)
+- Tiêu chí nghiệm thu (tối thiểu 2 ACs)
+- Hiệu quả kỳ vọng
+- Bảng lịch sử phê duyệt (PM + Tech Lead + Khách JP — đều bắt đầu là Pending)
 
 #### 4b. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-jp.md` (tiếng Nhật — gửi khách JP)
 
-```markdown
-# 変更依頼書: CR-[NUMBER]
+Tạo dùng template `templates/change-request.ja.md`.
 
-**プロジェクト**: [プロジェクト名]  
-**対象タスク**: [TASK-ID]  
-**変更依頼番号**: CR-[NUMBER]  
-**作成日**: [YYYY-MM-DD]  
-**作成者**: [Bridge Engineer 氏名]  
-**ステータス**: ドラフト / 承認待ち / 承認済み / 却下
-
----
-
-## 1. 変更内容
-
-[変更の概要を日本語で記述]
-
-## 2. 変更前・変更後の比較
-
-| # | 変更前 | 変更後 | 変更種別 |
-|---|--------|--------|---------|
-| 1 | [...] | [...] | 追加 / 修正 / 削除 |
-
-## 3. 影響範囲
-
-### 工数への影響
-- 追加工数: [X 人日]
-- 対応スプリント: スプリント [N]
-
-### スケジュールへの影響
-- 現在の納期: [Date]
-- 変更後の影響: [影響なし / X日遅延 / 要再調整]
-
-### リスク
-- [リスク内容]
-
-## 4. 承認欄
-
-| 役割 | 氏名 | 承認 | 日付 | コメント |
-|------|------|------|------|---------|
-| PM | [...] | 承認/却下/未回答 | [...] | [...] |
-| お客様 PM | [...] | 承認/却下/未回答 | [...] | [...] |
-
-## 5. 変更履歴
-
-| バージョン | 日付 | 変更内容 | 担当者 |
-|------------|------|---------|--------|
-| 1.0 | [Date] | 初版作成 | [Name] |
-```
+Đây là tài liệu chính thức gửi khách JP (変更依頼書). Dịch nội dung thay đổi và phân tích ảnh hưởng từ 4a sang tiếng Nhật dùng thuật ngữ từ `templates/jp-vn-en-glossary.md`.
 
 ### Bước 5 — Gate cuối
 

@@ -78,7 +78,7 @@ task(
 
 ### Bước 0 — Risk Classification
 
-Trước khi spawn bất kỳ subagent nào, classify risk theo `E:\AI Bootcamp\ClaudeSkill\docs\risk-classifier.md`:
+Trước khi spawn bất kỳ subagent nào, classify risk theo `docs/risk-classifier.md`:
 
 ```
 ## Risk Classification — [TASK-ID]
@@ -231,7 +231,7 @@ question({
 
 ### Bước 6.5 — Render HTML companion (so sánh phương án)
 
-Trước khi human chọn ở Bước 6, sinh `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis-compare.html` từ template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+Trước khi human chọn ở Bước 6, sinh `docs/tasks\[TASK-ID]\analysis-compare.html` từ template `templates/html-artifact.html`:
 
 - Inject `<table id="options" data-sortable>` với các cột: Phương án | Effort (h) | Risk | Files chạm | Ưu | Nhược
 - Mỗi phương án 1 row, cột Effort dùng `data-type="number"` để sort

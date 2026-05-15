@@ -28,7 +28,7 @@ Thay đổi spec sau sign-off là rủi ro cao nhất trong JP outsource:
 
 ### Bước 0 — Load glossary
 
-Đọc `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` trước khi xử lý thuật ngữ kỹ thuật.
+Đọc `templates/jp-vn-en-glossary.md` trước khi xử lý thuật ngữ kỹ thuật.
 
 ### Bước 1 — Gate: Thu thập thông tin CR
 
@@ -135,114 +135,23 @@ question({
 
 #### 4a. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-vn.md` (tiếng Việt — nội bộ)
 
-```markdown
-# Change Request: CR-[NUMBER]
+Tạo dùng template `templates/change-request.md`.
 
-**Dự án**: [Tên dự án]  
-**Task gốc**: [TASK-ID]  
-**CR Number**: CR-[NUMBER]  
-**Ngày tạo**: [YYYY-MM-DD JST]  
-**Người tạo**: [Bridge Engineer name]  
-**Status**: Draft / Pending Approval / Approved / Rejected
-
----
-
-## 1. Mô tả yêu cầu thay đổi
-
-**Từ khách JP**: [Mô tả nguyên văn hoặc tóm tắt yêu cầu bằng tiếng Việt]
-
-**Nguồn**: [Email/Meeting ngày... / Slack message / ...]
-
-## 2. Thay đổi so với spec gốc
-
-| # | Spec gốc | Spec mới | Loại |
-|---|---------|---------|------|
-| 1 | [...] | [...] | Thêm / Sửa / Bỏ |
-| 2 | [...] | [...] | Thêm / Sửa / Bỏ |
-
-## 3. Impact Analysis
-
-### Scope
-- Files bị ảnh hưởng: [list]
-- ACs thay đổi: [list]
-- Test cases cần cập nhật: [list]
-
-### Effort
-- Estimate: [X man-hours]
-- Sprint: Sprint [N] / Sprint [N+1]
-
-### Risk
-- Risk mới: [list]
-- Regression risk: [Low / Medium / High]
-
-### Schedule
-- Impact đến deadline: [Mô tả]
-
-## 4. Approval
-
-| Role | Tên | Quyết định | Ngày | Ghi chú |
-|------|-----|-----------|------|---------|
-| PM | [...] | Approve / Reject / Pending | [...] | [...] |
-| Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
-| Khách JP | [...] | Approve / Reject / Pending | [...] | [...] |
-
-## 5. Lịch sử
-
-| Version | Ngày | Thay đổi | Người thực hiện |
-|---------|------|---------|----------------|
-| 1.0 | [Date] | Tạo mới | [Name] |
-```
+Điền đầy đủ:
+- CR Number, Task gốc, Người tạo, Status
+- Mô tả yêu cầu thay đổi từ khách JP (nguyên văn hoặc tóm tắt)
+- Bảng so sánh Spec gốc vs Spec mới
+- Impact Analysis theo 4 chiều: Scope / Effort / Risk / Schedule
+- Approval table đủ 3 bên: PM + Tech Lead + Khách JP
 
 #### 4b. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-jp.md` (tiếng Nhật — gửi khách JP)
 
-```markdown
-# 変更依頼書: CR-[NUMBER]
+Tạo dùng template `templates/change-request.ja.md`.
 
-**プロジェクト**: [プロジェクト名]  
-**対象タスク**: [TASK-ID]  
-**変更依頼番号**: CR-[NUMBER]  
-**作成日**: [YYYY-MM-DD]  
-**作成者**: [Bridge Engineer 氏名]  
-**ステータス**: ドラフト / 承認待ち / 承認済み / 却下
-
----
-
-## 1. 変更内容
-
-[変更の概要を日本語で記述]
-
-## 2. 変更前・変更後の比較
-
-| # | 変更前 | 変更後 | 変更種別 |
-|---|--------|--------|---------|
-| 1 | [...] | [...] | 追加 / 修正 / 削除 |
-
-## 3. 影響範囲
-
-### 工数への影響
-- 追加工数: [X 人日]
-- 対応スプリント: スプリント [N]
-
-### スケジュールへの影響
-- 現在の納期: [Date]
-- 変更後の影響: [影響なし / X日遅延 / 要再調整]
-
-### リスク
-- [リスク内容]
-
-## 4. 承認欄
-
-| 役割 | 氏名 | 承認 | 日付 | コメント |
-|------|------|------|------|---------|
-| PM | [...] | 承認/却下/未回答 | [...] | [...] |
-| お客様 PM | [...] | 承認/却下/未回答 | [...] | [...] |
-
-## 5. 変更履歴
-
-| バージョン | 日付 | 変更内容 | 担当者 |
-|------------|------|---------|--------|
-| 1.0 | [Date] | 初版作成 | [Name] |
-```
+Đây là văn bản chính thức gửi khách JP. Đảm bảo:
+- Tất cả sections bằng tiếng Nhật với kính ngữ (敬語)
+- Số liệu effort bằng 人日 (man-days)
+- Approval table có đủ bên JP confirm
 
 ### Bước 5 — Gate cuối
 

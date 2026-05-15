@@ -35,6 +35,8 @@ description: >
 
 docs/reports/release-[version]-[date].html (HTML) + Markdown (バイリンガル)
 
+**テンプレート**: `templates/release-notes.ja.md`
+
 ---
 
 ## ヒューマンゲート

@@ -14,7 +14,7 @@ description: >
 
 ## Quan trọng: Chạy /dev:analyze trước
 
-Skill này yêu cầu `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis.md` đã tồn tại.
+Skill này yêu cầu `docs/tasks\[TASK-ID]\analysis.md` đã tồn tại.
 Nếu chưa có → chạy `/dev:analyze` trước.
 
 ---
@@ -29,7 +29,7 @@ Dùng **task tool** của OpenCode để spawn subagent. Mỗi subagent nhận c
 
 ### Bước 1 — Đọc analysis doc
 
-Đọc `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\analysis.md`:
+Đọc `docs/tasks\[TASK-ID]\analysis.md`:
 - Phương án đã chọn
 - Danh sách files cần thay đổi
 - Quyết định kỹ thuật đã confirm
@@ -175,28 +175,15 @@ Hãy thực hiện các bước test trên và báo cáo kết quả:
 
 **Chờ user báo cáo kết quả test.**
 
-Sau khi nhận kết quả, tạo `docs/tasks/[TASK-ID]/verification.md`:
+Sau khi nhận kết quả test, tạo `docs/tasks/[TASK-ID]/verification.md` dùng template `templates/verification.md`.
 
-```markdown
-# Verification: [TASK-ID]
-
-## Diff Summary
-[từ subagent output]
-
-## AC Coverage
-- ✅/❌ AC-001: [...]
-- ✅/❌ AC-002: [...]
-
-## Self-Test Results
-| # | Action | Expected | Result | Notes |
-|---|--------|---------|--------|-------|
-| T-01 | [...] | [...] | PASS/FAIL | [...] |
-
-## Sign-off
-- Tester: [user]
-- Date: [date]
-- Status: PASS / FAIL / CONDITIONAL
-```
+Điền vào:
+- **Frontmatter**: `taskId`, `verifiedBy` (tên user), `signOffStatus` (Pending → cập nhật thành Pass/Fail sau khi user report)
+- **Bảng kết quả AC**: từ kết quả subagent — mỗi AC ghi method test và kết quả
+- **Automated Tests**: paste output test thực tế (lệnh + số pass/fail + coverage %)
+- **Manual Test Steps**: T-01...T-N từ bảng Self-Test ở trên với kết quả thực tế điền vào
+- **Issues Found**: các kết quả FAIL → mô tả với severity
+- **Sign-off**: tick box dev self-review; ngày = hôm nay JST
 
 ```
 ## Verification hoàn tất ✓
@@ -219,7 +206,7 @@ Trước khi kết thúc, tự hỏi:
 - Có template thiếu field quan trọng?
 - Có vấn đề nào lặp lại từ task trước?
 
-Nếu có → thêm entry vào `E:\AI Bootcamp\ClaudeSkill\docs\improvement-backlog.md` ngay (không cần confirm human):
+Nếu có → thêm entry vào `docs/improvement-backlog.md` ngay (không cần confirm human):
 ```
 | IB-XXX | dev:implement / [TASK-ID] | [mô tả friction] | [proposed fix] | open |
 ```
@@ -232,5 +219,5 @@ Nếu có → thêm entry vào `E:\AI Bootcamp\ClaudeSkill\docs\improvement-back
 - Không refactor code ngoài scope task
 - Không thêm feature ngoài AC đã định nghĩa
 - Migration có thể mất data → **luôn hỏi confirm** trước khi tạo
-- Nếu phát hiện bất kỳ thay đổi nhạy cảm nào → dừng, xem `E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`
+- Nếu phát hiện bất kỳ thay đổi nhạy cảm nào → dừng, xem `assets/ask-first-gates.md`
 - Nếu phát hiện bug không liên quan → note lại, tạo issue riêng, không fix ngay

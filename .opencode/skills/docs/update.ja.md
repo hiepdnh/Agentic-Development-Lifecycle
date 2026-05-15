@@ -35,6 +35,11 @@ description: >
 
 更新されたベースライン文書 + メタデータ（Last updated JST、commit SHA）
 
+**テンプレート**:
+- `templates/baseline-screen.ja.md`
+- `templates/baseline-api.ja.md`
+- `templates/verification.ja.md`
+
 ---
 
 ## ヒューマンゲート

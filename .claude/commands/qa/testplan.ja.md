@@ -33,7 +33,8 @@ description: >
 
 ## 出力
 
-test-plan.md + test-plan.html (チェック可能、localStorage 保存)
+`docs/tasks/[TASK-ID]/test-plan.md` — テンプレート: `templates/test-plan.ja.md` を使用
+`docs/tasks/[TASK-ID]/test-plan.html` (チェック可能、localStorage 保存)
 
 ---
 

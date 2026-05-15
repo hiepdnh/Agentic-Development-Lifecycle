@@ -172,7 +172,7 @@ scope: [path scanned]
 - `docs/baseline/api-inventory.md` — list endpoints + origin in code
 - `docs/baseline/db-schema.md` — tables + relationships
 
-**Audit**: append an entry to `docs/baseline/audit.md` (template: `templates/audit.md`).
+**Audit**: append an entry to `docs/baseline/audit.md` (template: `templates/audit.en.md`).
 
 ### Step 5 — Final Gate: Review + handoff
 

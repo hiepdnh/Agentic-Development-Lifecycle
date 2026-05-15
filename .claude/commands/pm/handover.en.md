@@ -61,153 +61,29 @@ If `codebase-overview.md` is missing → suggest running `/ba:reverse` first.
 
 ### Step 3 — Create Handover Package
 
-#### 3a. `docs/handover/[DATE]-handover.md` (Vietnamese — for VN team)
+#### 3a. `docs/handover/[DATE]-handover.md` (Internal — for VN team)
 
-```markdown
-# Handover Document: [Project name]
+Create using template `templates/handover.en.md`.
 
-**Handover date**: [YYYY-MM-DD]  
-**Handover by**: [Name]  
-**Handover to**: [Name]  
-**Handover type**: [Internal / Client / Vendor]
-
----
-
-## 1. Project Overview
-
-| Information | Details |
-|-------------|---------|
-| JP Client | [Name] |
-| Bridge Engineer | [Name] |
-| Tech stack | [Languages, frameworks, DB] |
-| Repo | [URL] |
-| Staging URL | [URL] |
-| Production URL | [URL] |
-| CI/CD | [Platform + pipeline URL] |
-
-## 2. Codebase Structure
-
-[Summary from codebase-overview.md — main modules, entry points, folder structure]
-
-## 3. Dev Environment Setup
-
-```bash
-# Clone and setup
-[specific commands]
-
-# Required ENV variables
-[list ENV vars — don't write values, only names + source of truth]
-
-# Run locally
-[specific commands]
-```
-
-## 4. Architecture and Technical Decisions
-
-[Summary from ADRs — one line per decision + link to corresponding ADR]
-
-| ADR | Decision | Reason | File |
-|-----|----------|--------|------|
-| ADR-001 | [...] | [...] | docs/decisions/ADR-001.md |
-
-## 5. Open Tasks
-
-| ID | Name | Status | Assignee | Notes |
-|----|------|--------|----------|-------|
-| [ID] | [...] | In Progress / Blocked | [Name] | [...] |
-
-## 6. Known Issues and Tech Debt
-
-| Issue | Severity | Resolution approach |
-|-------|----------|--------------------|
-| [...] | High/Medium/Low | [...] |
-
-## 7. Release Schedule and Commitments to JP Client
-
-| Date | Deliverable | Status | Notes |
-|------|-------------|--------|-------|
-| [...] | [...] | [...] | [...] |
-
-## 8. Contact Matrix
-
-| Role | Name | Email | Slack/Teams | Notes |
-|------|------|-------|-------------|-------|
-| JP Client (PM) | [...] | [...] | [...] | Timezone: JST |
-| JP Client (Dev Lead) | [...] | [...] | [...] | |
-| BE (Bridge Engineer) | [...] | [...] | [...] | |
-| VN PM | [...] | [...] | [...] | |
-
-## 9. Project-Specific Processes
-
-[Things not covered in standard documentation — quirks of this project]
-
-- [...]
-
-## 10. Credentials and Access
-
-> ⚠️ Do not write credentials directly — only document WHERE to get them
-
-| Access | Source |
-|--------|--------|
-| Production DB | [Vault / LastPass / specific person] |
-| AWS/GCP access | [...] |
-| JP client portal | [...] |
-```
+Fill in all 7 sections:
+1. **System Overview**: purpose, key features, users; tech stack; environments table (Production/Staging/Dev URLs)
+2. **Current Status**: version, known issues/tech debt table (from `docs/improvement-backlog.md`), in-progress tasks
+3. **Key Contacts**: complete contact matrix for all roles; note that credentials are stored separately
+4. **Systems and Tools**: every tool the new person needs access to — platform, account type, access notes
+5. **Recurring Tasks Schedule**: all recurring obligations by frequency (daily/weekly/monthly) with times in JST
+6. **Operational Notes**: gotchas list, common incidents with resolution steps, rollback procedure
+7. **Additional Documents**: table of all key doc paths
 
 #### 3b. `docs/handover/[DATE]-引き継ぎ書.md` (Japanese — when handing over to JP client)
 
-```markdown
-# 引き継ぎ書: [プロジェクト名]
+Create using template `templates/handover.ja.md`.
 
-**引き継ぎ日**: [YYYY-MM-DD]  
-**担当者**: [氏名]  
-**引き継ぎ先**: [氏名または会社名]
-
----
-
-## 1. プロジェクト概要
-
-[簡潔なプロジェクトの目的・背景・現状のまとめ]
-
-## 2. システム構成
-
-| 項目 | 詳細 |
-|------|------|
-| 技術スタック | [Languages, Frameworks, DB] |
-| リポジトリ | [URL] |
-| ステージング環境 | [URL] |
-| 本番環境 | [URL] |
-
-## 3. 未完了タスク
-
-| ID | タスク名 | ステータス | 優先度 | 備考 |
-|----|---------|-----------|--------|------|
-| [ID] | [...] | 進行中/保留 | 高/中/低 | [...] |
-
-## 4. 既知の課題
-
-| 課題 | 重要度 | 対応方針 |
-|------|--------|---------|
-| [...] | 高/中/低 | [...] |
-
-## 5. 重要な設計判断
-
-[ADRsの要約 — なぜこのアーキテクチャにしたか]
-
-## 6. 連絡先
-
-| 役割 | 氏名 | メール | 備考 |
-|------|------|-------|------|
-| PM | [...] | [...] | |
-| Bridge Engineer | [...] | [...] | |
-| Tech Lead | [...] | [...] | |
-
-## 7. 変更履歴
-
-| バージョン | 日付 | 変更内容 | 担当者 |
-|------------|------|---------|--------|
-| 1.0 | [Date] | 初版作成 | [Name] |
-```
+This is a formal Japanese deliverable. Use `templates/html-bilingual.html` if an HTML version is needed for email forwarding.
+Ensure:
+- All section headings in Japanese (template already provides these)
+- 敬語 (honorific language) in all descriptive text
+- Credentials: document WHERE to get them, never inline
+- Timing references in JST
 
 ### Step 4 — Completion checklist
 

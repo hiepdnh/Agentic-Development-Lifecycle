@@ -171,6 +171,34 @@ Includes: `/dev:analyze` `/dev:implement` `/dev:review` `/dev:pr` `/dev:debug` `
 
 ---
 
+## Templates & Artifacts
+
+Every skill writes output to a structured template. All templates support **VN / EN / JP** variants (`name.md` / `name.en.md` / `name.ja.md`).
+
+| Template | Artifact produced | Standard |
+|----------|------------------|---------|
+| `task-doc-requirements` | Requirements spec | IEEE 29148 (SRS) |
+| `user-story` | User stories + Acceptance Criteria | Connextra / INVEST |
+| `analysis` | Implementation options + trade-offs | — |
+| `verification` | Test results + sign-off | IEEE 829 |
+| `test-plan` | Test plan with TC matrix | IEEE 829 |
+| `bug-report` | Bug report (Severity / Priority / Steps) | — |
+| `adr` | Architecture Decision Record | MADR (Markdown Architectural Decision Records) |
+| `pr-description` | Pull Request description | — |
+| `github-issue` | GitHub / GitLab issue | — |
+| `audit` | Append-only audit log per task | — |
+| `change-request` | 変更依頼書 — impact analysis + approval trail | — |
+| `release-notes` | Release Notes / リリースノート | Keep a Changelog |
+| `handover` | 引き継ぎ書 — codebase map + contact matrix | — |
+| `monthly-maintenance-report` | 月次保守報告書 | — |
+| `incident-report` | Incident RCA + blameless postmortem | Google SRE / PagerDuty |
+| `baseline-screen` | Screen spec / 画面定義書 | IPA 基本設計書 conventions (JP) |
+| `baseline-api` | API spec / API定義書 | IPA API定義書 conventions (JP) |
+
+JP variants include client-facing fields (`顧客名`, `プロジェクト名`, `対象システム`) and use formal 敬語 language where appropriate.
+
+---
+
 ## How It Works
 
 ### Subagents (multi-agent pattern)

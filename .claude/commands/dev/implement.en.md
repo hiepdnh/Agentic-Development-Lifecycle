@@ -184,28 +184,15 @@ Please execute the test steps above and report results:
 
 **Wait for user to report test results.**
 
-After receiving results, create `docs/tasks/[TASK-ID]/verification.md`:
+After receiving results, create `docs/tasks/[TASK-ID]/verification.md` using template `templates/verification.en.md`.
 
-```markdown
-# Verification: [TASK-ID]
-
-## Diff Summary
-[from subagent output]
-
-## AC Coverage
-- ✅/❌ AC-001: [...]
-- ✅/❌ AC-002: [...]
-
-## Self-Test Results
-| # | Action | Expected | Result | Notes |
-|---|--------|---------|--------|-------|
-| T-01 | [...] | [...] | PASS/FAIL | [...] |
-
-## Sign-off
-- Tester: [user]
-- Date: [date]
-- Status: PASS / FAIL / CONDITIONAL
-```
+Fill in:
+- **Frontmatter**: `taskId`, `verifiedBy` (user name), `signOffStatus` (Pending → update to Pass/Fail after user reports results)
+- **AC Results table**: from diff-reader AC coverage — each AC row with test method and result
+- **Automated Tests section**: paste actual test output (command + pass/fail counts + coverage %)
+- **Manual Test Steps table**: T-01...T-N from the Self-Test Steps table above with actual results filled in
+- **Issues Found**: any FAIL results → describe with severity
+- **Sign-off**: check dev self-review box; date = today JST
 
 ```
 ## Verification complete ✓

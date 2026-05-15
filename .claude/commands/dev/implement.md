@@ -184,28 +184,15 @@ Hãy thực hiện các bước test trên và báo cáo kết quả:
 
 **Chờ user báo cáo kết quả test.**
 
-Sau khi nhận kết quả, tạo `docs/tasks/[TASK-ID]/verification.md`:
+Sau khi nhận kết quả test, tạo `docs/tasks/[TASK-ID]/verification.md` dùng template `templates/verification.md`.
 
-```markdown
-# Verification: [TASK-ID]
-
-## Diff Summary
-[từ subagent output]
-
-## AC Coverage
-- ✅/❌ AC-001: [...]
-- ✅/❌ AC-002: [...]
-
-## Self-Test Results
-| # | Action | Expected | Result | Notes |
-|---|--------|---------|--------|-------|
-| T-01 | [...] | [...] | PASS/FAIL | [...] |
-
-## Sign-off
-- Tester: [user]
-- Date: [date]
-- Status: PASS / FAIL / CONDITIONAL
-```
+Điền vào:
+- **Frontmatter**: `taskId`, `verifiedBy` (tên user), `signOffStatus` (Pending → cập nhật thành Pass/Fail sau khi user report)
+- **Bảng kết quả AC**: từ kết quả subagent — mỗi AC ghi method test và kết quả
+- **Automated Tests**: paste output test thực tế (lệnh + số pass/fail + coverage %)
+- **Manual Test Steps**: T-01...T-N từ bảng Self-Test ở trên với kết quả thực tế điền vào
+- **Issues Found**: các kết quả FAIL → mô tả với severity
+- **Sign-off**: tick box dev self-review; ngày = hôm nay JST
 
 ```
 ## Verification hoàn tất ✓
