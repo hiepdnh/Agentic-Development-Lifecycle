@@ -261,12 +261,14 @@ async function main() {
   // 4b. docs root framework files (always overwrite on --update) — lang-aware
   s.start('Copying framework doc files...');
   const docRootFiles = ['risk-classifier.md', 'risk-classifier.ja.md', 'validation-matrix.md'];
+  const docRootSiblings = new Set(docRootFiles);
   let docRootCopied = 0, docRootUpdated = 0, docRootFiltered = 0;
   for (const file of docRootFiles) {
     const srcFile = path.join(src, 'docs', file);
-    const dstFile = path.join(docsDst, file);
     if (!fs.existsSync(srcFile)) continue;
-    if (!langFilter(file)) { docRootFiltered++; continue; }
+    if (!langFilter(file, docRootSiblings)) { docRootFiltered++; continue; }
+    const dstFileName = getLangDestName(file);
+    const dstFile = path.join(docsDst, dstFileName);
     if (fs.existsSync(dstFile)) {
       if (UPDATE) { fs.copyFileSync(srcFile, dstFile); docRootUpdated++; }
     } else {
