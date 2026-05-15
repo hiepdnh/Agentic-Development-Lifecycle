@@ -17,7 +17,7 @@ description: >
 ### Bước 1 — Đọc input
 
 Nhận vào: Epic description, User Stories, hoặc yêu cầu trực tiếp từ PM.
-Đọc `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\requirements.md` nếu có.
+Đọc `docs/tasks\[TASK-ID]\requirements.md` nếu có.
 
 ### Bước 2 — Gate: Clarify trước khi breakdown
 
@@ -75,43 +75,17 @@ Bạn muốn chọn phương án nào, hoặc kết hợp?
 
 ### Bước 4 — Tạo GitHub Issue format
 
-Sau khi PM confirm, tạo nội dung issue theo template:
+Sau khi PM confirm, tạo nội dung issue sử dụng template `templates/github-issue.md`.
 
-```markdown
-## [TASK-ID] [Tên Task]
-
-**Type**: Feature / Bug / Tech Debt / Refactor
-**Priority**: 🔴 High / 🟡 Medium / 🟢 Low
-**Estimate**: [X] story points / [X] giờ
-**Sprint**: Sprint [N]
-**Assigned to**: [Username]
-**Labels**: [backend, frontend, api, ...]
-
----
-
-### Mô tả
-[Mô tả ngắn gọn task cần làm]
-
-### Liên kết
-- User Story: US-[XXX]
-- Spec: `E:\AI Bootcamp\ClaudeSkill\docs\tasks\[TASK-ID]\requirements.md`
-- Màn hình liên quan: `E:\AI Bootcamp\ClaudeSkill\docs\screens\[feature]\screen.md`
-- API liên quan: `E:\AI Bootcamp\ClaudeSkill\docs\api\[domain]\[endpoint].md`
-
-### Acceptance Criteria
-- [ ] AC-001: [Điều kiện nghiệm thu]
-- [ ] AC-002: [Điều kiện nghiệm thu]
-
-### Technical Notes
-[Những ghi chú kỹ thuật quan trọng cho dev]
-
-### Definition of Done
-- [ ] Code complete + unit tests pass
-- [ ] Code review approved
-- [ ] Integration tests pass
-- [ ] Docs updated (nếu thay đổi API/screen)
-- [ ] Demo cho BA/PM
-```
+Điền vào các trường:
+- **TASK-ID** và tên task từ breakdown
+- **Type**: Feature / Bug / Tech Debt / Refactor
+- **Priority**: High / Medium / Low (đã quyết định ở Bước 3)
+- **Estimate**: từ estimate đã chốt
+- **Sprint**: Sprint N hiện tại
+- **Acceptance Criteria**: từ requirements.md của task
+- **Technical Notes**: những điểm kỹ thuật quan trọng cho dev
+- **Labels**: theo convention team đã chọn ở Bước 2
 
 ### Bước 5 — Gate cuối trước khi tạo
 
@@ -210,7 +184,7 @@ Hoặc dùng GitHub MCP tool `mcp__github__issue_write` nếu có sẵn trong se
 
 #### Nếu chọn chỉ generate markdown
 
-Output file `E:\AI Bootcamp\ClaudeSkill\docs\tasks\sprint-[N]-issues.md` chứa toàn bộ nội dung issues, sẵn sàng paste thủ công.
+Output file `docs/tasks\sprint-[N]-issues.md` chứa toàn bộ nội dung issues, sẵn sàng paste thủ công.
 
 ---
 

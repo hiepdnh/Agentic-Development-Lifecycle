@@ -35,6 +35,8 @@ description: >
 
 docs/handover/handover.md (VN) + 引き継ぎ書.md (JP)
 
+**テンプレート**: `templates/handover.ja.md`
+
 ---
 
 ## ヒューマンゲート

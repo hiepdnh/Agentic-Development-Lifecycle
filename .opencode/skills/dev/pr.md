@@ -14,7 +14,7 @@ description: >
 
 ## Ask First Gates (dừng lại trước khi tạo PR nếu có)
 
-> Danh sách đầy đủ + lý do: `E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`
+> Danh sách đầy đủ + lý do: `assets/ask-first-gates.md`
 
 Nếu PR chứa bất kỳ thay đổi nhạy cảm nào trong danh sách trên → flag rõ trong Gate 2 và chờ confirm senior.
 
@@ -84,42 +84,18 @@ question({
 
 ### Bước 3 — Tạo PR Description
 
-```markdown
-## [TASK-ID] [Tên feature/fix ngắn gọn]
+Tạo file PR description cho task này sử dụng template `templates/pr-description.md`.
 
-### 📋 Summary
-[2-3 câu mô tả WHAT và WHY của PR này]
-
-### 🔗 Liên kết
-- Issue: #[number]
-- Spec: `docs/tasks/[TASK-ID]/requirements.md`
-- Analysis: `docs/tasks/[TASK-ID]/analysis.md`
-
-### ✅ Acceptance Criteria
-- [x] AC-001: [Mô tả] — verified bởi [test/manual]
-- [x] AC-002: [Mô tả] — verified bởi [test/manual]
-
-### 🔧 Changes
-| File | Loại thay đổi | Mô tả |
-|------|--------------|-------|
-| `[file]` | Added/Modified/Deleted | [...] |
-
-### 🧪 Testing
-**Unit Tests**: [Pass/Fail/N/A]  
-**Integration Tests**: [Pass/Fail/N/A]  
-**Self-Test Results**: [Lấy từ `docs/tasks/[TASK-ID]/verification.md` — tóm tắt T-01…T-N]  
-**Overall**: PASS / FAIL / CONDITIONAL
-
-### ⚠️ Breaking Changes
-[None / Mô tả nếu có]
-
-### 📝 Notes cho Reviewer
-[Những điểm cần chú ý khi review, quyết định design quan trọng]
-
-### 📚 Docs cần cập nhật sau merge
-- [ ] `docs/screens/[feature]/screen.md`
-- [ ] `docs/api/[domain]/[endpoint].md`
-```
+Điền vào tất cả các section từ kết quả diff-reader và dữ liệu AC coverage:
+- **Summary**: 2-3 câu từ context
+- **Links**: số issue, đường dẫn spec, đường dẫn analysis
+- **Acceptance Criteria**: từ requirements.md, đánh dấu [x] với bằng chứng test
+- **Changes table**: từ danh sách file của diff-reader
+- **How to Test**: từ verification.md các bước T-
+- **Breaking Changes**: từ câu trả lời ở Gate 2
+- **Notes for Reviewer**: từ câu trả lời ở Gate 2
+- **Release Notes Summary**: mô tả 1 dòng cho changelog
+- **Docs to Update**: từ danh sách docs trong verification.md
 
 ### Bước 3b — PR Comment Resolver (opt-in)
 

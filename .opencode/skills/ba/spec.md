@@ -65,7 +65,7 @@ question({
 
 ### Bước 3 — Soạn Specification Document
 
-Sau khi nhận câu trả lời, tạo `docs/tasks/[TASK-ID]/requirements.md` dùng template `E:\AI Bootcamp\ClaudeSkill\templates\task-doc-requirements.md`.
+Sau khi nhận câu trả lời, tạo `docs/tasks/[TASK-ID]/requirements.md` dùng template `templates/task-doc-requirements.md`.
 
 **Frontmatter**: điền `sessionId` (định dạng `TASK-ID-YYYYMMDD-HHMM`), `createdAt`, `updatedAt`, `roundCount: 1`.
 

@@ -45,7 +45,7 @@ question({
 
 ### Step 3 — Create Regression Checklist (HTML is the primary format)
 
-Regression checklist is a **one-shot decision artifact** (run → tick → go/no-go) — primary format is HTML, no Markdown commit needed. Generate `docs/tasks/regression-[sprint-or-version].html` from template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+Regression checklist is a **one-shot decision artifact** (run → tick → go/no-go) — primary format is HTML, no Markdown commit needed. Generate `docs/tasks/regression-[sprint-or-version].html` from template `templates/html-artifact.html`:
 
 - 3 collapsible `<details>` sections for 🔴 Must Test / 🟡 Should Test / 🟢 Smoke
 - Each section is a `<table data-sortable>` with columns: ID | Test Case | Steps | Expected | Result | Bug?

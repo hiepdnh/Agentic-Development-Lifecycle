@@ -51,78 +51,17 @@ Ai sẽ check Hướng nào?
 
 ### Bước 3 — Tạo RCA Template
 
-Sau khi incident resolved, tạo `docs/decisions/INC-[XXX]-RCA.md`:
+Sau khi incident được resolve, tạo `docs/reports/INC-[XXX]-RCA.md` dùng template `templates/incident-report.md`.
 
-```markdown
-# Root Cause Analysis: INC-[XXX]
-
-**Severity**: P[N]  
-**Duration**: [Start] → [End] ([X phút/giờ])  
-**Impact**: [Số user, revenue, SLA breach...]  
-**Incident Commander**: [Name]  
-**Date RCA completed**: [Date]
-
----
-
-## Timeline
-
-| Time | Event | Actor |
-|------|-------|-------|
-| HH:MM | Incident detected | [Monitor/User report] |
-| HH:MM | On-call paged | [System] |
-| HH:MM | Investigation started | [Name] |
-| HH:MM | Root cause identified | [Name] |
-| HH:MM | Fix deployed | [Name] |
-| HH:MM | Incident resolved | [Name] |
-
-## 5 Whys
-
-**Symptom**: [Biểu hiện]
-
-1. **Why?** → [Answer 1]
-2. **Why?** → [Answer 2]
-3. **Why?** → [Answer 3]
-4. **Why?** → [Answer 4]
-5. **Why?** → **Root Cause**: [Root cause]
-
-## Root Cause
-
-[Mô tả root cause rõ ràng, không blame người]
-
-## Contributing Factors
-
-- [Factor 1]
-- [Factor 2]
-
-## Impact Analysis
-
-- Users affected: [N]
-- Services affected: [list]
-- Data integrity: [OK / At risk / Compromised]
-- SLA breach: [Yes/No]
-
-## Fix Applied
-
-[Mô tả fix tạm thời và fix lâu dài]
-
-## Action Items (Bài học & Cải tiến)
-
-| ID | Action | Owner | Deadline | Priority |
-|----|--------|-------|----------|----------|
-| AI-001 | [Prevent recurrence] | [Name] | [Date] | High |
-| AI-002 | [Improve detection] | [Name] | [Date] | Medium |
-| AI-003 | [Improve response] | [Name] | [Date] | Medium |
-
-## Điều làm tốt
-
-- [Phản ứng nhanh ở điểm X]
-- [Communication tốt]
-
-## Điều cần cải thiện
-
-- [Alert quá chậm]
-- [Runbook chưa cập nhật]
-```
+Điền vào:
+- **Frontmatter**: incidentId, severity (P1-P4), startTime/endTime/durationMinutes, incidentCommander
+- **Tóm tắt**: 2-3 câu — chuyện gì xảy ra, khi nào, ảnh hưởng user
+- **Ảnh hưởng**: số user bị ảnh hưởng, tính năng bị ảnh hưởng, SLA impact, có notify khách JP không
+- **Timeline**: timestamps thực tế từ incident; bao gồm detect → ack → tìm root cause → fix → resolved
+- **Root Cause**: trigger event + phân tích 5 Whys + contributing factors
+- **Điều tốt / Cần cải thiện**: blameless — focus vào hệ thống, không phải con người
+- **Action Items**: tối thiểu AI-001 (prevent recurrence), AI-002 (improve detection), AI-003 (update runbook)
+- **Tài liệu hỗ trợ**: link đến logs, dashboards, PR liên quan
 
 ### Bước 4 — Gate cuối RCA
 

@@ -123,7 +123,7 @@ Với patch nhỏ (tiny):
 
 #### P4 — Batch vào monthly release
 
-Ghi vào `E:\AI Bootcamp\ClaudeSkill\docs\maintenance\[YEAR-MONTH]-backlog.md`:
+Ghi vào `docs/maintenance/[YEAR-MONTH]-backlog.md`:
 
 ```markdown
 # Maintenance Backlog: [YYYY-MM]
@@ -135,63 +135,16 @@ Ghi vào `E:\AI Bootcamp\ClaudeSkill\docs\maintenance\[YEAR-MONTH]-backlog.md`:
 
 ### Bước 4 — Monthly Report
 
-Tạo `E:\AI Bootcamp\ClaudeSkill\docs\reports\monthly-[YYYY-MM].md` vào cuối tháng:
+Tạo `docs/reports/monthly-[YYYY-MM].md` dùng template `templates/monthly-maintenance-report.md`.
 
-```markdown
-# 月次保守報告書 / Monthly Maintenance Report
+Điền vào 5 mục:
+1. **Mục tiêu và kết quả tháng này** — SLA %, bug resolve, CR thực hiện so với mục tiêu
+2. **Công việc thực hiện** — liệt kê mọi task/CR với ID, loại, effort 人日, kết quả
+3. **Sự cố/Vấn đề** — liệt kê sự cố với severity, tóm tắt RCA, trạng thái; tính MTTR
+4. **Trạng thái hệ thống** — đánh giá Performance/Security/Dependencies/Backup
+5. **Kế hoạch tháng tới** — liệt kê công việc với priority và estimate; ghi rủi ro nếu có
 
-**Period**: [YYYY-MM]
-**Project**: [Tên]
-**Prepared by**: [BE name]
-**Date**: [YYYY-MM-DD JST]
-
----
-
-## 月次サマリー / Summary
-
-| 項目 | 件数 |
-|------|------|
-| 受付件数 (Total requests) | [N] |
-| 完了件数 (Completed) | [N] |
-| 継続中 (In progress) | [N] |
-| 次月繰越 (Carried over) | [N] |
-
-## 対応内訳 / Breakdown by Type
-
-| 種別 | 件数 | 代表的な対応 |
-|------|------|------------|
-| バグ修正 (Bug fix) | [N] | [...] |
-| 機能改善 (Improvement) | [N] | [...] |
-| 問い合わせ対応 (Inquiry) | [N] | [...] |
-
-## 完了した対応 / Completed Items
-
-| ID | 内容 | 優先度 | 完了日 | 担当者 |
-|----|------|--------|--------|--------|
-| M-001 | [...] | P2 | [Date] | [...] |
-
-## 未完了・次月繰越 / Outstanding Items
-
-| ID | 内容 | 優先度 | 予定完了日 | 理由 |
-|----|------|--------|-----------|------|
-| M-005 | [...] | P3 | [Date] | [...] |
-
-## 稼働時間 / Man-hours
-
-| 担当者 | 工数 (人時) |
-|--------|------------|
-| [Dev name] | [X]h |
-| [BE name] | [X]h |
-| **合計** | **[Total]h** |
-
-## 特記事項 / Notes
-
-[Bất kỳ điều gì đặc biệt cần thông báo cho khách JP]
-
-## 次月予定 / Next Month Plan
-
-[Những gì sẽ làm tháng tới]
-```
+BE review phần Japanese trước khi gửi khách JP.
 
 ### Bước 5 — Gate cuối
 

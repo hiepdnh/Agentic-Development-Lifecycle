@@ -32,70 +32,18 @@ question({
 
 ### Bước 3 — Tạo Test Plan
 
-Tạo file `docs/tasks/[TASK-ID]/test-plan.md`:
-
-```markdown
-# Test Plan: [TASK-ID] — [Feature name]
-
-**QA**: [Name]  
-**Ngày**: [Date]  
-**Version**: 1.0
-
-## 1. Scope
-
-### In scope
-- [AC-001]: [...]
-- [AC-002]: [...]
-
-### Out of scope
-- [Không test gì trong sprint này]
-
-## 2. Test Strategy
-
-| Level | Approach | Tools |
-|-------|----------|-------|
-| Unit | [Dev tự test] | [JUnit/Jest/...] |
-| Integration | [API testing] | [Postman/RestAssured] |
-| E2E | [Manual/Selenium] | [...] |
-| Performance | [Load test nếu cần] | [...] |
-
-## 3. Test Cases
-
-### TC-001: [Happy Path — Tên]
-**Pre-condition**: [Trạng thái trước khi test]  
-**Steps**:
-1. [Bước 1]
-2. [Bước 2]  
-**Expected**: [Kết quả mong đợi]  
-**Priority**: High/Medium/Low
-
-### TC-002: [Edge Case — Tên]
-...
-
-### TC-003: [Negative Case — Tên]
-...
-
-## 4. Test Data
-
-| Data | Mô tả | Cách tạo |
-|------|-------|----------|
-| | | |
-
-## 5. Regression Checklist
-
-- [ ] [Feature A] vẫn hoạt động bình thường
-- [ ] [Feature B] không bị ảnh hưởng
-
-## 6. Exit Criteria
-
-- [ ] Tất cả test cases High priority pass
-- [ ] Không có bug Critical/High chưa fix
-- [ ] Regression không có regression mới
-```
+Tạo file `docs/tasks/[TASK-ID]/test-plan.md` sử dụng template `templates/test-plan.md`. Điền vào:
+- **QA** + **Ngày** + **Version**
+- Scope: In scope (AC-001, AC-002...) và Out of scope
+- Test Strategy: level (Unit/Integration/E2E/Performance), approach, tools
+- Test Cases: TC-001 Happy Path, TC-002 Edge Case, TC-003 Negative Case (mỗi TC có pre-condition, steps, expected, priority)
+- Test Data: bảng data + cách tạo
+- Regression Checklist: features cần check regression
+- Exit Criteria: điều kiện hoàn tất test
 
 ### Bước 3.5 — Render HTML companion (interactive checklist)
 
-Sinh `docs/tasks/[TASK-ID]/test-plan.html` từ template `E:\AI Bootcamp\ClaudeSkill\templates\html-artifact.html`:
+Sinh `docs/tasks/[TASK-ID]/test-plan.html` từ template `templates/html-artifact.html`:
 
 - Inject `<ul class="checklist" data-storage-key="testplan-[TASK-ID]">` cho từng TC
 - Mỗi `<li>` có `<input type="checkbox" data-id="TC-XXX">` + label = TC name

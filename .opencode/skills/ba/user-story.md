@@ -55,32 +55,7 @@ question({
 
 ### Bước 3 — Tạo User Stories
 
-Mỗi User Story theo format:
-
-```markdown
-## US-[ID]: [Tên ngắn gọn]
-
-**Epic**: [Epic name nếu có]  
-**Priority**: [High/Medium/Low]  
-**Estimate**: [Story points hoặc giờ]  
-**Dependencies**: [US-XXX nếu có]
-
-### User Story
-As a **[actor]**,  
-I want to **[action]**,  
-So that **[business value]**.
-
-### Acceptance Criteria
-- [ ] **AC-001**: Given [context], When [action], Then [expected result]
-- [ ] **AC-002**: Given [context], When [action], Then [expected result]
-
-### Out of scope
-- [Điều không thuộc story này]
-
-### Notes
-- [Business rule liên quan: BR-XXX]
-- [Màn hình liên quan nếu có]
-```
+Tạo mỗi User Story sử dụng template `templates/user-story.md`.
 
 ### Bước 4 — Gate cuối: Review + Đề xuất thứ tự
 

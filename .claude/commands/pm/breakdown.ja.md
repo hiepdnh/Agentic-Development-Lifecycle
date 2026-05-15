@@ -35,6 +35,8 @@ description: >
 
 GitHub/GitLab Issues
 
+**テンプレート**: `templates/github-issue.ja.md`
+
 ---
 
 ## ヒューマンゲート

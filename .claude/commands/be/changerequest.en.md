@@ -92,114 +92,26 @@ Analyze across 4 dimensions:
 
 #### 4a. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-vn.md` (Vietnamese — internal)
 
-```markdown
-# Change Request: CR-[NUMBER]
+Create using template `templates/change-request.en.md`.
 
-**Project**: [Project name]  
-**Original Task**: [TASK-ID]  
-**CR Number**: CR-[NUMBER]  
-**Date Created**: [YYYY-MM-DD JST]  
-**Created by**: [Bridge Engineer name]  
-**Status**: Draft / Pending Approval / Approved / Rejected
-
----
-
-## 1. Change Request Description
-
-**From JP client**: [Verbatim or summary of the request in Vietnamese]
-
-**Source**: [Email/Meeting dated... / Slack message / ...]
-
-## 2. Changes from Original Spec
-
-| # | Original Spec | New Spec | Type |
-|---|--------------|----------|------|
-| 1 | [...] | [...] | Add / Modify / Remove |
-| 2 | [...] | [...] | Add / Modify / Remove |
-
-## 3. Impact Analysis
-
-### Scope
-- Affected files: [list]
-- ACs changed: [list]
-- Test cases needing update: [list]
-
-### Effort
-- Estimate: [X man-hours]
-- Sprint: Sprint [N] / Sprint [N+1]
-
-### Risk
-- New risks: [list]
-- Regression risk: [Low / Medium / High]
-
-### Schedule
-- Impact on deadline: [Description]
-
-## 4. Approval
-
-| Role | Name | Decision | Date | Notes |
-|------|------|----------|------|-------|
-| PM | [...] | Approve / Reject / Pending | [...] | [...] |
-| Tech Lead | [...] | Approve / Reject / Pending | [...] | [...] |
-| JP Client | [...] | Approve / Reject / Pending | [...] | [...] |
-
-## 5. History
-
-| Version | Date | Change | Author |
-|---------|------|--------|--------|
-| 1.0 | [Date] | Initial creation | [Name] |
-```
+Fill in the 10 sections from the impact analysis results:
+- CR ID, title, change type, requester, impact level in frontmatter
+- Change Description (from JP request summary)
+- Reason/Background
+- Affected Functionality table (from Step 2 scope impact)
+- Technical Impact Analysis table (DB/API/UI/Integration/Security/Performance)
+- Effort Estimate (Dev/QA/Review+Deploy in 人日)
+- Risks and Mitigations
+- Deployment Plan (target date, sprint, prerequisites)
+- Acceptance Criteria (minimum 2 ACs)
+- Expected Benefits
+- Approval History table (PM + Tech Lead + JP Client — all start as Pending)
 
 #### 4b. `docs/tasks/[TASK-ID]/cr/CR-[NUMBER]-jp.md` (Japanese — send to JP client)
 
-```markdown
-# 変更依頼書: CR-[NUMBER]
+Create using template `templates/change-request.ja.md`.
 
-**プロジェクト**: [Project name]  
-**対象タスク**: [TASK-ID]  
-**変更依頼番号**: CR-[NUMBER]  
-**作成日**: [YYYY-MM-DD]  
-**作成者**: [Bridge Engineer name]  
-**ステータス**: ドラフト / 承認待ち / 承認済み / 却下
-
----
-
-## 1. 変更内容
-
-[Describe the change overview in Japanese]
-
-## 2. 変更前・変更後の比較
-
-| # | 変更前 | 変更後 | 変更種別 |
-|---|--------|--------|---------|
-| 1 | [...] | [...] | 追加 / 修正 / 削除 |
-
-## 3. 影響範囲
-
-### 工数への影響
-- 追加工数: [X 人日]
-- 対応スプリント: スプリント [N]
-
-### スケジュールへの影響
-- 現在の納期: [Date]
-- 変更後の影響: [影響なし / X日遅延 / 要再調整]
-
-### リスク
-- [Risk details]
-
-## 4. 承認欄
-
-| 役割 | 氏名 | 承認 | 日付 | コメント |
-|------|------|------|------|---------|
-| PM | [...] | 承認/却下/未回答 | [...] | [...] |
-| Client PM | [...] | 承認/却下/未回答 | [...] | [...] |
-
-## 5. 変更履歴
-
-| バージョン | 日付 | 変更内容 | 担当者 |
-|------------|------|---------|--------|
-| 1.0 | [Date] | 初版作成 | [Name] |
-```
+This is a formal Japanese deliverable (変更依頼書). Translate the change content and impact analysis from 4a into Japanese using terminology from `templates/jp-vn-en-glossary.md`.
 
 ### Step 5 — Final Gate
 

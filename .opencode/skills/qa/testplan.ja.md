@@ -35,6 +35,8 @@ description: >
 
 test-plan.md + test-plan.html (チェック可能、localStorage 保存)
 
+**テンプレート**: `templates/test-plan.ja.md`
+
 ---
 
 ## ヒューマンゲート

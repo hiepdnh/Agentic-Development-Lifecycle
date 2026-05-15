@@ -111,63 +111,16 @@ analysis.md 必要なタスク（normal risk）:
 
 ### ステップ 4 — 月次報告書
 
-月末に `docs/reports/monthly-[YYYY-MM].md` 作成:
+月末に `docs/reports/monthly-[YYYY-MM].md` をテンプレート `templates/monthly-maintenance-report.ja.md` を使用して作成。
 
-```markdown
-# 月次保守報告書 / Monthly Maintenance Report
+5 つのセクションを記入:
+1. **今月の目標と実績** — SLA %, バグ解決数、CR 実施数 vs 目標
+2. **実施作業** — 全タスク/CR を ID、種別、工数（人日）、結果付きで一覧
+3. **障害/問題** — 全障害を severity、RCA 要約、ステータス付きで一覧; MTTR 計算
+4. **システム状態** — Performance/Security/依存関係/バックアップ評価
+5. **来月の計画** — 優先度・見積もり付き作業一覧; リスクがあれば記録
 
-**期間 / Period**: [YYYY-MM]
-**プロジェクト / Project**: [名前]
-**作成者 / Prepared by**: [BE name]
-**作成日 / Date**: [YYYY-MM-DD JST]
-
----
-
-## 月次サマリー / Summary
-
-| 項目 | 件数 |
-|------|------|
-| 受付件数 (Total requests) | [N] |
-| 完了件数 (Completed) | [N] |
-| 継続中 (In progress) | [N] |
-| 次月繰越 (Carried over) | [N] |
-
-## 対応内訳 / Breakdown by Type
-
-| 種別 | 件数 | 代表的な対応 |
-|------|------|------------|
-| バグ修正 (Bug fix) | [N] | [...] |
-| 機能改善 (Improvement) | [N] | [...] |
-| 問い合わせ対応 (Inquiry) | [N] | [...] |
-
-## 完了した対応 / Completed Items
-
-| ID | 内容 | 優先度 | 完了日 | 担当者 |
-|----|------|--------|--------|--------|
-| M-001 | [...] | P2 | [Date] | [...] |
-
-## 未完了・次月繰越 / Outstanding Items
-
-| ID | 内容 | 優先度 | 予定完了日 | 理由 |
-|----|------|--------|-----------|------|
-| M-005 | [...] | P3 | [Date] | [...] |
-
-## 稼働時間 / Man-hours
-
-| 担当者 | 工数 (人時) |
-|--------|------------|
-| [Dev name] | [X]h |
-| [BE name] | [X]h |
-| **合計** | **[Total]h** |
-
-## 特記事項 / Notes
-
-[JP 顧客に特別に通知すべき事項]
-
-## 次月予定 / Next Month Plan
-
-[来月の予定]
-```
+JP 顧客に送付する場合は日本語のみで作成（BE がレビュー後送付）。
 
 ### ステップ 5 — 最終ゲート
 

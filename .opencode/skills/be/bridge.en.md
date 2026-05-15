@@ -26,7 +26,7 @@ The Bridge Engineer is the bridge between the Japanese client and the VN dev tea
 
 ### Step 0 — Load glossary (mandatory)
 
-Before analyzing/translating any terms, read `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` to load the standard JP↔VN↔EN vocabulary.
+Before analyzing/translating any terms, read `templates/jp-vn-en-glossary.md` to load the standard JP↔VN↔EN vocabulary.
 
 Throughout this skill (Steps 1→4), when encountering technical/business JP terms:
 - Prefer the corresponding term from the glossary
@@ -117,7 +117,7 @@ question({
 
 #### 3a. Spec for VN dev
 
-Create `docs/tasks/[TASK-ID]/requirements.md` using the standard template (see `E:\AI Bootcamp\ClaudeSkill\templates\task-doc-requirements.md`).
+Create `docs/tasks/[TASK-ID]/requirements.md` using the standard template (see `templates/task-doc-requirements.en.md`).
 Language: Vietnamese.
 
 #### 3b. 設計書 for the Japanese client
@@ -209,7 +209,7 @@ Create `docs/tasks/[TASK-ID]/ut-spec-jp.md`:
 
 #### 3d. Bilingual Deliverable HTML (for JP client)
 
-Generate `docs/tasks/[TASK-ID]/deliverable.html` from the template `E:\AI Bootcamp\ClaudeSkill\templates\html-bilingual.html` — this is the main format to send to the Japanese client:
+Generate `docs/tasks/[TASK-ID]/deliverable.html` from the template `templates/html-bilingual.html` — this is the main format to send to the Japanese client:
 
 - Header: title JP/VN, TASK-ID, timestamp JST, label "成果物"
 - Each content item creates 1 `<div class="row">` with 2 columns (JP left, VN right) with corresponding content
@@ -242,7 +242,7 @@ question({
 
 Checklist:
 - JP ↔ VN terms consistent throughout all documents
-- All terms matched against `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` — no unresolved `[GLOSSARY?]` remaining
+- All terms matched against `templates/jp-vn-en-glossary.md` — no unresolved `[GLOSSARY?]` remaining
 - New terms (not in glossary) listed for glossary addition
 - Business logic in VN spec = 設計書 JP (no extra/missing items)
 - Open questions resolved or marked as [要確認]
@@ -256,7 +256,7 @@ Files:
 
 ## Standard JP ↔ VN ↔ EN Vocabulary
 
-> Full list (70+ terms): `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md`
+> Full list (70+ terms): `templates/jp-vn-en-glossary.md`
 
 Most commonly used terms:
 

@@ -31,7 +31,7 @@ To write a complete ADR, tell me:
 
 ### Step 2 — Create ADR
 
-Create file `docs/decisions/ADR-[NNN]-[slug].md` using template `templates/adr.md`.
+Create file `docs/decisions/ADR-[NNN]-[slug].md` using template `templates/adr.en.md`.
 
 Fill in all sections:
 - **Context**: situation + constraints leading to the decision

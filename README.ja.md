@@ -167,6 +167,34 @@ node packages/developer-lite/bin/install.js --yes
 
 ---
 
+## テンプレートと成果物
+
+各スキルは構造化されたテンプレートに出力を書き込みます。すべてのテンプレートは **VN / EN / JP** バリアントに対応しています (`name.md` / `name.en.md` / `name.ja.md`)。
+
+| テンプレート | 生成される成果物 | 準拠規格 |
+|-------------|---------------|---------|
+| `task-doc-requirements` | 要件定義書 | IEEE 29148 (SRS) |
+| `user-story` | ユーザーストーリー + 受入条件 | Connextra / INVEST |
+| `analysis` | 実装方針オプション + トレードオフ | — |
+| `verification` | テスト結果 + サインオフ | IEEE 829 |
+| `test-plan` | テスト計画書 (TCマトリクス付き) | IEEE 829 |
+| `bug-report` | バグ報告書 (重大度 / 優先度 / 再現手順) | — |
+| `adr` | アーキテクチャ決定記録 | MADR (Markdown Architectural Decision Records) |
+| `pr-description` | プルリクエスト説明 | — |
+| `github-issue` | GitHub / GitLab イシュー | — |
+| `audit` | タスク単位の追記専用監査ログ | — |
+| `change-request` | 変更依頼書 — 影響分析 + 承認履歴 | — |
+| `release-notes` | リリースノート | Keep a Changelog |
+| `handover` | 引き継ぎ書 — コードベースマップ + 連絡先一覧 | — |
+| `monthly-maintenance-report` | 月次保守報告書 | — |
+| `incident-report` | 障害報告書 + ブレームレス振り返り | Google SRE / PagerDuty |
+| `baseline-screen` | 画面定義書 | IPA 基本設計書 規約 |
+| `baseline-api` | API定義書 | IPA API定義書 規約 |
+
+JPバリアントには顧客向けフィールド (`顧客名`、`プロジェクト名`、`対象システム`) が含まれ、適切な箇所では敬語を使用しています。
+
+---
+
 ## 仕組み
 
 ### サブエージェント（マルチエージェントパターン）

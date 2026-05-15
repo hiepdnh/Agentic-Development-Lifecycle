@@ -33,7 +33,7 @@ description: >
 
 ## 出力
 
-requirements.md 内 User Stories セクション
+`docs/tasks/[TASK-ID]/requirements.md` 内 User Stories セクション — テンプレート: `templates/user-story.ja.md` を使用
 
 ---
 

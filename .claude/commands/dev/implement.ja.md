@@ -35,6 +35,8 @@ description: >
 
 コード変更 + docs/tasks/[TASK-ID]/verification.md
 
+**テンプレート**: `templates/verification.ja.md`
+
 ---
 
 ## ヒューマンゲート

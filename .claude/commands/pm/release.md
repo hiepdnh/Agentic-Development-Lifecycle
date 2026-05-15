@@ -75,52 +75,17 @@ Sinh `docs/reports/release-[version]-[date].html` từ template `templates/html-
 
 #### Format Markdown (option B — commit/Slack)
 
-```markdown
-# Release Notes: v[X.Y.Z] / Sprint [N]
+Tạo `docs/reports/release-[version]-[date].md` dùng template `templates/release-notes.md`.
 
-**Ngày release**: [YYYY-MM-DD JST]  
-**Môi trường**: Production / Staging  
-**Released by**: [PM name]
-
----
-
-## 🆕 Tính năng mới (新機能)
-
-- **[Tên feature]** — [Mô tả ngắn 1 câu] ([TASK-ID])
-  > 新しい機能: [日本語説明]
-
-## 🐛 Sửa lỗi (バグ修正)
-
-- **[Tên bug fix]** — [Mô tả] ([TASK-ID])
-  > バグ修正: [日本語説明]
-
-## ⚡ Cải tiến (改善)
-
-- [...]
-
-## ⚠️ Breaking Changes (互換性のない変更)
-
-> Nếu không có: "_Không có breaking changes trong release này._"
-
-- [Mô tả breaking change]
-  > **対応方法**: [Hướng dẫn migrate]
-
-## 📦 Change Request đã implement
-
-| CR | Tên | Approved by |
-|----|-----|------------|
-| CR-001 | [...] | [JP PM name], [date] |
-
-## 📋 Danh sách PRs
-
-| PR | Title | Author |
-|----|-------|--------|
-| #[N] | [...] | [...] |
-
----
-
-*Xem chi tiết: [repo URL]*
-```
+Điền vào từ danh sách thay đổi phân loại ở Bước 3:
+- **Thêm mới (Added)**: tính năng mới
+- **Cải tiến (Changed)**: thay đổi tính năng hiện có
+- **Deprecated**: tính năng sẽ xóa trong release sau + migration path
+- **Xóa bỏ (Removed)**: tính năng đã xóa
+- **Sửa lỗi (Fixed)**: bug fixes với issue references
+- **Bảo mật (Security)**: security patches (CVE nếu có)
+- **Breaking Changes**: kèm hướng dẫn migration
+- **Merged PRs / Closed Issues**: bảng đầy đủ từ git log
 
 ### Bước 5 — Gate cuối
 

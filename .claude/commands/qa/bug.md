@@ -45,73 +45,7 @@ Hỏi nếu chưa rõ: *"Lỗi này có workaround không? User có thể tiếp
 
 ### Bước 3 — Tạo Bug Report
 
-```markdown
-# [BUG-XXX] [Tiêu đề ngắn, mô tả lỗi]
-
-**Severity**: 🔴 Critical / 🟠 High / 🟡 Medium / 🟢 Low  
-**Priority**: P1 / P2 / P3  
-**Reporter**: [Name]  
-**Ngày báo cáo**: [Date]  
-**Trạng thái**: New  
-**Assigned to**: [Dev name nếu biết]
-
----
-
-## Môi trường
-
-| Key | Value |
-|-----|-------|
-| Môi trường | Dev / Staging / Production |
-| Browser / App version | [...] |
-| OS | [...] |
-| User role | [...] |
-| Test data dùng | [...] |
-
-## Mô tả
-
-[1-2 câu mô tả rõ lỗi là gì]
-
-## Steps to Reproduce
-
-1. [Bước 1 — URL/menu/action cụ thể]
-2. [Bước 2]
-3. [Bước N — trigger lỗi]
-
-## Expected Behavior
-
-[Điều gì PHẢI xảy ra]
-
-## Actual Behavior
-
-[Điều gì THỰC TẾ xảy ra]
-
-## Evidence
-
-- Screenshot: [attach]
-- Video: [attach nếu có]
-- Log/Error message:
-```
-[paste error log]
-```
-
-## Tần suất
-
-[ ] Xảy ra 100% khi reproduce  
-[ ] Intermittent (~[X]% lần)
-
-## Impact
-
-[Bao nhiêu user bị ảnh hưởng? Feature nào bị block?]
-
-## Workaround
-
-[Có workaround không? Nếu có, mô tả]
-
-## Related
-
-- Issue: #[number nếu có]
-- ADR / Design: [link nếu liên quan]
-```
+Tạo bug report sử dụng template `templates/bug-report.md`.
 
 ### Bước 4 — Gate cuối
 

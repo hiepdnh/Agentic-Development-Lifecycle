@@ -85,7 +85,7 @@ description: >
 
 #### 3a. VN 開発者向け仕様
 
-`docs/tasks/[TASK-ID]/requirements.md` を標準テンプレート（`templates/task-doc-requirements.md` 参照）に従って作成。
+`docs/tasks/[TASK-ID]/requirements.md` を標準テンプレート（`templates/task-doc-requirements.ja.md` 参照）に従って作成。
 言語: ベトナム語。
 
 #### 3b. JP 顧客向け 設計書

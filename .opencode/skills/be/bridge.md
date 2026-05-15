@@ -26,7 +26,7 @@ Bridge Engineer là cầu nối giữa khách hàng Nhật và team dev VN:
 
 ### Bước 0 — Load glossary (bắt buộc)
 
-Trước khi phân tích/dịch bất kỳ thuật ngữ nào, đọc `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` để load bộ từ vựng JP↔VN↔EN chuẩn.
+Trước khi phân tích/dịch bất kỳ thuật ngữ nào, đọc `templates/jp-vn-en-glossary.md` để load bộ từ vựng JP↔VN↔EN chuẩn.
 
 Trong toàn bộ skill (Bước 1→4), khi gặp thuật ngữ kỹ thuật/nghiệp vụ JP:
 - Ưu tiên dùng từ tương ứng trong glossary
@@ -117,7 +117,7 @@ question({
 
 #### 3a. Spec cho dev VN
 
-Tạo `docs/tasks/[TASK-ID]/requirements.md` theo template chuẩn (xem `E:\AI Bootcamp\ClaudeSkill\templates\task-doc-requirements.md`).
+Tạo `docs/tasks/[TASK-ID]/requirements.md` theo template chuẩn (xem `templates/task-doc-requirements.md`).
 Ngôn ngữ: Tiếng Việt.
 
 #### 3b. 設計書 cho khách hàng JP
@@ -209,7 +209,7 @@ Tạo `docs/tasks/[TASK-ID]/ut-spec-jp.md`:
 
 #### 3d. Deliverable HTML song ngữ (cho khách JP)
 
-Sinh `docs/tasks/[TASK-ID]/deliverable.html` từ template `E:\AI Bootcamp\ClaudeSkill\templates\html-bilingual.html` — đây là format chính khi forward cho khách Nhật:
+Sinh `docs/tasks/[TASK-ID]/deliverable.html` từ template `templates/html-bilingual.html` — đây là format chính khi forward cho khách Nhật:
 
 - Header: title JP/VN, TASK-ID, timestamp JST, label "成果物"
 - Mỗi item nội dung tạo 1 `<div class="row">` 2 cột (JP trái, VN phải) với nội dung tương ứng
@@ -242,7 +242,7 @@ question({
 
 Checklist:
 - Thuật ngữ JP ↔ VN nhất quán trong toàn bộ tài liệu
-- Tất cả thuật ngữ đã match với `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md` — không còn `[GLOSSARY?]` nào chưa resolve
+- Tất cả thuật ngữ đã match với `templates/jp-vn-en-glossary.md` — không còn `[GLOSSARY?]` nào chưa resolve
 - Thuật ngữ mới (không có trong glossary) đã liệt kê để bổ sung vào glossary
 - Business logic trong spec VN = 設計書 JP (không thừa/thiếu)
 - Câu hỏi mở đã resolve hoặc đánh dấu [要確認]
@@ -256,7 +256,7 @@ Files:
 
 ## Bộ từ vựng chuẩn JP ↔ VN ↔ EN
 
-> Danh sách đầy đủ (70+ terms): `E:\AI Bootcamp\ClaudeSkill\templates\jp-vn-en-glossary.md`
+> Danh sách đầy đủ (70+ terms): `templates/jp-vn-en-glossary.md`
 
 Một số terms hay dùng nhất:
 

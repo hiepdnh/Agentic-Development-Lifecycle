@@ -48,7 +48,7 @@ question({
   }]
 })
 
-**Ask First Gate**: Nếu lỗi xảy ra trên production với user thật → báo ngay cho team trước khi debug. Xem thêm `E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`.
+**Ask First Gate**: Nếu lỗi xảy ra trên production với user thật → báo ngay cho team trước khi debug. Xem thêm `assets/ask-first-gates.md`.
 
 ### Bước 2 — Localize
 
@@ -118,7 +118,7 @@ question({
   }]
 })
 
-**Ask First Gate**: Nếu fix liên quan đến bất kỳ thay đổi nhạy cảm nào (`E:\AI Bootcamp\ClaudeSkill\assets\ask-first-gates.md`) → cần senior review trước khi apply.
+**Ask First Gate**: Nếu fix liên quan đến bất kỳ thay đổi nhạy cảm nào (`assets/ask-first-gates.md`) → cần senior review trước khi apply.
 
 ### Bước 5 — Guard
 

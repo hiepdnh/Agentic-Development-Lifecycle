@@ -35,6 +35,8 @@ description: >
 
 docs/decisions/ADR-NNN.md
 
+**テンプレート**: `templates/adr.ja.md`
+
 ---
 
 ## ヒューマンゲート

@@ -98,52 +98,17 @@ Generate `docs/reports/release-[version]-[date].html` from template `templates/h
 
 #### Markdown format (option B — commit/Slack)
 
-```markdown
-# Release Notes: v[X.Y.Z] / Sprint [N]
+Create `docs/reports/release-[version]-[date].md` using template `templates/release-notes.en.md`.
 
-**Release date**: [YYYY-MM-DD JST]
-**Environment**: Production / Staging
-**Released by**: [PM name]
-
----
-
-## 🆕 New Features (新機能)
-
-- **[Feature name]** — [1-sentence description] ([TASK-ID])
-  > 新しい機能: [Japanese description]
-
-## 🐛 Bug Fixes (バグ修正)
-
-- **[Bug fix name]** — [Description] ([TASK-ID])
-  > バグ修正: [Japanese description]
-
-## ⚡ Improvements (改善)
-
-- [...]
-
-## ⚠️ Breaking Changes (互換性のない変更)
-
-> If none: "_No breaking changes in this release._"
-
-- [Breaking change description]
-  > **Migration**: [Migration guide]
-
-## 📦 Implemented Change Requests
-
-| CR | Name | Approved by |
-|----|------|------------|
-| CR-001 | [...] | [JP PM name], [date] |
-
-## 📋 PR List
-
-| PR | Title | Author |
-|----|-------|--------|
-| #[N] | [...] | [...] |
-
----
-
-*See details: [repo URL]*
-```
+Fill in from the categorized change list in Step 3:
+- **Added**: new features
+- **Changed**: changes to existing features
+- **Deprecated**: features to be removed in a future release + migration path
+- **Removed**: removed features
+- **Fixed**: bug fixes with issue references
+- **Security**: security patches (CVE if applicable)
+- **Breaking Changes**: with migration guide
+- **Merged PRs / Closed Issues**: full table from git log
 
 ### Step 5 — Final Gate
 

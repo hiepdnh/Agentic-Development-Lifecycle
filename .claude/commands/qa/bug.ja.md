@@ -33,7 +33,7 @@ description: >
 
 ## 出力
 
-バグレポート（GitHub Issue または docs/tasks/[TASK]/bugs/）
+バグレポート — テンプレート: `templates/bug-report.ja.md` を使用（GitHub Issue または `docs/tasks/[TASK]/bugs/` に保存）
 
 ---
 
