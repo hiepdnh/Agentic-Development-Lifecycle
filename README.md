@@ -78,6 +78,19 @@ Generates `.antigravity/skills/` (ported from OpenCode source — `task()` / `qu
 
 What gets installed (all platforms): skills directory + `templates/` + `docs/workflows/` (and `agents/` for Claude Code only).
 
+### Language filter
+
+Install only the language variant you need:
+
+```bash
+npx agentic-development-lifecycle --yes --lang ja      # Japanese skills only
+npx agentic-development-lifecycle --yes --lang en      # English skills only
+npx agentic-development-lifecycle --yes --lang vi      # Vietnamese only (default source)
+npx agentic-development-lifecycle --yes --lang all     # All variants (default)
+```
+
+When using `--lang ja` or `--lang en`, skills are installed **without the language suffix** — so `/ba:spec` not `/ba:spec.ja`. The Japanese skill file `ba/spec.ja.md` is installed as `ba/spec.md`, replacing the Vietnamese base. Files with no translated variant fall back to the Vietnamese base automatically.
+
 ### Developer Lite (minimal install)
 
 Just want the developer workflow without PM/BA/QA/Ops overhead?

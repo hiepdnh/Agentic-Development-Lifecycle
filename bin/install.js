@@ -94,15 +94,40 @@ const PLATFORM = CFG.label;
 const COMMANDS_DIR = CFG.commandsDir;
 const CONFIG_FILE = CFG.configFile;
 
-function langFilter(filename) {
+// When installing a single language, strip the lang suffix from the destination filename.
+// e.g. --lang en: "spec.en.md" → "spec.md"  |  --lang ja: "spec.ja.md" → "spec.md"
+// --lang all / --lang vi: keep filename as-is.
+function getLangDestName(filename) {
+  if (LANG === 'en' && /\.en\.(md|txt)$/.test(filename)) {
+    return filename.replace(/\.en\.(md|txt)$/, '.$1');
+  }
+  if (LANG === 'ja' && /\.ja\.(md|txt)$/.test(filename)) {
+    return filename.replace(/\.ja\.(md|txt)$/, '.$1');
+  }
+  return filename;
+}
+
+// siblingNames: Set of all filenames in the same directory — used to decide whether
+// a base .md file should fall through when the requested lang variant doesn't exist.
+function langFilter(filename, siblingNames = new Set()) {
   if (LANG === 'all') return true;
   if (!filename.endsWith('.md') && !filename.endsWith('.txt')) return true;
   const isJa = /\.ja\.(md|txt)$/.test(filename);
   const isEn = /\.en\.(md|txt)$/.test(filename);
   const isBase = !isJa && !isEn;
   if (LANG === 'vi') return isBase;
-  if (LANG === 'en') return isEn || isBase;
-  if (LANG === 'ja') return isJa || isBase;
+  if (LANG === 'en') {
+    if (isEn) return true;
+    if (isJa) return false;
+    // Base file: include only when no EN variant exists (fallback for non-translated files)
+    return !siblingNames.has(filename.replace(/\.(md|txt)$/, '.en.$1'));
+  }
+  if (LANG === 'ja') {
+    if (isJa) return true;
+    if (isEn) return false;
+    // Base file: include only when no JP variant exists
+    return !siblingNames.has(filename.replace(/\.(md|txt)$/, '.ja.$1'));
+  }
   return true;
 }
 
@@ -110,20 +135,23 @@ function copyDir(srcDir, dstDir, filterEnabled = false) {
   if (!fs.existsSync(srcDir)) return { copied: 0, skipped: 0, updated: 0, filtered: 0 };
   fs.mkdirSync(dstDir, { recursive: true });
   let copied = 0, skipped = 0, updated = 0, filtered = 0;
-  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+  const siblingNames = new Set(entries.filter((e) => !e.isDirectory()).map((e) => e.name));
+  for (const entry of entries) {
     const s = path.join(srcDir, entry.name);
-    const d = path.join(dstDir, entry.name);
     if (entry.isDirectory()) {
-      const sub = copyDir(s, d, filterEnabled);
+      const sub = copyDir(s, path.join(dstDir, entry.name), filterEnabled);
       copied += sub.copied;
       skipped += sub.skipped;
       updated += sub.updated;
       filtered += sub.filtered;
     } else {
-      if (filterEnabled && !langFilter(entry.name)) {
+      if (filterEnabled && !langFilter(entry.name, siblingNames)) {
         filtered++;
         continue;
       }
+      const dstName = filterEnabled ? getLangDestName(entry.name) : entry.name;
+      const d = path.join(dstDir, dstName);
       if (fs.existsSync(d)) {
         if (UPDATE) {
           fs.copyFileSync(s, d);
@@ -194,7 +222,7 @@ async function main() {
     const cmdResult = antigravityTransformer.copyAndTransform(
       path.join(src, '.opencode', 'skills'),
       cmdDstPath,
-      { langFilter, update: UPDATE }
+      { langFilter, getLangDestName, update: UPDATE }
     );
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   } else if (PLATFORM_KEY === 'cursor') {
@@ -202,7 +230,7 @@ async function main() {
     const cmdResult = cursorTransformer.copyAndTransform(
       path.join(src, '.claude', 'commands'),
       cmdDstPath,
-      { langFilter, update: UPDATE }
+      { langFilter, getLangDestName, update: UPDATE }
     );
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   } else {

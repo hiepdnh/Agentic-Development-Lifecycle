@@ -68,11 +68,15 @@ npx agentic-development-lifecycle --yes --antigravity
 # Update existing install
 npx agentic-development-lifecycle --update --yes
 
-# Install single-language variant
-npx agentic-development-lifecycle --yes --lang ja      # Japanese only + base
-npx agentic-development-lifecycle --yes --lang en      # English only + base
-npx agentic-development-lifecycle --yes --lang vi      # Vietnamese only (no .en.md/.ja.md)
-npx agentic-development-lifecycle --yes --lang all     # All variants (default)
+# Install single-language variant (skills installed WITHOUT lang suffix)
+# --lang ja: spec.ja.md → installed as spec.md  (no .ja suffix)
+# --lang en: spec.en.md → installed as spec.md  (no .en suffix)
+# --lang vi: VN base files only (no .en.md/.ja.md)
+# --lang all: all variants with original names (default)
+npx agentic-development-lifecycle --yes --lang ja
+npx agentic-development-lifecycle --yes --lang en
+npx agentic-development-lifecycle --yes --lang vi
+npx agentic-development-lifecycle --yes --lang all
 ```
 
 Mutually-exclusive platform flags: pass only one of `--opencode`, `--cursor`, `--antigravity`. Default (no flag) is Claude Code.

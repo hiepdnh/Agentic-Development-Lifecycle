@@ -52,12 +52,15 @@ function transformFrontmatter(source) {
 }
 
 function copyAndTransform(srcDir, dstDir, opts = {}) {
-  const { langFilter, update } = opts;
+  const { langFilter, getLangDestName, update } = opts;
   if (!fs.existsSync(srcDir)) return { copied: 0, skipped: 0, updated: 0, filtered: 0 };
   fs.mkdirSync(dstDir, { recursive: true });
   let copied = 0, skipped = 0, updated = 0, filtered = 0;
 
-  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+  const siblingNames = new Set(entries.filter((e) => !e.isDirectory()).map((e) => e.name));
+
+  for (const entry of entries) {
     const s = path.join(srcDir, entry.name);
     if (entry.isDirectory()) {
       const sub = copyAndTransform(s, path.join(dstDir, entry.name), opts);
@@ -68,20 +71,23 @@ function copyAndTransform(srcDir, dstDir, opts = {}) {
       continue;
     }
 
-    if (langFilter && !langFilter(entry.name)) {
+    if (langFilter && !langFilter(entry.name, siblingNames)) {
       filtered++;
       continue;
     }
 
-    if (!entry.name.endsWith('.md')) {
-      const d = path.join(dstDir, entry.name);
+    // Strip lang suffix first, then apply .md → .mdc for Cursor
+    const baseName = getLangDestName ? getLangDestName(entry.name) : entry.name;
+
+    if (!baseName.endsWith('.md')) {
+      const d = path.join(dstDir, baseName);
       if (fs.existsSync(d) && !update) { skipped++; continue; }
       fs.copyFileSync(s, d);
       if (fs.existsSync(d) && update) updated++; else copied++;
       continue;
     }
 
-    const dstName = entry.name.replace(/\.md$/, '.mdc');
+    const dstName = baseName.replace(/\.md$/, '.mdc');
     const d = path.join(dstDir, dstName);
     const exists = fs.existsSync(d);
     if (exists && !update) { skipped++; continue; }
