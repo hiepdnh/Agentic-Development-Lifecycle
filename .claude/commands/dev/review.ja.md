@@ -35,6 +35,20 @@ description: >
 
 レビューレポート → Approve / Request Changes
 
+### レビューログ (Request Changes 時)
+
+verdict が `request-changes` の場合、`docs/tasks/[TASK-ID]/review-log-R[N].md` を `templates/review-log.ja.md` を使って作成:
+- Meta に task_id / round / verdict / JST タイムスタンプ を記入
+- ブロッキング表に `B-xx` ID、ファイル:行、問題、修正案を記入
+- 再レビュー時に AI が各 `B-xx` を自動検証
+
+### 前ラウンドのレビューログ確認 (ステップ 1)
+
+`docs/tasks/[TASK-ID]/review-log-R*.md` が存在する場合:
+- 最新ラウンドの `B-xx` リストをロード
+- 現在の diff で各アイテムが修正済みか検証
+- 明示的に報告: `B-01 ✅ 修正済み` / `B-01 ❌ 未修正`
+
 ---
 
 ## ヒューマンゲート

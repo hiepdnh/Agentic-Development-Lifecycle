@@ -17,6 +17,13 @@ description: >
 
 ### Bước 1 — Thu thập context (subagent)
 
+**Kiểm tra review round trước (nếu có):**
+
+Tìm `docs/tasks/[TASK-ID]/review-log-R*.md`. Nếu tồn tại:
+- Load danh sách `B-xx` (Blocking) từ round gần nhất
+- Dùng list đó để verify từng item đã được fix trong diff hiện tại
+- Báo cáo rõ: `B-01 ✅ fixed` / `B-01 ❌ still present`
+
 **Xác định base branch trước khi spawn:**
 
 Kiểm tra theo thứ tự:
@@ -201,6 +208,13 @@ Bước tiếp: /dev:pr
 ```
 
 **Nếu Request Changes:**
+
+Ghi `docs/tasks/[TASK-ID]/review-log-R[N].md` dùng template `templates/review-log.md`:
+- Điền đầy đủ Meta (task_id, round, verdict: request-changes, timestamp JST)
+- Populate bảng Blocking với ID dạng `B-xx` — mỗi issue 1 row có file:line + fix cụ thể
+- Populate bảng Ask First nếu có
+- Populate bảng Non-blocking
+
 ```
 Review hoàn tất. Verdict: Request Changes
 
@@ -208,5 +222,6 @@ Cần fix trước khi merge:
 1. [Blocking issue 1 — file:line — fix cụ thể]
 2. [Blocking issue 2 — file:line — fix cụ thể]
 
-Sau khi fix xong, chạy lại /dev:review.
+Review Log đã ghi: `docs/tasks/[TASK-ID]/review-log-R[N].md`
+Sau khi fix xong, chạy lại /dev:review — AI sẽ tự verify từng B-xx item.
 ```
