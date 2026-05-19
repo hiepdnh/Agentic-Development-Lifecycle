@@ -46,6 +46,20 @@ function baseStem(filePath) {
   return filePath.replace(/\.(en|ja)\.md$/, '.md');
 }
 
+// Progressive disclosure: every skill body must surface a Summary + Workflow
+// pair so SKILL.md-aware hosts can load only the summary until invocation.
+const PROGRESSIVE_HEADINGS = {
+  vi: { summary: '## Tóm tắt', workflow: '## Quy trình' },
+  en: { summary: '## Summary', workflow: '## Workflow' },
+  ja: { summary: '## 概要', workflow: '## ワークフロー' },
+};
+
+function langOf(filePath) {
+  if (/\.ja\.md$/.test(filePath)) return 'ja';
+  if (/\.en\.md$/.test(filePath)) return 'en';
+  return 'vi';
+}
+
 for (const { dir, label } of ROOTS) {
   const files = walk(dir);
   if (files.length === 0) {
@@ -77,6 +91,20 @@ for (const { dir, label } of ROOTS) {
     const expected = expectedName(dir, file);
     if (fm.name && fm.name !== expected) {
       errors.push(`[${label}] name mismatch: ${file} declares '${fm.name}' but path implies '${expected}'`);
+    }
+
+    // Progressive disclosure check — skip top-level "install" + "update-config"
+    // utility files that are not user-facing role skills.
+    const isUtility = /\b(install|update-config)\.(?:en|ja)?\.?md$/.test(file) && !file.includes(path.sep + 'install' + path.sep);
+    if (!isUtility) {
+      const h = PROGRESSIVE_HEADINGS[langOf(file)];
+      const body = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+      if (!body.includes(h.summary)) {
+        errors.push(`[${label}] missing '${h.summary}' heading: ${file}`);
+      }
+      if (!body.includes(h.workflow)) {
+        errors.push(`[${label}] missing '${h.workflow}' heading: ${file}`);
+      }
     }
   }
 

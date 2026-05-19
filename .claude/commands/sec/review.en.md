@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "security review", "security check", "check security before merge",
   "OWASP check", "security scan", "are there security issues", or types /sec:review.
 ---
+## Summary
+
+Structured security review before merge. 3 tiers: Always/Ask First/Never + OWASP Top 10 checklist. Triggers when: user says "security review", "security check", "check security before merge", "OWASP check", "security scan", "are there security issues", or types /sec:review.
+
+## Workflow
 
 # Skill: /sec:review
 **Role**: Developer / Tech Lead / Security  

@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "viết spec", "soạn đặc tả", "phân tích yêu cầu", "write spec",
   "tạo requirements doc", "business spec", or types /ba:spec.
 ---
+## Summary
+
+Transform raw requirements into structured business specification documents. Triggers when: user says "viết spec", "soạn đặc tả", "phân tích yêu cầu", "write spec", "tạo requirements doc", "business spec", or types /ba:spec.
+
+## Workflow
 
 # /ba:spec
 **Role**: Business Analyst  

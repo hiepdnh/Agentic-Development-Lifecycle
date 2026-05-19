@@ -8,6 +8,11 @@ description: >
   "generate release notes", "write changelog", "release notes for JP client",
   "summarize release changes", or type /pm:release.
 ---
+## Summary
+
+Generate Release Notes / リリースノート automatically from merged PRs and closed issues. Use before each release to send to JP clients or stakeholders. Trigger when: user says "tạo release notes", "viết リリースノート", "changelog sprint", "release notes cho khách JP", "tổng hợp thay đổi release", "generate release notes", "write changelog", "release notes for JP client", "summarize release changes", or type /pm:release.
+
+## Workflow
 
 # Skill: /pm:release
 **Role**: PM / Bridge Engineer  

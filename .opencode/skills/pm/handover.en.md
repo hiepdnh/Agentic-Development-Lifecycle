@@ -7,6 +7,11 @@ description: >
   Triggers when: user says "handover project", "create handover docs", "引き継ぎ",
   "dev leaving needs handover", "project transfer", "project handoff", or types /pm:handover.
 ---
+## Summary
+
+Create a comprehensive project handover package (引き継ぎ): codebase map, decision log, glossary, open issues, contact matrix. Use when a dev leaves the team, project is transferred, or a JP outsource contract ends. Triggers when: user says "handover project", "create handover docs", "引き継ぎ", "dev leaving needs handover", "project transfer", "project handoff", or types /pm:handover.
+
+## Workflow
 
 # /pm:handover
 **Role**: PM / Bridge Engineer / Tech Lead

@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "bắt đầu implement", "code theo plan đã chọn", "viết code cho task",
   "start implementation", "implement feature", hoặc gõ /dev:implement.
 ---
+## Tóm tắt
+
+Implement code sau khi phương án đã chọn từ /dev:analyze. File-by-file với gate sau mỗi file. Trigger khi: user nói "bắt đầu implement", "code theo plan đã chọn", "viết code cho task", "start implementation", "implement feature", hoặc gõ /dev:implement.
+
+## Quy trình
 
 # Skill: /dev:implement
 **Role**: Developer  

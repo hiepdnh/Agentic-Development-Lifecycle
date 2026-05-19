@@ -1,0 +1,26 @@
+{
+  "name": "agentic-development-lifecycle",
+  "version": "1.4.0",
+  "description": "Full SDLC skill pack for Claude Code: BA, Dev, QA, Arch, PM, BE, Ops, SM (English / Tiếng Việt / 日本語). Multi-agent dev:analyze, structured gates, JP-VN bilingual deliverables.",
+  "author": {
+    "name": "hiepdnh",
+    "url": "https://github.com/hiepdnh"
+  },
+  "homepage": "https://github.com/hiepdnh/Agentic-Development-Lifecycle",
+  "repository": "https://github.com/hiepdnh/Agentic-Development-Lifecycle",
+  "license": "MIT",
+  "keywords": [
+    "sdlc",
+    "agent-skills",
+    "skill-md",
+    "japanese",
+    "bilingual",
+    "bridge-engineer",
+    "ba",
+    "qa",
+    "devops",
+    "scrum"
+  ],
+  "commands": ".claude/commands",
+  "agents": "agents"
+}

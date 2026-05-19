@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "create test plan", "write test cases", "compose test plan",
   "create test plan", "QA plan for feature", "test strategy", or types /qa:testplan.
 ---
+## Summary
+
+Create a comprehensive test plan from specs/user stories: strategy, test cases (happy/edge/negative), exit criteria. Trigger when: user says "create test plan", "write test cases", "compose test plan", "create test plan", "QA plan for feature", "test strategy", or types /qa:testplan.
+
+## Workflow
 
 # /qa:testplan
 **Role**: QA Engineer  

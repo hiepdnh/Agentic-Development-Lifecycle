@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "project in maintenance", "maintenance mode", "post go-live support",
   "sustain phase", "no new sprints just bug fixes", or types /pm:maintain.
 ---
+## Summary
+
+Lightweight workflow for projects in maintenance/sustain phase — post go-live, only bug fixes and minor improvements, no active development sprints. Triggers when: user says "project in maintenance", "maintenance mode", "post go-live support", "sustain phase", "no new sprints just bug fixes", or types /pm:maintain.
+
+## Workflow
 
 # /pm:maintain
 **Role**: PM / Dev / BE

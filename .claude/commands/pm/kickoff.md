@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "bắt đầu dự án mới", "kickoff project", "greenfield project",
   "setup dự án từ đầu", "project mới cho khách JP", "khởi tạo framework mới", hoặc gõ /pm:kickoff.
 ---
+## Tóm tắt
+
+Bootstrap dự án mới từ đầu (greenfield): chọn tech stack, tạo cấu trúc folder, customize CLAUDE.md, khởi tạo docs structure và sprint 0 checklist. Trigger khi: user nói "bắt đầu dự án mới", "kickoff project", "greenfield project", "setup dự án từ đầu", "project mới cho khách JP", "khởi tạo framework mới", hoặc gõ /pm:kickoff.
+
+## Quy trình
 
 # Skill: /pm:kickoff
 **Role**: PM / Tech Lead / Bridge Engineer  

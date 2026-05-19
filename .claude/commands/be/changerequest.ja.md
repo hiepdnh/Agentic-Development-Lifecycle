@@ -6,6 +6,17 @@ description: >
   トリガー: 「JP 顧客から変更依頼」「変更依頼を作成」「変更依頼」「スプリント途中の仕様変更」
   「JP からの新規 CR」「change request」、または /be:changerequest と入力時。
 ---
+## 概要
+
+変更依頼（Change Request）管理 — 影響分析、承認証跡、仕様変更のバージョン管理。 スプリント途中またはサインオフ後の仕様変更時に使用。 トリガー: 「JP 顧客から変更依頼」「変更依頼を作成」「変更依頼」「スプリント途中の仕様変更」 「JP からの新規 CR」「change request」、または /be:changerequest と入力時。
+
+## ワークフロー
+
+## 概要
+
+変更依頼（Change Request）管理 — 影響分析、承認証跡、仕様変更のバージョン管理。 スプリント途中またはサインオフ後の仕様変更時に使用。 トリガー: 「JP 顧客から変更依頼」「変更依頼を作成」「変更依頼」「スプリント途中の仕様変更」 「JP からの新規 CR」「change request」、または /be:changerequest と入力時。
+
+## ワークフロー
 
 # Skill: /be:changerequest
 **ロール**: Bridge Engineer / PM

@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        platform: [claude, opencode, cursor, antigravity]
+        platform: [claude, opencode, cursor, antigravity, agentskills]
 
     steps:
       - uses: actions/checkout@v4
@@ -36,6 +36,7 @@ jobs:
             opencode)    flag="--opencode" ;;
             cursor)      flag="--cursor" ;;
             antigravity) flag="--antigravity" ;;
+            agentskills) flag="--agentskills" ;;
           esac
           cd "$tmp"
           node "$GITHUB_WORKSPACE/bin/install.js" --yes $flag
@@ -64,6 +65,13 @@ jobs:
             antigravity)
               count=$(find .antigravity/skills -name "*.md" | wc -l)
               test -f AGENTS.md || { echo "FAIL: AGENTS.md missing"; exit 1; }
+              ;;
+            agentskills)
+              count=$(find skills -name "SKILL.md" | wc -l)
+              test -f AGENTS.md || { echo "FAIL: AGENTS.md missing"; exit 1; }
+              # Every skill must live in its own folder
+              dirs=$(find skills -mindepth 1 -maxdepth 1 -type d | wc -l)
+              test "$count" = "$dirs" || { echo "FAIL: $count SKILL.md files but $dirs skill dirs"; exit 1; }
               ;;
           esac
           count=$(echo "$count" | tr -d ' ')

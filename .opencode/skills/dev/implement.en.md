@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "start implementing", "code the chosen plan", "write code for task",
   "start implementation", "implement feature", or types /dev:implement.
 ---
+## Summary
+
+Implement code after the option has been selected from /dev:analyze. File-by-file with a gate after each file. Triggers when: user says "start implementing", "code the chosen plan", "write code for task", "start implementation", "implement feature", or types /dev:implement.
+
+## Workflow
 
 # /dev:implement
 **Role**: Developer  

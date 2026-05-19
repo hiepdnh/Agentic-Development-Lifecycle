@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "tạo user stories", "viết user story", "breakdown spec thành stories",
   "create user stories", "AC cho stories", or types /ba:user-story.
 ---
+## Summary
+
+Transform specs into User Stories with standard Acceptance Criteria, ready for PM to create issues. Trigger when: user says "tạo user stories", "viết user story", "breakdown spec thành stories", "create user stories", "AC cho stories", or types /ba:user-story.
+
+## Workflow
 
 # Skill: /ba:user-story
 **Role**: Business Analyst  

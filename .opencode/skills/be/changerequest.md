@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "khách JP yêu cầu thay đổi", "tạo change request", "変更依頼",
   "spec thay đổi giữa chừng", "CR mới từ JP", "change request", hoặc gõ /be:changerequest.
 ---
+## Tóm tắt
+
+Quản lý 変更依頼 (Change Request) — phân tích impact, tạo approval trail, version control thay đổi spec. Dùng khi spec thay đổi giữa sprint hoặc sau sign-off. Trigger khi: user nói "khách JP yêu cầu thay đổi", "tạo change request", "変更依頼", "spec thay đổi giữa chừng", "CR mới từ JP", "change request", hoặc gõ /be:changerequest.
+
+## Quy trình
 
 # /be:changerequest
 **Role**: Bridge Engineer / PM  

@@ -6,6 +6,11 @@ description: >
   Trigger when: user says "update README", "update installation guide", "fix workflow guide",
   "update install script", "update AGENTS.md", "sync project docs", or types /docs:project.
 ---
+## Summary
+
+Update project-level documentation: README, workflow guides, installation guide, install scripts, AGENTS.md. Different from /docs:update (baseline screen/API after task) — this skill is for project-level docs. Trigger when: user says "update README", "update installation guide", "fix workflow guide", "update install script", "update AGENTS.md", "sync project docs", or types /docs:project.
+
+## Workflow
 
 # /docs:project
 **Role**: Developer / Tech Lead / DevOps  

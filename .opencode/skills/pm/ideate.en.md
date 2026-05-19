@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "have an idea to explore", "don't know what to do", "brainstorm feature",
   "idea is still fuzzy", "want to clarify direction", or types /pm:ideate.
 ---
+## Summary
+
+Refine vague ideas into clear concepts with a problem statement and a Not Doing list. Use before /ba:spec to avoid misguided specifications from the start. Triggers when: user says "have an idea to explore", "don't know what to do", "brainstorm feature", "idea is still fuzzy", "want to clarify direction", or types /pm:ideate.
+
+## Workflow
 
 # /pm:ideate
 **Role**: PM / BA

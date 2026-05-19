@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "có ý tưởng muốn explore", "chưa biết làm gì", "brainstorm feature",
   "idea còn mơ hồ", "muốn clarify hướng đi", hoặc gõ /pm:ideate.
 ---
+## Tóm tắt
+
+Refine ý tưởng mờ nhạt thành concept rõ ràng với problem statement và NOT Doing list. Dùng trước /ba:spec để tránh spec sai từ đầu. Trigger khi: user nói "có ý tưởng muốn explore", "chưa biết làm gì", "brainstorm feature", "idea còn mơ hồ", "muốn clarify hướng đi", hoặc gõ /pm:ideate.
+
+## Quy trình
 
 # Skill: /pm:ideate
 **Role**: PM / BA  

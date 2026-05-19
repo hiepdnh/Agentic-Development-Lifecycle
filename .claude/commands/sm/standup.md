@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tổng hợp standup", "format daily standup", "daily scrum",
   "standup hôm nay", "paste update team vào", hoặc gõ /sm:standup.
 ---
+## Tóm tắt
+
+Tổng hợp và format daily standup nhanh từ input thô, highlight blockers và sprint health. Trigger khi: user nói "tổng hợp standup", "format daily standup", "daily scrum", "standup hôm nay", "paste update team vào", hoặc gõ /sm:standup.
+
+## Quy trình
 
 # Skill: /sm:standup
 **Role**: Scrum Master / Team  

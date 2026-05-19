@@ -7,6 +7,11 @@ description: >
   "sprint report", "progress summary", "status for PM", "report for client",
   or type /pm:status.
 ---
+## Summary
+
+Aggregate sprint status from multiple sources, generate a quick status report for stakeholders. Trigger when: user says "báo cáo sprint", "status report", "tổng hợp tiến độ", "sprint health", "update cho PM", "report cho khách", "sprint report", "progress summary", "status for PM", "report for client", or type /pm:status.
+
+## Workflow
 
 # Skill: /pm:status
 **Role**: Project Manager  

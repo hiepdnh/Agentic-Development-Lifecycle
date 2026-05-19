@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "review code", "review trước merge", "check code xem ổn không",
   "code review", "review implementation", "kiểm tra code", or types /dev:review.
 ---
+## Summary
+
+Comprehensive code review after implementation: code quality, architecture, performance, security in a single run. Replaces running /arch:review + /sec:review separately after dev:implement. Triggers when: user says "review code", "review trước merge", "check code xem ổn không", "code review", "review implementation", "kiểm tra code", or types /dev:review.
+
+## Workflow
 
 # Skill: /dev:review
 **Role**: Developer / Tech Lead  

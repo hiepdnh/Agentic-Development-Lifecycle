@@ -7,6 +7,11 @@ description: >
   "idea còn mơ hồ", "muốn clarify hướng đi", "have an idea to explore", "fuzzy concept",
   "want to brainstorm", or type /pm:ideate.
 ---
+## Summary
+
+Refine vague ideas into clear concepts with a problem statement and NOT Doing list. Use before /ba:spec to avoid mis-specs from the start. Trigger when: user says "có ý tưởng muốn explore", "chưa biết làm gì", "brainstorm feature", "idea còn mơ hồ", "muốn clarify hướng đi", "have an idea to explore", "fuzzy concept", "want to brainstorm", or type /pm:ideate.
+
+## Workflow
 
 # Skill: /pm:ideate
 **Role**: PM / BA  

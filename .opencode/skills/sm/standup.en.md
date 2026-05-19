@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "summarize standup", "format daily standup", "daily scrum",
   "today's standup", "paste team update", or types /sm:standup.
 ---
+## Summary
+
+Summarize and format daily standup quickly from raw input, highlight blockers and sprint health. Trigger when: user says "summarize standup", "format daily standup", "daily scrum", "today's standup", "paste team update", or types /sm:standup.
+
+## Workflow
 
 # /sm:standup
 **Role**: Scrum Master / Team  

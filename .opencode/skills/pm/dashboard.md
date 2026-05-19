@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tạo dashboard", "xem tiến độ sprint", "sprint overview",
   "show dashboard", "generate dashboard", hoặc gõ /pm:dashboard.
 ---
+## Tóm tắt
+
+Generate static HTML dashboard showing sprint kanban, task health, and improvement backlog. Trigger khi: user nói "tạo dashboard", "xem tiến độ sprint", "sprint overview", "show dashboard", "generate dashboard", hoặc gõ /pm:dashboard.
+
+## Quy trình
 
 # /pm:dashboard
 **Role**: Project Manager / All roles

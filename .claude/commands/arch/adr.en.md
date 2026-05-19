@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "create ADR", "document architecture decision", "write ADR",
   "record design decision", or types /arch:adr.
 ---
+## Summary
+
+Create an Architecture Decision Record (ADR) to document important architectural decisions. Triggers when: user says "create ADR", "document architecture decision", "write ADR", "record design decision", or types /arch:adr.
+
+## Workflow
 
 # Skill: /arch:adr
 **Role**: Tech Lead / Architect  

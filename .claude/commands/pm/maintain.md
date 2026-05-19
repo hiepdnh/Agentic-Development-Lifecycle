@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "dự án đang maintenance", "chế độ bảo trì", "post go-live support",
   "sustain phase", "không có sprint mới chỉ fix bug", hoặc gõ /pm:maintain.
 ---
+## Tóm tắt
+
+Workflow nhẹ cho dự án trong giai đoạn maintenance/sustain — sau go-live, chỉ còn bug fixes và minor improvements, không có active development sprint. Trigger khi: user nói "dự án đang maintenance", "chế độ bảo trì", "post go-live support", "sustain phase", "không có sprint mới chỉ fix bug", hoặc gõ /pm:maintain.
+
+## Quy trình
 
 # Skill: /pm:maintain
 **Role**: PM / Dev / BE  

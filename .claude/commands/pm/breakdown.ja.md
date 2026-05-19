@@ -4,6 +4,17 @@ description: >
   Epic/ユーザーストーリーを見積もり付き具体タスクに分解、標準 GitHub/GitLab Issues を作成。
   トリガー: 「Epic を分解」「ストーリーからタスク作成」「機能を分解」「GitHub Issues を作成」「GitLab Issues を作成」「スプリントプランニング」「タスク見積もり」、または /pm:breakdown と入力時。
 ---
+## 概要
+
+Epic/ユーザーストーリーを見積もり付き具体タスクに分解、標準 GitHub/GitLab Issues を作成。 トリガー: 「Epic を分解」「ストーリーからタスク作成」「機能を分解」「GitHub Issues を作成」「GitLab Issues を作成」「スプリントプランニング」「タスク見積もり」、または /pm:breakdown と入力時。
+
+## ワークフロー
+
+## 概要
+
+Epic/ユーザーストーリーを見積もり付き具体タスクに分解、標準 GitHub/GitLab Issues を作成。 トリガー: 「Epic を分解」「ストーリーからタスク作成」「機能を分解」「GitHub Issues を作成」「GitLab Issues を作成」「スプリントプランニング」「タスク見積もり」、または /pm:breakdown と入力時。
+
+## ワークフロー
 
 # Skill: /pm:breakdown
 **ロール**: PM / Tech Lead

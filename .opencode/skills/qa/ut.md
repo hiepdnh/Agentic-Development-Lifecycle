@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "tạo unit test", "UT plan", "functional test cases", "viết test đơn vị",
   "test từng hàm", "unit test cho feature", hoặc gõ /qa:ut.
 ---
+## Tóm tắt
+
+Tạo Unit Test plan (testcase-functional) từ spec/requirements, hỗ trợ human thực thi và ghi kết quả. Tách biệt hoàn toàn với IT (integration/E2E). Khi fail có bug feedback loop về dev:debug. Trigger khi: user nói "tạo unit test", "UT plan", "functional test cases", "viết test đơn vị", "test từng hàm", "unit test cho feature", hoặc gõ /qa:ut.
+
+## Quy trình
 
 # /qa:ut
 **Role**: QA Engineer  

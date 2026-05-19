@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "review design", "check architecture", "architecture review",
   "review technical decision", "is this design okay", or types /arch:review.
 ---
+## Summary
+
+Review design decisions, detect architectural issues, propose improvements. Trigger when: user says "review design", "check architecture", "architecture review", "review technical decision", "is this design okay", or types /arch:review.
+
+## Workflow
 
 # /arch:review
 **Role**: Tech Lead / Architect  

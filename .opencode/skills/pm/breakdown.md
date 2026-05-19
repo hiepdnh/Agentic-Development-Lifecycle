@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "breakdown epic", "tạo tasks từ story", "phân rã feature",
   "tạo github issues", "tạo gitlab issues", "sprint planning", "estimate tasks", hoặc gõ /pm:breakdown.
 ---
+## Tóm tắt
+
+Phân rã Epic/User Stories thành Tasks cụ thể với estimate, tạo GitHub/GitLab Issues chuẩn. Trigger khi: user nói "breakdown epic", "tạo tasks từ story", "phân rã feature", "tạo github issues", "tạo gitlab issues", "sprint planning", "estimate tasks", hoặc gõ /pm:breakdown.
+
+## Quy trình
 
 # /pm:breakdown
 **Role**: Project Manager

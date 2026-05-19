@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "analyze task", "phân tích issue", "xem có cách nào làm",
   "propose options", "implementation options", or types /dev:analyze.
 ---
+## Summary
+
+Analyze task/issue and propose 2-3 implementation options with trade-offs. Uses multi-agent to keep context clean. Triggers when: user says "analyze task", "phân tích issue", "xem có cách nào làm", "propose options", "implementation options", or types /dev:analyze.
+
+## Workflow
 
 # /dev:analyze
 **Role**: Developer  

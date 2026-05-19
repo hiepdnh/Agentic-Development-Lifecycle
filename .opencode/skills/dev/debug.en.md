@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "debug lỗi", "tìm nguyên nhân bug", "tại sao bị lỗi",
   "fix bug", "investigate error", "lỗi không biết tại sao", or types /dev:debug.
 ---
+## Summary
+
+Systematic debugging — find the root cause before fixing. Reproduce → Localize → Reduce → Fix → Guard. Triggers when: user says "debug lỗi", "tìm nguyên nhân bug", "tại sao bị lỗi", "fix bug", "investigate error", "lỗi không biết tại sao", or types /dev:debug.
+
+## Workflow
 
 # /dev:debug
 **Role**: Developer  

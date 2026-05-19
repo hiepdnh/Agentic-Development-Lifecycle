@@ -1,7 +1,7 @@
 {
   "name": "agentic-development-lifecycle",
-  "version": "1.3.0",
-  "description": "Agentic Development Lifecycle — SDLC skill framework for Claude Code, OpenCode, Cursor & Antigravity (English / Tiếng Việt / 日本語)",
+  "version": "1.4.0",
+  "description": "Agentic Development Lifecycle — SDLC skill framework for Claude Code, OpenCode, Cursor, Antigravity & Agent Skills / SKILL.md (English / Tiếng Việt / 日本語)",
   "bin": {
     "agentic-development-lifecycle": "bin/install.js",
     "adl-dashboard": "bin/dashboard.js"
@@ -16,7 +16,7 @@
     "@clack/prompts": "^0.9.0",
     "picocolors": "^1.1.0"
   },
-  "keywords": ["claude-code", "sdlc", "ai-agent", "agentic", "opencode", "cursor", "antigravity", "japanese", "jp-market", "bilingual", "bridge-engineer"],
+  "keywords": ["agent-skills", "skill-md", "skill", "claude-code", "claude-code-plugin", "sdlc", "ai-agent", "agentic", "opencode", "cursor", "antigravity", "japanese", "jp-market", "bilingual", "bridge-engineer"],
   "repository": {
     "type": "git",
     "url": "https://github.com/hiepdnh/Agentic-Development-Lifecycle.git"

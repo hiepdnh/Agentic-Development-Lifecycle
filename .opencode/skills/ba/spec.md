@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "viết spec", "soạn đặc tả", "phân tích yêu cầu", "write spec",
   "tạo requirements doc", "business spec", hoặc gõ /ba:spec.
 ---
+## Tóm tắt
+
+Chuyển đổi yêu cầu thô thành tài liệu đặc tả nghiệp vụ có cấu trúc. Trigger khi: user nói "viết spec", "soạn đặc tả", "phân tích yêu cầu", "write spec", "tạo requirements doc", "business spec", hoặc gõ /ba:spec.
+
+## Quy trình
 
 # /ba:spec
 **Role**: Business Analyst  

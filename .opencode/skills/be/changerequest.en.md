@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "khách JP yêu cầu thay đổi", "tạo change request", "変更依頼",
   "spec thay đổi giữa chừng", "CR mới từ JP", "change request", or types /be:changerequest.
 ---
+## Summary
+
+Manages 変更依頼 (Change Request) — impact analysis, approval trail, version control for spec changes. Use when specs change mid-sprint or after sign-off. Triggers when: user says "khách JP yêu cầu thay đổi", "tạo change request", "変更依頼", "spec thay đổi giữa chừng", "CR mới từ JP", "change request", or types /be:changerequest.
+
+## Workflow
 
 # /be:changerequest
 **Role**: Bridge Engineer / PM  

@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "breakdown epic", "create tasks from story", "break down feature",
   "create github issues", "create gitlab issues", "sprint planning", "estimate tasks", or types /pm:breakdown.
 ---
+## Summary
+
+Break down Epics/User Stories into concrete Tasks with estimates, create standard GitHub/GitLab Issues. Triggers when: user says "breakdown epic", "create tasks from story", "break down feature", "create github issues", "create gitlab issues", "sprint planning", "estimate tasks", or types /pm:breakdown.
+
+## Workflow
 
 # /pm:breakdown
 **Role**: Project Manager

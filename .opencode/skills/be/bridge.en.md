@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "dịch yêu cầu JP", "tạo 設計書", "soạn tài liệu cho khách Nhật",
   "bridge engineer", "JP requirement", "translate JP spec", or types /be:bridge.
 ---
+## Summary
+
+Supports Bridge Engineer in translating Japanese client requirements, creating bilingual JP-VN documents, preparing deliverables per Japanese standards (設計書, 単体テスト仕様書, 成果物). Triggers when: user says "dịch yêu cầu JP", "tạo 設計書", "soạn tài liệu cho khách Nhật", "bridge engineer", "JP requirement", "translate JP spec", or types /be:bridge.
+
+## Workflow
 
 # /be:bridge
 **Role**: Bridge Engineer (JP ↔ VN Bridge)  

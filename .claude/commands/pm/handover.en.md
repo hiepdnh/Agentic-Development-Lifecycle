@@ -9,6 +9,11 @@ description: >
   "project handover", "handover documents", "transfer project",
   "dev leaving handover", or type /pm:handover.
 ---
+## Summary
+
+Create a comprehensive project handover package (引き継ぎ): codebase map, decision log, glossary, open issues, contact matrix. Use when a dev leaves the team, project is transferred, or a JP outsource contract ends. Trigger when: user says "bàn giao dự án", "tạo tài liệu handover", "引き継ぎ", "dev nghỉ cần handover", "chuyển giao project", "project handoff", "project handover", "handover documents", "transfer project", "dev leaving handover", or type /pm:handover.
+
+## Workflow
 
 # Skill: /pm:handover
 **Role**: PM / Bridge Engineer / Tech Lead  

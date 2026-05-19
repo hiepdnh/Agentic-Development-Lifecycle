@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "there is an incident", "production system error", "triage incident",
   "write RCA", "root cause analysis", "on-call incident", or types /ops:incident.
 ---
+## Summary
+
+Guidance for incident triage, parallel 3-direction investigation, RCA template with 5 Whys. Trigger when: user says "there is an incident", "production system error", "triage incident", "write RCA", "root cause analysis", "on-call incident", or types /ops:incident.
+
+## Workflow
 
 # /ops:incident
 **Role**: DevOps / On-call Engineer  
