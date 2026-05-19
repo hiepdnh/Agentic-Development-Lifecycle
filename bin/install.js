@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const cursorTransformer = require('./transformers/cursor');
 const antigravityTransformer = require('./transformers/antigravity');
+const agentskillsTransformer = require('./transformers/agentskills');
 
 const BANNER_CC = [
   ' ██╗   ██╗████████╗██╗    █████╗ ██████╗ ██╗      ██████╗ ',
@@ -40,6 +41,17 @@ const BANNER_CURSOR = [
   '  Agentic Development Lifecycle — Cursor Port',
 ].join('\n');
 
+const BANNER_AS = [
+  '  █████╗  ██████╗ ███████╗███╗   ██╗████████╗',
+  ' ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝',
+  ' ███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ',
+  ' ██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ',
+  ' ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ',
+  ' ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   ',
+  '',
+  '  Agentic Development Lifecycle — Agent Skills (SKILL.md)',
+].join('\n');
+
 const BANNER_AG = [
   '  █████╗ ███╗   ██╗████████╗██╗ ██████╗ ',
   ' ██╔══██╗████╗  ██║╚══██╔══╝██║██╔════╝ ',
@@ -62,6 +74,7 @@ function parsePlatform() {
   if (flags.includes('--cursor') || flags.includes('-c')) set.push('cursor');
   if (flags.includes('--antigravity') || flags.includes('-a')) set.push('antigravity');
   if (flags.includes('--opencode') || flags.includes('-o')) set.push('opencode');
+  if (flags.includes('--agentskills') || flags.includes('-s')) set.push('agentskills');
   if (set.length > 1) {
     console.error(pc.red(`Multiple platform flags set: ${set.join(', ')}. Pick only one.`));
     process.exit(1);
@@ -87,6 +100,7 @@ const PLATFORM_CONFIG = {
   opencode:    { label: 'OpenCode',     banner: BANNER_OC,     commandsDir: '.opencode/skills',   configFile: 'AGENTS.md' },
   cursor:      { label: 'Cursor',       banner: BANNER_CURSOR, commandsDir: '.cursor/rules',      configFile: '.cursorrules' },
   antigravity: { label: 'Antigravity',  banner: BANNER_AG,     commandsDir: '.antigravity/skills', configFile: 'AGENTS.md' },
+  agentskills: { label: 'Agent Skills', banner: BANNER_AS,     commandsDir: 'skills',             configFile: 'AGENTS.md' },
 };
 const CFG = PLATFORM_CONFIG[PLATFORM_KEY];
 const BANNER = CFG.banner;
@@ -223,6 +237,14 @@ async function main() {
       path.join(src, '.opencode', 'skills'),
       cmdDstPath,
       { langFilter, getLangDestName, update: UPDATE }
+    );
+    s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
+  } else if (PLATFORM_KEY === 'agentskills') {
+    s.start('Transforming Claude Code commands → Agent Skills (SKILL.md)...');
+    const cmdResult = agentskillsTransformer.copyAndTransform(
+      path.join(src, '.claude', 'commands'),
+      cmdDstPath,
+      { langFilter, getLangDestName, update: UPDATE, lang: LANG }
     );
     s.stop(resultMsg(`${COMMANDS_DIR}/`, cmdResult));
   } else if (PLATFORM_KEY === 'cursor') {
@@ -362,6 +384,23 @@ async function main() {
         `4. Caveats:`,
         `   - Cursor Agent is single-agent; multi-agent skills (eg ${pc.dim('/dev:analyze')}) run inline.`,
         `   - User gates render as plain markdown prompts (no native TUI).`,
+      ].join('\n'),
+      'Next steps'
+    );
+  } else if (PLATFORM_KEY === 'agentskills') {
+    note(
+      [
+        `1. Open ${pc.cyan(CONFIG_FILE)} → update Project Context section`,
+        `   (project name, client, repo URL, tech stack)`,
+        ``,
+        `2. Skills are emitted as ${pc.cyan('skills/<role>-<command>/SKILL.md')} —`,
+        `   the Agent Skills (agentskills.io) folder convention.`,
+        ``,
+        `3. Compatible hosts: Codex, Copilot, Gemini CLI, Windsurf, Aider, and`,
+        `   any other tool that reads ${pc.dim('SKILL.md')} frontmatter for trigger matching.`,
+        ``,
+        `4. Each skill folder may later host ${pc.dim('scripts/')} or ${pc.dim('references/')}`,
+        `   sub-paths as the standard evolves.`,
       ].join('\n'),
       'Next steps'
     );

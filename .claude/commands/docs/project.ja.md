@@ -4,6 +4,17 @@ description: >
   プロジェクトレベル文書の同期: README、ワークフローガイド、インストールガイド、install スクリプト、CLAUDE.md。/docs:update（タスク後のベースライン）とは異なる。
   トリガー: 「README を更新」「インストールガイドを更新」「ワークフローガイドを修正」「install script を更新」「CLAUDE.md を更新」「プロジェクト文書を同期」、または /docs:project と入力時。
 ---
+## 概要
+
+プロジェクトレベル文書の同期: README、ワークフローガイド、インストールガイド、install スクリプト、CLAUDE.md。/docs:update（タスク後のベースライン）とは異なる。 トリガー: 「README を更新」「インストールガイドを更新」「ワークフローガイドを修正」「install script を更新」「CLAUDE.md を更新」「プロジェクト文書を同期」、または /docs:project と入力時。
+
+## ワークフロー
+
+## 概要
+
+プロジェクトレベル文書の同期: README、ワークフローガイド、インストールガイド、install スクリプト、CLAUDE.md。/docs:update（タスク後のベースライン）とは異なる。 トリガー: 「README を更新」「インストールガイドを更新」「ワークフローガイドを修正」「install script を更新」「CLAUDE.md を更新」「プロジェクト文書を同期」、または /docs:project と入力時。
+
+## ワークフロー
 
 # Skill: /docs:project
 **ロール**: All

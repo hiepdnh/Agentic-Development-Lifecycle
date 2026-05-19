@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "create release notes", "write リリースノート", "sprint changelog",
   "release notes for JP client", "summarize release changes", or types /pm:release.
 ---
+## Summary
+
+Generate Release Notes / リリースノート automatically from merged PRs and closed issues. Use before each release to send to JP clients or stakeholders. Triggers when: user says "create release notes", "write リリースノート", "sprint changelog", "release notes for JP client", "summarize release changes", or types /pm:release.
+
+## Workflow
 
 # /pm:release
 **Role**: PM / Bridge Engineer

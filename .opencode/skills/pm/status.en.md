@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "sprint report", "status report", "progress summary",
   "sprint health", "update for PM", "report for client", or types /pm:status.
 ---
+## Summary
+
+Aggregate sprint status from multiple sources, generate a quick status report for stakeholders. Triggers when: user says "sprint report", "status report", "progress summary", "sprint health", "update for PM", "report for client", or types /pm:status.
+
+## Workflow
 
 # /pm:status
 **Role**: Project Manager

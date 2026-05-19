@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "reverse engineer codebase", "onboard codebase legacy", "phân tích codebase cũ",
   "take-over từ vendor", "tạo codemap", "brownfield analysis", hoặc gõ /ba:reverse.
 ---
+## Tóm tắt
+
+Reverse engineer codebase brownfield (legacy/take-over từ vendor cũ) thành tài liệu baseline: business overview, tech stack, package inventory, key APIs, technical debt. Trigger khi: user nói "reverse engineer codebase", "onboard codebase legacy", "phân tích codebase cũ", "take-over từ vendor", "tạo codemap", "brownfield analysis", hoặc gõ /ba:reverse.
+
+## Quy trình
 
 # Skill: /ba:reverse
 **Role**: Business Analyst / Tech Lead  

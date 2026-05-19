@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "cài framework", "install skill pack", "setup ADL framework",
   "copy commands vào project", hoặc gõ /install.
 ---
+## Tóm tắt
+
+Cài Agentic Development Lifecycle framework vào project hiện tại — copy commands, agents, templates, workflows. Không dùng shell, chỉ dùng Glob/Read/Write tools. Trigger khi: user nói "cài framework", "install skill pack", "setup ADL framework", "copy commands vào project", hoặc gõ /install.
+
+## Quy trình
 
 # Skill: /install
 **Mục đích**: Cài framework vào project hiện tại. Dùng file tools của Claude (không chạy shell) để tránh permission classifier block.

@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "prepare deploy", "deployment checklist", "release to production",
   "deploy staging", "deploy plan", "CI gate before release", or types /ops:deploy.
 ---
+## Summary
+
+Create a comprehensive deployment checklist, CI quality gate, and rollback plan before deploying. Triggers when: user says "prepare deploy", "deployment checklist", "release to production", "deploy staging", "deploy plan", "CI gate before release", or types /ops:deploy.
+
+## Workflow
 
 # Skill: /ops:deploy
 **Role**: DevOps / Developer  

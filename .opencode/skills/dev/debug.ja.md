@@ -4,6 +4,17 @@ description: >
   体系的デバッグ — 修正前に根本原因を発見。Reproduce → Localize → Reduce → Fix → Guard。
   トリガー: 「バグをデバッグ」「バグの原因を探す」「なぜエラー」「バグを修正」「エラー調査」「原因不明のバグ」、または /dev:debug と入力時。
 ---
+## 概要
+
+体系的デバッグ — 修正前に根本原因を発見。Reproduce → Localize → Reduce → Fix → Guard。 トリガー: 「バグをデバッグ」「バグの原因を探す」「なぜエラー」「バグを修正」「エラー調査」「原因不明のバグ」、または /dev:debug と入力時。
+
+## ワークフロー
+
+## 概要
+
+体系的デバッグ — 修正前に根本原因を発見。Reproduce → Localize → Reduce → Fix → Guard。 トリガー: 「バグをデバッグ」「バグの原因を探す」「なぜエラー」「バグを修正」「エラー調査」「原因不明のバグ」、または /dev:debug と入力時。
+
+## ワークフロー
 
 # /dev:debug
 **ロール**: Developer

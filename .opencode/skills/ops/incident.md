@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "có incident", "hệ thống bị lỗi production", "triage sự cố",
   "viết RCA", "root cause analysis", "on-call incident", hoặc gõ /ops:incident.
 ---
+## Tóm tắt
+
+Hướng dẫn triage incident, điều tra song song 3 hướng, tạo RCA template với 5 Whys. Trigger khi: user nói "có incident", "hệ thống bị lỗi production", "triage sự cố", "viết RCA", "root cause analysis", "on-call incident", hoặc gõ /ops:incident.
+
+## Quy trình
 
 # /ops:incident
 **Role**: DevOps / On-call Engineer  

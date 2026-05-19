@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "create dashboard", "view sprint progress", "sprint overview",
   "show dashboard", "generate dashboard", or types /pm:dashboard.
 ---
+## Summary
+
+Generate a static HTML dashboard showing sprint kanban, task health, and improvement backlog. Triggers when: user says "create dashboard", "view sprint progress", "sprint overview", "show dashboard", "generate dashboard", or types /pm:dashboard.
+
+## Workflow
 
 # /pm:dashboard
 **Role**: Project Manager / All roles

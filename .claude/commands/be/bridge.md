@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "dịch yêu cầu JP", "tạo 設計書", "soạn tài liệu cho khách Nhật",
   "bridge engineer", "JP requirement", "translate JP spec", hoặc gõ /be:bridge.
 ---
+## Tóm tắt
+
+Hỗ trợ Bridge Engineer dịch yêu cầu khách hàng Nhật, tạo tài liệu song ngữ JP-VN, chuẩn bị deliverables theo chuẩn Nhật (設計書, 単体テスト仕様書, 成果物). Trigger khi: user nói "dịch yêu cầu JP", "tạo 設計書", "soạn tài liệu cho khách Nhật", "bridge engineer", "JP requirement", "translate JP spec", hoặc gõ /be:bridge.
+
+## Quy trình
 
 # Skill: /be:bridge
 **Role**: Bridge Engineer (Cầu nối JP ↔ VN)  

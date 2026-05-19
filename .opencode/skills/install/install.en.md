@@ -6,6 +6,11 @@ description: >
   Trigger when: user says "install framework", "set up SDLC", "setup skills",
   "/install", or needs to bootstrap the framework for a new project.
 ---
+## Summary
+
+Install the Agentic Development Lifecycle framework into the current project (OpenCode port). Copy skills, agents, templates, workflows to the .opencode/ directory. Trigger when: user says "install framework", "set up SDLC", "setup skills", "/install", or needs to bootstrap the framework for a new project.
+
+## Workflow
 
 # /install
 **Role**: All

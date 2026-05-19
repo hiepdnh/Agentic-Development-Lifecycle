@@ -8,6 +8,11 @@ description: >
   "start new project", "new greenfield project", "project for JP client",
   "init new framework", or type /pm:kickoff.
 ---
+## Summary
+
+Bootstrap a new project from scratch (greenfield): choose tech stack, create folder structure, customize CLAUDE.md, initialize docs structure and sprint 0 checklist. Trigger when: user says "bắt đầu dự án mới", "kickoff project", "greenfield project", "setup dự án từ đầu", "project mới cho khách JP", "khởi tạo framework mới", "start new project", "new greenfield project", "project for JP client", "init new framework", or type /pm:kickoff.
+
+## Workflow
 
 # Skill: /pm:kickoff
 **Role**: PM / Tech Lead / Bridge Engineer  

@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "update docs", "update baseline", "task done need doc update",
   "sync docs after merge", "update screen doc", "update API doc", or types /docs:update.
 ---
+## Summary
+
+Update Baseline Docs (screen + API) after a task has been verified and merged. The final step of every task. Triggers when: user says "update docs", "update baseline", "task done need doc update", "sync docs after merge", "update screen doc", "update API doc", or types /docs:update.
+
+## Workflow
 
 # Skill: /docs:update
 **Role**: Developer / QA (after verification)  

@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "sprint retro", "retrospective", "end of sprint meeting",
   "sprint summary", "what went well", "action items from retro", or types /sm:retro.
 ---
+## Summary
+
+Facilitate sprint retrospective, summarize feedback by theme, create actionable action items. Trigger when: user says "sprint retro", "retrospective", "end of sprint meeting", "sprint summary", "what went well", "action items from retro", or types /sm:retro.
+
+## Workflow
 
 # /sm:retro
 **Role**: Scrum Master  

@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tạo PR", "viết PR description", "chuẩn bị pull request",
   "create PR", "soạn mô tả PR", hoặc gõ /dev:pr.
 ---
+## Tóm tắt
+
+Tạo PR description chuẩn từ code changes, verify AC coverage, link task docs. Trigger khi: user nói "tạo PR", "viết PR description", "chuẩn bị pull request", "create PR", "soạn mô tả PR", hoặc gõ /dev:pr.
+
+## Quy trình
 
 # Skill: /dev:pr
 **Role**: Developer  

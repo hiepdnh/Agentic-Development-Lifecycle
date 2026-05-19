@@ -6,6 +6,17 @@ description: >
   トリガー: 「JP 要件を翻訳」「設計書を作成」「JP 顧客向け文書」
   「ブリッジエンジニア」「JP requirement」「translate JP spec」、または /be:bridge と入力時。
 ---
+## 概要
+
+ブリッジエンジニアの日本語要件翻訳、JP-VN バイリンガル文書作成、 日本基準成果物（設計書、単体テスト仕様書、成果物）準備をサポート。 トリガー: 「JP 要件を翻訳」「設計書を作成」「JP 顧客向け文書」 「ブリッジエンジニア」「JP requirement」「translate JP spec」、または /be:bridge と入力時。
+
+## ワークフロー
+
+## 概要
+
+ブリッジエンジニアの日本語要件翻訳、JP-VN バイリンガル文書作成、 日本基準成果物（設計書、単体テスト仕様書、成果物）準備をサポート。 トリガー: 「JP 要件を翻訳」「設計書を作成」「JP 顧客向け文書」 「ブリッジエンジニア」「JP requirement」「translate JP spec」、または /be:bridge と入力時。
+
+## ワークフロー
 
 # /be:bridge
 **ロール**: Bridge Engineer（JP ↔ VN 橋渡し）

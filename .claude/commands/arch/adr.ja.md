@@ -4,6 +4,17 @@ description: >
   重要なアーキテクチャ判断を文書化するため Architecture Decision Record (ADR) を作成。
   トリガー: 「ADR を作成」「アーキテクチャ判断を文書化」「ADR を書く」「設計判断を記録」、または /arch:adr と入力時。
 ---
+## 概要
+
+重要なアーキテクチャ判断を文書化するため Architecture Decision Record (ADR) を作成。 トリガー: 「ADR を作成」「アーキテクチャ判断を文書化」「ADR を書く」「設計判断を記録」、または /arch:adr と入力時。
+
+## ワークフロー
+
+## 概要
+
+重要なアーキテクチャ判断を文書化するため Architecture Decision Record (ADR) を作成。 トリガー: 「ADR を作成」「アーキテクチャ判断を文書化」「ADR を書く」「設計判断を記録」、または /arch:adr と入力時。
+
+## ワークフロー
 
 # Skill: /arch:adr
 **ロール**: Architect / Tech Lead

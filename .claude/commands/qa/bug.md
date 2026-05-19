@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tìm thấy bug", "viết bug report", "báo cáo lỗi",
   "create bug ticket", "có defect", "lỗi cần report", hoặc gõ /qa:bug.
 ---
+## Tóm tắt
+
+Tạo bug report chuẩn với severity, steps to reproduce, và evidence đủ để dev fix. Trigger khi: user nói "tìm thấy bug", "viết bug report", "báo cáo lỗi", "create bug ticket", "có defect", "lỗi cần report", hoặc gõ /qa:bug.
+
+## Quy trình
 
 # Skill: /qa:bug
 **Role**: QA Engineer  

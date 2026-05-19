@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "review code", "review trước merge", "check code xem ổn không",
   "code review", "review implementation", "kiểm tra code", hoặc gõ /dev:review.
 ---
+## Tóm tắt
+
+Review toàn diện code sau implement: code quality, architecture, performance, security trong 1 lần chạy. Thay thế việc phải chạy /arch:review + /sec:review riêng lẻ sau dev:implement. Trigger khi: user nói "review code", "review trước merge", "check code xem ổn không", "code review", "review implementation", "kiểm tra code", hoặc gõ /dev:review.
+
+## Quy trình
 
 # Skill: /dev:review
 **Role**: Developer / Tech Lead  

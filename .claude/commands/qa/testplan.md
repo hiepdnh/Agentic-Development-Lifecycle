@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tạo test plan", "viết test cases", "soạn kế hoạch test",
   "create test plan", "QA plan cho feature", "test strategy", hoặc gõ /qa:testplan.
 ---
+## Tóm tắt
+
+Tạo test plan toàn diện từ spec/user stories: strategy, test cases happy/edge/negative, exit criteria. Trigger khi: user nói "tạo test plan", "viết test cases", "soạn kế hoạch test", "create test plan", "QA plan cho feature", "test strategy", hoặc gõ /qa:testplan.
+
+## Quy trình
 
 # Skill: /qa:testplan
 **Role**: QA Engineer  

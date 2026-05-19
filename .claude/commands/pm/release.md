@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "tạo release notes", "viết リリースノート", "changelog sprint",
   "release notes cho khách JP", "tổng hợp thay đổi release", hoặc gõ /pm:release.
 ---
+## Tóm tắt
+
+Tạo Release Notes / リリースノート tự động từ merged PRs và closed issues. Dùng trước mỗi release gửi cho khách JP hoặc stakeholder. Trigger khi: user nói "tạo release notes", "viết リリースノート", "changelog sprint", "release notes cho khách JP", "tổng hợp thay đổi release", hoặc gõ /pm:release.
+
+## Quy trình
 
 # Skill: /pm:release
 **Role**: PM / Bridge Engineer  

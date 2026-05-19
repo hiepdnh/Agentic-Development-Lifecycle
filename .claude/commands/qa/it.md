@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "tạo IT plan", "integration test", "E2E test cases", "test tích hợp",
   "end-to-end test", "IT plan cho feature", hoặc gõ /qa:it.
 ---
+## Tóm tắt
+
+Tạo Integration/E2E Test plan từ spec và kết quả UT, hỗ trợ human thực thi E2E và ghi kết quả. Chỉ chạy SAU KHI /qa:ut passed. Khi fail có bug feedback loop về dev:debug. Trigger khi: user nói "tạo IT plan", "integration test", "E2E test cases", "test tích hợp", "end-to-end test", "IT plan cho feature", hoặc gõ /qa:it.
+
+## Quy trình
 
 # Skill: /qa:it
 **Role**: QA Engineer  

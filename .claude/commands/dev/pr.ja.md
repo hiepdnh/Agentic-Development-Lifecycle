@@ -4,6 +4,17 @@ description: >
   コード変更から標準 PR ディスクリプションを生成、AC カバレッジ検証、タスク文書をリンク。
   トリガー: 「PR を作成」「PR description を書く」「pull request を準備」「PR 説明を作成」、または /dev:pr と入力時。
 ---
+## 概要
+
+コード変更から標準 PR ディスクリプションを生成、AC カバレッジ検証、タスク文書をリンク。 トリガー: 「PR を作成」「PR description を書く」「pull request を準備」「PR 説明を作成」、または /dev:pr と入力時。
+
+## ワークフロー
+
+## 概要
+
+コード変更から標準 PR ディスクリプションを生成、AC カバレッジ検証、タスク文書をリンク。 トリガー: 「PR を作成」「PR description を書く」「pull request を準備」「PR 説明を作成」、または /dev:pr と入力時。
+
+## ワークフロー
 
 # Skill: /dev:pr
 **ロール**: Developer

@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "start new project", "kickoff project", "greenfield project",
   "setup project from scratch", "new project for JP client", "initialize new framework", or types /pm:kickoff.
 ---
+## Summary
+
+Bootstrap a new greenfield project: choose tech stack, create folder structure, customize AGENTS.md, initialize docs structure and sprint 0 checklist. Triggers when: user says "start new project", "kickoff project", "greenfield project", "setup project from scratch", "new project for JP client", "initialize new framework", or types /pm:kickoff.
+
+## Workflow
 
 # /pm:kickoff
 **Role**: PM / Tech Lead / Bridge Engineer

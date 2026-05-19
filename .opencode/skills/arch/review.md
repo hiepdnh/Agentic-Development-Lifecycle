@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "review design", "kiểm tra kiến trúc", "architecture review",
   "review technical decision", "xem design có ổn không", hoặc gõ /arch:review.
 ---
+## Tóm tắt
+
+Review design decision, phát hiện vấn đề kiến trúc, đề xuất cải thiện. Trigger khi: user nói "review design", "kiểm tra kiến trúc", "architecture review", "review technical decision", "xem design có ổn không", hoặc gõ /arch:review.
+
+## Quy trình
 
 # /arch:review
 **Role**: Tech Lead / Architect  

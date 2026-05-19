@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tạo user stories", "viết user story", "breakdown spec thành stories",
   "create user stories", "AC cho stories", hoặc gõ /ba:user-story.
 ---
+## Tóm tắt
+
+Chuyển spec thành User Stories với Acceptance Criteria chuẩn, sẵn sàng để PM tạo issue. Trigger khi: user nói "tạo user stories", "viết user story", "breakdown spec thành stories", "create user stories", "AC cho stories", hoặc gõ /ba:user-story.
+
+## Quy trình
 
 # /ba:user-story
 **Role**: Business Analyst  

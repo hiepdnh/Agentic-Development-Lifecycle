@@ -15,10 +15,11 @@ This repo IS the framework source. Two hand-maintained skill trees serve as cano
 - `.claude/commands/` — Claude Code (32 VN + 32 EN + 32 JP = 96 files)
 - `.opencode/skills/` — OpenCode hand port (96 files) with `task()` / `question()` syntax
 
-Cursor and Antigravity targets are **generated at install time** from these sources — no separate hand-maintained tree:
+Cursor, Antigravity, and Agent Skills targets are **generated at install time** from these sources — no separate hand-maintained tree:
 
 - **Cursor** → `bin/transformers/cursor.js` transforms `.claude/commands/*.md` → `.cursor/rules/*.mdc` (rewrites frontmatter to `description` + `globs: []` + `alwaysApply: false`; strips the `# Skill:` prefix; relabels `Agent(...)` blocks as `Sub-task Agent(...)`). Cursor Agent is single-agent, so multi-agent skills execute inline.
 - **Antigravity** → `bin/transformers/antigravity.js` copies `.opencode/skills/*` → `.antigravity/skills/*` (alias — OpenCode `task()`/`question()` syntax is reused since Antigravity's skill convention is not yet stable).
+- **Agent Skills (SKILL.md)** → `bin/transformers/agentskills.js` emits `skills/<role>-<command>/SKILL.md` per the [agentskills.io](https://agentskills.io) standard adopted by Codex, Copilot, Gemini CLI, Windsurf, Aider, and 20+ other tools. Frontmatter `name:` is rewritten `role:command` → `role-command` (the standard requires `[a-z0-9-]`); `AskUserQuestion(...)` / `Agent(...)` are replaced with neutral prose so the skill runs on any compliant host.
 
 **Language variants** (per skill / agent / template / workflow doc):
 - `name.md` — Vietnamese (canonical source — VN baseline)
@@ -65,6 +66,9 @@ npx agentic-development-lifecycle --yes --cursor
 # Antigravity (.antigravity/skills/ + AGENTS.md — aliases OpenCode source)
 npx agentic-development-lifecycle --yes --antigravity
 
+# Agent Skills (skills/<role>-<command>/SKILL.md + AGENTS.md — agentskills.io standard)
+npx agentic-development-lifecycle --yes --agentskills
+
 # Update existing install
 npx agentic-development-lifecycle --update --yes
 
@@ -79,7 +83,7 @@ npx agentic-development-lifecycle --yes --lang vi
 npx agentic-development-lifecycle --yes --lang all
 ```
 
-Mutually-exclusive platform flags: pass only one of `--opencode`, `--cursor`, `--antigravity`. Default (no flag) is Claude Code.
+Mutually-exclusive platform flags: pass only one of `--opencode`, `--cursor`, `--antigravity`, `--agentskills`. Default (no flag) is Claude Code.
 
 ### Test installation
 
@@ -277,10 +281,11 @@ packages/
   developer-lite/         # Minimal 8-skill sub-package cho individual devs
 agents/                   # Subagent definitions (spawned bởi orchestrator commands)
 bin/
-  install.js              # Interactive installer — flags: --opencode | --cursor | --antigravity
+  install.js              # Interactive installer — flags: --opencode | --cursor | --antigravity | --agentskills
   transformers/
     cursor.js             # Transform .claude/commands/*.md → .cursor/rules/*.mdc at install
     antigravity.js        # Alias .opencode/skills/ → .antigravity/skills/ at install
+    agentskills.js        # Transform .claude/commands/*.md → skills/<role>-<name>/SKILL.md (agentskills.io)
 docs/
   tasks/                  # Task docs (Type 1) — mỗi issue 1 folder, kèm audit.md
   baseline/               # Codebase reverse-engineering output (từ /ba:reverse)

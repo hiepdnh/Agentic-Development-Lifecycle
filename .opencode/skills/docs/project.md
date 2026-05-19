@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "cập nhật README", "update hướng dẫn cài đặt", "sửa workflow guide",
   "update install script", "cập nhật AGENTS.md", "sync project docs", hoặc gõ /docs:project.
 ---
+## Tóm tắt
+
+Cập nhật tài liệu dự án: README, workflow guides, hướng dẫn cài đặt, install scripts, AGENTS.md. Khác với /docs:update (baseline screen/API sau task) — skill này dành cho project-level docs. Trigger khi: user nói "cập nhật README", "update hướng dẫn cài đặt", "sửa workflow guide", "update install script", "cập nhật AGENTS.md", "sync project docs", hoặc gõ /docs:project.
+
+## Quy trình
 
 # /docs:project
 **Role**: Developer / Tech Lead / DevOps  

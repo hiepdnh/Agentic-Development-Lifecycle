@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "tạo PR", "viết PR description", "chuẩn bị pull request",
   "create PR", "soạn mô tả PR", or types /dev:pr.
 ---
+## Summary
+
+Create a standard PR description from code changes, verify AC coverage, link task docs. Triggers when: user says "tạo PR", "viết PR description", "chuẩn bị pull request", "create PR", "soạn mô tả PR", or types /dev:pr.
+
+## Workflow
 
 # /dev:pr
 **Role**: Developer  

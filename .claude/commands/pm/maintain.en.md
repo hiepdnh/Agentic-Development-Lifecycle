@@ -8,6 +8,11 @@ description: >
   "project in maintenance", "post-go-live support",
   "no new sprints just bug fixes", or type /pm:maintain.
 ---
+## Summary
+
+Lightweight workflow for projects in maintenance/sustain phase — after go-live, only bug fixes and minor improvements remain, no active development sprints. Trigger when: user says "dự án đang maintenance", "chế độ bảo trì", "post go-live support", "sustain phase", "không có sprint mới chỉ fix bug", "project in maintenance", "post-go-live support", "no new sprints just bug fixes", or type /pm:maintain.
+
+## Workflow
 
 # Skill: /pm:maintain
 **Role**: PM / Dev / BE  

@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "tạo IT plan", "integration test", "E2E test cases", "integration testing",
   "end-to-end test", "IT plan for feature", or types /qa:it.
 ---
+## Summary
+
+Create Integration/E2E Test plan from spec and UT results, support human E2E execution and result recording. Only runs AFTER /qa:ut passes. On failure, explicit bug feedback loop back to dev:debug. Triggers when: user says "tạo IT plan", "integration test", "E2E test cases", "integration testing", "end-to-end test", "IT plan for feature", or types /qa:it.
+
+## Workflow
 
 # /qa:it
 **Role**: QA Engineer  

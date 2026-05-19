@@ -6,6 +6,11 @@ description: >
   Trigger khi: user nói "cài framework", "cài đặt SDLC", "setup skills",
   "/install", hoặc cần bootstrap framework cho project mới.
 ---
+## Tóm tắt
+
+Cài Agentic Development Lifecycle framework vào project hiện tại (OpenCode port). Copy skills, agents, templates, workflows vào thư mục .opencode/. Trigger khi: user nói "cài framework", "cài đặt SDLC", "setup skills", "/install", hoặc cần bootstrap framework cho project mới.
+
+## Quy trình
 
 # /install
 **Role**: All

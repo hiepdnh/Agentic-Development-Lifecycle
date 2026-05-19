@@ -5,6 +5,11 @@ description: >
   Triggers when: user says "found a bug", "write bug report", "report an issue",
   "create bug ticket", "there's a defect", or types /qa:bug.
 ---
+## Summary
+
+Create a standardized bug report with severity, steps to reproduce, and sufficient evidence for devs to fix. Triggers when: user says "found a bug", "write bug report", "report an issue", "create bug ticket", "there's a defect", or types /qa:bug.
+
+## Workflow
 
 # Skill: /qa:bug
 **Role**: QA Engineer  

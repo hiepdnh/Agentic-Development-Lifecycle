@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "install framework", "install skill pack", "setup ADL framework",
   "copy commands into project", or types /install.
 ---
+## Summary
+
+Install the Agentic Development Lifecycle framework into the current project — copy commands, agents, templates, workflows. Does not use shell, only Glob/Read/Write tools. Triggers when: user says "install framework", "install skill pack", "setup ADL framework", "copy commands into project", or types /install.
+
+## Workflow
 
 # Skill: /install
 **Purpose**: Install the framework into the current project. Uses Claude file tools (no shell) to avoid permission classifier blocking.

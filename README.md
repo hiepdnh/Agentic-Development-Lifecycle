@@ -76,6 +76,14 @@ npx agentic-development-lifecycle --yes --antigravity
 
 Generates `.antigravity/skills/` (ported from OpenCode source — `task()` / `question()` syntax) + `AGENTS.md` (project context).
 
+### Agent Skills (SKILL.md)
+
+```bash
+npx agentic-development-lifecycle --yes --agentskills
+```
+
+Generates `skills/<role>-<command>/SKILL.md` per the [Agent Skills standard](https://agentskills.io) — the same convention adopted by Codex, Copilot, Gemini CLI, Windsurf, Aider, and 20+ other tools. Each skill is a folder so you can later add `scripts/` or `references/` sub-paths. Frontmatter `name:` uses hyphens (`ba-spec`, not `ba:spec`) to comply with the standard's `[a-z0-9-]` requirement.
+
 What gets installed (all platforms): skills directory + `templates/` + `docs/workflows/` (and `agents/` for Claude Code only).
 
 ### Language filter
@@ -309,10 +317,11 @@ Designed for consulting/outsource teams with structured client communication:
 .opencode/skills/         # 32 OpenCode skill files (hand-ported — task()/question() syntax)
 agents/                   # 8 subagent definitions (Claude Code only)
 bin/
-  install.js              # Interactive installer — flags: --opencode | --cursor | --antigravity
+  install.js              # Interactive installer — flags: --opencode | --cursor | --antigravity | --agentskills
   transformers/
     cursor.js             # .claude/commands/*.md → .cursor/rules/*.mdc at install time
     antigravity.js        # .opencode/skills/ → .antigravity/skills/ alias
+    agentskills.js        # .claude/commands/*.md → skills/<role>-<name>/SKILL.md (Agent Skills standard)
 docs/
   workflows/              # Sprint lifecycle, role guide, flowchart
   decisions/              # ADR templates

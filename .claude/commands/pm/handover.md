@@ -7,6 +7,11 @@ description: >
   Trigger khi: user nói "bàn giao dự án", "tạo tài liệu handover", "引き継ぎ",
   "dev nghỉ cần handover", "chuyển giao project", "project handoff", hoặc gõ /pm:handover.
 ---
+## Tóm tắt
+
+Tạo gói tài liệu bàn giao dự án (引き継ぎ) đầy đủ: codebase map, decision log, glossary, open issues, contact matrix. Dùng khi dev rời team, dự án chuyển giao, hoặc kết thúc contract JP outsource. Trigger khi: user nói "bàn giao dự án", "tạo tài liệu handover", "引き継ぎ", "dev nghỉ cần handover", "chuyển giao project", "project handoff", hoặc gõ /pm:handover.
+
+## Quy trình
 
 # Skill: /pm:handover
 **Role**: PM / Bridge Engineer / Tech Lead  

@@ -6,6 +6,11 @@ description: >
   "cập nhật glossary", "thuật ngữ mới từ JP", "glossary có thiếu từ",
   "term không nhất quán", hoặc gõ /be:glossary.
 ---
+## Tóm tắt
+
+Duy trì glossary JP-VN-EN — thêm thuật ngữ mới, resolve xung đột dịch thuật, sync với tài liệu dự án. Trigger khi: user nói "thêm từ vào glossary", "cập nhật glossary", "thuật ngữ mới từ JP", "glossary có thiếu từ", "term không nhất quán", hoặc gõ /be:glossary.
+
+## Quy trình
 
 # Skill: /be:glossary
 **Role**: Bridge Engineer  

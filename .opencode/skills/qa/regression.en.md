@@ -5,6 +5,11 @@ description: >
   Trigger when: user says "regression test", "test before release", "verify no regression",
   "sprint sign-off", "QA before production deploy", or types /qa:regression.
 ---
+## Summary
+
+Create a regression test checklist before release, analyze blast radius, determine go/no-go. Trigger when: user says "regression test", "test before release", "verify no regression", "sprint sign-off", "QA before production deploy", or types /qa:regression.
+
+## Workflow
 
 # /qa:regression
 **Role**: QA Engineer  

@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "analyze task", "phân tích issue", "xem có cách nào làm",
   "đề xuất phương án", "implementation options", hoặc gõ /dev:analyze.
 ---
+## Tóm tắt
+
+Phân tích task/issue và đề xuất 2-3 phương án implement với trade-off. Dùng multi-agent để giữ context sạch. Trigger khi: user nói "analyze task", "phân tích issue", "xem có cách nào làm", "đề xuất phương án", "implementation options", hoặc gõ /dev:analyze.
+
+## Quy trình
 
 # Skill: /dev:analyze
 **Role**: Developer  

@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "tạo ADR", "document quyết định kiến trúc", "viết ADR",
   "record design decision", hoặc gõ /arch:adr.
 ---
+## Tóm tắt
+
+Tạo Architecture Decision Record (ADR) để document quyết định kiến trúc quan trọng. Trigger khi: user nói "tạo ADR", "document quyết định kiến trúc", "viết ADR", "record design decision", hoặc gõ /arch:adr.
+
+## Quy trình
 
 # Skill: /arch:adr
 **Role**: Tech Lead / Architect  

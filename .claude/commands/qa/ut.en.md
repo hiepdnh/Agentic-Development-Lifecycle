@@ -6,6 +6,11 @@ description: >
   Triggers when: user says "tạo unit test", "UT plan", "functional test cases", "create unit tests",
   "test each function", "unit test for feature", or types /qa:ut.
 ---
+## Summary
+
+Create Unit Test plan (testcase-functional) from spec/requirements, support human execution and result recording. Completely separate from IT (integration/E2E). On failure, explicit bug feedback loop back to dev:debug. Triggers when: user says "tạo unit test", "UT plan", "functional test cases", "create unit tests", "test each function", "unit test for feature", or types /qa:ut.
+
+## Workflow
 
 # Skill: /qa:ut
 **Role**: QA Engineer  

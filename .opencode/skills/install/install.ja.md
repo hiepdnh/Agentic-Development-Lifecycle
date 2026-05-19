@@ -6,6 +6,17 @@ description: >
   トリガー: 「フレームワークをインストール」「skill pack をインストール」「ADL フレームワークをセットアップ」
   「プロジェクトに commands をコピー」、または /install と入力時。
 ---
+## 概要
+
+Agentic Development Lifecycle フレームワークを現プロジェクトにインストール — commands、agents、templates、workflows をコピー。 シェル不使用、Glob/Read/Write tools のみ。 トリガー: 「フレームワークをインストール」「skill pack をインストール」「ADL フレームワークをセットアップ」 「プロジェクトに commands をコピー」、または /install と入力時。
+
+## ワークフロー
+
+## 概要
+
+Agentic Development Lifecycle フレームワークを現プロジェクトにインストール — commands、agents、templates、workflows をコピー。 シェル不使用、Glob/Read/Write tools のみ。 トリガー: 「フレームワークをインストール」「skill pack をインストール」「ADL フレームワークをセットアップ」 「プロジェクトに commands をコピー」、または /install と入力時。
+
+## ワークフロー
 
 # /install
 **目的**: フレームワークを現プロジェクトにインストール。Claude のファイル tool を使用（shell 不実行）、パーミッション分類器のブロックを回避。

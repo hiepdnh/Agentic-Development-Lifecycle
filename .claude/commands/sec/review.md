@@ -5,6 +5,11 @@ description: >
   Trigger khi: user nói "security review", "review bảo mật", "check security trước merge",
   "OWASP check", "security scan", "có vấn đề bảo mật không", hoặc gõ /sec:review.
 ---
+## Tóm tắt
+
+Security review có cấu trúc trước khi merge. 3 tier: Always/Ask First/Never + OWASP Top 10 checklist. Trigger khi: user nói "security review", "review bảo mật", "check security trước merge", "OWASP check", "security scan", "có vấn đề bảo mật không", hoặc gõ /sec:review.
+
+## Quy trình
 
 # Skill: /sec:review
 **Role**: Developer / Tech Lead / Security  

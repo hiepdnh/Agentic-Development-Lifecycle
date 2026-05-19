@@ -6,6 +6,11 @@ description: >
   "tạo github issues", "tạo gitlab issues", "sprint planning", "estimate tasks",
   "create tasks from story", "generate issues", or type /pm:breakdown.
 ---
+## Summary
+
+Break down Epics/User Stories into concrete Tasks with estimates, create standard GitHub/GitLab Issues. Trigger when: user says "breakdown epic", "tạo tasks từ story", "phân rã feature", "tạo github issues", "tạo gitlab issues", "sprint planning", "estimate tasks", "create tasks from story", "generate issues", or type /pm:breakdown.
+
+## Workflow
 
 # Skill: /pm:breakdown
 **Role**: Project Manager  
